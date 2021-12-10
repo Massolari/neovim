@@ -164,12 +164,9 @@ return require'packer'.startup(function(use)
 
   -- Status line
   use {
-    'NTBBloodbath/galaxyline.nvim',
-    branch = 'main',
-    -- your statusline
-    config = function() require'statusline' end,
-    -- some optional icons
-    requires = {'kyazdani42/nvim-web-devicons'}
+    'nvim-lualine/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = function() require'statusline' end
   }
 
   -- Guia de atalhos
