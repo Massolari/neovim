@@ -161,6 +161,8 @@ local normal = {
   {'F', 'F', {}},
   {'t', 't', {}},
   {'T', 'T', {}},
+  {';', ';', {}},
+  {',', ',', {}},
 
   -- Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
   { 'n', 'nzzzv', opts },
