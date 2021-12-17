@@ -222,14 +222,6 @@ return require'packer'.startup(function(use)
   }
 
 
-  -- Informações de LSP na statusline
-  use {
-    'nvim-lua/lsp-status.nvim',
-    config = function ()
-      require'lsp-status'.register_progress()
-    end
-  }
-
   -- Ícones no completion
   use {
     'onsails/lspkind-nvim',
