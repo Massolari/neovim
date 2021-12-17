@@ -1,3 +1,4 @@
+local lsp_status = require('lsp-status')
 local nvim_lsp = require("lspconfig")
 
 local mappings = require("mappings")
@@ -16,6 +17,9 @@ local border = {
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  lsp_status.on_attach(client)
+  client.config.capabilities = vim.tbl_extend('keep', client.config.capabilities or {}, lsp_status.capabilities)
 
   -- Mappings.
   mappings.lsp(client, bufnr)
