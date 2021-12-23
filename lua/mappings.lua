@@ -229,6 +229,7 @@ function M.lsp(client, bufnr)
   local code_mappings = {
     a = { "<cmd>lua require'telescope.builtin'.lsp_code_actions(require('telescope.themes').get_dropdown({}))<CR>", 'Ações' },
     e = { "<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', border = 'single' })<CR>", 'Mostrar erro da linha' },
+    i = { "<cmd>LspInstallInfo<CR>", 'Instalar LSP' },
     o = { "<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>", 'Buscar símbolos no arquivo' },
     p = { "<cmd>lua require'telescope.builtin'.lsp_dynamic_workspace_symbols()<CR>", 'Buscar símbolos no projeto' },
     r = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Renomear Variável' },
