@@ -2,7 +2,7 @@ if vim.g.colors_name == nil then
   vim.cmd('colorscheme gruvbox')
 end
 
-vim.cmd('highlight NormalFloat guibg=' .. require'functions'.get_color('Normal', 'bg', 'Normal'))
+vim.cmd('hi link NormalFloat Normal')
 
 vim.cmd [[highlight CmpItemMenu guifg=Normal]]
 
