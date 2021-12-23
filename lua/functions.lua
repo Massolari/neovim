@@ -94,13 +94,4 @@ function M.get_color(highlight_group, type, fallback)
   return color
 end
 
-function M.highlight_word()
-  vim.cmd([[match LspReferenceRead /\V\<]].. vim.fn.expand('<cword>') .. [[\>/]])
-end
-
-function M.clear_highlight_word()
-  vim.cmd('match none')
-end
-
-
 return M

@@ -46,12 +46,14 @@ wk.register({
     c = 'Próximo git hunk',
     d = { '<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = "single" }})<CR>', 'Próximo problema (diagnostic)' },
     e = { "<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Próximo erro de código' },
+    w = { "<cmd>lua require'illuminate'.next_reference({ wrap=true })<CR>", 'Próxima palavra destacada' },
   },
   ['['] = {
     ['['] = { "<cmd>call search('^\\w\\+\\s:\\s', 'bW')<CR>", 'Pular para a função Elm anterior' },
     c = 'Git hunk anterior',
     d = { '<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = "single" }})<CR>', 'Problema anterior (diagnostic)' },
     e = { "<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Erro de código anterior' },
+    w = { "<cmd>lua require'illuminate'.next_reference({ reverse=true, wrap=true })<CR>", 'Palavra destacada anterior' },
   }
 }, vim.tbl_extend('force', opts, { mode = 'n'}))
 

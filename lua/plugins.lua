@@ -337,4 +337,7 @@ return require'packer'.startup(function(use)
 
   -- Dashboard
   use 'ChristianChiarulli/dashboard-nvim'
+
+  -- Destacar palavras iguais
+  use 'RRethy/vim-illuminate'
 end)

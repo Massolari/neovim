@@ -1,7 +1,9 @@
-local lsp_status = require('lsp-status')
-local nvim_lsp = require("lspconfig")
+local lsp_status = require'lsp-status'
+local nvim_lsp = require'lspconfig'
+local illuminate = require'illuminate'
 
-local mappings = require("mappings")
+local mappings = require'mappings'
+
 
 
 local border = {
@@ -24,38 +26,11 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   mappings.lsp(client, bufnr)
 
-  -- Set autocommands conditional on server_capabilities
-  local lsp_reference_color = 'lightyellow'
-  if vim.opt.background:get() ~= 'light' then
-    lsp_reference_color = 'black'
-  end
-  vim.cmd('hi LspReferenceRead cterm=bold ctermbg='..lsp_reference_color..' guibg=' .. lsp_reference_color)
-  vim.cmd('hi LspReferenceText cterm=bold ctermbg='..lsp_reference_color..' guibg=' .. lsp_reference_color)
-  vim.cmd('hi LspReferenceWrite cterm=bold ctermbg='..lsp_reference_color..' guibg=' .. lsp_reference_color)
-
-
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-      ]],
-      false)
-  else
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua require'functions'.highlight_word()
-      autocmd CursorMoved <buffer> lua require'functions'.clear_highlight_word()
-      augroup END
-      ]],
-      false)
-  end
-
+  -- Destacar palavras
+  illuminate.on_attach(client)
+  vim.cmd('hi link LspReferenceRead CursorLine')
+  vim.cmd('hi link LspReferenceText CursorLine')
+  vim.cmd('hi link LspReferenceWrite CursorLine')
 
   if client.resolved_capabilities.code_lens then
     vim.api.nvim_exec(
