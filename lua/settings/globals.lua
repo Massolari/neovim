@@ -27,4 +27,4 @@ vim.g.neovide_window_floating_opacity = 1
 vim.g.neovide_cursor_vfx_mode = 'ripple'
 
 -- Indent blankline
-vim.g.indent_blankline_filetype_exclude = { 'dashboard' }
+vim.g.indent_blankline_filetype_exclude = { 'dashboard', 'lsp-installer', '' }
