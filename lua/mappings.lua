@@ -158,13 +158,9 @@ wk.register({
 }, vim.tbl_extend('force', opts, { mode = 'n', prefix = '<leader>' }))
 
 local normal = {
-  -- Desfazer mapeamentos do lightspeed
-  {'f', 'f', {}},
-  {'F', 'F', {}},
-  {'t', 't', {}},
-  {'T', 'T', {}},
-  {';', ';', {}},
-  {',', ',', {}},
+  -- Mapeamentos do lightspeed
+  {'s', '<Plug>Lightspeed_s', {}},
+  {'S', '<Plug>Lightspeed_S', {}},
 
   -- Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
   { 'n', 'nzzzv', opts },

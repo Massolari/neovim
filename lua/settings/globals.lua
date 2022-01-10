@@ -28,3 +28,6 @@ vim.g.neovide_cursor_vfx_mode = 'ripple'
 
 -- Indent blankline
 vim.g.indent_blankline_filetype_exclude = { 'dashboard', 'lsp-installer', '' }
+
+-- Lightspeed
+vim.g.lightspeed_no_default_keymaps = true
