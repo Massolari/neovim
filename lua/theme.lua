@@ -4,8 +4,6 @@ end
 
 vim.cmd('hi link NormalFloat Normal')
 
-vim.cmd [[highlight CmpItemMenu guifg=Normal]]
-
 vim.cmd [[highlight DiagnosticInfo guifg=DarkCyan]]
 vim.cmd [[highlight DiagnosticHint guifg=DarkGrey]]
 
