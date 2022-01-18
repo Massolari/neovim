@@ -159,8 +159,8 @@ wk.register({
 
 local normal = {
   -- Mapeamentos do lightspeed
-  {'s', '<Plug>Lightspeed_s', {}},
-  {'S', '<Plug>Lightspeed_S', {}},
+  {'s', '<cmd>Pounce<CR>', {}},
+  -- {'S', '<Plug>Lightspeed_S', {}},
 
   -- Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
   { 'n', 'nzzzv', opts },

@@ -73,7 +73,11 @@ return require'packer'.startup(function(use)
   }
 
   -- Habilita a busca rapida usando duas letras
-  use 'ggandor/lightspeed.nvim'
+  -- use 'ggandor/lightspeed.nvim'
+  use {
+    'rlane/pounce.nvim',
+    config = function () require'pounce'.setup{} end
+  }
 
   -- Gruvbox
   use 'morhetz/gruvbox'
