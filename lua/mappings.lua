@@ -97,14 +97,24 @@ wk.register({
     g = { "<cmd>lua require'telescope.builtin'.git_commits()<CR>", 'Log' },
     h = {
       name= 'Hunks',
-      u= 'Desfazer (undo)',
-      v= 'Ver',
+      u = 'Desfazer (undo)',
+      v = 'Ver',
+    },
+    i = {
+      name = 'Issues (Github)',
+      i = { '<cmd>Octo issue list<CR>', 'Listar' },
+      c = { '<cmd>Octo issue create<CR>', 'Criar' }
     },
     k = { "<cmd>lua require'functions'.checkout_new_branch()<CR>", 'Criar branch e fazer checkout' },
     l = { '<cmd>Git pull --rebase<CR> ', 'Pull' },
     p = { "<cmd>Git -c push.default=current push<CR>", 'Push' },
     r = { "<cmd>lua require'telescope.builtin'.git_branches()<CR>", 'Listar branches' },
     s = { '<cmd>Git<CR> ', 'Status' },
+    u = {
+      name = 'Pull Requests (Github)',
+      c = { '<cmd>Octo pr create<CR>', 'Criar' },
+      u = { '<cmd>Octo pr list<CR>', 'Listar' },
+    },
     w = { '<cmd>Gwrite<CR> ', 'Salvar e adicionar ao stage' },
     y = { "<cmd>lua require'functions'.lazygit_toggle()<CR>", 'Abrir lazygit' },
   },

@@ -158,6 +158,17 @@ return require'packer'.startup(function(use)
     opt = true,
     cmd = {'G', 'Git', 'Gdiff', 'Gclog', 'Gwrite'}
   }
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function ()
+      require"octo".setup()
+    end
+  }
 
   -- Engine de snippets
   use 'L3MON4D3/LuaSnip'
