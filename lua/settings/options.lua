@@ -17,7 +17,7 @@ vim.opt.inccommand = 'split'
 vim.opt.backupcopy = 'yes'
 
 local envShell = os.getenv('SHELL')
-if envShell ~= "" then
+if envShell ~= nil and envShell ~= "" then
   vim.opt.shell = envShell
 else
   vim.opt.shell = '/bin/sh'
