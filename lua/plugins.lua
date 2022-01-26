@@ -80,7 +80,7 @@ return require'packer'.startup(function(use)
   }
 
   -- Gruvbox
-  use 'morhetz/gruvbox'
+  use 'ellisonleao/gruvbox.nvim'
 
 
   -- Mostra um git diff na coluna de número e comandos para hunks
