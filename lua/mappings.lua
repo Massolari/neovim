@@ -107,6 +107,7 @@ wk.register({
     },
     k = { "<cmd>lua require'functions'.checkout_new_branch()<CR>", 'Criar branch e fazer checkout' },
     l = { '<cmd>Git pull --rebase<CR> ', 'Pull' },
+    o = { "<cmd>Octo actions<CR>", 'Octo (ações do GitHub)' },
     p = { "<cmd>Git -c push.default=current push<CR>", 'Push' },
     r = { "<cmd>lua require'telescope.builtin'.git_branches()<CR>", 'Listar branches' },
     s = { '<cmd>Git<CR> ', 'Status' },
