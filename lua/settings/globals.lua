@@ -7,6 +7,7 @@ vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 
 -- Gruvbox
 vim.g.gruvbox_italic = 1
+vim.g.gruvbox_sign_column = 'bg0'
 
 -- Material
 vim.g.material_style = 'lighter'
