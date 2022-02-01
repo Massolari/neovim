@@ -42,7 +42,7 @@ local commands = {
   },
   _git = {
     { "FileType", "gitcommit", "setlocal wrap" },
-    { "FileType", "gitcommit", "setlocal spell" },
+    { "FileType", "gitcommit,octo", "setlocal spell" },
   },
   _markdown = {
     { "FileType", "markdown", "setlocal wrap" },
