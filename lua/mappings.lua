@@ -87,6 +87,7 @@ wk.register({
     name = 'Editor',
     c = { "<cmd>lua require'telescope.builtin'.colorscheme()<CR>", 'Temas (colorscheme)' },
     g = { "<cmd>lua require'functions'.vim_grep()<CR>", 'Buscar com vimgrep' },
+    i = { "<cmd>lua require'functions'.display_image(vim.fn.expand('<cfile>'))<CR>", 'Exibir imagem sob o cursor' },
     q = { '<cmd>q<CR>', 'Fechar' },
   },
   g = {

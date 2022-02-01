@@ -1,3 +1,5 @@
+local Terminal = require'toggleterm.terminal'.Terminal
+
 local M = {}
 -- Alterar o quickfix
 function M.toggle_quickfix ()
@@ -78,7 +80,6 @@ function M.vim_grep()
 end
 
 -- Lazygit
-local Terminal = require'toggleterm.terminal'.Terminal
 local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
 
 function M.lazygit_toggle()
@@ -92,6 +93,12 @@ function M.get_color(highlight_group, type, fallback)
     return fallback
   end
   return color
+end
+
+
+function M.display_image(source)
+  local show_image = [[curl -s ]] .. source .. [[ | viu - ]]
+  Terminal:new({ cmd = show_image, hidden = true, direction = 'float', close_on_exit = false }):toggle()
 end
 
 return M
