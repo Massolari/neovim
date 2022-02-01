@@ -1,5 +1,4 @@
 local lsp_status = require'lsp-status'
-local nvim_lsp = require'lspconfig'
 local illuminate = require'illuminate'
 
 local mappings = require'mappings'
@@ -66,6 +65,38 @@ lsp_installer.on_server_ready(function(server)
     capabilities = capabilities,
     on_attach = on_attach,
   }
+
+  if server.name == 'tailwindcss' then
+    opts.filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "elm" }
+
+    opts.init_options = {
+      userLanguages = {
+        elm = "html",
+        eelixir = "html-eex",
+        eruby = "erb"
+      }
+    }
+    opts.settings = {
+      tailwindCSS = {
+        classAttributes = { "class", "className", "classList", "ngClass" },
+        lint = {
+          cssConflict = "warning",
+          invalidApply = "error",
+          invalidConfigPath = "error",
+          invalidScreen = "error",
+          invalidTailwindDirective = "error",
+          invalidVariant = "error",
+          recommendedVariantOrder = "warning"
+        },
+        validate = true,
+        experimental = {
+          classRegex = {
+            "\\bclass\\s+\"([^\"]*)\""
+          }
+        }
+      },
+    }
+  end
 
   -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
   server:setup(opts)
