@@ -258,9 +258,11 @@ return require'packer'.startup(function(use)
     'akinsho/nvim-toggleterm.lua',
     config = function ()
       require'toggleterm'.setup{
-        open_mapping = [[<c-\>]],
+        open_mapping = [[<leader>t]],
         shade_terminals = false,
-        direction = 'horizontal'
+        direction = 'horizontal',
+        insert_mappings = false, -- whether or not the open mapping applies in insert mode
+        terminal_mappings = false,
       }
     end
   }

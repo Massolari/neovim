@@ -156,11 +156,7 @@ wk.register({
       'Salvar'
     },
   },
-  t = {
-    name = 'Terminal',
-    f = { '<cmd>exe v:count1 . "ToggleTerm direction=float"<CR>', 'Abrir terminal flutuante' },
-    t = { '<cmd>exe v:count1 . "ToggleTerm"<CR>', 'Abrir terminal' },
-  },
+  t = 'Terminal',
   v = { '<cmd>vsplit<CR> ', 'Dividir verticalmente' },
   w = {
     name = 'Window',
