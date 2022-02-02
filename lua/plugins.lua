@@ -360,4 +360,10 @@ return require'packer'.startup(function(use)
 
   -- Wildmenu melhorado
   use 'gelguy/wilder.nvim'
+
+  -- Integração com Dash (MacOS)
+  use {
+    'mrjones2014/dash.nvim',
+    run = 'make install',
+  }
 end)
