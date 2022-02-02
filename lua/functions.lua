@@ -80,7 +80,7 @@ function M.vim_grep()
 end
 
 -- Lazygit
-local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
+local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float', id = 1000 })
 
 function M.lazygit_toggle()
   lazygit:toggle()
