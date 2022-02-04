@@ -246,12 +246,7 @@ return require'packer'.startup(function(use)
   }
 
   -- Ícones no completion
-  use {
-    'onsails/lspkind-nvim',
-    config = function ()
-      require'lspkind'.init()
-    end
-  }
+  use 'onsails/lspkind-nvim'
 
   -- Alternador de terminal
   use {
