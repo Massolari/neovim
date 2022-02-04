@@ -3,7 +3,7 @@ local lspkind = require'lspkind'
 local luasnip = require'luasnip'
 require("luasnip/loaders/from_vscode").lazy_load()
 
-local sources ={
+local sources = {
   { name = 'nvim_lsp' },
   { name = 'cmp_tabnine' },
   { name = 'luasnip' },
@@ -42,6 +42,9 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  },
+  documentation = {
+    border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
   },
   formatting = {
     format = function(entry, vim_item)
