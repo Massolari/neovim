@@ -226,7 +226,11 @@ return require'packer'.startup(function(use)
   }
 
   -- TabNine
-  use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+  use {
+    'tzachar/cmp-tabnine',
+    run='./install.sh',
+    requires = 'hrsh7th/nvim-cmp'
+  }
 
   -- Assinaturas de funções ao digitar
   use {
