@@ -365,4 +365,7 @@ return require 'packer'.startup(function(use)
     'mrjones2014/dash.nvim',
     run = 'make install',
   }
+
+  -- Pré-visualizar markdown
+  use 'davidgranstrom/nvim-markdown-preview'
 end)
