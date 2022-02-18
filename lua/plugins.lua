@@ -344,9 +344,11 @@ return require 'packer'.startup(function(use)
   -- Colorir hexademical de cores
   use {
     'norcalli/nvim-colorizer.lua',
-    config = function ()
-      require'colorizer'.setup{
-        '*'
+    config = function()
+      require 'colorizer'.setup {
+        '*';
+        css = { hsl_fn = true };
+        scss = { hsl_fn = true };
       }
     end
   }
