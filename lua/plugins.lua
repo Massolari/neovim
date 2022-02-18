@@ -2,7 +2,7 @@
 vim.cmd [[packadd packer.nvim]]
 vim.cmd [[packadd matchit]]
 
-return require'packer'.startup(function(use)
+return require 'packer'.startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
@@ -24,14 +24,14 @@ return require'packer'.startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local telescope = require'telescope'
+      local telescope = require 'telescope'
       telescope.setup {
         defaults = {
           mappings = {
             i = {
-              ['<c-j>'] = require'telescope.actions'.move_selection_next,
-              ['<c-k>'] = require'telescope.actions'.move_selection_previous,
-              ['<esc>'] = require'telescope.actions'.close,
+              ['<c-j>'] = require 'telescope.actions'.move_selection_next,
+              ['<c-k>'] = require 'telescope.actions'.move_selection_previous,
+              ['<esc>'] = require 'telescope.actions'.close,
             }
           }
         }
@@ -39,17 +39,17 @@ return require'packer'.startup(function(use)
       telescope.load_extension('fzf')
     end
   }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- Sintasse para várias linguagens
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = function ()
-      require'nvim-treesitter.configs'.setup {
+    config = function()
+      require 'nvim-treesitter.configs'.setup {
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         highlight = {
-          enable = true,              -- false will disable the whole extension
+          enable = true, -- false will disable the whole extension
         },
       }
     end
@@ -65,7 +65,7 @@ return require'packer'.startup(function(use)
   -- Habilita o uso do emmet (<C-y>,)
   use {
     'mattn/emmet-vim',
-    config = function ()
+    config = function()
       -- Usar o emmet apenas no modo visual ou no modo inserção
       vim.g.user_emmet_mode = 'iv'
       vim.g.user_emmet_leader_key = '<C-g>'
@@ -76,7 +76,7 @@ return require'packer'.startup(function(use)
   -- use 'ggandor/lightspeed.nvim'
   use {
     'rlane/pounce.nvim',
-    config = function () require'pounce'.setup{} end
+    config = function() require 'pounce'.setup {} end
   }
 
   -- Gruvbox
@@ -87,7 +87,7 @@ return require'packer'.startup(function(use)
   use {
     'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require'gitsigns'.setup {
+      require 'gitsigns'.setup {
         numhl = false,
         linehl = false,
         keymaps = {
@@ -95,8 +95,8 @@ return require'packer'.startup(function(use)
           noremap = true,
           buffer = true,
 
-          ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-          ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+          ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
+          ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
 
           ['n <leader>ghu'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
           ['v <leader>ghu'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
@@ -117,8 +117,8 @@ return require'packer'.startup(function(use)
   -- Mostra linhas de indentação
   use {
     'lukas-reineke/indent-blankline.nvim',
-    config = function ()
-      require'indent_blankline'.setup{
+    config = function()
+      require 'indent_blankline'.setup {
         show_current_context = true
       }
     end
@@ -128,7 +128,7 @@ return require'packer'.startup(function(use)
   use {
     'windwp/nvim-autopairs',
     config = function()
-      require'nvim-autopairs'.setup()
+      require 'nvim-autopairs'.setup()
     end
   }
 
@@ -145,8 +145,8 @@ return require'packer'.startup(function(use)
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
-    config = function ()
-      require'nvim-tree'.setup{
+    config = function()
+      require 'nvim-tree'.setup {
         disable_netrw = false
       }
     end
@@ -156,7 +156,7 @@ return require'packer'.startup(function(use)
   use {
     'tpope/vim-fugitive',
     opt = true,
-    cmd = {'G', 'Git', 'Gdiff', 'Gclog', 'Gwrite'}
+    cmd = { 'G', 'Git', 'Gdiff', 'Gclog', 'Gwrite' }
   }
   use {
     'pwntester/octo.nvim',
@@ -165,8 +165,8 @@ return require'packer'.startup(function(use)
       'nvim-telescope/telescope.nvim',
       'kyazdani42/nvim-web-devicons',
     },
-    config = function ()
-      require"octo".setup()
+    config = function()
+      require "octo".setup()
     end
   }
 
@@ -180,15 +180,15 @@ return require'packer'.startup(function(use)
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true},
-    config = function() require'statusline' end
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function() require 'statusline' end
   }
 
   -- Guia de atalhos
   use {
     "folke/which-key.nvim",
     config = function()
-      require'which-key'.setup {
+      require 'which-key'.setup {
         plugins = {
           spelling = {
             enabled = true
@@ -228,15 +228,15 @@ return require'packer'.startup(function(use)
   -- TabNine
   use {
     'tzachar/cmp-tabnine',
-    run='./install.sh',
+    run = './install.sh',
     requires = 'hrsh7th/nvim-cmp'
   }
 
   -- Assinaturas de funções ao digitar
   use {
     'ray-x/lsp_signature.nvim',
-    config = function ()
-      require'lsp_signature'.setup()
+    config = function()
+      require 'lsp_signature'.setup()
     end
   }
 
@@ -244,8 +244,8 @@ return require'packer'.startup(function(use)
   -- Informações de LSP na statusline
   use {
     'nvim-lua/lsp-status.nvim',
-    config = function ()
-      require'lsp-status'.register_progress()
+    config = function()
+      require 'lsp-status'.register_progress()
     end
   }
 
@@ -255,8 +255,8 @@ return require'packer'.startup(function(use)
   -- Alternador de terminal
   use {
     'akinsho/nvim-toggleterm.lua',
-    config = function ()
-      require'toggleterm'.setup{
+    config = function()
+      require 'toggleterm'.setup {
         open_mapping = [[<leader>t]],
         shade_terminals = false,
         direction = 'horizontal',
@@ -271,7 +271,7 @@ return require'packer'.startup(function(use)
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
-      require'trouble'.setup {
+      require 'trouble'.setup {
         auto_preview = false,
         signs = {
           -- icons / text used for a diagnostic
@@ -297,7 +297,7 @@ return require'packer'.startup(function(use)
     'akinsho/bufferline.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require'bufferline'.setup{
+      require 'bufferline'.setup {
         options = {
           diagnostics = 'nvim_lsp',
           diagnostics_indicator = function(_, _, diagnostics_dict, _)
@@ -333,7 +333,7 @@ return require'packer'.startup(function(use)
 
   local user_file = vim.fn.stdpath('config') .. '/lua/user/plugins.lua'
   if vim.fn.filereadable(user_file) > 0 then
-    require'user.plugins'.setup(use)
+    require 'user.plugins'.setup(use)
   end
 
   use 'github/copilot.vim'
