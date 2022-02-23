@@ -58,25 +58,18 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require'cmp_nvim_lsp'.update_capabilities(capabilities)
 
-local lsp_installer = require("nvim-lsp-installer")
 
-lsp_installer.on_server_ready(function(server)
+local get_tailwind_config = function()
   local opts = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  }
-
-  if server.name == 'tailwindcss' then
-    opts.filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "elm" }
-
-    opts.init_options = {
+    filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "elm" },
+    init_options = {
       userLanguages = {
         elm = "html",
         eelixir = "html-eex",
         eruby = "erb"
       }
-    }
-    opts.settings = {
+    },
+    settings = {
       tailwindCSS = {
         classAttributes = { "class", "className", "classList", "ngClass" },
         lint = {
@@ -96,6 +89,21 @@ lsp_installer.on_server_ready(function(server)
         }
       },
     }
+  }
+
+  return opts
+end
+
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.on_server_ready(function(server)
+  local opts = {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  }
+
+  if server.name == 'tailwindcss' then
+    opts = get_tailwind_config()
   end
 
   -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
