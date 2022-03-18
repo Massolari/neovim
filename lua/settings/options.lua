@@ -33,12 +33,6 @@ vim.opt.clipboard={ 'unnamed', 'unnamedplus' }
 
 -- Mouse
 vim.opt.mouse = 'a'
--- -- Shift + botão direito do mouse, abre um menu
-vim.opt.mousemodel = 'popup'
-
--- fzf.vim
--- vim.opt.wildmode = {'list:longest', 'list:full'}
--- vim.opt.wildignore = {'*.o', '*.obj', '.git', '*.rbc', '*.pyc', '__pycache__'}
 
 -- Mostra os números da linha de forma relativa e o número atual da linha
 vim.opt.number = true

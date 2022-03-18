@@ -44,15 +44,7 @@ return require 'packer'.startup(function(use)
   -- Sintasse para várias linguagens
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = function()
-      require 'nvim-treesitter.configs'.setup {
-        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-        highlight = {
-          enable = true, -- false will disable the whole extension
-        },
-      }
-    end
+    run = ':TSUpdate'
   }
 
   use {
@@ -62,7 +54,7 @@ return require 'packer'.startup(function(use)
     end
   }
 
-  -- Habilita o uso do emmet (<C-y>,)
+  -- Habilita o uso do emmet (<C-g>,)
   use {
     'mattn/emmet-vim',
     config = function()
@@ -370,4 +362,5 @@ return require 'packer'.startup(function(use)
 
   -- Pré-visualizar markdown
   use 'davidgranstrom/nvim-markdown-preview'
+  use "ellisonleao/glow.nvim"
 end)

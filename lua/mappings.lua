@@ -1,5 +1,6 @@
 local M = {}
 local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local luasnip = require'luasnip'
 local function set_keymap(...) vim.api.nvim_set_keymap(...) end
 
 local wk = require'which-key'
@@ -28,8 +29,22 @@ wk.register({
 wk.register({
   -- Mover no modo insert sem as setas
   ['<c-b>'] = { '<left>', 'Move o cursor para a esquerda' },
-  ['<c-j>'] = { '<down>', 'Move o cursor para baixo' },
-  ['<c-k>'] = { '<up>', 'Move o cursor para cima' },
+  ['<c-j>'] = {
+    function()
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      end
+    end,
+    'Pula para o item anterior do snippet'
+  },
+  ['<c-k>'] = {
+    function ()
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      end
+    end,
+    'Expande o snippet ou pula para o item seguinte'
+  },
   ['<c-l>'] = { '<right>', 'Move o cursor para a direita' },
 
   -- Ir para o normal mode mais rapidamente
@@ -89,7 +104,7 @@ wk.register({
     d = { "<cmd>lua require'dash'.search()<CR>", 'Dash' },
     g = { "<cmd>lua require'functions'.vim_grep()<CR>", 'Buscar com vimgrep' },
     i = { "<cmd>lua require'functions'.display_image(vim.fn.expand('<cfile>'))<CR>", 'Exibir imagem sob o cursor' },
-    q = { '<cmd>q<CR>', 'Fechar' },
+    q = { '<cmd>qa<CR>', 'Fechar' },
   },
   g = {
     name = 'Git',
@@ -124,6 +139,11 @@ wk.register({
   h = { '<cmd>split<CR> ', 'Dividir horizontalmente' },
   i = { 'mpgg=G`p', 'Indentar arquivo' },
   l = { "<cmd>lua require'functions'.toggle_location_list()<CR>", 'Alternar locationlist' },
+  m = {
+    name = 'Markdown',
+    m = { "<cmd>Glow<CR>", 'Pré-visualizar com glow' },
+    b = { "<cmd>MarkdownPreview<CR>", 'Pré-visualizar com navegador (browser)' }
+  },
   o = {
     name = 'Abrir arquivos do vim',
     i = { "<cmd>exe 'edit' stdpath('config').'/init.vim'<CR>", 'init.vim' },
@@ -168,57 +188,57 @@ wk.register({
 
 local normal = {
   -- Mapeamentos do lightspeed
-  {'s', '<cmd>Pounce<CR>', {}},
+{'s', '<cmd>Pounce<CR>', {}},
   -- {'S', '<Plug>Lightspeed_S', {}},
 
   -- Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
-  { 'n', 'nzzzv', opts },
-  { 'N', 'Nzzzv', opts },
+{ 'n', 'nzzzv', opts },
+{ 'N', 'Nzzzv', opts },
 
   -- Explorador de arquivos
-  { '<F3>', '<cmd>NvimTreeToggle<CR>' , opts},
-  { '<F2>', '<cmd>NvimTreeFindFile<CR>' , opts},
+{ '<F3>', '<cmd>NvimTreeToggle<CR>' , opts},
+{ '<F2>', '<cmd>NvimTreeFindFile<CR>' , opts},
 
 
   -- Mover cursor para outra janela divida
-  { '<C-j>', '<C-w>j', opts },
-  { '<C-k>', '<C-w>k', opts },
-  { '<C-l>', '<C-w>l', opts },
-  { '<C-h>', '<C-w>h', opts },
+{ '<C-j>', '<C-w>j', opts },
+{ '<C-k>', '<C-w>k', opts },
+{ '<C-l>', '<C-w>l', opts },
+{ '<C-h>', '<C-w>h', opts },
 
   -- Limpar espaços em branco nos finais da linha
-  { '<F5>', 'mp<cmd>%s/\\s\\+$/<CR>`p' , opts},
+{ '<F5>', 'mp<cmd>%s/\\s\\+$/<CR>`p' , opts},
 
   -- Enter no modo normal funciona como no modo inserção
-  { '<CR>', 'i<CR><Esc>', opts },
+{ '<CR>', 'i<CR><Esc>', opts },
 
 
   -- Setas redimensionam janelas adjacentes
-  { '<left>', '<cmd>vertical resize -5<cr>' , opts},
-  { '<right>', '<cmd>vertical resize +5<cr>' , opts},
-  { '<up>', '<cmd>resize -5<cr>' , opts},
-  { '<down>', '<cmd>resize +5<cr>' , opts},
+{ '<left>', '<cmd>vertical resize -5<cr>' , opts},
+{ '<right>', '<cmd>vertical resize +5<cr>' , opts},
+{ '<up>', '<cmd>resize -5<cr>' , opts},
+{ '<down>', '<cmd>resize +5<cr>' , opts},
 
   -- Mover de forma natural em wrap
-  { 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true } },
-  { 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true } },
+{ 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true } },
+{ 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true } },
 
   -- Desabilitar modo Ex
-  { 'Q', '<nop>', {}}
+{ 'Q', '<nop>', {}}
 }
 
 local terminal = {
   -- Ir para modo normal no terminal de forma rapida
-  {'jk', '<c-\\><c-n>', opts},
-  {'kj', '<C-\\><C-n>', opts}
+{'jk', '<c-\\><c-n>', opts},
+{'kj', '<C-\\><C-n>', opts}
 }
 
 local visual = {
-  {'<', '<gv', opts},
-  {'>', '>gv', opts},
-  { '//', 'y/<C-R>"<CR>', opts },
-  {'K', ":m '<-2<CR>gv=gv", opts},
-  {'J', ":m '>+1<CR>gv=gv", opts},
+{'<', '<gv', opts},
+{'>', '>gv', opts},
+{ '//', 'y/<C-R>"<CR>', opts },
+{'K', ":m '<-2<CR>gv=gv", opts},
+{'J', ":m '>+1<CR>gv=gv", opts},
 }
 
 function M.setup()
@@ -228,7 +248,7 @@ function M.setup()
   vim.cmd[[
     imap <silent><script><expr> <c-q> copilot#Accept("\<c-q>")
     let g:copilot_no_tab_map = v:true
-  ]]
+    ]]
 end
 
 function M.lsp(client, bufnr)
@@ -260,8 +280,16 @@ function M.lsp(client, bufnr)
   wk.register(code_mappings, vim.tbl_extend('force', opts, { mode = 'n', buffer = bufnr, prefix = '<leader>c' }))
   wk.register({
     d = { "<cmd>lua vim.lsp.buf.definition()<CR>", 'Definição' },
+    D = {
+      function()
+        vim.cmd('belowright split')
+        vim.lsp.buf.definition()
+      end,
+      'Definição'
+    },
     i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", 'Implementação' },
-    r = { '<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', 'Referências' },
+    -- r = { '<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', 'Referências' },
+    r = { "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", 'Referências' },
     y = { "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>", 'Definição do tipo' },
   }, vim.tbl_extend('force', opts, { mode = 'n', buffer = bufnr, prefix = 'g' }))
 end

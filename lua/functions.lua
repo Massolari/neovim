@@ -86,6 +86,13 @@ function M.lazygit_toggle()
   lazygit:toggle()
 end
 
+-- Glow
+local glow = Terminal:new({ cmd = "glow -p -s " .. vim.opt.background:get() .. ' ' .. vim.fn.expand('%'), hidden = true, direction = 'float', id = 1001, close_on_exit = false })
+
+function M.glow_toggle()
+  glow:toggle()
+end
+
 -- Get a color form a highlight group
 function M.get_color(highlight_group, type, fallback)
   local color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(highlight_group)), type .. '#')

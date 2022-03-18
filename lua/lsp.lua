@@ -6,15 +6,30 @@ local mappings = require'mappings'
 
 
 local border = {
-  {"┌", "FloatBorder"},
-  {"─", "FloatBorder"},
-  {"┐", "FloatBorder"},
-  {"│", "FloatBorder"},
-  {"┘", "FloatBorder"},
-  {"─", "FloatBorder"},
-  {"└", "FloatBorder"},
-  {"│", "FloatBorder"},
+{"┌", "FloatBorder"},
+{"─", "FloatBorder"},
+{"┐", "FloatBorder"},
+{"│", "FloatBorder"},
+{"┘", "FloatBorder"},
+{"─", "FloatBorder"},
+{"└", "FloatBorder"},
+{"│", "FloatBorder"},
 }
+
+local activate_code_lens = function(client)
+  if client.resolved_capabilities.code_lens then
+    vim.api.nvim_exec(
+      [[
+      augroup lsp_code_lens_refresh
+      autocmd! * <buffer>
+      autocmd InsertLeave <buffer> lua vim.lsp.codelens.refresh()
+      autocmd InsertLeave <buffer> lua vim.lsp.codelens.display()
+      augroup END
+      ]],
+      false
+    )
+  end
+end
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -27,24 +42,8 @@ local on_attach = function(client, bufnr)
 
   -- Destacar palavras
   illuminate.on_attach(client)
-  vim.cmd('hi link LspReferenceRead CursorLine')
-  vim.cmd('hi link LspReferenceText CursorLine')
-  vim.cmd('hi link LspReferenceWrite CursorLine')
 
-  if client.resolved_capabilities.code_lens then
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_code_lens_refresh
-      autocmd! * <buffer>
-      autocmd InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-      autocmd InsertLeave <buffer> lua vim.lsp.codelens.display()
-      augroup END
-      ]],
-      false
-    )
-    vim.cmd [[highlight LspCodeLens guifg=DarkGrey]]
-    vim.cmd [[highlight LspCodeLensSeparator guifg=DarkGrey]]
-  end
+  activate_code_lens(client)
   vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
   vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -102,9 +101,11 @@ lsp_installer.on_server_ready(function(server)
     on_attach = on_attach,
   }
 
+  local custom_opts = {}
   if server.name == 'tailwindcss' then
-    opts = get_tailwind_config()
+    custom_opts = vim.tbl_extend('keep', get_tailwind_config(), opts)
   end
+  opts = vim.tbl_extend('keep', custom_opts, opts)
 
   -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
   server:setup(opts)

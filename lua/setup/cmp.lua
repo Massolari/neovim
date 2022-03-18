@@ -1,7 +1,7 @@
 local cmp = require'cmp'
 local lspkind = require'lspkind'
 local luasnip = require'luasnip'
-require("luasnip/loaders/from_vscode").lazy_load()
+require"luasnip/loaders/from_vscode".lazy_load()
 
 local sources = {
   { name = 'nvim_lsp' },
@@ -40,7 +40,10 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
+    ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
   },
   documentation = {
@@ -70,8 +73,3 @@ cmp.setup({
   },
   sources = enabled_sources,
 })
-
-vim.cmd([[imap <expr> <Tab> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<Tab>']])
-vim.cmd([[imap <expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>']])
-
-
