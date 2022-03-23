@@ -53,7 +53,6 @@ wk.register({
     c = 'Próximo git hunk',
     d = { '<Plug>(coc-diagnostic-next)', 'Próximo problema (diagnostic)' },
     e = { '<Plug>(coc-diagnostic-next-error)', 'Próximo erro de código' },
-    -- e = { "<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Próximo erro de código' },
     w = { "<cmd>lua require'illuminate'.next_reference({ wrap = true })<CR>", 'Próxima palavra destacada' },
   },
   ['['] = {
@@ -61,7 +60,6 @@ wk.register({
     c = 'Git hunk anterior',
     d = { '<Plug>(coc-diagnostic-prev)', 'Problema anterior (diagnostic)' },
     e = { '<Plug>(coc-diagnostic-prev-error)', 'Erro de código anterior' },
-    -- e = { "<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Erro de código anterior' },
     w = { "<cmd>lua require'illuminate'.next_reference({ reverse = true, wrap = true })<CR>", 'Palavra destacada anterior' },
   }
 }, vim.tbl_extend('force', opts, { mode = 'n'}))
@@ -187,9 +185,8 @@ wk.register({
 }, vim.tbl_extend('force', opts, { mode = 'n', prefix = '<leader>' }))
 
 local normal = {
-  -- Mapeamentos do lightspeed
+  -- Mapeamentos do pounce
 {'s', '<cmd>Pounce<CR>', {}},
-  -- {'S', '<Plug>Lightspeed_S', {}},
 
   -- Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
 { 'n', 'nzzzv', opts },
