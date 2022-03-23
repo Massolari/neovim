@@ -201,48 +201,7 @@ return require 'packer'.startup(function(use)
   }
 
   -- LSP do Nvim
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
-
-  -- Autocompletion framework for built-in LSP
-  use {
-    "hrsh7th/nvim-cmp",
-    requires = {
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-calc",
-      "hrsh7th/cmp-emoji",
-    }
-  }
-
-  -- TabNine
-  use {
-    'tzachar/cmp-tabnine',
-    run = './install.sh',
-    requires = 'hrsh7th/nvim-cmp'
-  }
-
-  -- Assinaturas de funções ao digitar
-  use {
-    'ray-x/lsp_signature.nvim',
-    config = function()
-      require 'lsp_signature'.setup()
-    end
-  }
-
-
-  -- Informações de LSP na statusline
-  use {
-    'nvim-lua/lsp-status.nvim',
-    config = function()
-      require 'lsp-status'.register_progress()
-    end
-  }
-
-  -- Ícones no completion
-  use 'onsails/lspkind-nvim'
+  use {'neoclide/coc.nvim', branch = 'release'}
 
   -- Alternador de terminal
   use {
@@ -258,32 +217,6 @@ return require 'packer'.startup(function(use)
     end
   }
 
-  -- Lista de diagnostics
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require 'trouble'.setup {
-        auto_preview = false,
-        signs = {
-          -- icons / text used for a diagnostic
-          error = " - Err - ",
-          warning = " - War - ",
-          hint = " - Hin - ",
-          information = " - Inf - "
-        },
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end,
-    opt = true,
-    cmd = 'Trouble',
-  }
-
-  -- Mostrar o que há nos registradores
-  -- use 'tversteeg/registers.nvim'
-
   -- Buffers no topo
   use {
     'akinsho/bufferline.nvim',
@@ -291,7 +224,7 @@ return require 'packer'.startup(function(use)
     config = function()
       require 'bufferline'.setup {
         options = {
-          diagnostics = 'nvim_lsp',
+          diagnostics = 'coc',
           diagnostics_indicator = function(_, _, diagnostics_dict, _)
             local error = ""
             local warning = ""
@@ -312,14 +245,6 @@ return require 'packer'.startup(function(use)
           end
         }
       }
-    end
-  }
-
-  -- Mostrar lampada se existir code action
-  use {
-    'kosayoda/nvim-lightbulb',
-    config = function()
-      vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
     end
   }
 
@@ -349,7 +274,7 @@ return require 'packer'.startup(function(use)
   use 'ChristianChiarulli/dashboard-nvim'
 
   -- Destacar palavras iguais
-  use 'Massolari/vim-illuminate'
+  use { 'Massolari/vim-illuminate', disable = true }
 
   -- Wildmenu melhorado
   use 'gelguy/wilder.nvim'
@@ -363,4 +288,7 @@ return require 'packer'.startup(function(use)
   -- Pré-visualizar markdown
   use 'davidgranstrom/nvim-markdown-preview'
   use "ellisonleao/glow.nvim"
+
+  -- Inteligência para Elm
+  use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim'}
 end)

@@ -108,11 +108,11 @@ ins_left {
 
 ins_left {
   function()
-    local current_function = vim.b.lsp_current_function
+    local current_function = vim.b.coc_current_function
     if current_function == nil or current_function == '' then
       return ''
     end
-    return '𝝺 ' .. vim.b.lsp_current_function
+    return '𝝺 ' .. current_function
   end,
   cond = conditions.buffer_not_empty,
   color = { fg = colors.blue, gui = 'bold' },
@@ -129,14 +129,16 @@ ins_left {
 }
 
 ins_right {
-  function ()
-    for _, client in pairs(vim.lsp.buf_get_clients()) do
-      return ' ' .. client.name
-    end
-    return ''
-  end,
+  -- function ()
+    -- for _, client in pairs(vim.lsp.buf_get_clients()) do
+    --   return ' ' .. client.name
+    -- end
+  --   return vim.fn['coc#status']()
+  -- end,
+  'coc#status',
   color = { fg = colors.cyan },
 }
+
 
 ins_right {
   'branch',

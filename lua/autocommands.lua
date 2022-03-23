@@ -64,6 +64,11 @@ local commands = {
     },
     { "FileType", "dashboard", "nnoremap <silent> <buffer> q :q<CR>" },
   },
+  _coc = {
+    {"FileType", "typescript,json", "setl formatexpr=CocAction('formatSelected')"},
+    {"User", "CocJumpPlaceholder", "call CocActionAsync('showSignatureHelp')"},
+    {"CursorHold", "*", "silent call CocActionAsync('highlight')"},
+  },
 }
 
 for group_name, definition in pairs(commands) do

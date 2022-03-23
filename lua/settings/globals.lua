@@ -19,3 +19,7 @@ vim.g.indent_blankline_filetype_exclude = { 'dashboard', 'lsp-installer', '' }
 
 -- Glow
 vim.g.glow_style = vim.opt.background:get()
+
+-- CoC
+
+vim.g.coc_snippet_next = '<c-k>'

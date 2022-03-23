@@ -59,14 +59,14 @@ wk.register({
   [']'] = {
     [']'] = { "<cmd>call search('^\\w\\+\\s:\\s', 'w')<CR>", 'Pular para a próxima função Elm' },
     c = 'Próximo git hunk',
-    d = { '<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = "single" }})<CR>', 'Próximo problema (diagnostic)' },
+    d = { '<Plug>(coc-diagnostic-next)', 'Próximo problema (diagnostic)' },
     e = { "<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Próximo erro de código' },
     w = { "<cmd>lua require'illuminate'.next_reference({ wrap = true })<CR>", 'Próxima palavra destacada' },
   },
   ['['] = {
     ['['] = { "<cmd>call search('^\\w\\+\\s:\\s', 'bW')<CR>", 'Pular para a função Elm anterior' },
     c = 'Git hunk anterior',
-    d = { '<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = "single" }})<CR>', 'Problema anterior (diagnostic)' },
+    d = { '<Plug>(coc-diagnostic-prev)', 'Problema anterior (diagnostic)' },
     e = { "<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Erro de código anterior' },
     w = { "<cmd>lua require'illuminate'.next_reference({ reverse = true, wrap = true })<CR>", 'Palavra destacada anterior' },
   }
@@ -96,7 +96,13 @@ wk.register({
   },
   c = {
     name = 'Code',
-    d = { '<cmd>Trouble<cr>', 'Problemas (diagnostics)' },
+    a = { "<cmd>CocAction<CR>", 'Ações' },
+    d = { '<cmd>CocList diagnostics<cr>', 'Problemas (diagnostics)' },
+    f = { "<cmd>call CocActionAsync('format')<CR>", 'Formatar código' },
+    i = { "<cmd>CocList marketplace<CR>", 'Instalar language-server' },
+    o = { "<cmd>CocList outline<CR>", 'Buscar símbolos no arquivo' },
+    p = { "<cmd>CocList -I symbols<CR>", 'Buscar símbolos no projeto' },
+    r = { '<Plug>(coc-rename)', 'Renomear Variável' },
   },
   e = {
     name = 'Editor',
@@ -111,7 +117,7 @@ wk.register({
     b = { '<cmd>Git blame<CR> ', 'Blame' },
     c = { '<cmd>Git commit<CR> ', 'Commit' },
     d = { '<cmd>Gdiff<CR> ', 'Diff' },
-    g = { "<cmd>lua require'telescope.builtin'.git_commits()<CR>", 'Log' },
+    g = { "<cmd>G log<CR>", 'Log' },
     h = {
       name= 'Hunks',
       u = 'Desfazer (undo)',
@@ -248,50 +254,42 @@ function M.setup()
   vim.cmd[[
     imap <silent><script><expr> <c-q> copilot#Accept("\<c-q>")
     let g:copilot_no_tab_map = v:true
+
+    " inoremap <silent><expr> <c-space> coc#refresh()
     ]]
 end
 
-function M.lsp(client, bufnr)
-  -- buf_set_keymap('n', '<leader>ca', "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  local code_mappings = {
-    a = { "<cmd>lua require'telescope.builtin'.lsp_code_actions(require('telescope.themes').get_dropdown({}))<CR>", 'Ações' },
-    e = { "<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', border = 'single' })<CR>", 'Mostrar erro da linha' },
-    i = { "<cmd>LspInstallInfo<CR>", 'Instalar LSP' },
-    o = { "<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>", 'Buscar símbolos no arquivo' },
-    p = { "<cmd>lua require'telescope.builtin'.lsp_dynamic_workspace_symbols()<CR>", 'Buscar símbolos no projeto' },
-    r = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Renomear Variável' },
-    s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", 'Assinatura' },
-  }
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+wk.register({
+  ['<c-space>'] = { 'coc#refresh()', 'Atualizar sugestões do autocomplete', expr=true }
+}, { mode = 'i'  })
 
-  -- Set some keybinds conditional on server capabilities
-  local format_command = nil
-  if client.resolved_capabilities.document_formatting then
-    format_command = "<cmd>lua vim.lsp.buf.formatting()<CR>"
-  elseif client.resolved_capabilities.document_range_formatting then
-    format_command = "<cmd>lua vim.lsp.buf.range_formatting()<CR>"
-  end
-  if format_command ~= nil then
-    code_mappings = vim.tbl_extend('force', code_mappings, {
-      f = { format_command, 'Formatar código' }
-    })
-  end
+vim.cmd[[
+nnoremap <silent> K :call g:ShowDocumentation()<CR>
 
-  wk.register(code_mappings, vim.tbl_extend('force', opts, { mode = 'n', buffer = bufnr, prefix = '<leader>c' }))
-  wk.register({
-    d = { "<cmd>lua vim.lsp.buf.definition()<CR>", 'Definição' },
-    D = {
-      function()
-        vim.cmd('belowright split')
-        vim.lsp.buf.definition()
-      end,
-      'Definição'
-    },
-    i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", 'Implementação' },
-    -- r = { '<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', 'Referências' },
-    r = { "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", 'Referências' },
-    y = { "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>", 'Definição do tipo' },
-  }, vim.tbl_extend('force', opts, { mode = 'n', buffer = bufnr, prefix = 'g' }))
-end
+function! g:ShowDocumentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+]]
+
+wk.register({
+  d = { "<Plug>(coc-definition)", 'Definição' },
+  -- D = {
+  --   function()
+  --     vim.cmd('belowright split')
+  --     vim.lsp.buf.definition()
+  --   end,
+  --   'Definição'
+  -- },
+  i = { "<Plug>(coc-implementation)", 'Implementação' },
+  -- r = { '<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', 'Referências' },
+  r = { "<Plug>(coc-references)", 'Referências' },
+  y = { "<Plug>(coc-type-definition)", 'Definição do tipo' },
+}, vim.tbl_extend('force', opts, { mode = 'n', prefix = 'g' }))
 
 return M

@@ -15,7 +15,7 @@ require'settings'
 require'commands'
 require'autocommands'
 require'mappings'.setup()
-require'lsp'
+-- require'lsp'
 
 -- Arquivo de configurações do usuário
 local user_file = vim.fn.stdpath'config' .. '/lua/user/init.lua'
