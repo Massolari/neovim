@@ -22,4 +22,5 @@ vim.g.glow_style = vim.opt.background:get()
 
 -- CoC
 
-vim.g.coc_snippet_next = '<c-k>'
+vim.g.coc_snippet_next = '<c-j>'
+vim.g.coc_global_extensions = {'coc-marketplace', 'coc-snippets'}

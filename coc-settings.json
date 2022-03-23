@@ -20,6 +20,7 @@
   "diagnostic.warningSign": " ",
   "diagnostic.infoSign": " ",
   "diagnostic.hintSign": "",
+  "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,

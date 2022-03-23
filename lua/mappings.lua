@@ -30,20 +30,12 @@ wk.register({
   -- Mover no modo insert sem as setas
   ['<c-b>'] = { '<left>', 'Move o cursor para a esquerda' },
   ['<c-j>'] = {
-    function()
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      end
-    end,
-    'Pula para o item anterior do snippet'
-  },
-  ['<c-k>'] = {
     function ()
-      if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+      if vim.fn['coc#expandableOrJumpable']() then
+        vim.cmd([[\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>]])
       end
     end,
-    'Expande o snippet ou pula para o item seguinte'
+    'Expande o snippet ou pula para o item seguinte',
   },
   ['<c-l>'] = { '<right>', 'Move o cursor para a direita' },
 
@@ -60,14 +52,16 @@ wk.register({
     [']'] = { "<cmd>call search('^\\w\\+\\s:\\s', 'w')<CR>", 'Pular para a próxima função Elm' },
     c = 'Próximo git hunk',
     d = { '<Plug>(coc-diagnostic-next)', 'Próximo problema (diagnostic)' },
-    e = { "<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Próximo erro de código' },
+    e = { '<Plug>(coc-diagnostic-next-error)', 'Próximo erro de código' },
+    -- e = { "<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Próximo erro de código' },
     w = { "<cmd>lua require'illuminate'.next_reference({ wrap = true })<CR>", 'Próxima palavra destacada' },
   },
   ['['] = {
     ['['] = { "<cmd>call search('^\\w\\+\\s:\\s', 'bW')<CR>", 'Pular para a função Elm anterior' },
     c = 'Git hunk anterior',
     d = { '<Plug>(coc-diagnostic-prev)', 'Problema anterior (diagnostic)' },
-    e = { "<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Erro de código anterior' },
+    e = { '<Plug>(coc-diagnostic-prev-error)', 'Erro de código anterior' },
+    -- e = { "<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>", 'Erro de código anterior' },
     w = { "<cmd>lua require'illuminate'.next_reference({ reverse = true, wrap = true })<CR>", 'Palavra destacada anterior' },
   }
 }, vim.tbl_extend('force', opts, { mode = 'n'}))
@@ -254,13 +248,11 @@ function M.setup()
   vim.cmd[[
     imap <silent><script><expr> <c-q> copilot#Accept("\<c-q>")
     let g:copilot_no_tab_map = v:true
-
-    " inoremap <silent><expr> <c-space> coc#refresh()
     ]]
 end
 
 wk.register({
-  ['<c-space>'] = { 'coc#refresh()', 'Atualizar sugestões do autocomplete', expr=true }
+  ['<c-space>'] = { 'coc#refresh()', 'Atualizar sugestões do autocomplete', expr=true },
 }, { mode = 'i'  })
 
 vim.cmd[[
@@ -287,7 +279,6 @@ wk.register({
   --   'Definição'
   -- },
   i = { "<Plug>(coc-implementation)", 'Implementação' },
-  -- r = { '<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', 'Referências' },
   r = { "<Plug>(coc-references)", 'Referências' },
   y = { "<Plug>(coc-type-definition)", 'Definição do tipo' },
 }, vim.tbl_extend('force', opts, { mode = 'n', prefix = 'g' }))
