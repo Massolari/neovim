@@ -89,11 +89,14 @@ wk.register({
   c = {
     name = 'Code',
     a = { "<cmd>CocAction<CR>", 'Ações' },
-    d = { '<cmd>CocList diagnostics<cr>', 'Problemas (diagnostics)' },
+    d = { '<cmd>Telescope coc workspace_diagnostics<cr>', 'Problemas (diagnostics)' },
+    -- d = { '<cmd>CocList diagnostics<cr>', 'Problemas (diagnostics)' },
     f = { "<cmd>call CocActionAsync('format')<CR>", 'Formatar código' },
     i = { "<cmd>CocList marketplace<CR>", 'Instalar language-server' },
-    o = { "<cmd>CocList outline<CR>", 'Buscar símbolos no arquivo' },
-    p = { "<cmd>CocList -I symbols<CR>", 'Buscar símbolos no projeto' },
+    o = { "<cmd>Telescope coc document_symbols<CR>", 'Buscar símbolos no arquivo' },
+    -- o = { "<cmd>CocList outline<CR>", 'Buscar símbolos no arquivo' },
+    -- p = { "<cmd>CocList -I symbols<CR>", 'Buscar símbolos no projeto' },
+    p = { "<cmd>Telescope coc workspace_symbols<CR>", 'Buscar símbolos no projeto' },
     r = { '<Plug>(coc-rename)', 'Renomear Variável' },
   },
   e = {
@@ -276,7 +279,8 @@ wk.register({
   --   'Definição'
   -- },
   i = { "<Plug>(coc-implementation)", 'Implementação' },
-  r = { "<Plug>(coc-references)", 'Referências' },
+  r = { "<cmd>Telescope coc references", 'Referências' },
+  -- r = { "<Plug>(coc-references)", 'Referências' },
   y = { "<Plug>(coc-type-definition)", 'Definição do tipo' },
 }, vim.tbl_extend('force', opts, { mode = 'n', prefix = 'g' }))
 

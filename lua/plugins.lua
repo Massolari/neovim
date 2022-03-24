@@ -37,9 +37,11 @@ return require 'packer'.startup(function(use)
         }
       }
       telescope.load_extension('fzf')
+      telescope.load_extension('coc')
     end
   }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'fannheyward/telescope-coc.nvim' }
 
   -- Sintasse para várias linguagens
   use {
@@ -286,7 +288,6 @@ return require 'packer'.startup(function(use)
   }
 
   -- Pré-visualizar markdown
-  use 'davidgranstrom/nvim-markdown-preview'
   use "ellisonleao/glow.nvim"
 
   -- Inteligência para Elm
