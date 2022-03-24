@@ -89,6 +89,7 @@ wk.register({
   c = {
     name = 'Code',
     a = { "<cmd>CocAction<CR>", 'Ações' },
+    c = { "<cmd>Telescope coc commands<CR>", 'Comandos'},
     d = { '<cmd>Telescope coc workspace_diagnostics<cr>', 'Problemas (diagnostics)' },
     -- d = { '<cmd>CocList diagnostics<cr>', 'Problemas (diagnostics)' },
     f = { "<cmd>call CocActionAsync('format')<CR>", 'Formatar código' },
