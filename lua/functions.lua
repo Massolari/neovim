@@ -108,4 +108,34 @@ function M.display_image(source)
   Terminal:new({ cmd = show_image, hidden = true, direction = 'float', close_on_exit = false }):toggle()
 end
 
+
+local function get_cur_word()
+  local line = vim.fn.getline('.')
+  local col = vim.fn.col('.') - 1
+  local left_part = vim.fn.strpart(line, 0, col + 1)
+  local right_part = vim.fn.strpart(line, col, vim.fn.col('$'))
+  local word = vim.fn.matchstr(left_part, [[\k*$]]) .. string.sub(vim.fn.matchstr(right_part, [[^\k*]]), 2)
+  return [[\<]] .. vim.fn.escape(word, [[/\]]) .. [[\>]]
+end
+
+local function jump_word(previous)
+  local word = get_cur_word()
+  if word == [[\<\>]] then
+      return
+  end
+  local flag = ''
+  if previous or false then
+      flag = 'b'
+  end
+  vim.fn.search(word, flag)
+end
+
+function M.jump_next_word()
+  jump_word(false)
+end
+
+function M.jump_previous_word()
+  jump_word(true)
+end
+
 return M

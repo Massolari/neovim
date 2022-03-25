@@ -20,6 +20,13 @@
   "diagnostic.warningSign": " ",
   "diagnostic.infoSign": " ",
   "diagnostic.hintSign": "",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "elm",
+    "js",
+    "ts"
+  ],
+  "documentHighlight.timeout": 200,
+  "codeLens.enable": true,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
