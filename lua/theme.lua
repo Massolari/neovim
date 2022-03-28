@@ -1,5 +1,6 @@
 if vim.g.colors_name == nil then
   vim.cmd('colorscheme gruvbox')
+  -- vim.cmd('colorscheme xcodelighthc')
 end
 
 vim.cmd('hi link NormalFloat Normal')

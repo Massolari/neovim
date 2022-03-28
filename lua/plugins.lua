@@ -75,6 +75,7 @@ return require 'packer'.startup(function(use)
 
   -- Gruvbox
   use 'ellisonleao/gruvbox.nvim'
+  use { 'arzg/vim-colors-xcode' }
 
 
   -- Mostra um git diff na coluna de número e comandos para hunks
@@ -164,12 +165,8 @@ return require 'packer'.startup(function(use)
     end
   }
 
-  -- Engine de snippets
-  use 'L3MON4D3/LuaSnip'
-  use "rafamadriz/friendly-snippets"
-
   -- Biblioteca de snippets
-  use 'honza/vim-snippets'
+  use "rafamadriz/friendly-snippets"
 
   -- Status line
   use {

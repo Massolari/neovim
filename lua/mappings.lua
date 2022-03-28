@@ -1,6 +1,5 @@
 local M = {}
 local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-local luasnip = require'luasnip'
 local function set_keymap(...) vim.api.nvim_set_keymap(...) end
 
 local wk = require'which-key'
