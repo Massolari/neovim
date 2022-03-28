@@ -138,4 +138,16 @@ function M.jump_previous_word()
   jump_word(true)
 end
 
+function M.symbol_line()
+  local curwin = vim.g.statusline_winid or 0
+  local curbuf = vim.api.nvim_win_get_buf(curwin)
+  local ok, line = pcall(vim.api.nvim_buf_get_var, curbuf, 'coc_symbol_line')
+  local str = ok and line or ''
+  -- return string.gsub(str, [[ .#CocSymbolLine#.*@(.*)%%X?]], '$1')
+  return str
+end
+
+-- vim.opt.tabline = '%!v:lua.symbol_line()'
+-- vim.o.statusline = '%!v:lua.symbol_line()'
+
 return M
