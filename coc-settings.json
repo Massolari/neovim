@@ -27,6 +27,7 @@
   ],
   "documentHighlight.timeout": 200,
   "codeLens.enable": true,
+  "codeLens.position": "eol",
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,

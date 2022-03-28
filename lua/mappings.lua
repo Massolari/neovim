@@ -27,7 +27,7 @@ wk.register({
 -- Insert
 wk.register({
   -- Mover no modo insert sem as setas
-  ['<c-b>'] = { '<left>', 'Move o cursor para a esquerda' },
+  -- ['<c-b>'] = { '<left>', 'Move o cursor para a esquerda' },
   ['<c-j>'] = {
     function ()
       if vim.fn['coc#expandableOrJumpable']() then
@@ -248,11 +248,14 @@ function M.setup()
   vim.cmd[[
     imap <silent><script><expr> <c-q> copilot#Accept("\<c-q>")
     let g:copilot_no_tab_map = v:true
+
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
     ]]
 end
 
 wk.register({
-  ['<c-space>'] = { 'coc#refresh()', 'Atualizar sugestões do autocomplete', expr=true },
+  ['<c-space>'] = { 'coc#refresh()', 'Atualizar sugestões do autocomplete', expr = true },
 }, { mode = 'i'  })
 
 vim.cmd[[
