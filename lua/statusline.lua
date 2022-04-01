@@ -109,7 +109,11 @@ ins_left {
 ins_left {
   function()
     -- return vim.b.coc_current_function or ''
-    return require'functions'.symbol_line()
+    local symbol_line = require'functions'.symbol_line()
+    if symbol_line ~= '' then
+      return symbol_line
+    end
+    return vim.b.coc_current_function or ''
     -- local current_function = vim.b.coc_current_function
     -- if current_function == nil then
     --   return ''

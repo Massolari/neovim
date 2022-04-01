@@ -75,7 +75,7 @@ return require 'packer'.startup(function(use)
 
   -- Gruvbox
   use 'ellisonleao/gruvbox.nvim'
-  use { 'arzg/vim-colors-xcode' }
+  use "projekt0n/github-nvim-theme"
 
 
   -- Mostra um git diff na coluna de número e comandos para hunks
@@ -288,5 +288,5 @@ return require 'packer'.startup(function(use)
   use "ellisonleao/glow.nvim"
 
   -- Inteligência para Elm
-  use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim'}
+  use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim', disable = true}
 end)
