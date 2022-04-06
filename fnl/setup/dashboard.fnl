@@ -4,7 +4,7 @@
 
 (g! dashboard_default_executive "telescope")
 
-(g! dashboard_custom_header (vim.fn.systemlist (.. "cat" config-folder "/neovim.cat")))
+(g! dashboard_custom_header (vim.fn.systemlist (.. "cat " config-folder "/neovim.cat")))
 
 (let [user-file (.. config-folder "/lua/user/init.lua")]
   (g!
