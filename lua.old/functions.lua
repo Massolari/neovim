@@ -147,7 +147,4 @@ function M.symbol_line()
   return str
 end
 
--- vim.opt.tabline = '%!v:lua.symbol_line()'
--- vim.o.statusline = '%!v:lua.symbol_line()'
-
 return M

@@ -183,5 +183,10 @@ local quotes = {
   {'What one programmer can do in one month, two programmers can do in two months.', '- Frederick P. Brooks'},
 }
 
-vim.g.dashboard_custom_footer = quotes[math.random(#quotes)]
+local function get_quote()
+  math.randomseed(os.time())
+  return quotes[math.random(#quotes)]
+end
+
+vim.g.dashboard_custom_footer = get_quote()
 -- vim.g.dashboard_custom_footer = footer

@@ -67,7 +67,6 @@ return require 'packer'.startup(function(use)
   }
 
   -- Habilita a busca rapida usando duas letras
-  -- use 'ggandor/lightspeed.nvim'
   use {
     'rlane/pounce.nvim',
     config = function() require 'pounce'.setup {} end
@@ -289,4 +288,8 @@ return require 'packer'.startup(function(use)
 
   -- Inteligência para Elm
   use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim', disable = true}
+
+  -- tangerine
+  use 'udayvir-singh/tangerine.nvim'
+  use 'udayvir-singh/hibiscus.nvim'
 end)

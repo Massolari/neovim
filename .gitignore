@@ -1,3 +1,4 @@
+lua/
 lua/user/init.lua
 lua/user/plugins.lua
-plugin/
+plugin/packer_compiled.lua
