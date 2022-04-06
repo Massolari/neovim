@@ -1,12 +1,9 @@
 (require-macros :hibiscus.vim)
 (require-macros :hibiscus.packer)
 
-(exec [
-  [:packadd "packer.nvim"]
-  [:packadd "matchit"]
-])
+(exec [[:packadd "matchit"]])
 
-;; (local packer (require :packer))
+(packer-setup)
 
 (fn setup [package config]
   "Faz o require e chama o setup com o valor de config"
@@ -129,7 +126,7 @@
   ; Status line
   (use! :nvim-lualine/lualine.nvim
         :requires { 1 :kyazdani42/nvim-web-devicons :opt true }
-        :config #(require :statusline))
+        :module "statusline")
 
   ; Guia de atalhos
   (use! :folke/which-key.nvim
