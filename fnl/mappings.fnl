@@ -139,7 +139,7 @@
        :s
          ["<cmd>lua require'functions'['command-with-args']('Save session> ', 'default', 'customlist,xolox#session#complete_names_with_suggestions', 'SaveSession')<CR>"
          "Salvar"]}
-     :t "Terminal"
+     :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" "Terminal"]
      :v ["<cmd>vsplit<CR>" "Dividir verticalmente"]
      :w
        {:name "Window"

@@ -1,20 +1,18 @@
 (require-macros :hibiscus.vim)
+(require-macros :hibiscus.packer)
 
 (exec [
   [:packadd "packer.nvim"]
   [:packadd "matchit"]
 ])
 
-(local packer (require :packer))
+;; (local packer (require :packer))
 
 (fn setup [package config]
   "Faz o require e chama o setup com o valor de config"
   (#(let [p (require package)] (p.setup config))))
 
-(packer.startup (fn [use]
-  ; Packer can manage itself
-  (use :wbthomason/packer.nvim)
-
+(packer
   ; Suporte à fennel
   (use :udayvir-singh/tangerine.nvim)
   (use :udayvir-singh/hibiscus.nvim)
@@ -28,11 +26,11 @@
 
   ; Sessões
   (use :xolox/vim-misc)
-  (use {1 :xolox/vim-session
-        :requires :xolox/vim-misc})
+  (use! :xolox/vim-session
+        :requires :xolox/vim-misc)
 
   ; Buscador
-  (use {1 :nvim-telescope/telescope.nvim
+  (use! :nvim-telescope/telescope.nvim
         :requires :nvim-lua/plenary.nvim
         :config (fn []
           (let [telescope (require :telescope)
@@ -45,30 +43,29 @@
                   :<c-k> actions.move_selection_previous
                   :<esc> actions.close}}}})
             (telescope.load_extension "fzf")
-            (telescope.load_extension "coc")))})
+            (telescope.load_extension "coc"))))
 
-  (use {1 :nvim-telescope/telescope-fzf-native.nvim :run "make"})
+  (use! :nvim-telescope/telescope-fzf-native.nvim :run "make")
   (use :fannheyward/telescope-coc.nvim)
 
   ; Sintasse para várias linguagens
-  (use {1 :nvim-treesitter/nvim-treesitter
-        :run ":TSUpdate"})
+  (use! :nvim-treesitter/nvim-treesitter
+        :run ":TSUpdate")
 
   ; Comentário de forma fácil
-  (use {1 :numToStr/Comment.nvim
-        :config
-          (setup :Comment {})})
+  (use! :numToStr/Comment.nvim
+        :config (setup :Comment {}))
 
   ; Habilita o uso do emmet (<C-g>,)
-  (use {1 :mattn/emmet-vim
+  (use! :mattn/emmet-vim
         :config (fn []
           ; Usar o emmet apenas no modo visual ou no modo inserção
           (g! user_emmet_mode "iv")
-          (g! user_emmet_leader_key "<C-g>"))})
+          (g! user_emmet_leader_key "<C-g>")))
 
   ; Habilita a busca rapida usando duas letras
-  (use {1 :rlane/pounce.nvim
-        :config (setup :pounce {})})
+  (use! :rlane/pounce.nvim
+        :config (setup :pounce {}))
 
   ; Temas
   (use :ellisonleao/gruvbox.nvim)
@@ -76,7 +73,7 @@
 
 
   ; Mostra um git diff na coluna de número e comandos para hunks
-  (use {1 :lewis6991/gitsigns.nvim
+  (use! :lewis6991/gitsigns.nvim
         :requires :nvim-lua/plenary.nvim
         :config (setup :gitsigns
           {:numhl false
@@ -91,15 +88,15 @@
             "v <leader>ghu" "<cmd>lua require\"gitsigns\".reset_hunk({vim.fn.line(\".\"), vim.fn.line(\"v\")})<CR>"
             "n <leader>ghv" "<cmd>lua require\"gitsigns\".preview_hunk()<CR>"}
            :current_line_blame true
-           :current_line_blame_opts {:delay 0}})})
+           :current_line_blame_opts {:delay 0}}))
 
   ; Mostra linhas de indentação
-  (use {1 :lukas-reineke/indent-blankline.nvim
-        :config (setup :indent_blankline {:show_current_context true})})
+  (use! :lukas-reineke/indent-blankline.nvim
+        :config (setup :indent_blankline {:show_current_context true}))
 
   ; Auto-fechamento de delimitadores
-  (use {1 :windwp/nvim-autopairs
-        :config (setup :nvim-autopairs {})})
+  (use! :windwp/nvim-autopairs
+        :config (setup :nvim-autopairs {}))
 
   ; Operação com delimitadores
   (use :tpope/vim-surround)
@@ -111,55 +108,54 @@
   (use :wellle/targets.vim)
 
   ; Explorador de arquivos
-  (use {1 :kyazdani42/nvim-tree.lua
+  (use! :kyazdani42/nvim-tree.lua
         :requires :kyazdani42/nvim-web-devicons
-        :config (setup :nvim-tree {:disable_netrw false})})
+        :config (setup :nvim-tree {:disable_netrw false}))
 
   ; Warper para comandos do git
-  (use {1 :tpope/vim-fugitive
+  (use! :tpope/vim-fugitive
         :opt true
-        :cmd ["G" "Git" "Gdiff" "Gclog" "Gwrite"]})
-  (use {1 :pwntester/octo.nvim
+        :cmd ["G" "Git" "Gdiff" "Gclog" "Gwrite"])
+  (use! :pwntester/octo.nvim
         :requires
-        [:nvim-lua/plenary.nvim
-         :nvim-telescope/telescope.nvim
-         :kyazdani42/nvim-web-devicons]
-        :config (setup :octo {})})
+          [:nvim-lua/plenary.nvim
+           :nvim-telescope/telescope.nvim
+           :kyazdani42/nvim-web-devicons]
+        :config (setup :octo {}))
 
   ; Biblioteca de snippets
   (use :rafamadriz/friendly-snippets)
 
   ; Status line
-  (use {1 :nvim-lualine/lualine.nvim
+  (use! :nvim-lualine/lualine.nvim
         :requires { 1 :kyazdani42/nvim-web-devicons :opt true }
-        :config #(require :statusline)})
+        :config #(require :statusline))
 
   ; Guia de atalhos
-  (use {1 :folke/which-key.nvim
+  (use! :folke/which-key.nvim
         :config (setup :which-key
          {:plugins
           {:spelling
-           {:enabled true}}})})
+           {:enabled true}}}))
 
   ; Cliente REST
-  (use {1 :diepm/vim-rest-console
+  (use! :diepm/vim-rest-console
         :opt true
-        :ft "rest"})
+        :ft "rest")
 
   ; LSP do Nvim
-  (use {1 :neoclide/coc.nvim :branch "release"})
+  (use! :neoclide/coc.nvim :branch "release")
 
   ; Alternador de terminal
-  (use {1 :akinsho/nvim-toggleterm.lua
+  (use! :akinsho/nvim-toggleterm.lua
         :config (setup :toggleterm
-          {:open_mapping "<leader>t"
-           :shade_terminals false
+          {:shade_terminals false
            :direction "horizontal"
            :insert_mappings false
-           :terminal_mappings false})})
+           :terminal_mappings false}))
 
   ; Buffers no topo
-  (use {1 :akinsho/bufferline.nvim
+  (use! :akinsho/bufferline.nvim
         :requires :kyazdani42/nvim-web-devicons
         :config (setup :bufferline
           {:options
@@ -174,7 +170,7 @@
                     (= e "hint")
                     (set diagnostics.hint (.. "  " n))
                     (set diagnostics.info (.. "  " n))))
-                (.. diagnostics.error diagnostics.warning diagnostics.hint diagnostics.info)))}})})
+                (.. diagnostics.error diagnostics.warning diagnostics.hint diagnostics.info)))}}))
 
   ; Copiloto
   (use :github/copilot.vim)
@@ -183,11 +179,11 @@
   (use :antoinemadec/FixCursorHold.nvim)
 
   ; Colorir hexademical de cores
-  (use {1 :norcalli/nvim-colorizer.lua
+  (use! :norcalli/nvim-colorizer.lua
         :config (setup :colorizer
           {1 :*
            :css {:hsl_fn true}
-           :scss {:hsl_fn true}})})
+           :scss {:hsl_fn true}}))
 
   ; Dashboard
   (use :ChristianChiarulli/dashboard-nvim)
@@ -196,8 +192,8 @@
   (use :gelguy/wilder.nvim)
 
   ; Integração com Dash (MacOS)
-  (use {1 :mrjones2014/dash.nvim
-        :run "make install"})
+  (use! :mrjones2014/dash.nvim
+        :run "make install")
 
   ; Pré-visualizar markdown
   (use :ellisonleao/glow.nvim)
@@ -205,5 +201,5 @@
   (let [user-file (.. (vim.fn.stdpath "config") "/lua/user/plugins.lua")]
     (when (> (vim.fn.filereadable user-file) 0)
       (setup :user.plugins use)))
-  ))
+  )
 
