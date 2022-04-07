@@ -1,4 +1,5 @@
 (require-macros :hibiscus.vim)
+(require-macros :hibiscus.core)
 
 (fn get-file-path []
   (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
@@ -68,7 +69,7 @@
   (table.insert config.inactive_sections.lualine_x component))
 
 (ins-left
-  {1 #("▊")
+  {1 (fn [] "▊")
    :color {:fg colors.blue}
    :padding {:left 0 :right 1}
    :separator ""})
@@ -94,10 +95,11 @@
 
 (ins-left
   {1 (fn []
-    (let [symbol-line (functions.symbol-line)]
+    (let [symbol-line (functions.symbol-line)
+          current-function vim.b.coc_current_function]
       (if (~= symbol-line "")
         symbol-line
-        (or vim.b.coc_current_function ""))))
+        (if (string? current-function) current-function ""))))
    :cond buffer-not-empty?
    :color {:fg colors.blue :gui "bold"}
    :padding {:left 1 :right 0}
@@ -125,7 +127,7 @@
    :separator ""})
 
 (ins-right
-  {1 #("▊")
+  {1 (fn [] "▊")
    :color {:fg colors.blue}
    :padding 0})
 

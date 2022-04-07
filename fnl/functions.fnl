@@ -113,7 +113,7 @@
     (let [curwin (or vim.g.statusline_winid 0)
           curbuf (vim.api.nvim_win_get_buf curwin)
           (ok line) (pcall vim.api.nvim_buf_get_var curbuf "coc_symbol_line")
-          str (and ok (or line ""))]
+          str (if ok line "")]
       str)))
 
 M
