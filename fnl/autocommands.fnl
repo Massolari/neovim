@@ -29,11 +29,6 @@
 (augroup! :_format-save
   [[BufWrite]  *  #(vim.lsp.buf.formatting_sync nil 1000)])
 
-(augroup! :_filetype-changes
-  [[BufWinEnter]  .zsh  "setlocal filetype=sh"]
-  [[BufRead]  *.zsh  "setlocal filetype=sh"]
-  [[BufNewFile]  *.zsh  "setlocal filetype=sh"])
-
 (augroup! :_git
   [[FileType]  gitcommit  "setlocal wrap"]
   [[FileType]  [gitcommit octo]  "setlocal spell"])
@@ -58,3 +53,18 @@
   [[FileType]  [typescript json]  "setl formatexpr=CocAction('formatSelected')"]
   [[User]  CocJumpPlaceholder  "call CocActionAsync('showSignatureHelp')"]
   [[CursorHold]  *  "silent call CocActionAsync('highlight')"])
+
+(fn source-file []
+  (let [file-name (vim.fn.expand "%:t:r")
+        file-path (vim.fn.expand "%:h:r")
+        config-folder (vim.fn.stdpath "config")
+        lua-file (.. config-folder "/" (vim.fn.expand "%:p:.:gs?fnl?lua?"))
+        source-file
+          (if (and (= file-name "init") (= file-path "."))
+            (.. config-folder "/lua/tangerine_vimrc.lua")
+            lua-file)]
+      (exec [[":source " source-file]])
+      (print (.. "sourced: " source-file))))
+
+(augroup! :_config
+  [[BufWritePost] *.fnl 'source-file])
