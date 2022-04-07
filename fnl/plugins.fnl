@@ -19,7 +19,7 @@
   (use :kyazdani42/nvim-web-devicons)
 
   ; Editorconfig
-  (use :editorconfig/editorconfig-vim)
+  (use :gpanders/editorconfig.nvim)
 
   ; Sessões
   (use :xolox/vim-misc)
