@@ -199,7 +199,7 @@
 (map! [v] :J ":m '>+1<CR>gv=gv")
 
 ; Aceitar sugestão do copilot
-(map! [i :script :expr :remap] :c-q "copilot#Accept(\"\\<c-q>\")")
+(map! [i :script :expr :remap] :<c-q> "copilot#Accept(\"\\<c-q>\")")
 
 ; Rolar documentação da janela do CoC
 (map! [i :nowait :expr] :<c-f> "coc#float#has_scroll() ? \"\\<c-r>=coc#float#scroll(1)\\<cr>\" : \"\\<Right>\"")
