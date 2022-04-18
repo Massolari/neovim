@@ -219,6 +219,6 @@
 (wk.register
   {:d ["<Plug>(coc-definition)" "Definição"]
    :i ["<Plug>(coc-implementation)" "Implementação"]
-   :r ["<Plug>(coc-type-definition)" "Referências"]
+   :r ["<cmd>Telescope coc references<CR>" "Referências"]
    :y ["<Plug>(coc-type-definition)" "Definição do tipo"]}
   (vim.tbl_extend "force" options {:mode "n" :prefix "g"}))
