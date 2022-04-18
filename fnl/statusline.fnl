@@ -9,8 +9,6 @@
       ""
       (.. formatted-path "/"))))
 
-(set _G.file-path get-file-path)
-
 (local functions (require :functions))
 
 (local get-color functions.get-color)
