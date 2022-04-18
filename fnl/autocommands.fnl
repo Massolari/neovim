@@ -45,7 +45,7 @@
         config-folder (vim.fn.stdpath "config")
         lua-file (.. config-folder "/" (vim.fn.expand "%:p:.:gs?fnl?lua?"))
         source-file
-          (if (= file-name "./init")
+          (if (= file-name "init")
             (.. config-folder "/lua/tangerine_vimrc.lua")
             lua-file)]
       (exec [[":source " source-file]])
