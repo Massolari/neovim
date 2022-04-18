@@ -1,9 +1,5 @@
 (require-macros :hibiscus.vim)
 
-(fn highlight []
-  (let [highlight (require :vim.highlight)]
-    (highlight.on_yank {:higroup "Search" :timeout 200})))
-
 (fn recover-position []
   (let [line-position (vim.fn.line "'\"")]
     (when (and (> line-position 1) (<= line-position (vim.fn.line "$")))
@@ -15,31 +11,24 @@
 
 (augroup! :_general-settings
   [[FileType] [qf help man] 'map-q-to-close]
-  [[TextYankPost] * 'highlight]
+  [[TextYankPost] * #(vim.highlight.on_yank {:higroup "Search" :timeout 200})]
   [[BufWinEnter] dashboard "setlocal cursorline signcolumn=yes cursorcolumn number"]
   [[FileType] qf #(set! nobuflisted)]
   [[FileType] qf #(map! [n :buffer] :<CR> "<CR>")]
   [[BufReadPost] * 'recover-position]
   [[BufEnter FocusGained InsertLeave] * #(set! relativenumber)]
-  [[BufLeave FocusLost InsertEnter]  *  #(set! norelativenumber)])
-
-(augroup! :_format-save
-  [[BufWrite]  *  #(vim.lsp.buf.formatting_sync nil 1000)])
+  [[BufLeave FocusLost InsertEnter]  *  #(set! relativenumber false)])
 
 (augroup! :_git
   [[FileType]  gitcommit  "setlocal wrap"]
   [[FileType]  [gitcommit octo]  "setlocal spell"])
 
 (augroup! :_markdown
-  [[FileType]  markdown  "setlocal wrap"]
-  [[FileType]  markdown  "setlocal spell"])
+  [[FileType]  [markdown txt]  "setlocal wrap spell"])
 
 (augroup! :_auto_resize
   ; will cause split windows to be resized evenly if main window is resized
   [[VimResized]  *  "tabdo wincmd ="])
-
-(augroup! :_general_lsp
-  [[FileType]  [lspinfo lsp-installer null-ls-info] 'map-q-to-close])
 
 (augroup! :_dashboard
   ; seems to be nobuflisted that makes my stuff disappear will do more testing
@@ -52,12 +41,11 @@
   [[CursorHold]  *  "silent call CocActionAsync('highlight')"])
 
 (fn source-file []
-  (let [file-name (vim.fn.expand "%:t:r")
-        file-path (vim.fn.expand "%:h:r")
+  (let [file-name (vim.fn.expand "%:r")
         config-folder (vim.fn.stdpath "config")
         lua-file (.. config-folder "/" (vim.fn.expand "%:p:.:gs?fnl?lua?"))
         source-file
-          (if (and (= file-name "init") (= file-path "."))
+          (if (= file-name "./init")
             (.. config-folder "/lua/tangerine_vimrc.lua")
             lua-file)]
       (exec [[":source " source-file]])
