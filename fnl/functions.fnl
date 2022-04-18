@@ -10,21 +10,19 @@
     (> (vim.fn.len wanted-windows) 0)))
 
 (set M.toggle-quickfix
-  (fn []
-    (let [is-open? (is-location-quickfix-open? "quickfix")]
-      (if is-open?
-        (exec [[:cclose]])
-        (exec [[:botright "copen 10"]])))))
+  #(let [is-open? (is-location-quickfix-open? "quickfix")]
+    (if is-open?
+      (exec [[:cclose]])
+      (exec [[:botright "copen 10"]]))))
 
 
 (set M.toggle-location-list
-  (fn []
-    (let [is-open? (is-location-quickfix-open? "location")]
-      (if is-open?
-        (exec [[:lclose]])
-        (let [(status err) (pcall vim.cmd ":lopen 10")]
-          (when (not status)
-            (print err)))))))
+  #(let [is-open? (is-location-quickfix-open? "location")]
+    (if is-open?
+      (exec [[:lclose]])
+      (let [(status err) (pcall vim.cmd ":lopen 10")]
+        (when (not status)
+          (print err))))))
 
 (set M.command-with-args
   (fn [prompt default completion command]
@@ -34,14 +32,13 @@
         (vim.cmd (.. ":" command input))))))
 
 (set M.checkout-new-branch
-  (fn []
-    (let [(status branch) (pcall vim.fn.input "New branch name> ")]
-      (when (and (not status) (~= branch ""))
-        (exec [
-          [:echo "\\r\""]
-          [:echohl "Directory"]
-          [":Git" (.. "checkout -b " branch)]
-          [:echohl "None"]])))))
+  #(let [(status branch) (pcall vim.fn.input "New branch name> ")]
+    (when (and (not status) (~= branch ""))
+      (exec [
+        [:echo "\\r\""]
+        [:echohl "Directory"]
+        [":Git" (.. "checkout -b " branch)]
+        [:echohl "None"]]))))
 
 
 ; Get the user input for what he wants to search for with vimgrep
@@ -65,8 +62,7 @@
 ; Lazygit
 (let [lazygit (Terminal:new {:cmd "lazygit" :hidden true :direction "float" :id 1000})]
   (set M.lazygit-toggle
-    (fn []
-      (lazygit:toggle))))
+    #(lazygit:toggle)))
 
 
 ; Get a color form a highlight group
@@ -100,18 +96,15 @@
     (vim.fn.search word flag)))
 
 (set M.jump-next-word
-  (fn []
-    (jump-word false)))
+  #(jump-word false))
 
 (set M.jump-previous-word
-  (fn []
-    (jump-word true)))
+  #(jump-word true))
 
 (set M.symbol-line
-  (fn []
-    (let [curwin (or vim.g.statusline_winid 0)
-          curbuf (vim.api.nvim_win_get_buf curwin)
-          (ok line) (pcall vim.api.nvim_buf_get_var curbuf "coc_symbol_line")]
-      (or (and ok line) ""))))
+  #(let [curwin (or vim.g.statusline_winid 0)
+        curbuf (vim.api.nvim_win_get_buf curwin)
+        (ok line) (pcall vim.api.nvim_buf_get_var curbuf "coc_symbol_line")]
+    (or (and ok line) "")))
 
 M
