@@ -89,10 +89,9 @@
         left-part (vim.fn.strpart line 0 (+ col 1))
         right-part (vim.fn.strpart line col (vim.fn.col "$"))
         word
-          (vim.fn.matchstr
-           left-part
-           (.. "\\k*$" (string.sub (vim.fn.matchstr right-part) "^\\k*"))
-           2)]
+          (..
+            (vim.fn.matchstr left-part "\\k*$")
+            (string.sub (vim.fn.matchstr right-part "^\\k*") 2))]
     (.. "\\<" (vim.fn.escape word (.. "/\\" "\\>")))))
 
 (fn jump-word [previous]
