@@ -23,9 +23,6 @@
   [[BufEnter FocusGained InsertLeave] * #(set! relativenumber)]
   [[BufLeave FocusLost InsertEnter]  *  #(set! norelativenumber)])
 
-(augroup! :_format-options
-  [[BufWinEnter BufRead BufNewFile]  *  "setlocal formatoptions-=c formatoptions-=r formatoptions-=o" ])
-
 (augroup! :_format-save
   [[BufWrite]  *  #(vim.lsp.buf.formatting_sync nil 1000)])
 

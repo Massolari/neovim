@@ -4,6 +4,11 @@
 (set! fileencoding "utf-8")
 (set! fileformats ["unix" "dos" "mac"])
 
+; Formatação
+(rem! formatoptions "c")
+(rem! formatoptions "r")
+(rem! formatoptions "o")
+
 ; Comportamento do Tab
 (set! tabstop 4)
 (set! softtabstop 0)
