@@ -4,10 +4,12 @@
 (fn get-file-path []
   (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
         formatted-cwd (string.gsub (vim.fn.getcwd) "\\-" "\\-")
-        formatted-path (string.gsub path (.. formatted-cwd "/" ""))]
+        formatted-path (string.gsub path (.. formatted-cwd "/") "")]
     (if (= formatted-path ".")
       ""
       (.. formatted-path "/"))))
+
+(set _G.file-path get-file-path)
 
 (local functions (require :functions))
 
