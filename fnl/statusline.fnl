@@ -36,6 +36,7 @@
   {:options
     {:disabled_filetypes ["dashboard"]
      :component_separators "·"
+     :globalstatus (= (vim.opt.laststatus:get) 3)
      :section_separators ""}
    :sections
     {:lualine_a {}

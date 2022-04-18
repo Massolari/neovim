@@ -11,5 +11,6 @@
   (when (> (vim.fn.filereadable user-file) 0)
     (require :user)))
 
+(require :statusline)
 (require :setup)
 (require :theme)

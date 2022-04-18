@@ -125,8 +125,7 @@
 
   ; Status line
   (use! :nvim-lualine/lualine.nvim
-        :requires { 1 :kyazdani42/nvim-web-devicons :opt true }
-        :module "statusline")
+        :requires { 1 :kyazdani42/nvim-web-devicons :opt true })
 
   ; Guia de atalhos
   (use! :folke/which-key.nvim
