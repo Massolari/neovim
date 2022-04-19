@@ -111,4 +111,6 @@
                                            :coc_symbol_line)]
                       (or (and ok line) "")))
 
+(set M.file-exists? #(> (vim.fn.filereadable $1) 0))
+
 M

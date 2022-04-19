@@ -8,7 +8,8 @@
 (fn map-q-to-close []
   (map! [n :buffer] :q ":close<CR>"))
 
-(augroup! :_general-settings [[FileType] [qf help man] `map-q-to-close]
+(augroup! :_general-settings ; autocmds gerais
+          [[FileType] [qf help man] `map-q-to-close]
           [[TextYankPost]
            *
            #(vim.highlight.on_yank {:higroup :Search :timeout 200})]
@@ -21,7 +22,8 @@
           [[BufEnter FocusGained InsertLeave] * #(set! relativenumber)]
           [[BufLeave FocusLost InsertEnter] * #(set! relativenumber false)])
 
-(augroup! :_git [[FileType] gitcommit "setlocal wrap"]
+(augroup! :_git ; autocmd para arquivos do git
+          [[FileType] gitcommit "setlocal wrap"]
           [[FileType] [gitcommit octo] "setlocal spell"])
 
 (augroup! :_markdown [[FileType] [markdown txt] "setlocal wrap spell"])
@@ -37,9 +39,10 @@
            "setlocal nocursorline noswapfile synmaxcol& signcolumn=no norelativenumber nocursorcolumn nospell  nolist  nonumber bufhidden=wipe colorcolumn= foldcolumn=0 matchpairs= "]
           [[FileType] dashboard #(map! [n :buffer] :q ":q<CR>")])
 
-(augroup! :_coc [[FileType]
-                 [typescript json]
-                 "setl formatexpr=CocAction('formatSelected')"]
+(augroup! :_coc ; coc autocmds
+          [[FileType]
+           [typescript json]
+           "setl formatexpr=CocAction('formatSelected')"]
           [[User]
            CocJumpPlaceholder
            "call CocActionAsync('showSignatureHelp')"]
@@ -59,5 +62,6 @@
   (when (= 1 (vim.fn.executable :fnlfmt))
     (exec [[":silent !fnlfmt --fix %"]])))
 
-(augroup! :_config [[BufWritePost] *.fnl `source-file]
+(augroup! :_config ;autocmd para arquivos de configuração fennel
+          [[BufWritePost] *.fnl `source-file]
           [[BufWritePost] *.fnl `format-fennel])

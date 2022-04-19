@@ -1,4 +1,5 @@
 (require-macros :hibiscus.vim)
+(local {: file-exists?} (require :functions))
 
 (require :plugins)
 (require :settings)
@@ -8,7 +9,7 @@
 
 ; Arquivo de configuração do usuário
 (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/init.lua)]
-  (when (> (vim.fn.filereadable user-file) 0)
+  (when (file-exists? user-file)
     (require :user)))
 
 (require :statusline)
