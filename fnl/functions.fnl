@@ -33,9 +33,9 @@
 
 (set M.checkout-new-branch
   #(let [(status branch) (pcall vim.fn.input "New branch name> ")]
-    (when (and (not status) (~= branch ""))
+    (when (and status (~= branch ""))
       (exec [
-        [:echo "\\r\""]
+        [:echo "\"\\r\""]
         [:echohl "Directory"]
         [":Git" (.. "checkout -b " branch)]
         [:echohl "None"]]))))
