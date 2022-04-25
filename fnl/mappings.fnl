@@ -83,6 +83,7 @@
                   :d ["<cmd>lua require'dash'.search()<CR>" :Dash]
                   :g ["<cmd>lua require'functions'['vim-grep']()<CR>"
                       "Buscar com vimgrep"]
+                  :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]
                   :i ["<cmd>lua require'functions'['display-image'](vim.fn.expand('<cfile>'))<CR>"
                       "Exibir imagem sob o cursor"]
                   :q [:<cmd>qa<CR> :Fechar]}
