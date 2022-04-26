@@ -80,7 +80,8 @@
               :e {:name :Editor
                   :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
                       "Temas (colorscheme)"]
-                  :d ["<cmd>lua require'dash'.search()<CR>" :Dash]
+                  :d ["<Cmd>lua require'better-digraphs'.digraphs('i')<CR>"
+                      "Dígrafos"]
                   :g ["<cmd>lua require'functions'['vim-grep']()<CR>"
                       "Buscar com vimgrep"]
                   :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]

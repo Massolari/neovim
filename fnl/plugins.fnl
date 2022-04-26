@@ -47,7 +47,7 @@
                            :keymaps {:noremap true
                                      :buffer true
                                      "n ]c" {:expr true
-                                             1 "&diff ']c' '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"}
+                                             1 "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"}
                                      "n [c" {:expr true
                                              1 "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"}
                                      "n <leader>ghu" "<cmd>lua require\"gitsigns\".reset_hunk()<CR>"
@@ -138,11 +138,10 @@
                                   :scss {:hsl_fn true}})))
         (use :ChristianChiarulli/dashboard-nvim) ; Dashboard
         (use :gelguy/wilder.nvim) ; Wildmenu melhorado
-        (use! :mrjones2014/dash.nvim ; Integração com Dash (MacOS)
-              :run "make install") ;
         (use :ellisonleao/glow.nvim) ; Pré-visualizar markdown
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
               :requires :RishabhRD/popfix)
+        (use :protex/better-digraphs.nvim)
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)
