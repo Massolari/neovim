@@ -81,7 +81,7 @@
                   :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
                       "Temas (colorscheme)"]
                   :d ["<Cmd>lua require'better-digraphs'.digraphs('i')<CR>"
-                      "Dígrafos"]
+                      "Inserir dígrafo"]
                   :g ["<cmd>lua require'functions'['vim-grep']()<CR>"
                       "Buscar com vimgrep"]
                   :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]
