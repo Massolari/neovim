@@ -142,6 +142,8 @@
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
               :requires :RishabhRD/popfix)
         (use :protex/better-digraphs.nvim)
+        (use! :rcarriga/nvim-notify ; Notificações mais bonitas
+              :config #(set vim.notify (require :notify)))
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)

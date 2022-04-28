@@ -1,5 +1,7 @@
 (require-macros :hibiscus.vim)
 
+(local {: show-info} (require :functions))
+
 (fn recover-position []
   (let [line-position (vim.fn.line "'\"")]
     (when (and (> line-position 1) (<= line-position (vim.fn.line "$")))
@@ -56,7 +58,7 @@
                         (.. config-folder :/lua/tangerine_vimrc.lua)
                         lua-file)]
     (exec [[":source " source-file]])
-    (print (.. "sourced: " source-file))))
+    (show-info (.. "sourced: " source-file) :Source)))
 
 (fn format-fennel []
   (when (= 1 (vim.fn.executable :fnlfmt))
