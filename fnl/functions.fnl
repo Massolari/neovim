@@ -48,7 +48,7 @@
              input (if (and (= maybe-input "") (not= default nil)) default
                        maybe-input)]
          (when status
-           (vim.cmd (.. ":" command input))))))
+           (vim.cmd (.. ":" command " " input))))))
 
 (set M.checkout-new-branch
      #(let [(status branch) (pcall vim.fn.input "New branch name> ")]
