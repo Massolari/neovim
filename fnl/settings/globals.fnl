@@ -31,3 +31,10 @@
 
 ; Copilot
 (g! copilot_no_tab_map true)
+
+; Vim-multi
+
+(g! VM_maps {"Find Under" ""
+             "Find Subword Under" ""
+             "Add Cursor Down" :<C-g>
+             "Add Cursor Up" :<C-t>})

@@ -144,6 +144,8 @@
         (use :protex/better-digraphs.nvim)
         (use! :rcarriga/nvim-notify ; Notificações mais bonitas
               :config #(set vim.notify (require :notify)))
+        (use! :mg979/vim-visual-multi ; Múltiplos cursores
+              :branch :master)
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)
