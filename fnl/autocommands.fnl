@@ -62,7 +62,7 @@
 
 (fn format-fennel []
   (when (= 1 (vim.fn.executable :fnlfmt))
-    (exec [[":silent !fnlfmt --fix %"]])))
+    (exec [[:silent "!fnlfmt --fix %"]])))
 
 (augroup! :_config ;autocmd para arquivos de configuração fennel
           [[BufWritePost] *.fnl `source-file]

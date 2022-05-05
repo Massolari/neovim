@@ -4,3 +4,4 @@
 (require :settings.vrc)
 (require :settings.treesitter)
 (require :settings.wilder)
+(require :settings.notify)

@@ -141,9 +141,8 @@
         (use :ellisonleao/glow.nvim) ; Pré-visualizar markdown
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
               :requires :RishabhRD/popfix)
-        (use :protex/better-digraphs.nvim)
-        (use! :rcarriga/nvim-notify ; Notificações mais bonitas
-              :config #(set vim.notify (require :notify)))
+        (use :protex/better-digraphs.nvim) ; Dígrafos
+        (use :rcarriga/nvim-notify) ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
               :branch :master)
         (local {: file-exists?} (require :functions))
