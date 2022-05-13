@@ -3,25 +3,25 @@
 (local Terminal (. (require :toggleterm.terminal) :Terminal))
 (local M {})
 
-(fn show-notification [msg level title opts]
-  (let [options (or opts {})]
+(λ show-notification [msg level title ?opts]
+  (let [options (or ?opts {})]
     (set options.title title)
     (vim.notify msg level options)))
 
-(fn show-warning [msg title opts]
-  (show-notification msg vim.log.levels.WARN title opts))
+(λ show-warning [msg title ?opts]
+  (show-notification msg vim.log.levels.WARN title ?opts))
 
-(fn show-info [msg title opts]
-  (show-notification msg :info title opts))
+(λ show-info [msg title ?opts]
+  (show-notification msg :info title ?opts))
 
-(fn show-error [msg title opts]
-  (show-notification msg :error title opts))
+(λ show-error [msg title ?opts]
+  (show-notification msg :error title ?opts))
 
 (set M.show-warning show-warning)
 (set M.show-info show-info)
 (set M.show-error show-error)
 
-(fn is-location-quickfix-open? [window]
+(λ is-location-quickfix-open? [window]
   (let [query (if (= window :quickfix) "v:val.quickfix && !v:val.loclist"
                   "!v:val.quickfix && v:val.loclist")
         windows (vim.fn.getwininfo)
@@ -43,7 +43,7 @@
                 (show-warning err "Location list"))))))
 
 (set M.command-with-args
-     (fn [prompt default completion command]
+     (λ [prompt default completion command]
        (let [(status maybe-input) (pcall vim.fn.input prompt "" completion)
              input (if (and (= maybe-input "") (not= default nil)) default
                        maybe-input)]
@@ -105,7 +105,7 @@
                                                          :close_on_exit false})]
                          (image-window:toggle))))
 
-(fn get-cur-word []
+(λ get-cur-word []
   (let [line (vim.fn.getline ".")
         col (vim.fn.col ".")
         left-part (vim.fn.strpart line 0 (+ col 1))
@@ -114,7 +114,7 @@
                  (string.sub (vim.fn.matchstr right-part "^\\k*") 2))]
     (.. "\\<" (vim.fn.escape word (.. "/\\" "\\>")))))
 
-(fn jump-word [previous]
+(λ jump-word [previous]
   (let [word (get-cur-word)
         flag (if previous :b "")]
     (vim.fn.search word flag)))
