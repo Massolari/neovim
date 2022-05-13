@@ -105,26 +105,17 @@
                                                               (let [diagnostics {:error ""
                                                                                  :warning ""
                                                                                  :hint ""
-                                                                                 :info ""}]
+                                                                                 :info ""}
+                                                                    get-icon #(match $1
+                                                                                :error "  "
+                                                                                :warning "  "
+                                                                                :hint "  "
+                                                                                :info "  ")]
                                                                 (each [e n (pairs diagnostics_dict)]
-                                                                  (if (= e
-                                                                         :error)
-                                                                      (set diagnostics.error
-                                                                           (.. "  "
-                                                                               n))
-                                                                      (= e
-                                                                         :warning)
-                                                                      (set diagnostics.warning
-                                                                           (.. "  "
-                                                                               n))
-                                                                      (= e
-                                                                         :hint)
-                                                                      (set diagnostics.hint
-                                                                           (.. "  "
-                                                                               n))
-                                                                      (set diagnostics.info
-                                                                           (.. "  "
-                                                                               n))))
+                                                                  (tset diagnostics
+                                                                        e
+                                                                        (.. (get-icon e)
+                                                                            n)))
                                                                 (.. diagnostics.error
                                                                     diagnostics.warning
                                                                     diagnostics.hint
