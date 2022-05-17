@@ -12,8 +12,8 @@
         (use :xolox/vim-misc)
         (use! :xolox/vim-session :requires :xolox/vim-misc) ; Sessões
         (use! :nvim-telescope/telescope.nvim ; Buscador
-              :requires :nvim-lua/plenary.nvim :config
-              (fn []
+              :requires :nvim-lua/plenary.nvim
+              :config (fn []
                 (let [telescope (require :telescope)
                       actions (require :telescope.actions)]
                   (telescope.setup {:defaults {:mappings {:i {:<c-j> actions.move_selection_next

@@ -25,7 +25,8 @@
 
 (let [env-shell (os.getenv :SHELL)
       default-shell (if (and (not= nil env-shell) (not= "" env-shell))
-                        env-shell :/bin/bash)]
+                        env-shell
+                        :/bin/bash)]
   (set! shell default-shell))
 
 ; Idioma para correção ortográfica
@@ -46,9 +47,6 @@
 
 ; Diminuir o tempo para executar mapeamentos
 (set! timeoutlen 500)
-
-; Realçar linha onde o cursor está
-(set! cursorline)
 
 ; Não redimensionar janelas abertas ao abrir ou fechar janelas
 (set! equalalways false)
@@ -75,7 +73,7 @@
 (set! background :light)
 
 ; Font
-(set! guifont "JetBrainsMono Nerd Font")
+(set! guifont "JetBrainsMono Nerd Font:h14")
 
 ; Habilitar título
 (set! title)
