@@ -12,8 +12,8 @@
         (use :xolox/vim-misc)
         (use! :xolox/vim-session :requires :xolox/vim-misc) ; Sessões
         (use! :nvim-telescope/telescope.nvim ; Buscador
-              :requires :nvim-lua/plenary.nvim
-              :config (fn []
+              :requires :nvim-lua/plenary.nvim :config
+              (fn []
                 (let [telescope (require :telescope)
                       actions (require :telescope.actions)]
                   (telescope.setup {:defaults {:mappings {:i {:<c-j> actions.move_selection_next
@@ -84,7 +84,8 @@
         (use! :folke/which-key.nvim ; Guia de atalhos
               :config
               #(let [k (require :which-key)]
-                 (k.setup {:plugins {:spelling {:enabled true}}})))
+                 (k.setup {:plugins {:spelling {:enabled true}
+                                     :presets {:operators false}}})))
         (use! :diepm/vim-rest-console :opt true :ft :rest) ; Cliente REST
         (use! :neoclide/coc.nvim :branch :release) ; LSP
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal

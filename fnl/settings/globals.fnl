@@ -33,7 +33,7 @@
 (g! copilot_no_tab_map true)
 
 ; Vim-multi
-(g! VM_maps {"Find Under" ""
+(g! VM_maps {"Find Under" :<C-t>
              "Find Subword Under" ""
              "Add Cursor Down" :<C-g>
-             "Add Cursor Up" :<C-t>})
+             "Add Cursor Up" ""})
