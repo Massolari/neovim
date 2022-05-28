@@ -2,7 +2,7 @@
 
 (fn slide-from [direction]
   [(fn [state]
-     (let [next-height (+ 2 state.message.height)
+     (let [next-height (+ 3 state.message.height)
            next-row (stages-util.available_slot state.open_windows next-height
                                                 direction)]
        (when next-row
