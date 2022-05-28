@@ -64,7 +64,7 @@
                   :j [:<cmd>BufferLinePick<CR> "Pular (jump) para buffer"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
-                  :a [:<cmd>CocAction<CR> "Ações"]
+                  :a ["<cmd>call CocAction('codeAction')<CR>" "Ações"]
                   :c ["<cmd>Telescope coc commands<CR>" :Comandos]
                   :d ["<cmd>Telescope coc workspace_diagnostics<CR>"
                       "Problemas (diagnostics)"]
