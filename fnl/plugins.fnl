@@ -44,15 +44,27 @@
               #(let [g (require :gitsigns)]
                  (g.setup {:numhl false
                            :linehl false
-                           :keymaps {:noremap true
-                                     :buffer true
-                                     "n ]c" {:expr true
-                                             1 "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"}
-                                     "n [c" {:expr true
-                                             1 "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"}
-                                     "n <leader>ghu" "<cmd>lua require\"gitsigns\".reset_hunk()<CR>"
-                                     "v <leader>ghu" "<cmd>lua require\"gitsigns\".reset_hunk({vim.fn.line(\".\"), vim.fn.line(\"v\")})<CR>"
-                                     "n <leader>ghv" "<cmd>lua require\"gitsigns\".preview_hunk()<CR>"}
+                           :on_attach (fn [bufnr]
+                                        (let [gs (require :gitsigns)]
+                                          (map! [n :expr :buffer] "]c"
+                                                #(if vim.wo.diff "]c"
+                                                     (do
+                                                       (vim.schedule #(gs.next_hunk))
+                                                       :<Ignore>)))
+                                          (map! [n :expr :buffer] "[c"
+                                                #(if vim.wo.diff "[c"
+                                                     (do
+                                                       (vim.schedule #(gs.prev_hunk))
+                                                       :<Ignore>)))
+                                          (map! [n :buffer] :<leader>ghu
+                                                `gs.reset_hunk)
+                                          (map! [v :buffer] :<leader>ghu
+                                                #(gs.reset_hunk [(vim.fn.line ".")
+                                                                 (vim.fn.line :v)]))
+                                          (map! [n :buffer] :<leader>ghv
+                                                `gs.preview_hunk)
+                                          (map! [n :buffer] :<leader>gbb
+                                                #(gs.blame_line {:full true}))))
                            :current_line_blame true
                            :current_line_blame_opts {:delay 0}})))
         (use! :lukas-reineke/indent-blankline.nvim

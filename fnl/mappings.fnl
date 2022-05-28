@@ -89,7 +89,9 @@
                       "Exibir imagem sob o cursor"]
                   :q [:<cmd>qa<CR> :Fechar]}
               :g {:name :Git
-                  :b ["<cmd>Git blame<CR> " :Blame]
+                  :b {:name :Blame
+                      :a ["<cmd>Git blame<CR> " "Todos (all)"]
+                      :b :Linha}
                   :c ["<cmd>Git commit<CR> " :Commit]
                   :d ["<cmd>Gdiff<CR> " :Diff]
                   :g ["<cmd>G log<CR>" :Log]
