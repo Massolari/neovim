@@ -1,5 +1,6 @@
 (let [configs (require :nvim-treesitter.configs)]
   (configs.setup {:highlight {:enable true}
+                  :ensure_installed :all
                   :incremental_selection {:enable true
                                           :keymaps {:initial_selection :gnn
                                                     :node_incremental :grn
