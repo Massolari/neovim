@@ -1,7 +1,8 @@
 (require-macros :hibiscus.vim)
 
 (require :plugins)
-(require :settings)
+(require :globals)
+(require :options)
 (require :commands)
 (require :autocommands)
 (require :mappings)
@@ -13,5 +14,4 @@
     (require :user)))
 
 (require :statusline)
-(require :setup)
 (require :theme)

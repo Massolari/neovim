@@ -10,7 +10,8 @@
         (use :kyazdani42/nvim-web-devicons) ; Ícones
         (use :gpanders/editorconfig.nvim) ; Editorconfig
         (use :xolox/vim-misc)
-        (use! :xolox/vim-session :requires :xolox/vim-misc) ; Sessões
+        (use! :xolox/vim-session ; Sessões
+              :requires :xolox/vim-misc :config #(require :plugins.vim-session))
         (use! :nvim-telescope/telescope.nvim ; Buscador
               :requires [:nvim-lua/plenary.nvim
                         :nvim-telescope/telescope-fzf-native.nvim
@@ -20,7 +21,7 @@
         (use :fannheyward/telescope-coc.nvim)
         (use! :nvim-treesitter/nvim-treesitter
               ; Sintasse para várias linguagens
-              :run ":TSUpdate")
+              :run ":TSUpdate" :config #(require :plugins.treesitter))
         (use! :numToStr/Comment.nvim ; Comentário de forma fácil
               :config #(let [c (require :Comment)]
                         (c.setup {})))
@@ -61,7 +62,8 @@
               :requires {1 :kyazdani42/nvim-web-devicons :opt true})
         (use! :folke/which-key.nvim ; Guia de atalhos
               :config #(require :plugins.which-key))
-        (use! :diepm/vim-rest-console :opt true :ft :rest) ; Cliente REST
+        (use! :diepm/vim-rest-console ; Cliente REST
+              :opt true :ft :rest :config #(require :plugins.vim-rest-console))
         (use! :neoclide/coc.nvim :branch :release) ; LSP
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal
               :config #(require :plugins.nvim-toggleterm))
@@ -72,13 +74,16 @@
         (use :antoinemadec/FixCursorHold.nvim) ; Correção do CursorHold
         (use! :norcalli/nvim-colorizer.lua ; Colorir hexademical de cores
               :config #(require :plugins.nvim-colorizer))
-        (use :ChristianChiarulli/dashboard-nvim) ; Dashboard
-        (use :gelguy/wilder.nvim) ; Wildmenu melhorado
+        (use! :ChristianChiarulli/dashboard-nvim ; Dashboard
+              :config #(require :plugins.dashboard))
+        (use! :gelguy/wilder.nvim :config #(require :plugins.wilder))
+        ; Wildmenu melhorado
         (use :ellisonleao/glow.nvim) ; Pré-visualizar markdown
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
               :requires :RishabhRD/popfix)
         (use :protex/better-digraphs.nvim) ; Dígrafos
-        (use :rcarriga/nvim-notify) ; Notificações mais bonitas
+        (use! :rcarriga/nvim-notify :config #(require :plugins.nvim-notify))
+        ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
               :branch :master)
         (local {: file-exists?} (require :functions))
