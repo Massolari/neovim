@@ -26,9 +26,9 @@ require'tangerine'.setup{
   -- target = vim.fn.stdpath [[data]] .. "/tangerine",
 
   -- compile files in &rtp
-  -- rtpdirs = {
-  --   "plugin",
-  -- },
+  rtpdirs = {
+    "ftplugin",
+  },
 
   compiler = {
     -- disable popup showing compiled files

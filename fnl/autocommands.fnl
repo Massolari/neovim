@@ -34,13 +34,6 @@
           ; will cause split windows to be resized evenly if main window is resized
           [[VimResized] * "tabdo wincmd ="])
 
-(augroup! :_dashboard
-          ; seems to be nobuflisted that makes my stuff disappear will do more testing
-          [[FileType]
-           dashboard
-           "setlocal nocursorline noswapfile synmaxcol& signcolumn=no norelativenumber nocursorcolumn nospell  nolist  nonumber bufhidden=wipe colorcolumn= foldcolumn=0 matchpairs= "]
-          [[FileType] dashboard #(map! [n :buffer] :q ":q<CR>")])
-
 (augroup! :_coc ; coc autocmds
           [[FileType]
            [typescript json]
