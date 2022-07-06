@@ -13,12 +13,14 @@
         (use! :xolox/vim-session ; Sessões
               :requires :xolox/vim-misc :config #(require :plugins.vim-session))
         (use! :nvim-telescope/telescope.nvim ; Buscador
-              :requires [:nvim-lua/plenary.nvim
-                        :nvim-telescope/telescope-fzf-native.nvim
-                        :fannheyward/telescope-coc.nvim]
-              :config #(require :plugins.telescope))
+              :requires
+              [:nvim-lua/plenary.nvim
+               :nvim-telescope/telescope-fzf-native.nvim
+               :nvim-telescope/telescope-symbols.nvim]
+               :config
+              #(require :plugins.telescope))
         (use! :nvim-telescope/telescope-fzf-native.nvim :run :make)
-        (use :fannheyward/telescope-coc.nvim)
+        (use :nvim-telescope/telescope-symbols.nvim)
         (use! :nvim-treesitter/nvim-treesitter
               ; Sintasse para várias linguagens
               :run ":TSUpdate" :config #(require :plugins.treesitter))
@@ -65,7 +67,23 @@
               :config #(require :plugins.which-key))
         (use! :diepm/vim-rest-console ; Cliente REST
               :opt true :ft :rest :config #(require :plugins.vim-rest-console))
-        (use! :neoclide/coc.nvim :branch :release) ; LSP
+        (use! :neovim/nvim-lspconfig :requires
+              [:williamboman/nvim-lsp-installer :j-hui/fidget.nvim] :config
+              #(require :plugins.lsp)) ; LSP
+        (use :williamboman/nvim-lsp-installer)
+        (use! :j-hui/fidget.nvim :config
+              #(let [f (require :fidget)]
+                 (f.setup {}))) ; Fidget
+        (use! :hrsh7th/nvim-cmp :requires
+              [:hrsh7th/cmp-nvim-lsp
+               :hrsh7th/cmp-buffer
+               :hrsh7th/cmp-path
+               :L3MON4D3/LuaSnip
+               :saadparwaiz1/cmp_luasnip
+               :onsails/lspkind.nvim
+               :hrsh7th/cmp-calc
+               :hrsh7th/cmp-emoji] :config #(require :plugins.cmp))
+        (use :L3MON4D3/LuaSnip)
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal
               :config #(require :plugins.nvim-toggleterm))
         (use! :akinsho/bufferline.nvim ; Buffers no topo como abas
@@ -87,8 +105,8 @@
         ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
               :branch :master)
-        ;; (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
-        (use! :Massolari/forem.nvim ; Integração com Forem
+        (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
+              ;; (use! :Massolari/forem.nvim ; Integração com Forem
               :config #(require :plugins.forem))
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]

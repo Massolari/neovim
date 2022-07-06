@@ -34,14 +34,14 @@
           ; will cause split windows to be resized evenly if main window is resized
           [[VimResized] * "tabdo wincmd ="])
 
-(augroup! :_coc ; coc autocmds
-          [[FileType]
-           [typescript json]
-           "setl formatexpr=CocAction('formatSelected')"]
-          [[User]
-           CocJumpPlaceholder
-           "call CocActionAsync('showSignatureHelp')"]
-          [[CursorHold] * "silent call CocActionAsync('highlight')"])
+;; (augroup! :_coc ; coc autocmds
+;;           [[FileType]
+;;            [typescript json]
+;;            "setl formatexpr=CocAction('formatSelected')"]
+;;           [[User]
+;;            CocJumpPlaceholder
+;;            "call CocActionAsync('showSignatureHelp')"]
+;;           [[CursorHold] * "silent call CocActionAsync('highlight')"])
 
 (fn source-file []
   (let [file-name (vim.fn.expand "%:r")
