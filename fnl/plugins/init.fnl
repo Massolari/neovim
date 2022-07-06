@@ -32,6 +32,7 @@
                         (p.setup {}))) ;
         ; Temas
         (use :ellisonleao/gruvbox.nvim) (use :projekt0n/github-nvim-theme)
+        (use :shaunsingh/solarized.nvim) (use :ishan9299/nvim-solarized-lua)
         (use! :lewis6991/gitsigns.nvim
               ; Mostra um git diff na coluna de número e comandos para hunks
               :requires :nvim-lua/plenary.nvim :config
@@ -86,6 +87,9 @@
         ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
               :branch :master)
+        ;; (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
+        (use! :Massolari/forem.nvim ; Integração com Forem
+              :config #(require :plugins.forem))
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)

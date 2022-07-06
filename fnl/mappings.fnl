@@ -82,6 +82,12 @@
                       "Temas (colorscheme)"]
                   :d ["<Cmd>lua require'better-digraphs'.digraphs('i')<CR>"
                       "Inserir dígrafo"]
+                  :f {:name :Forem
+                      :f ["<cmd>lua require'forem-nvim'.feed()<CR>" :Feed]
+                      :m ["<cmd>lua require'forem-nvim'.my_articles()<CR>"
+                          "Meus artigos"]
+                      :n ["<cmd>lua require'forem-nvim'.new_article()<CR>"
+                          "Novo artigo"]}
                   :g ["<cmd>lua require'functions'['vim-grep']()<CR>"
                       "Buscar com vimgrep"]
                   :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]

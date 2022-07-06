@@ -11,12 +11,12 @@
   (g! dashboard_custom_section
       {:a {:description ["  Buscar arquivo      ̩  "]
            :command "Telescope find_files"}
-       :b {:description ["  Arquivos recentes     "]
-           :command "Telescope oldfiles"}
-       :c {:description ["  Procurar nos arquivos "]
+       :b {:description ["  Procurar nos arquivos "]
            :command "Telescope live_grep"}
-       :d {:description ["  Minhas Configurações  "]
-           :command (.. ":e! " user-file)}
+       :c {:description ["  Octo (Github)         "]
+           :command "Octo actions"}
+       :d {:description ["  Feed do dev.to        "]
+           :command "Forem feed"}
        :e {:description ["  Novo arquivo          "] :command ":ene!"}}))
 
 (let [quotes [["Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it."
