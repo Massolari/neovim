@@ -73,7 +73,7 @@
                   :i [:<cmd>LspInstallInfo<CR> "Instalar language-server"]
                   :o ["<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>"
                       "Buscar símbolos no arquivo"]
-                  :p ["<cmd>lua require'telescope.builtin'.lsp_workspace_symbols<CR>"
+                  :p ["<cmd>lua require'telescope.builtin'.lsp_workspace_symbols()<CR>"
                       "Buscar símbolos no projeto"]
                   :r ["<cmd>lua vim.lsp.buf.rename()<CR>" "Renomear Variável"]}
               :e {:name :Editor
