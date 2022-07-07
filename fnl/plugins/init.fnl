@@ -105,8 +105,9 @@
         ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
               :branch :master)
-        (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
-              ;; (use! :Massolari/forem.nvim ; Integração com Forem
+        ;; (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
+        (use! :Massolari/forem.nvim ; Integração com Forem
+              :run :make
               :config #(require :plugins.forem))
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
