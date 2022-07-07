@@ -90,7 +90,8 @@
                   :i ["<cmd>lua require'functions'['display-image'](vim.fn.expand('<cfile>'))<CR>"
                       "Exibir imagem sob o cursor"]
                   :q [:<cmd>qa<CR> :Fechar]
-                  :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]}
+                  :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
+                  :u [:<cmd>PackerSync<CR> "Atualizar plugins"]}
               :g {:name :Git
                   :b {:name :Blame
                       :a ["<cmd>Git blame<CR> " "Todos (all)"]
