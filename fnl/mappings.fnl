@@ -62,8 +62,7 @@
                   :j [:<cmd>BufferLinePick<CR> "Pular (jump) para buffer"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
-                  :a ["<cmd>lua require'telescope.builtin'.lsp_code_actions(require('telescope.themes').get_dropdown({}))<CR>"
-                      "Ações"]
+                  :a [#(vim.lsp.buf.code_action) "Ações"]
                   :d [#(vim.diagnostic.setloclist) "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0
                                                   {:scope :line
