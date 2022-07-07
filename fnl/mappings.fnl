@@ -74,7 +74,7 @@
                       "Buscar símbolos no arquivo"]
                   :p ["<cmd>lua require'telescope.builtin'.lsp_workspace_symbols()<CR>"
                       "Buscar símbolos no projeto"]
-                  :r ["<cmd>lua vim.lsp.buf.rename()<CR>" "Renomear Variável"]}
+                  :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
                   :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
                       "Temas (colorscheme)"]
