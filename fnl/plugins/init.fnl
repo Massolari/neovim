@@ -72,6 +72,8 @@
         (use! :neovim/nvim-lspconfig :requires
               [:williamboman/nvim-lsp-installer :j-hui/fidget.nvim] :config
               #(require :plugins.lsp)) ; LSP
+        (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim
+              :config #(require :plugins.null-ls))
         (use :williamboman/nvim-lsp-installer)
         (use! :j-hui/fidget.nvim :config
               #(let [f (require :fidget)]

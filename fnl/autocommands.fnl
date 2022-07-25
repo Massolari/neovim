@@ -34,15 +34,6 @@
           ; will cause split windows to be resized evenly if main window is resized
           [[VimResized] * "tabdo wincmd ="])
 
-;; (augroup! :_coc ; coc autocmds
-;;           [[FileType]
-;;            [typescript json]
-;;            "setl formatexpr=CocAction('formatSelected')"]
-;;           [[User]
-;;            CocJumpPlaceholder
-;;            "call CocActionAsync('showSignatureHelp')"]
-;;           [[CursorHold] * "silent call CocActionAsync('highlight')"])
-
 (fn source-file []
   (let [file-name (vim.fn.expand "%:r")
         config-folder (vim.fn.stdpath :config)
@@ -53,10 +44,5 @@
     (exec [[":source " source-file]])
     (show-info (.. "sourced: " source-file) :Source)))
 
-(fn format-fennel []
-  (when (= 1 (vim.fn.executable :fnlfmt))
-    (exec [[:silent "!fnlfmt --fix %"]])))
-
 (augroup! :_config ;autocmd para arquivos de configuração fennel
-          [[BufWritePost] *.fnl `source-file]
-          [[BufWritePost] *.fnl `format-fennel])
+          [[BufWritePost] *.fnl `source-file])
