@@ -142,6 +142,7 @@
                       "Procurar texto sob cursor"]
                   :f ["<cmd>lua require'telescope.builtin'.find_files()<CR>"
                       "Buscar (find) arquivo"]
+                  :p ["<cmd>Telescope projects<CR>" :Listar]
                   :s ["<cmd>lua require'telescope.builtin'.grep_string({ search = vim.fn.input('Grep For> ')})<CR>"
                       "Procurar (search) nos arquivos"]}
               :q ["<cmd>lua require'functions'['toggle-quickfix']()<CR>"

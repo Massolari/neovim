@@ -17,12 +17,15 @@
               [:nvim-lua/plenary.nvim
                :nvim-telescope/telescope-fzf-native.nvim
                :nvim-telescope/telescope-ui-select.nvim
-               :nvim-telescope/telescope-symbols.nvim]
-               :config
+               :ahmedkhalf/project.nvim
+               :nvim-telescope/telescope-symbols.nvim] :config
               #(require :plugins.telescope))
         (use! :nvim-telescope/telescope-fzf-native.nvim :run :make)
         (use :nvim-telescope/telescope-symbols.nvim)
         (use :nvim-telescope/telescope-ui-select.nvim)
+        (use! :ahmedkhalf/project.nvim :config
+              #(let [p (require :project_nvim)]
+                 (p.setup {})))
         (use! :nvim-treesitter/nvim-treesitter
               ; Sintasse para várias linguagens
               :run ":TSUpdate" :config #(require :plugins.treesitter))
