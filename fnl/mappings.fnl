@@ -102,8 +102,8 @@
                   :g ["<cmd>G log<CR>" :Log]
                   :h {:name :Hunks :u "Desfazer (undo)" :v :Ver}
                   :i {:name "Issues (Github)"
-                      :i ["<cmd>Octo issue list<CR>" :Listar]
-                      :c ["<cmd>Octo issue create<CR>" :Criar]}
+                      :c ["<cmd>Octo issue create<CR>" :Criar]
+                      :l ["<cmd>Octo issue list<CR>" :Listar]}
                   :k ["<cmd>lua require'functions'['checkout-new-branch']()<CR>"
                       "Criar branch e fazer checkout"]
                   :l ["<cmd>Git pull --rebase<CR> " :Pull]
@@ -114,7 +114,7 @@
                   :s ["<cmd>Git<CR> " :Status]
                   :u {:name "Pull Requests (Github)"
                       :c ["<cmd>Octo pr create<CR>" :Criar]
-                      :u ["<cmd>Octo pr list<CR>" :Listar]}
+                      :l ["<cmd>Octo pr list<CR>" :Listar]}
                   :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]
                   :y ["<cmd>lua require'functions'['lazygit-toggle']()<CR>"
                       "Abrir lazygit"]}
