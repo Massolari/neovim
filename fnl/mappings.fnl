@@ -59,6 +59,7 @@
                   :b ["<cmd>lua require'telescope.builtin'.buffers()<CR>"
                       "Listar abertos"]
                   :d ["<cmd>bp|bd #<CR>" :Deletar]
+                  :D [:<cmd>bd<CR> "Deletar e fechar janela"]
                   :j [:<cmd>BufferLinePick<CR> "Pular (jump) para buffer"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
