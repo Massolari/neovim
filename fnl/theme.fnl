@@ -1,10 +1,15 @@
 (require-macros :hibiscus.vim)
 
 (when (= nil vim.g.colors_name)
-  (color! solarized-flat))
+  (color! onehalflight))
 
 ;; (color! github_light))
 ;; (color! gruvbox))
+
+(if (vim.startswith vim.g.colors_name :one)
+    (vim.cmd "hi! link VertSplit Normal"))
+
+;; (vim.cmd "hi VertSplit guifg=#000 guibg=Normal"))
 
 (exec [[:hi "link NormalFloat Normal"]])
 
