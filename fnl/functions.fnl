@@ -23,7 +23,7 @@
 
 (λ is-location-quickfix-open? [window]
   (let [query (if (= window :quickfix) "v:val.quickfix && !v:val.loclist"
-                  "!v:val.quickfix && v:val.loclist")
+                  "v:val.loclist")
         windows (vim.fn.getwininfo)
         wanted-windows (vim.fn.filter windows query)]
     (> (vim.fn.len wanted-windows) 0)))
