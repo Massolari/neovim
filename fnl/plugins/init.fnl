@@ -92,9 +92,9 @@
                :onsails/lspkind.nvim
                :hrsh7th/cmp-calc
                :hrsh7th/cmp-emoji] :config #(require :plugins.cmp))
-        (use! :Maan2003/lsp_lines.nvim
+        (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
               :config #(let [l (require :lsp_lines)]
-                        (l.register_lsp_virtual_lines))) ; LSP lines
+                        (l.setup))) ; LSP lines
         (use :L3MON4D3/LuaSnip)
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal
               :config #(require :plugins.nvim-toggleterm))
@@ -117,8 +117,8 @@
         ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
               :branch :master)
-        ;; (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
-        (use! :Massolari/forem.nvim ; Integração com Forem
+        (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
+              ;; (use! :Massolari/forem.nvim ; Integração com Forem
               :config #(require :plugins.forem))
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
