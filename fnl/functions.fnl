@@ -123,12 +123,6 @@
 
 (set M.jump-previous-word #(jump-word true))
 
-(set M.symbol-line #(let [curwin (or vim.g.statusline_winid 0)
-                          curbuf (vim.api.nvim_win_get_buf curwin)
-                          (ok line) (pcall vim.api.nvim_buf_get_var curbuf
-                                           :coc_symbol_line)]
-                      (or (and ok line) "")))
-
 (set M.file-exists? #(> (vim.fn.filereadable $1) 0))
 
 M
