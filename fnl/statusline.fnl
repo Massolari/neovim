@@ -85,11 +85,8 @@
            :separator ""})
 
 (ins-left {1 (fn []
-               (let [symbol-line (functions.symbol-line)
-                     current-function vim.b.coc_current_function]
-                 (if (not= symbol-line "")
-                     symbol-line
-                     (if (string? current-function) current-function ""))))
+               (let [current-function (or vim.b.lsp_current_function "")]
+                 (if (not= current-function "") (.. "λ " current-function) "")))
            :cond buffer-not-empty?
            :color {:fg colors.blue :gui :bold}
            :padding {:left 1 :right 0}

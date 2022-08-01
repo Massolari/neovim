@@ -75,15 +75,18 @@
         (use! :diepm/vim-rest-console ; Cliente REST
               :opt true :ft :rest :config #(require :plugins.vim-rest-console))
         (use! :neovim/nvim-lspconfig :requires
-              [:williamboman/mason.nvim :williamboman/mason-lspconfig.nvim :j-hui/fidget.nvim] :config
+              [:williamboman/mason.nvim
+               :williamboman/mason-lspconfig.nvim
+               :j-hui/fidget.nvim
+               :nvim-lua/lsp-status.nvim] :config
               #(require :plugins.lsp)) ; LSP
         (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim
               :config #(require :plugins.null-ls))
-        (use :williamboman/mason.nvim)
-        (use :williamboman/mason-lspconfig.nvim)
+        (use :williamboman/mason.nvim) (use :williamboman/mason-lspconfig.nvim)
         (use! :j-hui/fidget.nvim :config
               #(let [f (require :fidget)]
                  (f.setup {}))) ; Fidget
+        (use :nvim-lua/lsp-status.nvim)
         (use! :hrsh7th/nvim-cmp :requires
               [:hrsh7th/cmp-nvim-lsp
                :hrsh7th/cmp-buffer
@@ -93,9 +96,9 @@
                :onsails/lspkind.nvim
                :hrsh7th/cmp-calc
                :hrsh7th/cmp-emoji] :config #(require :plugins.cmp))
-        (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
-              :config #(let [l (require :lsp_lines)]
-                        (l.setup))) ; LSP lines
+        (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim" :config
+              #(let [l (require :lsp_lines)]
+                 (l.setup))) ; LSP lines
         (use :L3MON4D3/LuaSnip)
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal
               :config #(require :plugins.nvim-toggleterm))

@@ -3,6 +3,7 @@
 (local mason (require :mason))
 (local mason-lspconfig (require :mason-lspconfig))
 (local lspconfig (require :lspconfig))
+(local lsp-status (require :lsp-status))
 (local wk (require :which-key))
 
 (local border [["┌" :FloatBorder]
@@ -14,10 +15,13 @@
                ["└" :FloatBorder]
                ["│" :FloatBorder]])
 
+(lsp-status.register_progress)
+
 (mason.setup {})
 (mason-lspconfig.setup {})
 
 (fn on_attach [client bufnr]
+  (lsp-status.on_attach client)
   (set vim.lsp.handlers.textDocument/hover
        (vim.lsp.with vim.lsp.handlers.hover {: border}))
   (set vim.lsp.handlers.textDocument/signatureHelp
@@ -28,9 +32,13 @@
 
 ;; {:virtual_text {:prefix :x}})))
 
+(fn apply-lsp-status-capabilities [capabilities]
+  (vim.tbl_extend :keep capabilities lsp-status.capabilities))
+
 (local capabilities (let [cmp-lsp (require :cmp_nvim_lsp)]
                       (-> (vim.lsp.protocol.make_client_capabilities)
-                          (cmp-lsp.update_capabilities))))
+                          (cmp-lsp.update_capabilities)
+                          (apply-lsp-status-capabilities))))
 
 (set lspconfig.util.default_config
      (vim.tbl_extend :force lspconfig.util.default_config
