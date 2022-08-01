@@ -75,11 +75,12 @@
         (use! :diepm/vim-rest-console ; Cliente REST
               :opt true :ft :rest :config #(require :plugins.vim-rest-console))
         (use! :neovim/nvim-lspconfig :requires
-              [:williamboman/nvim-lsp-installer :j-hui/fidget.nvim] :config
+              [:williamboman/mason.nvim :williamboman/mason-lspconfig.nvim :j-hui/fidget.nvim] :config
               #(require :plugins.lsp)) ; LSP
         (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim
               :config #(require :plugins.null-ls))
-        (use :williamboman/nvim-lsp-installer)
+        (use :williamboman/mason.nvim)
+        (use :williamboman/mason-lspconfig.nvim)
         (use! :j-hui/fidget.nvim :config
               #(let [f (require :fidget)]
                  (f.setup {}))) ; Fidget

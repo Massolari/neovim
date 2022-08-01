@@ -1,6 +1,7 @@
 (require-macros :hibiscus.vim)
 
-(local lsp-installer (require :nvim-lsp-installer))
+(local mason (require :mason))
+(local mason-lspconfig (require :mason-lspconfig))
 (local lspconfig (require :lspconfig))
 (local wk (require :which-key))
 
@@ -13,7 +14,8 @@
                ["└" :FloatBorder]
                ["│" :FloatBorder]])
 
-(lsp-installer.setup {})
+(mason.setup {})
+(mason-lspconfig.setup {})
 
 (fn on_attach [client bufnr]
   (set vim.lsp.handlers.textDocument/hover
@@ -44,8 +46,8 @@
                                                                                        true)}}}}
     _ {}))
 
-(each [_ server (ipairs (lsp-installer.get_installed_servers))]
-  (let [s (. lspconfig server.name)]
-    (-> server.name (get-config-options) (s.setup))))
+(each [_ server (ipairs (mason-lspconfig.get_installed_servers))]
+  (let [s (. lspconfig server)]
+    (-> server (get-config-options) (s.setup))))
 
 (lspconfig.hls.setup {})

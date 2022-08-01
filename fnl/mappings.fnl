@@ -70,7 +70,6 @@
                                                    :border :single})
                       "Mostrar erro da linha"]
                   :f [#(vim.lsp.buf.formatting) "Formatar código"]
-                  :i [:<cmd>LspInstallInfo<CR> "Instalar language-server"]
                   :o ["<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>"
                       "Buscar símbolos no arquivo"]
                   :p ["<cmd>lua require'telescope.builtin'.lsp_workspace_symbols()<CR>"
@@ -92,6 +91,7 @@
                       "Exibir imagem sob o cursor"]
                   :q [:<cmd>qa<CR> :Fechar]
                   :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
+                  :t [:<cmd>Mason<CR> "Ferramentas (Mason)"]
                   :u [:<cmd>PackerSync<CR> "Atualizar plugins"]}
               :g {:name :Git
                   :b {:name :Blame
