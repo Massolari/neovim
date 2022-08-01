@@ -194,10 +194,6 @@
 (map! [n :expr] :k "v:count == 0 ? 'gk' : 'k'")
 (map! [n :expr] :j "v:count == 0 ? 'gj' : 'j'")
 
-; Ir para modo normal no terminal de forma rapida
-(map! [t] :jk "<c-\\><c-n>")
-(map! [t] :kj "<C-\\><C-n>")
-
 ; Manter seleção depois de indentação
 (map! [v] "<" :<gv)
 (map! [v] ">" :>gv)
