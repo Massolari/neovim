@@ -1,11 +1,11 @@
 (let [configs (require :nvim-treesitter.configs)]
   (configs.setup {:highlight {:enable true}
                   :ensure_installed :all
-                  :incremental_selection {:enable true
-                                          :keymaps {:initial_selection :gnn
-                                                    :node_incremental :grn
-                                                    :node_decremental :grm
-                                                    :scope_incremental :grc}}
+                  :incremental_selection {:enable true}
+                                          ;; :keymaps {:initial_selection :gnn
+                                          ;;           :node_incremental :grn
+                                          ;;           :node_decremental :grm
+                                          ;;           :scope_incremental :grc}}
                   :indent {:enable true}
                   :textobjects {:select {:enable true
                                          :lookahead true
