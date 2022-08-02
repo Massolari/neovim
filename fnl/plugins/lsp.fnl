@@ -6,13 +6,13 @@
 (local lsp-status (require :lsp-status))
 (local wk (require :which-key))
 
-(local border [["┌" :FloatBorder]
+(local border [["╭" :FloatBorder]
                ["─" :FloatBorder]
-               ["┐" :FloatBorder]
+               ["╮" :FloatBorder]
                ["│" :FloatBorder]
-               ["┘" :FloatBorder]
+               ["╯" :FloatBorder]
                ["─" :FloatBorder]
-               ["└" :FloatBorder]
+               ["╰" :FloatBorder]
                ["│" :FloatBorder]])
 
 (lsp-status.register_progress)
