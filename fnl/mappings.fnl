@@ -4,6 +4,7 @@
 (local luasnip (require :luasnip))
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
+(local functions (require :functions))
 
 ; Command
 (wk.register {:<c-j> [:<Down> "Comando anterior executado mais recente"]
@@ -65,9 +66,7 @@
               :c {:name :Code
                   :a [#(vim.lsp.buf.code_action) "Ações"]
                   :d [#(vim.diagnostic.setloclist) "Problemas (diagnostics)"]
-                  :e [#(vim.diagnostic.open_float 0
-                                                  {:scope :line
-                                                   :border :single})
+                  :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
                   :f [#(vim.lsp.buf.formatting) "Formatar código"]
                   :o ["<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>"
@@ -76,6 +75,9 @@
                       "Buscar símbolos no projeto"]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
+                  :b {:name "Browser (w3m)"
+                      :a [#(functions.w3m-open) :Abrir]
+                      :s [#(functions.w3m-search) "Buscar no Google (search)"]}
                   :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
                       "Temas (colorscheme)"]
                   :f {:name :Forem
@@ -150,11 +152,11 @@
                   "Alternar quickfix"]
               :s {:name "Sessão"
                   :c [:<cmd>CloseSession<CR> "Fechar (close)"]
-                  :d ["<cmd>lua require'functions'['command-with-args']('Delete session> ', 'default', 'customlist,xolox#session#complete_names', 'DeleteSession')<CR>"
+                  :d ["<cmd>lua require'functions'['command-with-args']('Delete session: ', 'default', 'customlist,xolox#session#complete_names', 'DeleteSession')<CR>"
                       :Deletar]
-                  :o ["<cmd>lua require'functions'['command-with-args']('Open session> ', 'default', 'customlist,xolox#session#complete_names', 'OpenSession')<CR>"
+                  :o ["<cmd>lua require'functions'['command-with-args']('Open session: ', 'default', 'customlist,xolox#session#complete_names', 'OpenSession')<CR>"
                       :Abrir]
-                  :s ["<cmd>lua require'functions'['command-with-args']('Save session> ', 'default', 'customlist,xolox#session#complete_names_with_suggestions', 'SaveSession')<CR>"
+                  :s ["<cmd>lua require'functions'['command-with-args']('Save session: ', 'default', 'customlist,xolox#session#complete_names_with_suggestions', 'SaveSession')<CR>"
                       :Salvar]}
               :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" :Terminal]
               :v [:<cmd>vsplit<CR> "Dividir verticalmente"]

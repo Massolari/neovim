@@ -28,82 +28,109 @@
         wanted-windows (vim.fn.filter windows query)]
     (> (vim.fn.len wanted-windows) 0)))
 
-(set M.toggle-quickfix
-     #(let [is-open? (is-location-quickfix-open? :quickfix)]
-        (if is-open?
-            (exec [[:cclose]])
-            (exec [[:botright "copen 10"]]))))
+(λ M.toggle-quickfix []
+  (let [is-open? (is-location-quickfix-open? :quickfix)]
+    (if is-open?
+        (exec [[:cclose]])
+        (exec [[:botright "copen 10"]]))))
 
-(set M.toggle-location-list
-     #(let [is-open? (is-location-quickfix-open? :location)]
-        (if is-open?
-            (exec [[:lclose]])
-            (let [(status err) (pcall vim.cmd ":lopen 10")]
-              (when (not status)
-                (show-warning err "Location list"))))))
+(λ M.toggle-location-list []
+  (let [is-open? (is-location-quickfix-open? :location)]
+    (if is-open?
+        (exec [[:lclose]])
+        (let [(status err) (pcall vim.cmd ":lopen 10")]
+          (when (not status)
+            (show-warning err "Location list"))))))
 
-(set M.command-with-args
-     (λ [prompt default completion command]
-       (let [(status maybe-input) (pcall vim.fn.input prompt "" completion)
-             input (if (and (= maybe-input "") (not= default nil)) default
-                       maybe-input)]
-         (when status
-           (vim.cmd (.. ":" command " " input))))))
+(λ with-input [prompt fun ?default ?completion]
+  (let [(status maybe-input) (if ?completion
+                                 (pcall vim.fn.input prompt "" ?completion)
+                                 (pcall vim.fn.input prompt ""))
+        input (if (and (= maybe-input "") (not= ?default nil)) ?default
+                  maybe-input)]
+    (when status
+      (fun input))))
 
-(set M.checkout-new-branch
-     #(let [(status branch) (pcall vim.fn.input "New branch name> ")]
-        (when (and status (not= branch ""))
-          (exec [[:echo "\"\\r\""]
-                 [:echohl :Directory]
-                 [":Git" (.. "checkout -b " branch)]
-                 [:echohl :None]]))))
+(λ M.command-with-args [prompt default completion command]
+  (with-input prompt
+              (fn [input]
+                (vim.cmd (.. ":" command " " input))) default
+              completion))
+
+(λ M.checkout-new-branch []
+  (with-input "New branch name: "
+              (fn [branch]
+                (when (not= branch "")
+                  (exec [[:echo "\"\\r\""]
+                         [:echohl :Directory]
+                         [":Git" (.. "checkout -b " branch)]
+                         [:echohl :None]])))))
 
 ; Get the user input for what he wants to search for with vimgrep
 ; if it's empty, abort, if it's not empty get the user input for the target folder, if
 ; it's not specified, defaults to `git ls-files`
-(set M.vim-grep (fn []
-                  (let [(search-status input) (pcall vim.fn.input
-                                                     "Search for: ")]
-                    (if (or (not search-status) (= input ""))
-                        (print :Aborted)
-                        (let [(folder-status maybe-target) (pcall vim.fn.input
-                                                                  "Target folder/files (git ls-files): "
-                                                                  "" :file)
-                              target (if (= maybe-target "") "`git ls-files`"
-                                         maybe-target)]
-                          (if (not folder-status)
-                              (print :Aborted)
-                              (let [(status err) (pcall vim.cmd
-                                                        (.. ":vimgrep /" input
-                                                            :/gj target))]
-                                (if (not status)
-                                    (print err)
-                                    (exec [[:copen]])))))))))
+(λ M.vim-grep []
+  (let [(search-status input) (pcall vim.fn.input "Search for: ")]
+    (if (or (not search-status) (= input ""))
+        (print :Aborted)
+        (let [(folder-status maybe-target) (pcall vim.fn.input
+                                                  "Target folder/files (git ls-files): "
+                                                  "" :file)
+              target (if (= maybe-target "") "`git ls-files`" maybe-target)]
+          (if (not folder-status)
+              (print :Aborted)
+              (let [(status err) (pcall vim.cmd
+                                        (.. ":vimgrep /" input :/gj target))]
+                (if (not status)
+                    (print err)
+                    (exec [[:copen]]))))))))
 
 ; Lazygit
 (let [lazygit (Terminal:new {:cmd :lazygit
                              :hidden true
                              :direction :float
+                             :on_open (fn []
+                                        nil)
                              :id 1000})]
   (set M.lazygit-toggle #(lazygit:toggle)))
 
-; Get a color form a highlight group
-(set M.get-color (fn [highlight-group type fallback]
-                   (let [color (vim.fn.synIDattr (-> highlight-group
-                                                     vim.fn.hlID
-                                                     vim.fn.synIDtrans)
-                                                 (.. type "#"))]
-                     (if (= color "")
-                         fallback
-                         color))))
+; w3m
+(λ w3m-open [url]
+  (let [w3m (Terminal:new {:cmd (.. "w3m " url)
+                           :on_open (fn []
+                                      nil)
+                           :direction :vertical
+                           :size (/ (vim.opt.columns:get) 2)
+                           :id 1001})]
+    (w3m:toggle)))
 
-(set M.display-image (fn [source]
-                       (let [show-image (.. "curl -s " source " | viu - ")
-                             image-window (Terminal:new {:cmd show-image
-                                                         :hidden true
-                                                         :direction :float
-                                                         :close_on_exit false})]
-                         (image-window:toggle))))
+(λ M.w3m-open []
+  (w3m-open :-v))
+
+(λ M.w3m-search []
+  (with-input "Search on the web: "
+              (fn [input]
+                (when (not= input "")
+                  (w3m-open (.. "\"https://www.google.com/search?q="
+                                (string.gsub input " " "+") "\""))))))
+
+; Get a color form a highlight group
+(λ M.get-color [highlight-group type fallback]
+  (let [color (vim.fn.synIDattr (-> highlight-group
+                                    vim.fn.hlID
+                                    vim.fn.synIDtrans)
+                                (.. type "#"))]
+    (if (= color "")
+        fallback
+        color)))
+
+(λ M.display-image [source]
+  (let [show-image (.. "curl -s " source " | viu - ")
+        image-window (Terminal:new {:cmd show-image
+                                    :hidden true
+                                    :direction :float
+                                    :close_on_exit false})]
+    (image-window:toggle)))
 
 (λ get-cur-word []
   (let [line (vim.fn.getline ".")
