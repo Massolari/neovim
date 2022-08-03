@@ -8,6 +8,7 @@
 (local sources (let [disabled-sources (or vim.g.disabled_cmp_sources [])
                      enabled-sources {}]
                  (each [_ source (ipairs [{:name :nvim_lsp}
+                                          {:name :conjure}
                                           {:name :cmp_tabnine}
                                           {:name :luasnip}
                                           {:name :path}

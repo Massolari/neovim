@@ -7,7 +7,7 @@
 
 (packer (use :udayvir-singh/tangerine.nvim) ; Suporte à fennel
         (use :udayvir-singh/hibiscus.nvim) ; Macros para fennel
-        (use :kyazdani42/nvim-web-devicons) ; Ícones
+        (use :Olical/conjure) (use :kyazdani42/nvim-web-devicons) ; Ícones
         (use :gpanders/editorconfig.nvim) ; Editorconfig
         (use :xolox/vim-misc)
         (use! :xolox/vim-session ; Sessões
@@ -89,6 +89,7 @@
         (use :nvim-lua/lsp-status.nvim)
         (use! :hrsh7th/nvim-cmp :requires
               [:hrsh7th/cmp-nvim-lsp
+               :PaterJason/cmp-conjure
                :hrsh7th/cmp-buffer
                :hrsh7th/cmp-path
                :L3MON4D3/LuaSnip
