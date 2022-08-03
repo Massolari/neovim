@@ -98,14 +98,17 @@
 (λ w3m-open [url]
   (let [w3m (Terminal:new {:cmd (.. "w3m " url)
                            :on_open (fn []
-                                      nil)
+                                      (vim.cmd (.. "vertical resize "
+                                                   (/ (vim.opt.columns:get) 2))))
                            :direction :vertical
-                           :size (/ (vim.opt.columns:get) 2)
                            :id 1001})]
     (w3m:toggle)))
 
 (λ M.w3m-open []
   (w3m-open :-v))
+
+(λ M.w3m-open-url []
+  (with-input "Open URL: " #(w3m-open $1)))
 
 (λ M.w3m-search []
   (with-input "Search on the web: "

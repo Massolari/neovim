@@ -76,8 +76,9 @@
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
                   :b {:name "Browser (w3m)"
-                      :a [#(functions.w3m-open) :Abrir]
-                      :s [#(functions.w3m-search) "Buscar no Google (search)"]}
+                      :a [#(functions.w3m-open-url) "Abrir URL"]
+                      :s [#(functions.w3m-search) "Buscar no Google (search)"]
+                      :t [#(functions.w3m-open) :Toggle]}
                   :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
                       "Temas (colorscheme)"]
                   :f {:name :Forem
