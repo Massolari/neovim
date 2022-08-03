@@ -31,7 +31,7 @@
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Próximo erro de código"]
-                   :w ["<cmd>lua require'functions'['jump-next-word']()<CR>"
+                   :w [#(functions.jump-next-word)
                        "Próxima palavra destacada"]}
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
@@ -40,7 +40,7 @@
                        "Problema anterior (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Erro de código anterior"]
-                   :w ["<cmd>lua require'functions'['jump-previous-word']()<CR>"
+                   :w [#(functions.jump-previous-word)
                        "Palavra destacada anterior"]}}
              (vim.tbl_extend :force options {:mode :n}))
 
@@ -86,10 +86,9 @@
                           "Meus artigos"]
                       :n ["<cmd>lua require'forem-nvim'.new_article()<CR>"
                           "Novo artigo"]}
-                  :g ["<cmd>lua require'functions'['vim-grep']()<CR>"
-                      "Buscar com vimgrep"]
+                  :g [#(functions.vim-grep) "Buscar com vimgrep"]
                   :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]
-                  :i ["<cmd>lua require'functions'['display-image'](vim.fn.expand('<cfile>'))<CR>"
+                  :i [#(functions.display-image (vim.fn.expand :<cfile>))
                       "Exibir imagem sob o cursor"]
                   :q [:<cmd>qa<CR> :Fechar]
                   :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
@@ -106,7 +105,7 @@
                   :i {:name "Issues (Github)"
                       :c ["<cmd>Octo issue create<CR>" :Criar]
                       :l ["<cmd>Octo issue list<CR>" :Listar]}
-                  :k ["<cmd>lua require'functions'['checkout-new-branch']()<CR>"
+                  :k [#(functions.checkout-new-branch)
                       "Criar branch e fazer checkout"]
                   :l ["<cmd>Git pull --rebase<CR> " :Pull]
                   :o ["<cmd>Octo actions<CR>" "Octo (ações do GitHub)"]
@@ -118,12 +117,10 @@
                       :c ["<cmd>Octo pr create<CR>" :Criar]
                       :l ["<cmd>Octo pr list<CR>" :Listar]}
                   :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]
-                  :y ["<cmd>lua require'functions'['lazygit-toggle']()<CR>"
-                      "Abrir lazygit"]}
+                  :y [#(functions.lazygit-toggle) "Abrir lazygit"]}
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
-              :l ["<cmd>lua require'functions'['toggle-location-list']()<CR>"
-                  "Alternar locationlist"]
+              :l [#(functions.toggle-location-list) "Alternar locationlist"]
               :m {:name :Markdown
                   :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
                   :b [:<cmd>MarkdownPreview<CR>
@@ -148,15 +145,20 @@
                   :p ["<cmd>Telescope projects<CR>" :Listar]
                   :s ["<cmd>lua require'telescope.builtin'.grep_string({ search = vim.fn.input('Grep For> ')})<CR>"
                       "Procurar (search) nos arquivos"]}
-              :q ["<cmd>lua require'functions'['toggle-quickfix']()<CR>"
-                  "Alternar quickfix"]
+              :q [#(functions.toggle-quickfix) "Alternar quickfix"]
               :s {:name "Sessão"
                   :c [:<cmd>CloseSession<CR> "Fechar (close)"]
-                  :d ["<cmd>lua require'functions'['command-with-args']('Delete session: ', 'default', 'customlist,xolox#session#complete_names', 'DeleteSession')<CR>"
+                  :d [#(functions.command-with-args "Delete session: " :default
+                                                    "customlist,xolox#session#complete_names"
+                                                    :DeleteSession)
                       :Deletar]
-                  :o ["<cmd>lua require'functions'['command-with-args']('Open session: ', 'default', 'customlist,xolox#session#complete_names', 'OpenSession')<CR>"
+                  :o [#(functions.command-with-args "Open session: " :default
+                                                    "customlist,xolox#session#complete_names"
+                                                    :OpenSession)
                       :Abrir]
-                  :s ["<cmd>lua require'functions'['command-with-args']('Save session: ', 'default', 'customlist,xolox#session#complete_names_with_suggestions', 'SaveSession')<CR>"
+                  :s [#(functions.command-with-args "Save session: " :default
+                                                    "customlist,xolox#session#complete_names_with_suggestions"
+                                                    :SaveSession)
                       :Salvar]}
               :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" :Terminal]
               :v [:<cmd>vsplit<CR> "Dividir verticalmente"]
