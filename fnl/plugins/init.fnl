@@ -83,23 +83,26 @@
         (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim
               :config #(require :plugins.null-ls))
         (use :williamboman/mason.nvim) (use :williamboman/mason-lspconfig.nvim)
-        (use! :j-hui/fidget.nvim :config
-              #(let [f (require :fidget)]
-                 (f.setup {}))) ; Fidget
+        (use! :j-hui/fidget.nvim ; Fidget
+              :config #(let [f (require :fidget)]
+                        (f.setup {}))) ; Fidget
         (use :nvim-lua/lsp-status.nvim)
-        (use! :hrsh7th/nvim-cmp :requires
-              [:hrsh7th/cmp-nvim-lsp
-               :PaterJason/cmp-conjure
-               :hrsh7th/cmp-buffer
-               :hrsh7th/cmp-path
-               :L3MON4D3/LuaSnip
-               :saadparwaiz1/cmp_luasnip
-               :onsails/lspkind.nvim
-               :hrsh7th/cmp-calc
-               :hrsh7th/cmp-emoji] :config #(require :plugins.cmp))
-        (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim" :config
-              #(let [l (require :lsp_lines)]
-                 (l.setup))) ; LSP lines
+        (use! :hrsh7th/nvim-cmp ;; Autocomplete
+              :requires [:hrsh7th/cmp-nvim-lsp
+                        :PaterJason/cmp-conjure
+                        :hrsh7th/cmp-buffer
+                        :hrsh7th/cmp-path
+                        :L3MON4D3/LuaSnip
+                        :saadparwaiz1/cmp_luasnip
+                        :onsails/lspkind.nvim
+                        :hrsh7th/cmp-calc
+                        :hrsh7th/cmp-emoji
+                        :hrsh7th/cmp-cmdline] ;
+              :config #(require :plugins.cmp))
+        (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
+              ;; Diagnostic inline
+              :config #(let [l (require :lsp_lines)]
+                        (l.setup))) ; LSP lines
         (use :L3MON4D3/LuaSnip)
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal
               :config #(require :plugins.nvim-toggleterm))
@@ -112,9 +115,10 @@
               :config #(require :plugins.nvim-colorizer))
         (use! :ChristianChiarulli/dashboard-nvim ; Dashboard
               :config #(require :plugins.dashboard))
-        (use! :gelguy/wilder.nvim :config #(require :plugins.wilder))
-        ; Wildmenu melhorado
-        (use :ellisonleao/glow.nvim) ; Pré-visualizar markdown
+        (use! :ellisonleao/glow.nvim :config
+              #(let [g (require :glow)]
+                 (g.setup {:style (vim.opt.background:get)})))
+        ; Pré-visualizar markdown
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
               :requires :RishabhRD/popfix)
         (use :protex/better-digraphs.nvim) ; Dígrafos
