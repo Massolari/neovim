@@ -22,16 +22,6 @@
 ; Indent blankline
 (g! indent_blankline_filetype_exclude [:dashboard :lsp-installer ""])
 
-; Glow
-(g! glow_style (vim.opt.background:get))
-
-; CoC
-(g! coc_snippet_next :<c-j>)
-(g! coc_global_extensions [:coc-marketplace
-                           :coc-snippets
-                           :coc-markdown-preview-enhanced
-                           :coc-symbol-line])
-
 ; Copilot
 (g! copilot_no_tab_map true)
 
