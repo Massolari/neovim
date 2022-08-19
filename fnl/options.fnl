@@ -73,7 +73,7 @@
 (set! background :light)
 
 ; Font
-(set! guifont "JetBrainsMono Nerd Font:h12")
+(set! guifont "JetBrainsMono Nerd Font:h14")
 
 ; Habilitar título
 (set! title)
