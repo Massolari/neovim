@@ -129,6 +129,7 @@
         (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
               ;; (use! :Massolari/forem.nvim ; Integração com Forem
               :config #(require :plugins.forem))
+        (use :RRethy/vim-illuminate)
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)

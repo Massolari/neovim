@@ -144,15 +144,6 @@
                  (string.sub (vim.fn.matchstr right-part "^\\k*") 2))]
     (.. "\\<" (vim.fn.escape word (.. "/\\" "\\>")))))
 
-(λ jump-word [previous]
-  (let [word (get-cur-word)
-        flag (if previous :b "")]
-    (vim.fn.search word flag)))
-
-(set M.jump-next-word #(jump-word false))
-
-(set M.jump-previous-word #(jump-word true))
-
 (set M.file-exists? #(> (vim.fn.filereadable $1) 0))
 
 M

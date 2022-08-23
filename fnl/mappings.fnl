@@ -5,6 +5,7 @@
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
+(local illuminate (require :illuminate))
 
 ; Command
 (wk.register {:<c-j> [:<Down> "Comando anterior executado mais recente"]
@@ -31,7 +32,7 @@
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Próximo erro de código"]
-                   :w [#(functions.jump-next-word)
+                   :w [#(illuminate.goto_next_reference)
                        "Próxima palavra destacada"]}
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
@@ -40,7 +41,7 @@
                        "Problema anterior (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_prev({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Erro de código anterior"]
-                   :w [#(functions.jump-previous-word)
+                   :w [#(illuminate.goto_prev_reference)
                        "Palavra destacada anterior"]}}
              (vim.tbl_extend :force options {:mode :n}))
 
