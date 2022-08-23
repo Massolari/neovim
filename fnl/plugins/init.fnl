@@ -85,7 +85,7 @@
         (use :williamboman/mason.nvim) (use :williamboman/mason-lspconfig.nvim)
         (use! :j-hui/fidget.nvim ; Fidget
               :config #(let [f (require :fidget)]
-                        (f.setup {}))) ; Fidget
+                        (f.setup {:text {:spinner :moon :done "🌝"}}))) ; Fidget
         (use :nvim-lua/lsp-status.nvim)
         (use! :hrsh7th/nvim-cmp ;; Autocomplete
               :requires [:hrsh7th/cmp-nvim-lsp
