@@ -146,4 +146,11 @@
 
 (set M.file-exists? #(> (vim.fn.filereadable $1) 0))
 
+(λ M.get-random [max]
+  (math.randomseed (os.time))
+  (math.random max))
+
+(λ M.get-random-item [list]
+  (->> list (length) (M.get-random) (. list)))
+
 M
