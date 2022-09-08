@@ -54,8 +54,12 @@
                                                                                        true)}}}}
     _ {}))
 
-(each [_ server (ipairs (mason-lspconfig.get_installed_servers))]
-  (let [s (. lspconfig server)]
-    (-> server (get-config-options) (s.setup))))
+;; (each [_ server (ipairs (mason-lspconfig.get_installed_servers))]
+;;   (let [s (. lspconfig server)]
+;;     (-> server (get-config-options) (s.setup))))
+
+(mason-lspconfig.setup_handlers [(fn [server-name]
+                                   (let [s (. lspconfig server-name)]
+                                     (-> server-name (get-config-options) (s.setup))))])
 
 (lspconfig.hls.setup {})
