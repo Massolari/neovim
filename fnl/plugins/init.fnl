@@ -118,13 +118,13 @@
               :config #(require :plugins.nvim-colorizer))
         (use! :ChristianChiarulli/dashboard-nvim ; Dashboard
               :config #(require :plugins.dashboard))
-        (use! :ellisonleao/glow.nvim :config
+        (use! :ellisonleao/glow.nvim ; Renderizar markdown usando glow
+              :opt true :cmd [:Glow] :config
               #(let [g (require :glow)]
                  (g.setup {:style (vim.opt.background:get)})))
         ; Pré-visualizar markdown
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
-              :requires :RishabhRD/popfix)
-        (use :protex/better-digraphs.nvim) ; Dígrafos
+              :requires :RishabhRD/popfix :opt true)
         (use! :rcarriga/nvim-notify :config #(require :plugins.nvim-notify))
         ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
