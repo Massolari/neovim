@@ -30,3 +30,6 @@
              "Find Subword Under" ""
              "Add Cursor Down" :<C-g>
              "Add Cursor Up" ""})
+
+;; Conjure
+(g! conjure#mapping#doc_word "K")
