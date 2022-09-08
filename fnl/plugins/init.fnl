@@ -7,7 +7,8 @@
 
 (packer (use :udayvir-singh/tangerine.nvim) ; Suporte à fennel
         (use :udayvir-singh/hibiscus.nvim) ; Macros para fennel
-        (use :Olical/conjure) (use :kyazdani42/nvim-web-devicons) ; Ícones
+        (use :Olical/conjure) ;; Conjure
+        (use :kyazdani42/nvim-web-devicons) ; Ícones
         (use :gpanders/editorconfig.nvim) ; Editorconfig
         (use :xolox/vim-misc)
         (use! :xolox/vim-session ; Sessões
@@ -84,8 +85,10 @@
               :config #(require :plugins.null-ls))
         (use :williamboman/mason.nvim) (use :williamboman/mason-lspconfig.nvim)
         (use! :j-hui/fidget.nvim ; Fidget
-              :config #(let [f (require :fidget)]
-                        (f.setup {:text {:spinner :moon :done "🌝"}}))) ; Fidget
+              :config
+              #(let [f (require :fidget)]
+                 (f.setup {:text {:spinner :moon :done "🌝"}})))
+        ; Fidget
         (use :nvim-lua/lsp-status.nvim)
         (use! :hrsh7th/nvim-cmp ;; Autocomplete
               :requires [:hrsh7th/cmp-nvim-lsp
