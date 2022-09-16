@@ -8,33 +8,31 @@
 (packer (use :udayvir-singh/tangerine.nvim) ; Suporte à fennel
         (use :udayvir-singh/hibiscus.nvim) ; Macros para fennel
         (use :Olical/conjure) ;; Conjure
-        (use :kyazdani42/nvim-web-devicons) ; Ícones
         (use :gpanders/editorconfig.nvim) ; Editorconfig
-        (use :xolox/vim-misc)
         (use! :xolox/vim-session ; Sessões
+              :opt true :cmd [:CloseSession
+                             :DeleteSession
+                             :OpenSession
+                             :SaveSession]
               :requires :xolox/vim-misc :config #(require :plugins.vim-session))
         (use! :nvim-telescope/telescope.nvim ; Buscador
-              :requires
+              :tag :0.1.0 :requires
               [:nvim-lua/plenary.nvim
-               :nvim-telescope/telescope-fzf-native.nvim
+               {1 :nvim-telescope/telescope-fzf-native.nvim :run :make}
                :nvim-telescope/telescope-ui-select.nvim
-               :ahmedkhalf/project.nvim
+               {1 :ahmedkhalf/project.nvim :config #(require :plugins/project)}
                :nvim-telescope/telescope-symbols.nvim] :config
               #(require :plugins.telescope))
-        (use! :nvim-telescope/telescope-fzf-native.nvim :run :make)
-        (use :nvim-telescope/telescope-symbols.nvim)
-        (use :nvim-telescope/telescope-ui-select.nvim)
-        (use! :ahmedkhalf/project.nvim :config
-              #(let [p (require :project_nvim)]
-                 (p.setup {})))
+        (use! :ibhagwan/fzf-lua :requires :kyazdani42/nvim-web-devicons)
         (use! :nvim-treesitter/nvim-treesitter
               ; Sintasse para várias linguagens
               :run ":TSUpdate" :config #(require :plugins.treesitter))
         (use! :numToStr/Comment.nvim ; Comentário de forma fácil
-              :config #(let [c (require :Comment)]
-                        (c.setup {})))
+              :opt true :keys [:gc [:v :gc]] :config
+              #(let [c (require :Comment)]
+                 (c.setup {})))
         (use! :mattn/emmet-vim ; Habilita o uso do emmet (<C-g>,)
-              :config #(require :plugins.emmet))
+              :opt true :keys [[:i "<C-g>,"]])
         (use! :rlane/pounce.nvim ; Habilita a busca rapida usando duas letras
               :config #(let [p (require :pounce)]
                         (p.setup {}))) ;
@@ -63,14 +61,15 @@
         (use! :tpope/vim-fugitive ; Wrapper para comandos do git
               :opt true :cmd [:G :Git :Gdiff :Gclog :Gwrite])
         (use! :pwntester/octo.nvim ; Comandos do github
-              :requires [:nvim-lua/plenary.nvim
-                        :nvim-telescope/telescope.nvim
-                        :kyazdani42/nvim-web-devicons]
-              :config #(let [o (require :octo)]
-                        (o.setup {})))
-        (use :rafamadriz/friendly-snippets) ; Biblioteca de snippets
+              :opt true :cmd :Octo :requires
+              [:nvim-lua/plenary.nvim
+               :nvim-telescope/telescope.nvim
+               :kyazdani42/nvim-web-devicons] :config
+              #(let [o (require :octo)]
+                 (o.setup {}))) (use :rafamadriz/friendly-snippets)
+        ; Biblioteca de snippets
         (use! :nvim-lualine/lualine.nvim ; Status line
-              :requires {1 :kyazdani42/nvim-web-devicons :opt true})
+              :requires :kyazdani42/nvim-web-devicons)
         (use! :folke/which-key.nvim ; Guia de atalhos
               :config #(require :plugins.which-key))
         (use! :diepm/vim-rest-console ; Cliente REST
@@ -113,7 +112,6 @@
               :requires :kyazdani42/nvim-web-devicons :config
               #(require :plugins.bufferline)) (use :github/copilot.vim)
         ; Copiloto
-        (use :antoinemadec/FixCursorHold.nvim) ; Correção do CursorHold
         (use! :norcalli/nvim-colorizer.lua ; Colorir hexademical de cores
               :config #(require :plugins.nvim-colorizer))
         (use! :ChristianChiarulli/dashboard-nvim ; Dashboard
@@ -124,14 +122,24 @@
                  (g.setup {:style (vim.opt.background:get)})))
         ; Pré-visualizar markdown
         (use! :RishabhRD/nvim-cheat.sh ; Procurar em cheat.sh
-              :requires :RishabhRD/popfix :opt true)
+              :requires :RishabhRD/popfix :opt true :cmd [:Cheat])
         (use! :rcarriga/nvim-notify :config #(require :plugins.nvim-notify))
         ; Notificações mais bonitas
         (use! :mg979/vim-visual-multi ; Múltiplos cursores
-              :branch :master)
-        (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
-              ;; (use! :Massolari/forem.nvim ; Integração com Forem
-              :config #(require :plugins.forem))
+              :opt true :keys [:<c-g> :<c-t>] :branch :master)
+        ;; (use! :edluffy/hologram.nvim ; Exibir imagens
+        ;;       :config #(let [h (require :hologram)]
+        ;;                 (h.setup {:auto_display true})))
+        ;; (use! :samodostal/image.nvim ; Abrir arquivos de imagem
+        ;;       :requires :nvim-lua/plenary.nvim :config
+        ;;       #(let [i (require :image)]
+        ;;          (i.setup {:render {:min_padding 5
+        ;;                             :show_label true
+        ;;                             :use_dither true}
+        ;;                    :events {:update_on_nvim_resize true}})))
+        ;; (use! :/Users/douglasmassolari/forem.nvim ; Integração com Forem
+        (use! :Massolari/forem.nvim ; Integração com Forem
+              :opt true :module :forem-nvim :config #(require :plugins.forem))
         (use :RRethy/vim-illuminate)
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]

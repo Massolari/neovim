@@ -33,3 +33,8 @@
 
 ;; Conjure
 (g! conjure#mapping#doc_word "K")
+
+
+;; Emmet
+(g! user_emmet_mode :iv)
+(g! user_emmet_leader_key :<C-g>)
