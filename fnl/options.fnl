@@ -2,7 +2,7 @@
 
 ; Encoding
 (set! fileencoding :utf-8)
-(set! fileformats [:unix :dos :mac])
+(set! fileformats "unix,dos,mac")
 
 ; Formatação
 (rem! formatoptions :c)
@@ -36,7 +36,7 @@
 (set! scrolloff 5)
 
 ; Copiar para a área de transferência
-(set! clipboard [:unnamed :unnamedplus])
+(set! clipboard "unnamed,unnamedplus")
 
 ; Mouse
 (set! mouse :a)
@@ -64,7 +64,7 @@
 (set! signcolumn :yes)
 
 ; Autocomplete melhor
-(set! completeopt [:menuone :noselect])
+(set! completeopt "menuone,noselect")
 
 ; Melhora as cores
 (set! termguicolors true)
@@ -79,4 +79,4 @@
 (set! title)
 
 ; Destacar espaços em branco no final do arquivo
-(vim.fn.matchadd :errorMsg "\\s\\+$")
+(vim.fn.matchadd :EndSpace "\\s\\+$")
