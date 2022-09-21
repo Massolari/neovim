@@ -77,6 +77,3 @@
 
 ; Habilitar título
 (set! title)
-
-; Destacar espaços em branco no final do arquivo
-(vim.fn.matchadd :EndSpace "\\s\\+$")

@@ -44,5 +44,9 @@
     (exec [[":source " source-file]])
     (show-info (.. "sourced: " source-file) :Source)))
 
+(augroup! :_highlight_end_spaces
+          ; Destacar espaços em branco no final do arquivo
+          [[VimEnter WinEnter] * #(vim.fn.matchadd :EndSpace "\\s\\+$")])
+
 (augroup! :_config ;autocmd para arquivos de configuração fennel
           [[BufWritePost] *.fnl `source-file])

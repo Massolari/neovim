@@ -11,7 +11,10 @@
 
 ;; (vim.cmd "hi VertSplit guifg=#000 guibg=Normal"))
 
+; Cor para espaços em branco no final do arquivo
 (exec [[:hi (.. "EndSpace guibg=" (functions.get-color :Error :fg :Red))]])
+
+;; Janela flutuante com a mesma cor de fundo do editor
 (exec [[:hi "link NormalFloat Normal"]])
 
 (let [signs {:Error " " :Warn " " :Info " " :Hint " "}]
