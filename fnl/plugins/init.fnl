@@ -50,8 +50,10 @@
               :config #(require :plugins.indent-blankline))
         (use! :windwp/nvim-autopairs ; Auto-fechamento de delimitadores
               :config #(let [a (require :nvim-autopairs)]
-                        (a.setup {}))) (use :tpope/vim-surround)
-        ; Operação com delimitadores
+                        (a.setup {})))
+        (use! :kylechui/nvim-surround :config
+              #(let [s (require :nvim-surround)]
+                 (s.setup {}))) ; Operação com delimitadores
         (use :unblevable/quick-scope) ; Se mover melhor com o f/t
         (use :wellle/targets.vim) ; Text-objects melhorados e com seek
         (use! :kyazdani42/nvim-tree.lua ; Explorador de arquivos
