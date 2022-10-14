@@ -11,9 +11,6 @@
 (g! gruvbox_italic 1)
 (g! gruvbox_sign_column :bg0)
 
-;; Catppuccin
-(g! catppuccin_flavour :latte)
-
 ;; Neovide
 (g! neovide_floating_blur 0)
 (g! neovide_window_floating_opacity 1)
@@ -40,3 +37,4 @@
 ;; Emmet
 (g! user_emmet_mode :iv)
 (g! user_emmet_leader_key :<C-g>)
+
