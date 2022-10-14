@@ -210,9 +210,6 @@
 (map! [v] :K ":m '<-2<CR>gv=gv")
 (map! [v] :J ":m '>+1<CR>gv=gv")
 
-; Aceitar sugestão do copilot
-(map! [i :script :expr :remap] :<c-q> "copilot#Accept(\"\\<c-q>\")")
-
 (map! [n] :K #(vim.lsp.buf.hover))
 
 (wk.register {:d [#(vim.lsp.buf.definition) "Definição"]
