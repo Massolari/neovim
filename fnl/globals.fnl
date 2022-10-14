@@ -31,6 +31,8 @@
              "Add Cursor Down" :<C-g>
              "Add Cursor Up" ""})
 
+(g! VM_Mono_hl "DiffText")
+
 ;; Conjure
 (g! conjure#mapping#doc_word "K")
 
