@@ -203,9 +203,6 @@
 (map! [v] "<" :<gv)
 (map! [v] ">" :>gv)
 
-; Pesquisar a seleção
-(map! [v] "//" "y/<C-R>\"<CR>")
-
 ; Mover linhas
 (map! [v] :K ":m '<-2<CR>gv=gv")
 (map! [v] :J ":m '>+1<CR>gv=gv")
