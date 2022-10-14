@@ -62,8 +62,8 @@
 ;;     (-> server (get-config-options) (s.setup))))
 
 (mason-lspconfig.setup_handlers [(fn [server-name]
-                                   (let [s (. lspconfig server-name)]
+                                   (let [server (. lspconfig server-name)]
                                      (-> server-name (get-config-options)
-                                         (s.setup))))])
+                                         (server.setup))))])
 
-(lspconfig.hls.setup {})
+(lspconfig.elmls.setup {})
