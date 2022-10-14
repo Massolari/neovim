@@ -65,7 +65,7 @@
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
                   :a [#(vim.lsp.buf.code_action) "Ações"]
-                  :d [#(vim.diagnostic.setloclist) "Problemas (diagnostics)"]
+                  :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
                   :f [#(vim.lsp.buf.formatting) "Formatar código"]
