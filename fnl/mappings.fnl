@@ -37,8 +37,12 @@
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
                    :c "Git hunk anterior"
-                   :d [#(vim.diagnostic.goto_prev {:float {:show_header true :border :single}}) "Problema anterior (diagnostic)"]
-                   :e [#(vim.diagnostic.goto_prev {:float {:show_header true :border :single} :severity :Error})
+                   :d [#(vim.diagnostic.goto_prev {:float {:show_header true
+                                                           :border :single}})
+                       "Problema anterior (diagnostic)"]
+                   :e [#(vim.diagnostic.goto_prev {:float {:show_header true
+                                                           :border :single}
+                                                   :severity :Error})
                        "Erro de código anterior"]
                    :w [#(illuminate.goto_prev_reference)
                        "Palavra destacada anterior"]}}
