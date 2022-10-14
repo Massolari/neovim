@@ -68,7 +68,7 @@
                   :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
-                  :f [#(vim.lsp.buf.formatting) "Formatar código"]
+                  :f [#(vim.lsp.buf.format {:async true}) "Formatar código"]
                   :o ["<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>"
                       "Buscar símbolos no arquivo"]
                   :p ["<cmd>lua require'telescope.builtin'.lsp_workspace_symbols()<CR>"
