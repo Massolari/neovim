@@ -15,7 +15,8 @@
 (exec [[:hi (.. "EndSpace guibg=" (functions.get-color :Error :fg :Red))]])
 
 ;; Janela flutuante com a mesma cor de fundo do editor
-(exec [[:hi "link NormalFloat Normal"]])
+(vim.cmd "hi! link NormalFloat Normal")
+(vim.cmd "hi! link FloatBorder Normal")
 
 (let [signs {:Error " " :Warn " " :Info " " :Hint " "}]
   (each [type icon (pairs signs)]
