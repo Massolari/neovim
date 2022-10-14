@@ -3,3 +3,4 @@ lua/
 lua/user/init.lua
 lua/user/plugins.lua
 plugin/packer_compiled.lua
+.DS_Store
