@@ -212,12 +212,7 @@
 
 (map! [n] :K #(vim.lsp.buf.hover))
 
-(wk.register {:d [#(vim.lsp.buf.definition) "Definição"]
-              :D [(fn []
-                    (vim.cmd "belowright split")
-                    (vim.lsp.buf.definition))
-                  "Definição"]
-              :i [#(vim.lsp.buf.implementation) "Implementação"]
+(wk.register {:i [#(vim.lsp.buf.implementation) "Implementação"]
               :r ["<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
                   "Referências"]
               :y ["<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>"
