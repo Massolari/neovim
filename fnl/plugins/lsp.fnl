@@ -4,6 +4,7 @@
 (local mason-lspconfig (require :mason-lspconfig))
 (local lspconfig (require :lspconfig))
 (local lsp-status (require :lsp-status))
+(local navic (require :nvim-navic))
 (local wk (require :which-key))
 
 (local border [["╭" :FloatBorder]
@@ -22,6 +23,7 @@
 
 (fn on_attach [client bufnr]
   (lsp-status.on_attach client)
+  (navic.attach client bufnr)
   (set vim.lsp.handlers.textDocument/hover
        (vim.lsp.with vim.lsp.handlers.hover {: border}))
   (set vim.lsp.handlers.textDocument/signatureHelp
@@ -60,6 +62,7 @@
 
 (mason-lspconfig.setup_handlers [(fn [server-name]
                                    (let [s (. lspconfig server-name)]
-                                     (-> server-name (get-config-options) (s.setup))))])
+                                     (-> server-name (get-config-options)
+                                         (s.setup))))])
 
 (lspconfig.hls.setup {})

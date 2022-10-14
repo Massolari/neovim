@@ -51,9 +51,6 @@
 ; Não redimensionar janelas abertas ao abrir ou fechar janelas
 (set! equalalways false)
 
-; Espaço maior para mensagens
-(set! cmdheight 2)
-
 ; Diminuir tempo de atualização
 (set! updatetime 300)
 
@@ -77,3 +74,8 @@
 
 ; Habilitar título
 (set! title)
+
+; Remover cmdline
+(set! laststatus 3)
+
+(set! winbar "%t %{%v:lua.require'nvim-navic'.get_location()%}")

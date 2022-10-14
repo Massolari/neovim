@@ -110,10 +110,7 @@
         (use :L3MON4D3/LuaSnip)
         (use! :akinsho/nvim-toggleterm.lua ; Alternador de terminal
               :config #(require :plugins.nvim-toggleterm))
-        (use! :akinsho/bufferline.nvim ; Buffers no topo como abas
-              :requires :kyazdani42/nvim-web-devicons :config
-              #(require :plugins.bufferline)) (use :github/copilot.vim)
-        ; Copiloto
+        (use :github/copilot.vim) ; Copiloto
         (use! :norcalli/nvim-colorizer.lua ; Colorir hexademical de cores
               :config #(require :plugins.nvim-colorizer))
         (use! :ChristianChiarulli/dashboard-nvim ; Dashboard
@@ -143,6 +140,7 @@
         (use! :Massolari/forem.nvim ; Integração com Forem
               :opt true :module :forem-nvim :config #(require :plugins.forem))
         (use :RRethy/vim-illuminate)
+        (use! :SmiteshP/nvim-navic :requires :neovim/nvim-lspconfig)
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)

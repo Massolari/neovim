@@ -11,7 +11,7 @@
 
 (local get-color functions.get-color)
 
-(local colors {:bg (get-color :CursorLine :bg "#202328")
+(local colors {:bg (get-color :CursorLine :guibg "#202328")
                :fg (get-color :Normal :fg "#bbc2cf")
                :yellow :DarkYellow
                :cyan "#008080"
@@ -49,17 +49,17 @@
                                    :lualine_x {}}})
 
 ; Inserts a component in lualine_c at left section
-(fn ins-left [component]
+(λ ins-left [component]
   (table.insert config.sections.lualine_c component))
 
-(fn ins-inactive-left [component]
+(λ ins-inactive-left [component]
   (table.insert config.inactive_sections.lualine_c component))
 
-; Inserts a component in lualine_x at left section
-(fn ins-right [component]
+; Inserts a component in lualine_x at right section
+(λ ins-right [component]
   (table.insert config.sections.lualine_x component))
 
-(fn ins-inactive-right [component]
+(λ ins-inactive-right [component]
   (table.insert config.inactive_sections.lualine_x component))
 
 (ins-left {1 (fn []
@@ -79,25 +79,33 @@
            :padding {:left 0 :right 1}
            :separator ""})
 
-(ins-left {1 :filename
-           :padding 0
-           :color {:fg colors.magenta :gui :bold}
+(ins-left {1 :filename :padding {:left 0 :right 1} :color {:fg colors.magenta :gui :bold}})
+
+(ins-left {1 :location :padding {:left 1} :separator ""})
+(ins-left {1 :progress :padding {:left 1 :right 1} :color {:gui :bold} :separator ""})
+
+(ins-left {1 :diagnostics
+           :symbols {:error " " :warn " " :info "  " :hint " "}
            :separator ""})
 
 (ins-left {1 (fn []
-               (let [current-function (or vim.b.lsp_current_function "")]
-                 (if (not= current-function "") (.. "λ " current-function) "")))
-           :cond buffer-not-empty?
-           :color {:fg colors.blue :gui :bold}
-           :padding {:left 1 :right 0}
+               "%=")
            :separator ""})
 
-(ins-left {1 :location :padding {:left 1} :separator ""})
-(ins-left {1 :progress :padding {:left 0 :right 1} :color {:gui :bold}})
-(ins-left {1 :diagnostics
-           :symbols {:error " " :warn " " :info "  " :hint " "}})
-
-(ins-right {1 #(or vim.g.coc_status "") :color {:fg colors.cyan}})
+(ins-left {1 (fn []
+               (let [clients (vim.lsp.buf_get_clients)
+                     buf-filetype (vim.api.nvim_buf_get_option 0 :filetype)
+                     result []]
+                 (each [_ client (pairs clients)]
+                   (let [client-filetypes (or client.config.filetypes [])]
+                     (when (->> buf-filetype
+                                (vim.fn.index client-filetypes)
+                                (not= -1))
+                       (table.insert result client.name))))
+                 (if (> (length result) 0)
+                     (.. "  LSP: " (table.concat result " | "))
+                     "No Active Lsp")))
+           :cond buffer-not-empty?})
 
 (ins-right {1 :branch
             :icon " "
