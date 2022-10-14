@@ -50,3 +50,7 @@
 
 (augroup! :_config ;autocmd para arquivos de configuração fennel
           [[BufWritePost] *.fnl `source-file])
+
+(augroup! :_qutebrowser [[BufWinEnter]
+                         *qutebrowser-editor*
+                         #(set! filetype :markdown)])

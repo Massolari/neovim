@@ -54,6 +54,7 @@
                                    :diagnostics {:globals [:vim]}
                                    :workspace {:library (vim.api.nvim_get_runtime_file ""
                                                                                        true)}}}}
+    :grammarly {:root_dir (fn [] (vim.loop.os_homedir))}
     _ {}))
 
 ;; (each [_ server (ipairs (mason-lspconfig.get_installed_servers))]
