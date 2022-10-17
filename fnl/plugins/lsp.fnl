@@ -38,8 +38,7 @@
   (vim.tbl_extend :keep capabilities lsp-status.capabilities))
 
 (local capabilities (let [cmp-lsp (require :cmp_nvim_lsp)]
-                      (-> (vim.lsp.protocol.make_client_capabilities)
-                          (cmp-lsp.update_capabilities)
+                      (-> (cmp-lsp.default_capabilities)
                           (apply-lsp-status-capabilities))))
 
 (set lspconfig.util.default_config
@@ -54,7 +53,8 @@
                                    :diagnostics {:globals [:vim]}
                                    :workspace {:library (vim.api.nvim_get_runtime_file ""
                                                                                        true)}}}}
-    :grammarly {:root_dir (fn [] (vim.loop.os_homedir))}
+    :grammarly {:root_dir (fn []
+                            (vim.loop.os_homedir))}
     _ {}))
 
 ;; (each [_ server (ipairs (mason-lspconfig.get_installed_servers))]
