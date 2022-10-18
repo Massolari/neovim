@@ -79,6 +79,9 @@
                       "Buscar símbolos no projeto"]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
+                  :a {:name :Animais
+                      :c [#(functions.cook-animals) :Cozinhar]
+                      :s [#(functions.release-animals) :Soltar]}
                   :b {:name "Browser (w3m)"
                       :a [#(functions.w3m-open-url) "Abrir URL"]
                       :s [#(functions.w3m-search) "Buscar no Google (search)"]

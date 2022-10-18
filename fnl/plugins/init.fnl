@@ -142,6 +142,7 @@
               :opt true :module :forem-nvim :config #(require :plugins.forem))
         (use :RRethy/vim-illuminate)
         (use! :SmiteshP/nvim-navic :requires :neovim/nvim-lspconfig)
+        (use :tamton-aquib/duck.nvim)
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)
