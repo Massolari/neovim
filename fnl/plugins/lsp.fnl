@@ -54,12 +54,8 @@
                                    :workspace {:library (vim.api.nvim_get_runtime_file ""
                                                                                        true)}}}}
     :grammarly {:root_dir (fn []
-                            (vim.loop.os_homedir))}
+                            (vim.loop.cwd))}
     _ {}))
-
-;; (each [_ server (ipairs (mason-lspconfig.get_installed_servers))]
-;;   (let [s (. lspconfig server)]
-;;     (-> server (get-config-options) (s.setup))))
 
 (mason-lspconfig.setup_handlers [(fn [server-name]
                                    (let [server (. lspconfig server-name)]
