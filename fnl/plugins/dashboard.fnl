@@ -2,28 +2,31 @@
 
 (local functions (require :functions))
 (local quotes (require :data.quotes))
+(local dashboard (require :dashboard))
 
 (local config-folder (vim.fn.stdpath :config))
 
-(g! dashboard_default_executive :telescope)
+(set dashboard.hide_winbar false)
 
 (let [header-number (functions.get-random 30)]
-  (g! dashboard_custom_header
-      (vim.fn.systemlist (.. "cat " config-folder :/fnl/data/ascii/ header-number :.cat))))
+  (set dashboard.custom_header
+       (vim.fn.systemlist (.. "cat " config-folder :/fnl/data/ascii/
+                              header-number :.cat))))
 
 (let [user-file (.. config-folder :/lua/user/init.lua)]
-  (g! dashboard_custom_section
-      {:a {:description ["  Buscar arquivo        "]
-           :command "Telescope find_files"}
-       :c {:description ["  Abrir projeto         "]
-           :command "Telescope projects"}
-       :d {:description ["  Procurar nos arquivos "]
-           :command "Telescope live_grep"}
-       :e {:description ["  Octo (Github)         "]
-           :command "Octo actions"}
-       :f {:description ["  Feed do dev.to        "]
-           :command "Forem feed"}
-       :g {:description ["  Novo arquivo          "] :command ":ene!"}}))
+  (set dashboard.custom_center
+       [{:icon " "
+         :desc "Buscar arquivo        "
+         :action "Telescope find_files"}
+        {:icon " "
+         :desc "Abrir projeto         "
+         :action "Telescope projects"}
+        {:icon " "
+         :desc "Procurar nos arquivos "
+         :action "Telescope live_grep"}
+        {:icon " " :desc "Octo (Github)         " :action "Octo actions"}
+        {:icon " " :desc "Feed do dev.to        " :action "Forem feed"}
+        {:icon " " :desc "Novo arquivo          " :action ":ene!"}]))
 
 (math.randomseed (os.time))
-(g! dashboard_custom_footer (functions.get-random-item quotes))
+(set dashboard.custom_footer (functions.get-random-item quotes))

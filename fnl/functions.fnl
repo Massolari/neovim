@@ -153,4 +153,12 @@
 (λ M.get-random-item [list]
   (->> list (length) (M.get-random) (. list)))
 
+(λ M.clear-endspace []
+  (let [ids (->> (vim.fn.getmatches)
+                 (vim.tbl_filter #(= $.group :EndSpace))
+                 (vim.tbl_map (fn [m]
+                                m.id)))]
+    (each [_ i (pairs ids)]
+      (vim.fn.matchdelete i))))
+
 M

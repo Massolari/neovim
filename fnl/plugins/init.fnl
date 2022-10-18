@@ -114,7 +114,7 @@
         (use :github/copilot.vim) ; Copiloto
         (use! :norcalli/nvim-colorizer.lua ; Colorir hexademical de cores
               :config #(require :plugins.nvim-colorizer))
-        (use! :ChristianChiarulli/dashboard-nvim ; Dashboard
+        (use! :glepnir/dashboard-nvim ; Dashboard
               :config #(require :plugins.dashboard))
         (use! :ellisonleao/glow.nvim ; Renderizar markdown usando glow
               :opt true :cmd [:Glow] :config

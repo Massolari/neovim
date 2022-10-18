@@ -78,4 +78,4 @@
 ; Remover cmdline
 (set! laststatus 3)
 
-(set! winbar "%t %{%v:lua.require'nvim-navic'.get_location()%}")
+(set! winbar " %t %{%v:lua.require'nvim-navic'.get_location()%}")

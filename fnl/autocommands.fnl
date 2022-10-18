@@ -15,9 +15,9 @@
           [[TextYankPost]
            *
            #(vim.highlight.on_yank {:higroup :Search :timeout 200})]
-          [[BufWinEnter]
-           dashboard
-           "setlocal cursorline signcolumn=yes cursorcolumn number"]
+          ;; [[BufWinEnter]
+          ;;  dashboard
+          ;;  "setlocal cursorline signcolumn=yes cursorcolumn number"]
           [[FileType] qf #(set! nobuflisted)]
           [[FileType] qf #(map! [n :buffer] :<CR> :<CR>)]
           [[BufReadPost] * `recover-position]
