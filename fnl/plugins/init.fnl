@@ -81,13 +81,12 @@
         (use! :neovim/nvim-lspconfig :requires
               [:williamboman/mason.nvim
                :williamboman/mason-lspconfig.nvim
-               :j-hui/fidget.nvim
                :nvim-lua/lsp-status.nvim] :config
               #(require :plugins.lsp)) ; LSP
         (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim
               :config #(require :plugins.null-ls))
         (use :williamboman/mason.nvim) (use :williamboman/mason-lspconfig.nvim)
-        (use! :j-hui/fidget.nvim ; Fidget
+        (use! :disable true :j-hui/fidget.nvim ; Fidget
               :config
               #(let [f (require :fidget)]
                  (f.setup {:text {:spinner :moon :done "🌝"}})))
@@ -144,6 +143,11 @@
         (use :RRethy/vim-illuminate)
         (use! :SmiteshP/nvim-navic :requires :neovim/nvim-lspconfig)
         (use :tamton-aquib/duck.nvim)
+        (use! :folke/noice.nvim ;
+              :event :VimEnter :config
+              #(let [n (require :noice)]
+                 (n.setup)) :requires
+              [:MunifTanjim/nui.nvim :rcarriga/nvim-notify])
         (local {: file-exists?} (require :functions))
         (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/plugins.lua)]
           (when (file-exists? user-file)
