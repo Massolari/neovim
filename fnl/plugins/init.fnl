@@ -38,6 +38,7 @@
                         (p.setup {}))) ;
         ; Temas
         (use :ellisonleao/gruvbox.nvim) (use :projekt0n/github-nvim-theme)
+        (use :sainnhe/everforest)
         (use! :catppuccin/nvim ;
               :as :catppuccin :config #(g! catppuccin_flavour :latte))
         (use :shaunsingh/solarized.nvim) (use :rafi/awesome-vim-colorschemes)
