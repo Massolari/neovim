@@ -25,6 +25,8 @@
               #(require :plugins.telescope))
         (use! :ibhagwan/fzf-lua :requires :kyazdani42/nvim-web-devicons)
         (use! :nvim-treesitter/nvim-treesitter
+              :commit
+              :addc129a4f272aba0834bd0a7b6bd4ad5d8c801b
               ; Sintasse para várias linguagens
               :run ":TSUpdate" :config #(require :plugins.treesitter))
         (use! :numToStr/Comment.nvim ; Comentário de forma fácil
@@ -86,8 +88,8 @@
         (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim
               :config #(require :plugins.null-ls))
         (use :williamboman/mason.nvim) (use :williamboman/mason-lspconfig.nvim)
-        (use! :disable true :j-hui/fidget.nvim ; Fidget
-              :config
+        (use! :j-hui/fidget.nvim ; Fidget
+              :disable true :config
               #(let [f (require :fidget)]
                  (f.setup {:text {:spinner :moon :done "🌝"}})))
         ; Fidget

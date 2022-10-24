@@ -2,10 +2,11 @@
 (local functions (require :functions))
 
 (when (= nil vim.g.colors_name)
-  ;; (color! github_light))
-  (color! everforest))
-  ;; (color! gruvbox))
-  ;; (color! onehalflight))
+  (color! github_light))
+  ;; (color! everforest))
+;; (color! solarized8_high))
+;; (color! gruvbox))
+;; (color! onehalflight))
 
 (if (vim.startswith vim.g.colors_name :one)
     (vim.cmd "hi! link VertSplit Normal"))
