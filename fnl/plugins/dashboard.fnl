@@ -1,5 +1,3 @@
-(require-macros :hibiscus.vim)
-
 (local functions (require :functions))
 (local quotes (require :data.quotes))
 (local dashboard (require :dashboard))
