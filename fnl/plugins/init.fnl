@@ -3,7 +3,7 @@
 
 (exec [[:packadd :matchit]])
 
-(packer-setup)
+(packer-setup {:max_jobs 10})
 
 (packer (use :udayvir-singh/tangerine.nvim) ; Suporte à fennel
         (use :udayvir-singh/hibiscus.nvim) ; Macros para fennel
