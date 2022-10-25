@@ -93,12 +93,11 @@
            :symbols {:error " " :warn " " :info "  " :hint " "}
            :separator ""})
 
-(ins-left (let [noice (require :noice)]
-             {1 #(noice.api.status.mode.get)
-              ;; :color {:fg colors.violet :gui :bold}
-              :cond #(noice.api.status.mode.has)
-              :separator ""}))
-
+(ins-left {1 #(let [noice (require :noice)]
+                 (noice.api.status.mode.get))
+            :cond #(let [noice (require :noice)]
+                     (noice.api.status.mode.has))
+            :separator ""})
 
 (ins-left {1 (fn []
                "%=")
@@ -119,10 +118,12 @@
                      "No Active Lsp")))
            :cond buffer-not-empty?})
 
-(ins-right (let [noice (require :noice)]
-             {1 #(-> (noice.api.status.search.get) (string.gsub "W " "⤴ "))
-              :cond #(noice.api.status.search.has)
-              :separator ""}))
+(ins-right {1 #(let [noice (require :noice)]
+                 (-> (noice.api.status.search.get)
+                     (string.gsub "W " "⤴ ")))
+            :cond #(let [noice (require :noice)]
+                     (noice.api.status.search.has))
+            :separator ""})
 
 (ins-right {1 :branch
             :icon " "
