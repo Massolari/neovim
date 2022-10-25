@@ -23,8 +23,8 @@
              (vim.tbl_extend :force options {:mode :i}))
 
 ; Normal
-(wk.register {:<c-n> [:<cmd>BufferLineCycleNext<CR> "Próximo buffer"]
-              :<c-p> [:<cmd>BufferLineCyclePrev<CR> "Buffer anterior"]
+(wk.register {:<c-n> [:<cmd>bn<CR> "Próximo buffer"]
+              :<c-p> [:<cmd>bp<CR> "Buffer anterior"]
               "]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
                         "Pular para a próxima função Elm"]
                    :c "Próximo git hunk"
