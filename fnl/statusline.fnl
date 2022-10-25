@@ -79,14 +79,26 @@
            :padding {:left 0 :right 1}
            :separator ""})
 
-(ins-left {1 :filename :padding {:left 0 :right 1} :color {:fg colors.magenta :gui :bold}})
+(ins-left {1 :filename
+           :padding {:left 0 :right 1}
+           :color {:fg colors.magenta :gui :bold}})
 
 (ins-left {1 :location :padding {:left 1} :separator ""})
-(ins-left {1 :progress :padding {:left 1 :right 1} :color {:gui :bold} :separator ""})
+(ins-left {1 :progress
+           :padding {:left 1 :right 1}
+           :color {:gui :bold}
+           :separator ""})
 
 (ins-left {1 :diagnostics
            :symbols {:error " " :warn " " :info "  " :hint " "}
            :separator ""})
+
+(ins-left (let [noice (require :noice)]
+             {1 #(noice.api.status.mode.get)
+              ;; :color {:fg colors.violet :gui :bold}
+              :cond #(noice.api.status.mode.has)
+              :separator ""}))
+
 
 (ins-left {1 (fn []
                "%=")
@@ -106,6 +118,11 @@
                      (.. "  LSP: " (table.concat result " | "))
                      "No Active Lsp")))
            :cond buffer-not-empty?})
+
+(ins-right (let [noice (require :noice)]
+             {1 #(-> (noice.api.status.search.get) (string.gsub "W " "⤴ "))
+              :cond #(noice.api.status.search.has)
+              :separator ""}))
 
 (ins-right {1 :branch
             :icon " "
