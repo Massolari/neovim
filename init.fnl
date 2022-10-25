@@ -13,6 +13,6 @@
   (when (file-exists? user-file)
     (require :user)))
 
-(require :winbar)
 (require :statusline)
+(require :winbar)
 (require :theme)
