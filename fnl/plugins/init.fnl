@@ -36,8 +36,7 @@
         (use :sainnhe/everforest)
         (use! :catppuccin/nvim ;
               :as :catppuccin :config #(g! catppuccin_flavour :latte))
-        (use :shaunsingh/solarized.nvim) (use :rafi/awesome-vim-colorschemes)
-        (use :nlknguyen/papercolor-theme) (use :ishan9299/nvim-solarized-lua)
+        (use :rafi/awesome-vim-colorschemes) (use :ishan9299/nvim-solarized-lua)
         (use! :lewis6991/gitsigns.nvim
               ; Mostra um git diff na coluna de número e comandos para hunks
               :requires :nvim-lua/plenary.nvim :config
