@@ -3,15 +3,12 @@
 
 (when (= nil vim.g.colors_name)
   (color! github_light))
-  ;; (color! everforest))
-;; (color! solarized8_high))
-;; (color! gruvbox))
-;; (color! onehalflight))
 
 (if (vim.startswith vim.g.colors_name :one)
     (vim.cmd "hi! link VertSplit Normal"))
 
-;; (vim.cmd "hi VertSplit guifg=#000 guibg=Normal"))
+;; (vim.cmd "hi DiffChange guibg=Normal")
+;; (vim.cmd "hi DiffDelete guibg=Normal")
 
 ; Cor para espaços em branco no final do arquivo
 (exec [[:hi (.. "EndSpace guibg=" (functions.get-color :Error :fg :Red))]])

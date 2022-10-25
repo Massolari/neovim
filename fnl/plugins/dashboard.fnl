@@ -5,6 +5,7 @@
 (local config-folder (vim.fn.stdpath :config))
 
 (set dashboard.hide_winbar false)
+(set dashboard.session_directory (.. (vim.fn.stdpath "data") "/sessions"))
 
 (let [header-number (functions.get-random 30)]
   (set dashboard.custom_header

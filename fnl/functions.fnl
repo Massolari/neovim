@@ -51,12 +51,6 @@
     (when status
       (fun input))))
 
-(λ M.command-with-args [prompt default completion command]
-  (with-input prompt
-              (fn [input]
-                (vim.cmd (.. ":" command " " input))) default
-              completion))
-
 (λ M.checkout-new-branch []
   (with-input "New branch name: "
               (fn [branch]
@@ -116,6 +110,13 @@
                 (when (not= input "")
                   (w3m-open (.. "\"https://www.google.com/search?q="
                                 (string.gsub input " " "+") "\""))))))
+
+; Session
+(let [sessions (Terminal:new {:cmd (.. "bash --rcfile <(echo 'cd " (vim.fn.stdpath :data) :/sessions "; echo \"************\n* Sessions *\n************\n\"; ls')")
+                              :direction :float
+                              :hidden true
+                              :id 1002})]
+  (set M.session-list #(sessions:toggle)))
 
 ; Get a color form a highlight group
 (λ M.get-color [highlight-group type fallback]

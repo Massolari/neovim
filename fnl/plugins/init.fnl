@@ -9,12 +9,6 @@
         (use :udayvir-singh/hibiscus.nvim) ; Macros para fennel
         (use :Olical/conjure) ;; Conjure
         (use :gpanders/editorconfig.nvim) ; Editorconfig
-        (use! :xolox/vim-session ; Sessões
-              :opt true :cmd [:CloseSession
-                             :DeleteSession
-                             :OpenSession
-                             :SaveSession]
-              :requires :xolox/vim-misc :config #(require :plugins.vim-session))
         (use! :nvim-telescope/telescope.nvim ; Buscador
               :tag :0.1.0 :requires
               [:nvim-lua/plenary.nvim
@@ -24,8 +18,7 @@
                :nvim-telescope/telescope-symbols.nvim] :config
               #(require :plugins.telescope))
         (use! :ibhagwan/fzf-lua :requires :kyazdani42/nvim-web-devicons)
-        (use! :nvim-treesitter/nvim-treesitter
-              :commit
+        (use! :nvim-treesitter/nvim-treesitter :commit
               :addc129a4f272aba0834bd0a7b6bd4ad5d8c801b
               ; Sintasse para várias linguagens
               :run ":TSUpdate" :config #(require :plugins.treesitter))

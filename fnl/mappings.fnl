@@ -155,19 +155,9 @@
                       "Procurar (search) nos arquivos"]}
               :q [#(functions.toggle-quickfix) "Alternar quickfix"]
               :s {:name "Sessão"
-                  :c [:<cmd>CloseSession<CR> "Fechar (close)"]
-                  :d [#(functions.command-with-args "Delete session: " :default
-                                                    "customlist,xolox#session#complete_names"
-                                                    :DeleteSession)
-                      :Deletar]
-                  :o [#(functions.command-with-args "Open session: " :default
-                                                    "customlist,xolox#session#complete_names"
-                                                    :OpenSession)
-                      :Abrir]
-                  :s [#(functions.command-with-args "Save session: " :default
-                                                    "customlist,xolox#session#complete_names_with_suggestions"
-                                                    :SaveSession)
-                      :Salvar]}
+                  :c [:<cmd>SessionLoad<CR> :Carregar]
+                  :l [#(functions.session-list) :Listar]
+                  :s [:<cmd>SessionSave<CR> :Salvar]}
               :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" :Terminal]
               :v [:<cmd>vsplit<CR> "Dividir verticalmente"]
               :w {:name :Window :c [:<c-w>c "Fechar janela"]}}
