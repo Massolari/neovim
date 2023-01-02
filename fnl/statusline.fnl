@@ -1,6 +1,3 @@
-(require-macros :hibiscus.vim)
-(require-macros :hibiscus.core)
-
 (fn get-file-path []
   (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
         formatted-cwd (string.gsub (vim.fn.getcwd) "\\-" "\\-")
@@ -11,7 +8,13 @@
 
 (local get-color functions.get-color)
 
-(local colors {:bg (get-color :CursorLine :guibg "#202328")
+(fn get-background-color []
+  (let [query #(get-color :CursorLine $1 false)
+        guibg (query :guibg)
+        bg (query :bg)]
+    (or guibg bg "")))
+
+(local colors {:bg (get-background-color)
                :fg (get-color :Normal :fg "#bbc2cf")
                :yellow :DarkYellow
                :cyan "#008080"
@@ -49,14 +52,22 @@
                                    :lualine_x {}}})
 
 ; Inserts a component in lualine_c at left section
+
 (λ ins-left [component]
+  ;; (when (= nil component.color)
+  ;;   (set component.color {}))
+  ;; (set component.color.bg colors.bg)
   (table.insert config.sections.lualine_c component))
 
 (λ ins-inactive-left [component]
   (table.insert config.inactive_sections.lualine_c component))
 
 ; Inserts a component in lualine_x at right section
+
 (λ ins-right [component]
+  ;; (when (= nil component.color)
+  ;;   (set component.color {}))
+  ;; (set component.color.bg colors.bg)
   (table.insert config.sections.lualine_x component))
 
 (λ ins-inactive-right [component]
@@ -94,10 +105,10 @@
            :separator ""})
 
 (ins-left {1 #(let [noice (require :noice)]
-                 (noice.api.status.mode.get))
-            :cond #(let [noice (require :noice)]
-                     (noice.api.status.mode.has))
-            :separator ""})
+                (noice.api.status.mode.get))
+           :cond #(let [noice (require :noice)]
+                    (noice.api.status.mode.has))
+           :separator ""})
 
 (ins-left {1 (fn []
                "%=")

@@ -1,79 +1,79 @@
-(require-macros :hibiscus.vim)
+(import-macros {: set! : rem! : set+} :hibiscus.vim)
 
 ; Encoding
-(set! fileencoding :utf-8)
-(set! fileformats "unix,dos,mac")
+(set! :fileencoding :utf-8)
+(set! :fileformats "unix,dos,mac")
 
 ; Formatação
-(rem! formatoptions :c)
-(rem! formatoptions :r)
-(rem! formatoptions :o)
+(rem! :formatoptions :c)
+(rem! :formatoptions :r)
+(rem! :formatoptions :o)
 
 ; Comportamento do Tab
-(set! tabstop 4)
-(set! softtabstop 0)
-(set! shiftwidth 4)
-(set! expandtab)
+(set! :tabstop 4)
+(set! :softtabstop 0)
+(set! :shiftwidth 4)
+(set! :expandtab)
 
 ; Busca
-(set! ignorecase)
-(set! smartcase)
-(set! inccommand :split)
+(set! :ignorecase)
+(set! :smartcase)
+(set! :inccommand :split)
 
 ; Desabilitar safewrite
-(set! backupcopy :yes)
+(set! :backupcopy :yes)
 
 (let [env-shell (os.getenv :SHELL)
       default-shell (if (and (not= nil env-shell) (not= "" env-shell))
                         env-shell
                         :/bin/bash)]
-  (set! shell default-shell))
+  (set! :shell default-shell))
 
 ; Idioma para correção ortográfica
-(set! spelllang :pt_br)
+(set! :spelllang :pt_br)
 
 ; Número mínimo de linha que deverão ser mostradas antes e depois do cursor
-(set! scrolloff 5)
+(set! :scrolloff 5)
 
 ; Copiar para a área de transferência
-(set! clipboard "unnamed,unnamedplus")
+(set! :clipboard "unnamed,unnamedplus")
 
 ; Mouse
-(set! mouse :a)
+(set! :mouse :a)
 
 ; Mostra os números da linha de forma relativa e o número atual da linha
-(set! number)
-(set! relativenumber)
+(set! :number)
+(set! :relativenumber)
 
 ; Diminuir o tempo para executar mapeamentos
-(set! timeoutlen 500)
+(set! :timeoutlen 500)
 
 ; Não redimensionar janelas abertas ao abrir ou fechar janelas
-(set! equalalways false)
+(set! :equalalways false)
 
 ; Diminuir tempo de atualização
-(set! updatetime 300)
+(set! :updatetime 300)
 
 ; Não passar as mensagems para o |ins-completion-menu|
-(set+ shortmess :c)
+(set+ :shortmess :c)
 
 ; Deixar a coluna de sinais sempre aberta
-(set! signcolumn :yes)
+(set! :signcolumn :yes)
 
 ; Autocomplete melhor
-(set! completeopt "menuone,noselect")
+(set! :completeopt "menuone,noselect")
 
 ; Melhora as cores
-(set! termguicolors true)
+(set! :termguicolors true)
 
 ; Tema
-(set! background :light)
+(set! :background :light)
 
 ; Font
-(set! guifont "JetBrainsMono Nerd Font:h14")
+(set! :guifont "JetBrainsMono Nerd Font:h14")
 
 ; Habilitar título
-(set! title)
+(set! :title)
 
 ; Remover cmdline
-(set! laststatus 3)
+(set! :laststatus 3)

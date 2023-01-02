@@ -1,4 +1,3 @@
-(local which-key (require :which-key))
-
-(which-key.setup {:plugins {:spelling {:enabled true}
-                            :presets {:operators false}}})
+{1 :folke/which-key.nvim
+ :lazy true
+ :config {:plugins {:spelling {:enabled true} :presets {:operators false}}}}

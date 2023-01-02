@@ -1,40 +1,40 @@
-(require-macros :hibiscus.vim)
+(import-macros {: g!} :hibiscus.vim)
 
 ;; Leader
-(g! mapleader " ")
-(g! maplocalleader "\\")
+(g! :mapleader " ")
+(g! :maplocalleader "\\")
 
 ;; Desabilitar editorconfig para fugitive
-(g! EditorConfig_exclude_patterns ["fugitive://.*"])
+(g! :EditorConfig_exclude_patterns ["fugitive://.*"])
 
 ;; Gruvbox
-(g! gruvbox_italic 1)
-(g! gruvbox_sign_column :bg0)
+(g! :gruvbox_italic 1)
+(g! :gruvbox_sign_column :bg0)
 
 ;; Neovide
-(g! neovide_floating_blur 0)
-(g! neovide_window_floating_opacity 1)
-(g! neovide_cursor_vfx_mode :ripple)
+(g! :neovide_floating_blur 0)
+(g! :neovide_window_floating_opacity 1)
+(g! :neovide_cursor_vfx_mode :ripple)
 
 ;; Indent blankline
-(g! indent_blankline_filetype_exclude [:dashboard :lsp-installer ""])
+(g! :indent_blankline_filetype_exclude [:dashboard :lsp-installer ""])
 
 ;; Copilot
-(g! copilot_no_tab_map true)
+(g! :copilot_no_tab_map true)
 
 ;; Vim-multi
-(g! VM_maps {"Find Under" :<C-t>
+(g! :VM_maps {"Find Under" :<C-t>
              "Find Subword Under" ""
              "Add Cursor Down" :<C-g>
              "Add Cursor Up" ""})
 
-(g! VM_Mono_hl "DiffText")
+(g! :VM_Mono_hl "DiffText")
 
 ;; Conjure
-(g! conjure#mapping#doc_word "K")
+(g! :conjure#mapping#doc_word "K")
 
 
 ;; Emmet
-(g! user_emmet_mode :iv)
-(g! user_emmet_leader_key :<C-g>)
+(g! :user_emmet_mode :iv)
+(g! :user_emmet_leader_key :<C-g>)
 

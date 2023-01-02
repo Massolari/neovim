@@ -1,4 +1,4 @@
-(require-macros :hibiscus.vim)
+(import-macros {: augroup! : map! : exec : set!} :hibiscus.vim)
 
 (local {: show-info} (require :functions))
 
@@ -8,18 +8,22 @@
       (exec [[:exe "\"normal! g`\\\"\""]]))))
 
 (fn map-q-to-close []
-  (map! [n :buffer] :q ":close<CR>"))
+  (map! [:n :buffer] :q ":close<CR>"))
 
 (augroup! :_general-settings ; autocmds gerais
           [[FileType] [qf help man] `map-q-to-close]
           [[TextYankPost]
            *
            #(vim.highlight.on_yank {:higroup :Search :timeout 200})]
-          ;; [[BufWinEnter]
-          ;;  dashboard
-          ;;  "setlocal cursorline signcolumn=yes cursorcolumn number"]
-          [[FileType] qf #(set! nobuflisted)]
-          [[FileType] qf #(map! [n :buffer] :<CR> :<CR>)]
+          ;; [[FileType] dashboard #(print :Hello)]
+          ;; "setlocal nocursorline signcolumn=no nocursorcolumn nonumber norelativenumber"]
+          ;; (fn []
+          ;;   (print :Here!))] ;
+          [[FileType]
+           qf
+           (fn []
+             (set! nobuflisted)
+             (map! [n :buffer] :<CR> :<CR>))]
           [[BufReadPost] * `recover-position]
           [[BufEnter FocusGained InsertLeave] * #(set! relativenumber)]
           [[BufLeave FocusLost InsertEnter] * #(set! relativenumber false)])
@@ -46,7 +50,7 @@
 
 (augroup! :_highlight_end_spaces
           ; Destacar espaços em branco no final do arquivo
-          [[VimEnter WinEnter] * #(vim.fn.matchadd :EndSpace "\\s\\+$")])
+          [[WinEnter] * #(vim.fn.matchadd :EndSpace "\\s\\+$")])
 
 (augroup! :_config ;autocmd para arquivos de configuração fennel
           [[BufWritePost] *.fnl `source-file])
@@ -54,3 +58,19 @@
 (augroup! :_qutebrowser [[BufWinEnter]
                          *qutebrowser-editor*
                          #(set! filetype :markdown)])
+
+(augroup! :nvim_ghost_user_autocommands
+          [[User] *.com* #(set! filetype :markdown)])
+
+(augroup! :_firenvim
+          [[UIEnter]
+           *
+           (fn []
+             (local event (vim.fn.deepcopy vim.v.event))
+             (let [client-name (-> (vim.api.nvim_get_chan_info event.chan)
+                                   (vim.fn.get :client {})
+                                   (vim.fn.get :name ""))
+                   is-client-firenvim (= client-name :Firenvim)]
+               (when is-client-firenvim
+                 (let [cmp (require :cmp)]
+                   (cmp.setup {:enabled false})))))])

@@ -1,4 +1,4 @@
-(require-macros :hibiscus.vim)
+(import-macros {: command!} :hibiscus.vim)
 
 ; Fechar todos os outros buffers
 (command! [] :Bdall "%bd|e#|bd#")

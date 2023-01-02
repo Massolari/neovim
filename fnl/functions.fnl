@@ -1,6 +1,5 @@
-(require-macros :hibiscus.vim)
+(import-macros {: exec} :hibiscus.vim)
 
-(local Terminal (. (require :toggleterm.terminal) :Terminal))
 (local M {})
 
 (λ show-notification [msg level title ?opts]
@@ -63,6 +62,7 @@
 ; Get the user input for what he wants to search for with vimgrep
 ; if it's empty, abort, if it's not empty get the user input for the target folder, if
 ; it's not specified, defaults to `git ls-files`
+
 (λ M.vim-grep []
   (let [(search-status input) (pcall vim.fn.input "Search for: ")]
     (if (or (not search-status) (= input ""))
@@ -79,46 +79,45 @@
                     (print err)
                     (exec [[:copen]]))))))))
 
-; Lazygit
-(let [lazygit (Terminal:new {:cmd :lazygit
-                             :hidden true
-                             :direction :float
-                             :on_open (fn []
-                                        nil)
-                             :id 1000})]
-  (set M.lazygit-toggle #(lazygit:toggle)))
-
 ; w3m
-(λ w3m-open [url]
-  (let [w3m (Terminal:new {:cmd (.. "w3m " url)
-                           :on_open (fn []
-                                      (vim.cmd (.. "vertical resize "
-                                                   (/ (vim.opt.columns:get) 2))))
-                           :direction :vertical
-                           :id 1001})]
-    (w3m:toggle)))
 
-(λ M.w3m-open []
-  (w3m-open :-v))
+; (λ w3m-open [url]
+;   (let [w3m (Terminal:new {:cmd (.. "w3m " url)
+;                            :on_open (fn []
+;                                       (vim.cmd (.. "vertical resize "
+;                                                    (/ (vim.opt.columns:get) 2))))
+;                            :direction :vertical
+;                            :id 1001})]
+;     (w3m:toggle)))
 
-(λ M.w3m-open-url []
-  (with-input "Open URL: " #(w3m-open $1)))
+; (λ M.w3m-open []
+;   (w3m-open :-v))
+; 
+; (λ M.w3m-open-url []
+;   (with-input "Open URL: " #(w3m-open $1)))
 
-(λ M.w3m-search []
-  (with-input "Search on the web: "
-              (fn [input]
-                (when (not= input "")
-                  (w3m-open (.. "\"https://www.google.com/search?q="
-                                (string.gsub input " " "+") "\""))))))
+; (λ M.w3m-search []
+;   (with-input "Search on the web: "
+;               (fn [input]
+;                 (when (not= input "")
+;                   (w3m-open (.. "\"https://www.google.com/search?q="
+;                                 (string.gsub input " " "+") "\""))))))
 
 ; Session
-(let [sessions (Terminal:new {:cmd (.. "bash --rcfile <(echo 'cd " (vim.fn.stdpath :data) :/sessions "; echo \"************\n* Sessions *\n************\n\"; ls')")
-                              :direction :float
-                              :hidden true
-                              :id 1002})]
-  (set M.session-list #(sessions:toggle)))
+
+; (let [sessions (Terminal:new {:cmd (.. "bash --rcfile <(echo 'cd "
+;                                        (vim.fn.stdpath :data) :/sessions
+;                                        "; echo \"************
+; * Sessions *
+; ************
+; \"; ls')")
+;                               :direction :float
+;                               :hidden true
+;                               :id 1002})]
+;   (set M.session-list #(sessions:toggle)))
 
 ; Get a color form a highlight group
+
 (λ M.get-color [highlight-group type fallback]
   (let [color (vim.fn.synIDattr (-> highlight-group
                                     vim.fn.hlID
@@ -128,22 +127,13 @@
         fallback
         color)))
 
-(λ M.display-image [source]
-  (let [show-image (.. "curl -s " source " | viu - ")
-        image-window (Terminal:new {:cmd show-image
-                                    :hidden true
-                                    :direction :float
-                                    :close_on_exit false})]
-    (image-window:toggle)))
-
-(λ get-cur-word []
-  (let [line (vim.fn.getline ".")
-        col (vim.fn.col ".")
-        left-part (vim.fn.strpart line 0 (+ col 1))
-        right-part (vim.fn.strpart line col (vim.fn.col "$"))
-        word (.. (vim.fn.matchstr left-part "\\k*$")
-                 (string.sub (vim.fn.matchstr right-part "^\\k*") 2))]
-    (.. "\\<" (vim.fn.escape word (.. "/\\" "\\>")))))
+; (λ M.display-image [source]
+;   (let [show-image (.. "curl -s " source " | viu - ")
+;         image-window (Terminal:new {:cmd show-image
+;                                     :hidden true
+;                                     :direction :float
+;                                     :close_on_exit false})]
+;     (image-window:toggle)))
 
 (set M.file-exists? #(> (vim.fn.filereadable $1) 0))
 
@@ -172,5 +162,8 @@
                                 m.id)))]
     (each [_ i (pairs ids)]
       (vim.fn.matchdelete i))))
+
+(λ M.requireAnd [module callback]
+  (callback (require module)))
 
 M

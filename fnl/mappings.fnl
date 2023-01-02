@@ -1,19 +1,20 @@
-(require-macros :hibiscus.vim)
+(import-macros {: map!} :hibiscus.vim)
 
 (local wk (require :which-key))
-(local luasnip (require :luasnip))
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
-(local illuminate (require :illuminate))
 
 ; Command
+
 (wk.register {:<c-j> [:<Down> "Comando anterior executado mais recente"]
               :<c-k> [:<Up> "Próximo comando executado mais recente"]}
              {:mode :c :silent false})
 
 ; Insert
+
 (wk.register {:<c-j> [(fn []
+                        (local luasnip (require :luasnip))
                         (when (luasnip.expand_or_jumpable)
                           (luasnip.expand_or_jump)))
                       "Expande o snippet ou pula para o item seguinte"]
@@ -23,6 +24,7 @@
              (vim.tbl_extend :force options {:mode :i}))
 
 ; Normal
+
 (wk.register {:<c-n> [:<cmd>bn<CR> "Próximo buffer"]
               :<c-p> [:<cmd>bp<CR> "Buffer anterior"]
               "]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
@@ -32,7 +34,8 @@
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Próximo erro de código"]
-                   :w [#(illuminate.goto_next_reference)
+                   :w [#(functions.requireAnd :illuminate
+                                              #($.goto_next_reference))
                        "Próxima palavra destacada"]}
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
@@ -44,11 +47,13 @@
                                                            :border :single}
                                                    :severity :Error})
                        "Erro de código anterior"]
-                   :w [#(illuminate.goto_prev_reference)
+                   :w [#(functions.requireAnd :illuminate
+                                              #($.goto_prev_reference))
                        "Palavra destacada anterior"]}}
              (vim.tbl_extend :force options {:mode :n}))
 
 ; Normal com leader
+
 (wk.register {"," ["mpA,<Esc>`p" "\",\" no fim da linha"]
               ";" ["mpA;<Esc>`p" "\";\" no fim da linha"]
               :<Tab> ["\030" "Alterar para arquivo anterior"]
@@ -82,10 +87,6 @@
                   :a {:name :Animais
                       :c [#(functions.cook-animals) :Cozinhar]
                       :s [#(functions.release-animals) :Soltar]}
-                  :b {:name "Browser (w3m)"
-                      :a [#(functions.w3m-open-url) "Abrir URL"]
-                      :s [#(functions.w3m-search) "Buscar no Google (search)"]
-                      :t [#(functions.w3m-open) :Toggle]}
                   :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
                       "Temas (colorscheme)"]
                   :f {:name :Forem
@@ -96,12 +97,10 @@
                           "Novo artigo"]}
                   :g [#(functions.vim-grep) "Buscar com vimgrep"]
                   :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]
-                  :i [#(functions.display-image (vim.fn.expand :<cfile>))
-                      "Exibir imagem sob o cursor"]
                   :q [:<cmd>qa<CR> :Fechar]
                   :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
                   :t [:<cmd>Mason<CR> "Ferramentas (Mason)"]
-                  :u [:<cmd>PackerSync<CR> "Atualizar plugins"]}
+                  :u [:<cmd>Lazy<CR> :Plugins]}
               :g {:name :Git
                   :b {:name :Blame
                       :a ["<cmd>Git blame<CR> " "Todos (all)"]
@@ -125,7 +124,8 @@
                       :c ["<cmd>Octo pr create<CR>" :Criar]
                       :l ["<cmd>Octo pr list<CR>" :Listar]}
                   :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]
-                  :y [#(functions.lazygit-toggle) "Abrir lazygit"]}
+                  ;; :y [#(functions.lazygit-toggle) "Abrir lazygit"]
+                  }
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
               :l [#(functions.toggle-location-list) "Alternar locationlist"]
@@ -164,47 +164,57 @@
              (vim.tbl_extend :force options {:mode :n :prefix :<leader>}))
 
 ; Mapeamentos do pounce
-(map! [n] :s :<cmd>Pounce<CR>)
+
+(map! [:n] :s :<cmd>Pounce<CR>)
 
 ; Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
-(map! [n :nowait] :n :nzzzv)
-(map! [n :nowait] :N :Nzzzv)
+
+(map! [:n :nowait] :n :nzzzv)
+(map! [:n :nowait] :N :Nzzzv)
 
 ; Explorador de arquivos
-(map! [n] :<F3> :<cmd>NvimTreeToggle<CR>)
-(map! [n] :<F2> :<cmd>NvimTreeFindFile<CR>)
+
+(map! [:n] :<F3> :<cmd>NvimTreeToggle<CR>)
+(map! [:n] :<F2> :<cmd>NvimTreeFindFile<CR>)
 
 ; Mover cursor para outra janela divida
-(map! [n] :<C-j> :<C-w>j)
-(map! [n] :<C-k> :<C-w>k)
-(map! [n] :<C-l> :<C-w>l)
-(map! [n] :<C-h> :<C-w>h)
+
+(map! [:n] :<C-j> :<C-w>j)
+(map! [:n] :<C-k> :<C-w>k)
+(map! [:n] :<C-l> :<C-w>l)
+(map! [:n] :<C-h> :<C-w>h)
 
 ; Limpar espaços em branco nos finais da linha
-(map! [n] :<F5> "mp<cmd>%s/\\s\\+$/<CR>`p")
+
+(map! [:n] :<F5> "mp<cmd>%s/\\s\\+$/<CR>`p")
 
 ; Enter no modo normal funciona como no modo inserção
-(map! [n] :<CR> :i<CR><Esc>)
+
+(map! [:n] :<CR> :i<CR><Esc>)
 
 ; Setas redimensionam janelas adjacentes
-(map! [n] :<left> "<cmd>vertical resize -5<cr>")
-(map! [n] :<right> "<cmd>vertical resize +5<cr>")
-(map! [n] :<up> "<cmd>resize -5<cr>")
-(map! [n] :<down> "<cmd>resize +5<cr>")
+
+(map! [:n] :<left> "<cmd>vertical resize -5<cr>")
+(map! [:n] :<right> "<cmd>vertical resize +5<cr>")
+(map! [:n] :<up> "<cmd>resize -5<cr>")
+(map! [:n] :<down> "<cmd>resize +5<cr>")
 
 ; Mover de forma natural em wrap
-(map! [n :expr] :k "v:count == 0 ? 'gk' : 'k'")
-(map! [n :expr] :j "v:count == 0 ? 'gj' : 'j'")
+
+(map! [:n :expr] :k "v:count == 0 ? 'gk' : 'k'")
+(map! [:n :expr] :j "v:count == 0 ? 'gj' : 'j'")
 
 ; Manter seleção depois de indentação
-(map! [v] "<" :<gv)
-(map! [v] ">" :>gv)
+
+(map! [:v] "<" :<gv)
+(map! [:v] ">" :>gv)
 
 ; Mover linhas
-(map! [v] :K ":m '<-2<CR>gv=gv")
-(map! [v] :J ":m '>+1<CR>gv=gv")
 
-(map! [n] :K #(vim.lsp.buf.hover))
+(map! [:v] :K ":m '<-2<CR>gv=gv")
+(map! [:v] :J ":m '>+1<CR>gv=gv")
+
+(map! [:n] :K #(vim.lsp.buf.hover))
 
 (wk.register {:i [#(vim.lsp.buf.implementation) "Implementação"]
               :r ["<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
@@ -214,4 +224,4 @@
              (vim.tbl_extend :force options {:mode :n :prefix :g}))
 
 (vim.cmd ":iab ,\\ λ")
-(map! [nivcx :remap] :<c-m> :<CR>)
+(map! [:nivcx :remap] :<c-m> :<CR>)

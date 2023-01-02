@@ -1,4 +1,5 @@
-(require-macros :hibiscus.vim)
+(import-macros {: map!} :hibiscus.vim)
+
 (local functions (require :functions))
 
 (set vim.opt_local.cursorline false)
@@ -15,4 +16,4 @@
 (set vim.opt_local.matchpairs "")
 (functions.clear-endspace)
 
-(map! [n :buffer] :q ":q<CR>")
+(map! [:n :buffer] :q ":q<CR>")

@@ -1,5 +1,7 @@
 vim.opt.termguicolors = true
-local function bootstrap (name, url, path)
+local function bootstrap (url)
+	local name = url:gsub(".*/", "")
+	local path = vim.fn.stdpath "data" .. "/site/pack/tangerine/start/" .. name
 	if vim.fn.isdirectory(path) == 0 then
 		print(name .. ": installing in data dir...")
 
@@ -10,17 +12,9 @@ local function bootstrap (name, url, path)
 	end
 end
 
-bootstrap (
-  "tangerine.nvim",
-  "https://github.com/udayvir-singh/tangerine.nvim",
-  vim.fn.stdpath "data" .. "/site/pack/packer/start/tangerine.nvim"
-)
+bootstrap ("https://github.com/udayvir-singh/tangerine.nvim")
 
-bootstrap (
-  "hibiscus.nvim",
-  "https://github.com/udayvir-singh/hibiscus.nvim",
-  vim.fn.stdpath "data" .. "/site/pack/packer/start/hibiscus.nvim"
-)
+bootstrap ("https://github.com/udayvir-singh/hibiscus.nvim")
 
 require'tangerine'.setup{
   -- target = vim.fn.stdpath [[data]] .. "/tangerine",
@@ -36,6 +30,7 @@ require'tangerine'.setup{
 
     -- compile every time changed are made to fennel files or on entering vim
     hooks = { "onsave", "oninit" }
-  }
+  },
+  keymaps = {}
 }
 -- require'hibiscus'.setup()
