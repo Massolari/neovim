@@ -127,14 +127,6 @@
         fallback
         color)))
 
-; (λ M.display-image [source]
-;   (let [show-image (.. "curl -s " source " | viu - ")
-;         image-window (Terminal:new {:cmd show-image
-;                                     :hidden true
-;                                     :direction :float
-;                                     :close_on_exit false})]
-;     (image-window:toggle)))
-
 (set M.file-exists? #(> (vim.fn.filereadable $1) 0))
 
 (local animals ["🐕" "🐈" "🦆"])

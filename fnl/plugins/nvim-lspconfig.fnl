@@ -71,15 +71,7 @@
                          :root_dir (lspconfig.util.root_pattern :fnl)
                          :settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
                                              :diagnostics {:globals [:vim]}}}}})
-  ;; (set lspconfig-configs.gleam_language-server
-  ;;      {:default_config {:cmd [(.. (vim.fn.getenv :HOME) :/.nix-profile/bin/gleam)
-  ;;                              :lsp]
-  ;;                        :filetypes [:gleam]
-  ;;                        :single_file_support false
-  ;;                        :root_dir (lspconfig.util.root_pattern :gleam.toml)
-  ;;                        :settings {}}})
   (lspconfig.fennel_language_server.setup {})
-  ;; (lspconfig.gleam_language-server.setup {})
   (lspconfig.gleam.setup {})
   (lspconfig.nimls.setup {}))
 
