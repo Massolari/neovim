@@ -1,4 +1,5 @@
 (import-macros {: exec} :hibiscus.vim)
+(import-macros {: fstring} :hibiscus.core)
 
 (local M {})
 
@@ -30,14 +31,14 @@
 (λ M.toggle-quickfix []
   (let [is-open? (is-location-quickfix-open? :quickfix)]
     (if is-open?
-        (exec [[:cclose]])
+        (vim.cmd.cclose)
         (exec [[:botright "copen 10"]]))))
 
 (λ M.toggle-location-list []
   (let [is-open? (is-location-quickfix-open? :location)]
     (if is-open?
-        (exec [[:lclose]])
-        (let [(status err) (pcall vim.cmd ":lopen 10")]
+        (vim.cmd.lclose)
+        (let [(status err) (pcall vim.cmd "lopen 10")]
           (when (not status)
             (show-warning err "Location list"))))))
 
@@ -73,11 +74,11 @@
               target (if (= maybe-target "") "`git ls-files`" maybe-target)]
           (if (not folder-status)
               (print :Aborted)
-              (let [(status err) (pcall vim.cmd
-                                        (.. ":vimgrep /" input :/gj target))]
+              (let [(status err) (pcall vim.cmd.vimgrep
+                                        (fstring "/${input}/gj ${target}"))]
                 (if (not status)
                     (print err)
-                    (exec [[:copen]]))))))))
+                    (vim.cmd.copen))))))))
 
 ; w3m
 
@@ -92,7 +93,7 @@
 
 ; (λ M.w3m-open []
 ;   (w3m-open :-v))
-; 
+;
 ; (λ M.w3m-open-url []
 ;   (with-input "Open URL: " #(w3m-open $1)))
 

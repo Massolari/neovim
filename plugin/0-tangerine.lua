@@ -7,7 +7,7 @@ local function bootstrap (url)
 
 		vim.fn.system {"git", "clone", "--depth", "1", url, path}
 
-		vim.cmd [[redraw]]
+		vim.cmd.redraw()
 		print(name .. ": finished installing")
 	end
 end

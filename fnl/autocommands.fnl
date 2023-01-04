@@ -5,7 +5,7 @@
 (fn recover-position []
   (let [line-position (vim.fn.line "'\"")]
     (when (and (> line-position 1) (<= line-position (vim.fn.line "$")))
-      (exec [[:exe "\"normal! g`\\\"\""]]))))
+      (vim.cmd.exec "\"normal! g`\\\"\""))))
 
 (fn map-q-to-close []
   (map! [:n :buffer] :q ":close<CR>"))
@@ -45,7 +45,7 @@
         source-file (if (= file-name :init)
                         (.. config-folder :/lua/tangerine_vimrc.lua)
                         lua-file)]
-    (exec [[":source " source-file]])
+    (vim.cmd.source source-file)
     (show-info (.. "sourced: " source-file) :Source)))
 
 (augroup! :_highlight_end_spaces

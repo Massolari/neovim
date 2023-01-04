@@ -223,5 +223,5 @@
                   "Definição do tipo"]}
              (vim.tbl_extend :force options {:mode :n :prefix :g}))
 
-(vim.cmd ":iab ,\\ λ")
+(vim.cmd.iab ",\\ λ")
 (map! [:nivcx :remap] :<c-m> :<CR>)
