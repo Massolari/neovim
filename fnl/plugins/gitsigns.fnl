@@ -1,8 +1,10 @@
 (import-macros {: map!} :hibiscus.vim)
+(local {: has-files-dirs?} (require :functions))
 
 {1 :lewis6991/gitsigns.nvim
  :dependencies [:nvim-lua/plenary.nvim]
  :event :BufReadPre
+ :cond #(has-files-dirs? [:.git])
  :config {:numhl false
           :linehl false
           :on_attach (fn [_bufnr]

@@ -130,6 +130,12 @@
 
 (set M.file-exists? #(> (vim.fn.filereadable $1) 0))
 
+(set M.dir-exists? #(> (vim.fn.isdirectory $1) 0))
+
+(set M.has-files-dirs? #(-> (vim.fs.find $ {:upward true})
+                            (table.getn)
+                            (> 0)))
+
 (local animals ["🐕" "🐈" "🦆"])
 (λ M.release-animals []
   (let [d (require :duck)]

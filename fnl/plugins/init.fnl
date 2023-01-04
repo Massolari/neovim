@@ -1,9 +1,11 @@
-(local {: requireAnd} (require :functions))
+(local {: requireAnd : has-files-dirs?} (require :functions))
 
 [;; Fennel
  :udayvir-singh/tangerine.nvim
  :udayvir-singh/hibiscus.nvim
- :gpanders/editorconfig.nvim
+ {1 :gpanders/editorconfig.nvim
+  :event :BufReadPost
+  :cond #(has-files-dirs? [:.editorconfig])}
  {1 :Olical/conjure :ft :fennel}
  {1 :rlane/pounce.nvim :config true :cmd :Pounce}
  {1 :unblevable/quick-scope :event :VeryLazy}
