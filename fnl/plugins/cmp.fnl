@@ -2,7 +2,7 @@
           :event :InsertEnter
           :dependencies [:hrsh7th/cmp-nvim-lsp
                          :PaterJason/cmp-conjure
-                         ;; :hrsh7th/cmp-buffer
+                         :hrsh7th/cmp-buffer
                          :hrsh7th/cmp-path
                          :L3MON4D3/LuaSnip
                          :rafamadriz/friendly-snippets
@@ -10,8 +10,7 @@
                          :onsails/lspkind.nvim
                          :hrsh7th/cmp-calc
                          :hrsh7th/cmp-emoji
-                         ;; :hrsh7th/cmp-cmdline
-                         ]})
+                         :hrsh7th/cmp-cmdline]})
 
 (fn M.config []
   (local cmp (require :cmp))
@@ -81,13 +80,12 @@
                                                                   vim_item)})}
               : sources})
   ;; Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  ;; (cmp.setup.cmdline "/" {:mapping (cmp.mapping.preset.cmdline)
-  ;;                         :sources [{:name :buffer}]})
+  (cmp.setup.cmdline "/" {:mapping (cmp.mapping.preset.cmdline)
+                          :sources [{:name :buffer}]})
   ;; Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  ;; (cmp.setup.cmdline ":"
-  ;;                    {:mapping (cmp.mapping.preset.cmdline)
-  ;;                     :sources (cmp.config.sources [{:name :path}]
-  ;;                                                  [{:name :cmdline}])})
-  )
+  (cmp.setup.cmdline ":"
+                     {:mapping (cmp.mapping.preset.cmdline)
+                      :sources (cmp.config.sources [{:name :path}]
+                                                   [{:name :cmdline}])}))
 
 M
