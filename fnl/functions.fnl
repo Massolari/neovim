@@ -42,7 +42,7 @@
           (when (not status)
             (show-warning err "Location list"))))))
 
-(λ with-input [prompt fun ?default ?completion]
+(λ M.with-input [prompt fun ?default ?completion]
   (let [(status maybe-input) (if ?completion
                                  (pcall vim.fn.input prompt "" ?completion)
                                  (pcall vim.fn.input prompt ""))
@@ -52,7 +52,7 @@
       (fun input))))
 
 (λ M.checkout-new-branch []
-  (with-input "New branch name: "
+  (M.with-input "New branch name: "
               (fn [branch]
                 (when (not= branch "")
                   (exec [[:echo "\"\\r\""]

@@ -4,7 +4,6 @@
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
-
 ; Command
 
 (wk.register {:<c-j> [:<Down> "Comando anterior executado mais recente"]
@@ -96,7 +95,6 @@
                       :n ["<cmd>lua require'forem-nvim'.new_article()<CR>"
                           "Novo artigo"]}
                   :g [#(functions.vim-grep) "Buscar com vimgrep"]
-                  :h [:<cmd>Cheat<CR> "Procurar em cheat.sh"]
                   :q [:<cmd>qa<CR> :Fechar]
                   :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
                   :t [:<cmd>Mason<CR> "Ferramentas (Mason)"]
@@ -123,9 +121,7 @@
                   :u {:name "Pull Requests (Github)"
                       :c ["<cmd>Octo pr create<CR>" :Criar]
                       :l ["<cmd>Octo pr list<CR>" :Listar]}
-                  :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]
-                  ;; :y [#(functions.lazygit-toggle) "Abrir lazygit"]
-                  }
+                  :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]}
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
               :l [#(functions.toggle-location-list) "Alternar locationlist"]
@@ -166,49 +162,40 @@
 ; Mapeamentos do pounce
 
 (map! [:n] :s :<cmd>Pounce<CR>)
-
 ; Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
 
 (map! [:n :nowait] :n :nzzzv)
 (map! [:n :nowait] :N :Nzzzv)
-
 ; Explorador de arquivos
 
 (map! [:n] :<F3> :<cmd>NvimTreeToggle<CR>)
 (map! [:n] :<F2> :<cmd>NvimTreeFindFile<CR>)
-
 ; Mover cursor para outra janela divida
 
 (map! [:n] :<C-j> :<C-w>j)
 (map! [:n] :<C-k> :<C-w>k)
 (map! [:n] :<C-l> :<C-w>l)
 (map! [:n] :<C-h> :<C-w>h)
-
 ; Limpar espaços em branco nos finais da linha
 
 (map! [:n] :<F5> "mp<cmd>%s/\\s\\+$/<CR>`p")
-
 ; Enter no modo normal funciona como no modo inserção
 
 (map! [:n] :<CR> :i<CR><Esc>)
-
 ; Setas redimensionam janelas adjacentes
 
 (map! [:n] :<left> "<cmd>vertical resize -5<cr>")
 (map! [:n] :<right> "<cmd>vertical resize +5<cr>")
 (map! [:n] :<up> "<cmd>resize -5<cr>")
 (map! [:n] :<down> "<cmd>resize +5<cr>")
-
 ; Mover de forma natural em wrap
 
 (map! [:n :expr] :k "v:count == 0 ? 'gk' : 'k'")
 (map! [:n :expr] :j "v:count == 0 ? 'gj' : 'j'")
-
 ; Manter seleção depois de indentação
 
 (map! [:v] "<" :<gv)
 (map! [:v] ">" :>gv)
-
 ; Mover linhas
 
 (map! [:v] :K ":m '<-2<CR>gv=gv")
