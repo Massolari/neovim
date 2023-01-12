@@ -71,6 +71,18 @@
  {1 :tamton-aquib/duck.nvim :lazy true}
  ; Usar Neovim em campos de text do navegador
  {1 :glacambre/firenvim :event :VeryLazy :build #(vim.fn.firenvim#install 0)}
+ ; ChatGPT
+ {1 :jackMort/ChatGPT.nvim
+  :dependencies [:MunifTanjim/nui.nvim
+                 :nvim-lua/plenary.nvim
+                 :nvim-telescope/telescope.nvim]
+  :keys (prefixed-keys [{1 :a 2 :<cmd>ChatGPTActAs<CR> :desc "Agir como..."}
+                        {1 :c 2 :<cmd>ChatGPT<CR> :desc :Abrir}
+                        {1 :e
+                         2 :<cmd>ChatGPTEditWithInstructions<CR>
+                         :desc "Editar com instruções"}]
+                       :<leader>ec)
+  :config true}
  ; Verificador de gramática
  {1 :brymer-meneses/grammar-guard.nvim
   :event :BufReadPost
