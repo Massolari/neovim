@@ -3,9 +3,10 @@
 (local {: show-info} (require :functions))
 
 (fn recover-position []
-  (let [line-position (vim.fn.line "'\"")]
-    (when (and (> line-position 1) (<= line-position (vim.fn.line "$")))
-      (vim.cmd.exec "\"normal! g`\\\"\""))))
+  (let [mark (vim.api.nvim_buf_get_mark 0 "\"")
+        row (. mark 1)]
+    (when (and (> row 1) (<= row (vim.api.nvim_buf_line_count 0)))
+      (vim.api.nvim_win_set_cursor 0 mark))))
 
 (fn map-q-to-close []
   (map! [:n :buffer] :q ":close<CR>"))
