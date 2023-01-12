@@ -1,20 +1,27 @@
-vim.opt.termguicolors = true
-local function bootstrap (url)
+-- pick your plugin manager, default [standalone]
+
+local function bootstrap(url, ref)
 	local name = url:gsub(".*/", "")
-	local path = vim.fn.stdpath "data" .. "/site/pack/tangerine/start/" .. name
+	local path = vim.fn.stdpath [[data]] .. "/lazy/" .. name
+
 	if vim.fn.isdirectory(path) == 0 then
 		print(name .. ": installing in data dir...")
 
-		vim.fn.system {"git", "clone", "--depth", "1", url, path}
+		vim.fn.system {"git", "clone", url, path}
+		if ref then
+			vim.fn.system {"git", "-C", path, "checkout", ref}
+		end
 
-		vim.cmd.redraw()
+		vim.cmd [[redraw]]
 		print(name .. ": finished installing")
 	end
+  vim.opt.runtimepath:prepend(path)
 end
 
-bootstrap ("https://github.com/udayvir-singh/tangerine.nvim")
+-- for git head
+bootstrap("https://github.com/udayvir-singh/hibiscus.nvim")
 
-bootstrap ("https://github.com/udayvir-singh/hibiscus.nvim")
+bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
 
 require'tangerine'.setup{
   -- target = vim.fn.stdpath [[data]] .. "/tangerine",
@@ -33,4 +40,3 @@ require'tangerine'.setup{
   },
   keymaps = {}
 }
--- require'hibiscus'.setup()
