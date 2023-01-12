@@ -18,7 +18,7 @@
  ; Linhas de identação
  {1 :lukas-reineke/indent-blankline.nvim
   :event :BufReadPre
-  :config {:show_current_context true}}
+  :opts {:show_current_context true}}
  ; Barra de status
  {1 :nvim-lualine/lualine.nvim :dependencies [:kyazdani42/nvim-web-devicons]}
  ; Erros na linha abaixo
@@ -42,8 +42,8 @@
  ; Explorador de arquivos
  {1 :kyazdani42/nvim-tree.lua
   :dependencies [:kyazdani42/nvim-web-devicons]
-  :config {:disable_netrw false}
   :cmd [:NvimTreeToggle :NvimTreeFindFile]}
+  :opts {:disable_netrw false}
  ; Múltiplos cursores
  {1 :mg979/vim-visual-multi :keys [:<c-g> :<c-t>] :branch :master}
  ; Animais andando pelo código

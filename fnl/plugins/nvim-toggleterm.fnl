@@ -11,7 +11,7 @@
 {1 :akinsho/nvim-toggleterm.lua
  :cmd :ToggleTerm
  :name :toggleterm
- :config {:shade_terminals false
+ :opts {:shade_terminals false
           :direction :horizontal
           :insert_mappings false
           :on_open (fn [term]

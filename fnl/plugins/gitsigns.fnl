@@ -5,7 +5,7 @@
  :dependencies [:nvim-lua/plenary.nvim]
  :event :BufReadPre
  :cond #(has-files-dirs? [:.git])
- :config {:numhl false
+ :opts {:numhl false
           :linehl false
           :on_attach (fn [_bufnr]
                        (let [gs (require :gitsigns)]

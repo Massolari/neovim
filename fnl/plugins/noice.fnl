@@ -1,7 +1,7 @@
 {1 :folke/noice.nvim
  :event :VeryLazy
  :dependencies [:MunifTanjim/nui.nvim :rcarriga/nvim-notify]
- :config {:override {;; override the default lsp markdown formatter with Noice
+ :opts {:override {;; override the default lsp markdown formatter with Noice
                      :vim.lsp.util.convert_input_to_markdown_lines true
                      ;; override the lsp markdown formatter with Noice
                      :vim.lsp.util.stylize_markdown true
