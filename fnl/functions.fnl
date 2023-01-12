@@ -157,12 +157,21 @@
 (λ M.clear-endspace []
   (let [ids (->> (vim.fn.getmatches)
                  (vim.tbl_filter #(= $.group :EndSpace))
-                 (vim.tbl_map (fn [m]
-                                m.id)))]
+                 (vim.tbl_map #($.id)))]
     (each [_ i (pairs ids)]
       (vim.fn.matchdelete i))))
 
 (λ M.requireAnd [module callback]
   (callback (require module)))
+
+(fn M.format []
+  (let [buf (vim.api.nvim_get_current_buf)
+        ft (-> (. vim.bo buf) (. :filetype))
+        has-null-ls (-> (M.requireAnd :null-ls.sources
+                                      #($.get_available ft :NULL_LS_FORMATTING))
+                        (length)
+                        (> 0))
+        filter-fn (if has-null-ls #(= $1 $2) #(not= $1 $2))]
+    (vim.lsp.buf.format {:filter #(filter-fn $.name :null-ls)})))
 
 M
