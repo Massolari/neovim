@@ -1,6 +1,6 @@
-(local {: requireAnd} (require :functions))
-
+(local {: requireAnd : file-exists?} (require :functions))
 ;; Setup package manager
+
 (let [lazypath (.. (vim.fn.stdpath :data) :/lazy/lazy.nvim)]
   (when (not (vim.loop.fs_stat lazypath))
     (vim.fn.system [:git
@@ -12,7 +12,11 @@
   (vim.opt.runtimepath:prepend lazypath))
 
 (require :globals)
-(requireAnd :lazy #($.setup :plugins {:checker {:enabled true} :performance {:rtp {:reset false}}}))
+
+(requireAnd :lazy
+            #($.setup :plugins
+                      {:checker {:enabled true}
+                       :performance {:rtp {:reset false}}}))
 
 (require :options)
 (require :commands)
@@ -20,7 +24,7 @@
 (require :mappings)
 
 ;; Arquivo de configuração do usuário
-(local {: file-exists?} (require :functions))
+
 (let [user-file (.. (vim.fn.stdpath :config) :/lua/user/init.lua)]
   (when (file-exists? user-file)
     (require :user)))
