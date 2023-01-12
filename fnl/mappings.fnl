@@ -4,6 +4,8 @@
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
+(local {: requireAnd} functions)
+
 ; Command
 
 (wk.register {:<c-j> [:<Down> "Comando anterior executado mais recente"]
@@ -33,8 +35,7 @@
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Próximo erro de código"]
-                   :w [#(functions.requireAnd :illuminate
-                                              #($.goto_next_reference))
+                   :w [#(requireAnd :illuminate #($.goto_next_reference))
                        "Próxima palavra destacada"]}
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
@@ -46,8 +47,7 @@
                                                            :border :single}
                                                    :severity :Error})
                        "Erro de código anterior"]
-                   :w [#(functions.requireAnd :illuminate
-                                              #($.goto_prev_reference))
+                   :w [#(requireAnd :illuminate #($.goto_prev_reference))
                        "Palavra destacada anterior"]}}
              (vim.tbl_extend :force options {:mode :n}))
 
@@ -65,11 +65,13 @@
                   :p [:<cmd>tabprevious<CR> "Ir para a anterior (previous)"]}
               :b {:name :Buffer
                   :a [:ggVG "Selecionar tudo (all)"]
-                  :b ["<cmd>lua require'telescope.builtin'.buffers()<CR>"
+                  ;; :b ["<cmd>lua require'telescope.builtin'.buffers()<CR>"
+                  :b [#(requireAnd :telescope.builtin
+                                   #($.buffers (requireAnd :telescope.themes
+                                                           #($.get_dropdown {}))))
                       "Listar abertos"]
                   :d ["<cmd>bp|bd #<CR>" :Deletar]
                   :D [:<cmd>bd<CR> "Deletar e fechar janela"]
-                  :j [:<cmd>BufferLinePick<CR> "Pular (jump) para buffer"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
                   :a [#(vim.lsp.buf.code_action) "Ações"]
@@ -86,8 +88,9 @@
                   :a {:name :Animais
                       :c [#(functions.cook-animals) :Cozinhar]
                       :s [#(functions.release-animals) :Soltar]}
-                  :c ["<cmd>lua require'telescope.builtin'.colorscheme()<CR>"
-                      "Temas (colorscheme)"]
+                  :c {:name :ChatGPT}
+                  :e [#(requireAnd :telescope.builtin #($.builtin))
+                      "Comandos do Telescope"]
                   :f {:name :Forem
                       :f ["<cmd>lua require'forem-nvim'.feed()<CR>" :Feed]
                       :m ["<cmd>lua require'forem-nvim'.my_articles()<CR>"
@@ -101,39 +104,41 @@
                   :u [:<cmd>Lazy<CR> :Plugins]}
               :g {:name :Git
                   :b {:name :Blame
-                      :a ["<cmd>Git blame<CR> " "Todos (all)"]
+                      ;; :a ["<cmd>Git blame<CR> " "Todos (all)"]
                       :b :Linha}
-                  :c ["<cmd>Git commit<CR> " :Commit]
-                  :d ["<cmd>Gdiff<CR> " :Diff]
-                  :g ["<cmd>G log<CR>" :Log]
+                  ;; :c ["<cmd>Git commit<CR> " :Commit]
+                  ;; :d ["<cmd>Gdiff<CR> " :Diff]
+                  ;; :g ["<cmd>G log<CR>" :Log]
                   :h {:name :Hunks :u "Desfazer (undo)" :v :Ver}
                   :i {:name "Issues (Github)"
                       :c ["<cmd>Octo issue create<CR>" :Criar]
                       :l ["<cmd>Octo issue list<CR>" :Listar]}
                   :k [#(functions.checkout-new-branch)
                       "Criar branch e fazer checkout"]
-                  :l ["<cmd>Git pull --rebase<CR> " :Pull]
+                  ;; :l ["<cmd>Git pull --rebase<CR> " :Pull]
                   :o ["<cmd>Octo actions<CR>" "Octo (ações do GitHub)"]
-                  :p ["<cmd>Git -c push.default=current push<CR>" :Push]
+                  ;; :p ["<cmd>Git -c push.default=current push<CR>" :Push]
                   :r ["<cmd>lua require'telescope.builtin'.git_branches()<CR>"
                       "Listar branches"]
-                  :s ["<cmd>Git<CR> " :Status]
+                  ;; :s ["<cmd>Git<CR> " :Status]
                   :u {:name "Pull Requests (Github)"
                       :c ["<cmd>Octo pr create<CR>" :Criar]
                       :l ["<cmd>Octo pr list<CR>" :Listar]}
-                  :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]}
+                  ;; :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]
+                  }
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
               :l [#(functions.toggle-location-list) "Alternar locationlist"]
-              :m {:name :Markdown
-                  :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
-                  :b [:<cmd>MarkdownPreview<CR>
-                      "Pré-visualizar com navegador (browser)"]}
-              :o {:name "Abrir arquivos do vim"
-                  :i ["<cmd>exe 'edit' stdpath('config').'/init.vim'<CR>"
-                      :init.vim]
-                  :p ["<cmd>exe 'edit' stdpath('config').'/lua/plugins.lua'<CR>"
-                      :plugins.lua]
+              ;; :m {:name :Markdown
+                  ;; :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
+                  ;; :b [:<cmd>MarkdownPreview<CR>
+                  ;;     "Pré-visualizar com navegador (browser)"]}
+              :o {:name "Abrir arquivos de configuração"
+                  ;; :i ["<cmd>exe 'edit' stdpath('config').'/init.fnl'<CR>"
+                  :i [#(vim.cmd.edit (.. (vim.fn.stdpath :config) :/init.fnl))
+                      :init]
+                  :p ["<cmd>exe 'edit' stdpath('config').'/fnl/plugins'<CR>"
+                      :plugins]
                   :u {:name "Arquivos do usuário"
                       :i ["<cmd>exe 'edit' stdpath('config').'/lua/user/init.lua'<CR>"
                           "init.lua do usuário"]
@@ -146,7 +151,7 @@
                       "Procurar texto sob cursor"]
                   :f ["<cmd>lua require'telescope.builtin'.find_files()<CR>"
                       "Buscar (find) arquivo"]
-                  :p ["<cmd>Telescope projects<CR>" :Listar]
+                  ;; :p ["<cmd>Telescope projects<CR>" :Listar]
                   :s ["<cmd>lua require'telescope.builtin'.grep_string({ search = vim.fn.input('Grep For> ')})<CR>"
                       "Procurar (search) nos arquivos"]}
               :q [#(functions.toggle-quickfix) "Alternar quickfix"]
@@ -159,43 +164,42 @@
               :w {:name :Window :c [:<c-w>c "Fechar janela"]}}
              (vim.tbl_extend :force options {:mode :n :prefix :<leader>}))
 
-; Mapeamentos do pounce
-
-(map! [:n] :s :<cmd>Pounce<CR>)
 ; Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
 
 (map! [:n :nowait] :n :nzzzv)
 (map! [:n :nowait] :N :Nzzzv)
-; Explorador de arquivos
-
-(map! [:n] :<F3> :<cmd>NvimTreeToggle<CR>)
-(map! [:n] :<F2> :<cmd>NvimTreeFindFile<CR>)
 ; Mover cursor para outra janela divida
 
 (map! [:n] :<C-j> :<C-w>j)
 (map! [:n] :<C-k> :<C-w>k)
 (map! [:n] :<C-l> :<C-w>l)
 (map! [:n] :<C-h> :<C-w>h)
+
 ; Limpar espaços em branco nos finais da linha
 
 (map! [:n] :<F5> "mp<cmd>%s/\\s\\+$/<CR>`p")
+
 ; Enter no modo normal funciona como no modo inserção
 
 (map! [:n] :<CR> :i<CR><Esc>)
+
 ; Setas redimensionam janelas adjacentes
 
 (map! [:n] :<left> "<cmd>vertical resize -5<cr>")
 (map! [:n] :<right> "<cmd>vertical resize +5<cr>")
 (map! [:n] :<up> "<cmd>resize -5<cr>")
 (map! [:n] :<down> "<cmd>resize +5<cr>")
+
 ; Mover de forma natural em wrap
 
 (map! [:n :expr] :k "v:count == 0 ? 'gk' : 'k'")
 (map! [:n :expr] :j "v:count == 0 ? 'gj' : 'j'")
+
 ; Manter seleção depois de indentação
 
 (map! [:v] "<" :<gv)
 (map! [:v] ">" :>gv)
+
 ; Mover linhas
 
 (map! [:v] :K ":m '<-2<CR>gv=gv")

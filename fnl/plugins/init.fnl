@@ -1,19 +1,40 @@
 (local {: requireAnd : has-files-dirs?} (require :functions))
 
+(λ prefixed-keys [mappings prefix]
+  (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]
+    (vim.tbl_extend :keep [(.. prefix keys) cmd] map-options)))
+
 [;; Fennel
- :udayvir-singh/tangerine.nvim
+ {1 :udayvir-singh/tangerine.nvim :priority 1001 :lazy false}
  :udayvir-singh/hibiscus.nvim
  {1 :gpanders/editorconfig.nvim
   :event :BufReadPost
   :cond #(has-files-dirs? [:.editorconfig])}
  {1 :Olical/conjure :ft :fennel}
- {1 :rlane/pounce.nvim :config true :cmd :Pounce}
+ {1 :rlane/pounce.nvim :config true :keys [[:s :<cmd>Pounce<CR>]]}
  {1 :unblevable/quick-scope :event :VeryLazy}
  ;; Temas
+ {1 :projekt0n/github-nvim-theme
+  :priority 1000
+  :config #(when (= nil vim.g.colors_name)
+             (vim.cmd.colorscheme :github_light))}
  {1 :ellisonleao/gruvbox.nvim :lazy true}
- :projekt0n/github-nvim-theme
  ;; Git
- {1 :tpope/vim-fugitive :cmd [:G :Git :Gdiff :Gclog :Gwrite]}
+ {1 :tpope/vim-fugitive
+  :cmd [:G :Git]
+  :keys (prefixed-keys [{1 :ba 2 "<cmd>Git blame<CR>" :desc "Todos (all)"}
+                        {1 :c 2 "<cmd>Git commit<CR>" :desc :Commit}
+                        {1 :d 2 :<cmd>Gdiff<CR> :desc :Diff}
+                        {1 :g 2 "<cmd>G log<CR>" :desc :Log}
+                        {1 :l 2 "<cmd>Git pull --rebase<CR> " :desc :Pull}
+                        {1 :p
+                         2 "<cmd>Git -c push.default=current push<CR>"
+                         :desc :Push}
+                        {1 :s 2 :<cmd>Git<CR> :desc :Status}
+                        {1 :w
+                         2 :<cmd>Gwrite<CR>
+                         :desc "Salvar e adicionar ao stage"}]
+                       :<leader>g)}
  ;; Interface
  ; Linhas de identação
  {1 :lukas-reineke/indent-blankline.nvim
@@ -42,8 +63,8 @@
  ; Explorador de arquivos
  {1 :kyazdani42/nvim-tree.lua
   :dependencies [:kyazdani42/nvim-web-devicons]
-  :cmd [:NvimTreeToggle :NvimTreeFindFile]}
   :opts {:disable_netrw false}
+  :keys [[:<F3> :<cmd>NvimTreeToggle<CR>] [:<F2> :<cmd>NvimTreeFindFile<CR>]]}
  ; Múltiplos cursores
  {1 :mg979/vim-visual-multi :keys [:<c-g> :<c-t>] :branch :master}
  ; Animais andando pelo código
