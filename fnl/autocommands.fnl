@@ -1,4 +1,4 @@
-(import-macros {: augroup! : map! : exec : set!} :hibiscus.vim)
+(import-macros {: augroup! : map! : set!} :hibiscus.vim)
 
 (local {: show-info} (require :functions))
 
@@ -8,36 +8,22 @@
     (when (and (> row 1) (<= row (vim.api.nvim_buf_line_count 0)))
       (vim.api.nvim_win_set_cursor 0 mark))))
 
-(fn map-q-to-close []
-  (map! [:n :buffer] :q ":close<CR>"))
-
 (augroup! :_general-settings ; autocmds gerais
-          [[FileType] [qf help man] `map-q-to-close]
-          [[TextYankPost]
-           *
+          [[:FileType] [:help :man] #(map! [:n :buffer] :q ":close<CR>")]
+          [[:TextYankPost]
+           "*"
            #(vim.highlight.on_yank {:higroup :Search :timeout 200})]
-          ;; [[FileType] dashboard #(print :Hello)]
-          ;; "setlocal nocursorline signcolumn=no nocursorcolumn nonumber norelativenumber"]
-          ;; (fn []
-          ;;   (print :Here!))] ;
-          [[FileType]
-           qf
-           (fn []
-             (set! nobuflisted)
-             (map! [n :buffer] :<CR> :<CR>))]
-          [[BufReadPost] * `recover-position]
-          [[BufEnter FocusGained InsertLeave] * #(set! relativenumber)]
-          [[BufLeave FocusLost InsertEnter] * #(set! relativenumber false)])
+          [[:BufReadPost] "*" `recover-position]
+          [[:BufEnter :FocusGained :InsertLeave] "*" #(set! :relativenumber)]
+          [[:BufLeave :FocusLost :InsertEnter]
+           "*"
+           #(set! :relativenumber false)])
 
-(augroup! :_git ; autocmd para arquivos do git
-          [[FileType] gitcommit "setlocal wrap"]
-          [[FileType] [gitcommit octo] "setlocal spell"])
-
-(augroup! :_markdown [[FileType] [markdown txt] "setlocal wrap spell"])
+(augroup! :_markdown [[:FileType] [:markdown :txt] "setlocal wrap spell"])
 
 (augroup! :_auto_resize
           ; will cause split windows to be resized evenly if main window is resized
-          [[VimResized] * "tabdo wincmd ="])
+          [[:VimResized] "*" "tabdo wincmd ="])
 
 (fn source-file []
   (let [file-name (vim.fn.expand "%:r")
@@ -49,23 +35,23 @@
     (vim.cmd.source source-file)
     (show-info (.. "sourced: " source-file) :Source)))
 
-(augroup! :_highlight_end_spaces
-          ; Destacar espaços em branco no final do arquivo
-          [[WinEnter] * #(vim.fn.matchadd :EndSpace "\\s\\+$")])
-
 (augroup! :_config ;autocmd para arquivos de configuração fennel
-          [[BufWritePost] *.fnl `source-file])
+          [[:BufWritePost] :*.fnl `source-file])
 
-(augroup! :_qutebrowser [[BufWinEnter]
-                         *qutebrowser-editor*
-                         #(set! filetype :markdown)])
+;; (augroup! :_highlight_end_spaces
+; Destacar espaços em branco no final do arquivo
+;; [[:BufWinEnter] :* #(vim.fn.matchadd :EndSpace "\\s\\+$")])
+
+(augroup! :_qutebrowser [[:BufWinEnter]
+                         :*qutebrowser-editor*
+                         #(set! :filetype :markdown)])
 
 (augroup! :nvim_ghost_user_autocommands
-          [[User] *.com* #(set! filetype :markdown)])
+          [[:User] :*.com* #(set! :filetype :markdown)])
 
 (augroup! :_firenvim
-          [[UIEnter]
-           *
+          [[:UIEnter]
+           "*"
            (fn []
              (local event (vim.fn.deepcopy vim.v.event))
              (let [client-name (-> (vim.api.nvim_get_chan_info event.chan)
