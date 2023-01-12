@@ -1,8 +1,8 @@
+(local {: requireAnd} (require :functions))
 (local M {1 :neovim/nvim-lspconfig
           :event :BufReadPost
           :dependencies [:williamboman/mason.nvim
                          :williamboman/mason-lspconfig.nvim
-                         :nvim-lua/lsp-status.nvim
                          :SmiteshP/nvim-navic]})
 
 (fn M.config []
@@ -10,7 +10,6 @@
   (local mason-lspconfig (require :mason-lspconfig))
   (local lspconfig (require :lspconfig))
   (local lspconfig-configs (require :lspconfig.configs))
-  (local lsp-status (require :lsp-status))
   (local navic (require :nvim-navic))
   (local border [["╭" :FloatBorder]
                  ["─" :FloatBorder]
@@ -22,7 +21,6 @@
                  ["│" :FloatBorder]])
 
   (fn on_attach [client bufnr]
-    (lsp-status.on_attach client)
     (navic.attach client bufnr)
     (set vim.lsp.handlers.textDocument/hover
          (vim.lsp.with vim.lsp.handlers.hover {: border}))
@@ -33,18 +31,14 @@
                        {:virtual_text false})))
 
   ;; {:virtual_text {:prefix :x}})))
-
-  (fn apply-lsp-status-capabilities [capabilities]
-    (vim.tbl_extend :keep capabilities lsp-status.capabilities))
-
-  (local capabilities
-         (let [cmp-lsp (require :cmp_nvim_lsp)]
-           (-> (cmp-lsp.default_capabilities)
-               (apply-lsp-status-capabilities))))
+  (local capabilities (requireAnd :cmp_nvim_lsp #($.default_capabilities)))
   (set lspconfig.util.default_config
        (vim.tbl_extend :force lspconfig.util.default_config
-                       {: on_attach : capabilities})) ; Desativar virtual text porque estamos usando o plugin lsp_lines
+                       {: on_attach : capabilities}))
+
+  ;; Desativar virtual text porque estamos usando o plugin lsp_lines
   (vim.diagnostic.config {:virtual_text false})
+
   (λ get-config-options [server-name]
     (match server-name
       :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
@@ -56,7 +50,6 @@
       :ltex {:root_dir (fn []
                          (vim.loop.cwd))}
       _ {}))
-  (lsp-status.register_progress)
   (mason.setup {})
   (mason-lspconfig.setup {})
   (mason-lspconfig.setup_handlers [(fn [server-name]
