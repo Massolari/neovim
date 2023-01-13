@@ -46,9 +46,6 @@
                          :*qutebrowser-editor*
                          #(set! :filetype :markdown)])
 
-(augroup! :nvim_ghost_user_autocommands
-          [[:User] :*.com* #(set! :filetype :markdown)])
-
 (augroup! :_firenvim
           [[:UIEnter]
            "*"
