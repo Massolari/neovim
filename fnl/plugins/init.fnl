@@ -110,8 +110,10 @@
                 ; Funcionalidades para a linguagem Nim
                 {1 :alaviss/nim.nvim :ft :nim}])
 
-(local (_ user-plugins) (xpcall #(require :user.plugins)
-                            (fn []
-                              [])))
+(let [(_ user-plugins) (xpcall #(require :user.plugins)
+                               (fn []
+                                 []))]
+  (each [_ user-plugin (pairs user-plugins)]
+    (table.insert plugins user-plugin)))
 
-(vim.tbl_extend :force plugins user-plugins)
+plugins
