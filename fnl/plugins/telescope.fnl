@@ -1,5 +1,5 @@
 (local M {1 :nvim-telescope/telescope.nvim
-          :tag :0.1.0
+          :branch :0.1.x
           :cmd :Telescope
           :dependencies [:nvim-lua/plenary.nvim
                          {1 :nvim-telescope/telescope-fzf-native.nvim
