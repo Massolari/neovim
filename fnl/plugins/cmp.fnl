@@ -25,7 +25,7 @@
                                             {:name :cmp_tabnine}
                                             {:name :luasnip}
                                             {:name :path}
-                                            ;; {:name :buffer}
+                                            {:name :buffer}
                                             {:name :calc}
                                             {:name :emoji}])]
                      (var disabled? false)
