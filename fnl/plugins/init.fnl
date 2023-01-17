@@ -16,7 +16,7 @@
                  :keys [[:s :<cmd>Pounce<CR>]]}
                 {1 :unblevable/quick-scope :event :VeryLazy}
                 ;; Temas
-                {1 :projekt0n/github-nvim-theme :priority 1000}
+                {1 :projekt0n/github-nvim-theme :priority 1000 :branch :0.0.x}
                 {1 :ellisonleao/gruvbox.nvim :lazy true}
                 ;; Git
                 {1 :tpope/vim-fugitive
