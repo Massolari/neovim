@@ -19,7 +19,7 @@
            "*"
            #(set! :relativenumber false)])
 
-(augroup! :_markdown [[:FileType] [:markdown :txt] "setlocal wrap spell"])
+(augroup! :_markdown [[:FileType] [:markdown :txt] "setlocal spell"])
 
 (augroup! :_auto_resize
           ; will cause split windows to be resized evenly if main window is resized
