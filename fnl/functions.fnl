@@ -1,5 +1,5 @@
-(import-macros {: exec} :hibiscus.vim)
-(import-macros {: fstring} :hibiscus.core)
+(import-macros {: exec!} :hibiscus.vim)
+(import-macros {: fstring!} :hibiscus.core)
 
 (local M {})
 
@@ -32,7 +32,7 @@
   (let [is-open? (is-location-quickfix-open? :quickfix)]
     (if is-open?
         (vim.cmd.cclose)
-        (exec [[:botright "copen 10"]]))))
+        (exec! [[:botright "copen 10"]]))))
 
 (λ M.toggle-location-list []
   (let [is-open? (is-location-quickfix-open? :location)]
@@ -55,7 +55,7 @@
   (M.with-input "New branch name: "
                 (fn [branch]
                   (when (not= branch "")
-                    (exec [[:echo "\"\\r\""]
+                    (exec! [[:echo "\"\\r\""]
                            [:echohl :Directory]
                            [":Git" (.. "checkout -b " branch)]
                            [:echohl :None]])))))
@@ -75,7 +75,7 @@
           (if (not folder-status)
               (print :Aborted)
               (let [(status err) (pcall vim.cmd.vimgrep
-                                        (fstring "/${input}/gj ${target}"))]
+                                        (fstring! "/${input}/gj ${target}"))]
                 (if (not status)
                     (print err)
                     (vim.cmd.copen))))))))

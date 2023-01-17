@@ -1,4 +1,4 @@
-(import-macros {: fstring : empty?} :hibiscus.core)
+(import-macros {: fstring! : empty?} :hibiscus.core)
 (local {: requireAnd : with-input} (require :functions))
 
 (λ open-terminal [cmd id ?custom-opts]
@@ -30,7 +30,7 @@
                                         (when (not (empty? query))
                                           (let [formatted-query (query:gsub " "
                                                                             "+")
-                                                cmd (fstring "curl cht.sh/${formatted-query}")]
+                                                cmd (fstring! "curl cht.sh/${formatted-query}")]
                                             (open-terminal cmd 1001
                                                            {:close_on_exit false
                                                             :start_in_insert false})))))
