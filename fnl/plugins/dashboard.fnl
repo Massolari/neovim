@@ -1,18 +1,34 @@
+(import-macros {: fstring!} :hibiscus.core)
+
 (local M {1 :glepnir/dashboard-nvim :config #(require :plugins.dashboard)})
 
+(fn add-border [lines]
+  (let [bigger-length (-> (vim.tbl_map #(length $) lines) (unpack) (math.max))
+        lines-bordered (vim.tbl_map #(let [pad (- bigger-length (length $))
+                                           format-pattern (.. "%s%s%" pad "s%s")]
+                                       (string.format format-pattern "│" $ ""
+                                                      "│"))
+                                    lines)
+        horizontal-border (string.rep "─" bigger-length)
+        top-border (.. "╭" horizontal-border "╮")
+        bottom-border (.. "╰" horizontal-border "╯")]
+    (table.insert lines-bordered 1 top-border)
+    (table.insert lines-bordered bottom-border)
+    lines-bordered))
+
 (fn M.config []
-(local functions (require :functions))
-(local quotes (require :data.quotes))
-(local dashboard (require :dashboard))
-
-(local config-folder (vim.fn.stdpath :config))
-
+  (local functions (require :functions))
+  (local quotes (require :data.quotes))
+  (local dashboard (require :dashboard))
+  (local config-folder (vim.fn.stdpath :config))
   (set dashboard.hide_winbar false)
   (set dashboard.session_directory (.. (vim.fn.stdpath :data) :/sessions))
-  (let [header-number (functions.get-random 30)]
+  (let [header-number (functions.get-random 40)]
     (set dashboard.custom_header
-         (vim.fn.systemlist (.. "cat " config-folder :/fnl/data/ascii/
-                                header-number :.cat))))
+         (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")
+             (vim.fn.systemlist)
+             (add-border)))
+    (table.insert dashboard.custom_header header-number))
   (set dashboard.custom_center
        [{:icon " "
          :desc "Buscar arquivo        "
