@@ -3,8 +3,9 @@
 (local M {1 :glepnir/dashboard-nvim :config #(require :plugins.dashboard)})
 
 (fn add-border [lines]
-  (let [bigger-length (-> (vim.tbl_map #(length $) lines) (unpack) (math.max))
-        lines-bordered (vim.tbl_map #(let [pad (- bigger-length (length $))
+  (let [utf8 (require :utf8)
+        bigger-length (-> (vim.tbl_map #(utf8.len $) lines) (unpack) (math.max))
+        lines-bordered (vim.tbl_map #(let [pad (- bigger-length (utf8.len $))
                                            format-pattern (.. "%s%s%" pad "s%s")]
                                        (string.format format-pattern "│" $ ""
                                                       "│"))
@@ -27,8 +28,7 @@
     (set dashboard.custom_header
          (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")
              (vim.fn.systemlist)
-             (add-border)))
-    (table.insert dashboard.custom_header header-number))
+             (add-border))))
   (set dashboard.custom_center
        [{:icon " "
          :desc "Buscar arquivo        "

@@ -104,6 +104,7 @@
                  :dependencies [:neovim/nvim-lspconfig
                                 :williamboman/mason.nvim]
                  :config #(requireAnd :grammar-guard #($.init))}
+                 :uga-rosa/utf8.nvim
                 ; Funcionalidades para a linguagem Nim
                 {1 :alaviss/nim.nvim :ft :nim}])
 
