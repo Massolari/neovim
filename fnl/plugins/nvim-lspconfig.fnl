@@ -35,20 +35,16 @@
   (set lspconfig.util.default_config
        (vim.tbl_extend :force lspconfig.util.default_config
                        {: on_attach : capabilities}))
-
   ;; Desativar virtual text porque estamos usando o plugin lsp_lines
   (vim.diagnostic.config {:virtual_text false})
-
   (λ get-config-options [server-name]
     (match server-name
       :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
                                      :diagnostics {:globals [:vim]}
                                      :workspace {:library (vim.api.nvim_get_runtime_file ""
                                                                                          true)}}}}
-      :grammarly {:root_dir (fn []
-                              (vim.loop.cwd))}
-      :ltex {:root_dir (fn []
-                         (vim.loop.cwd))}
+      :grammarly {:root_dir vim.loop.cwd}
+      :ltext {:root_dir vim.loop.cwd}
       _ {}))
   (mason.setup {})
   (mason-lspconfig.setup {})
