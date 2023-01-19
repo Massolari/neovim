@@ -50,13 +50,7 @@
                                  (if (cmp.visible)
                                      (cmp.select_next_item {:behavior cmp.SelectBehavior.Insert})
                                      (fallback)))
-                        :<C-y> (cmp.mapping.confirm {:select true})
-                        :<C-q> (cmp.mapping (fn []
-                                              (vim.api.nvim_feedkeys (vim.fn.copilot#Accept (vim.api.nvim_replace_termcodes :<c-q>
-                                                                                                                            true
-                                                                                                                            true
-                                                                                                                            true))
-                                                                     :n true)))}
+                        :<C-y> (cmp.mapping.confirm {:select true})}
               :window {:completion (cmp.config.window.bordered)
                        :documentation (cmp.config.window.bordered)}
               :formatting {:format (lspkind.cmp_format {:mode :symbol_text
