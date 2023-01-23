@@ -32,7 +32,7 @@
   (let [is-open? (is-location-quickfix-open? :quickfix)]
     (if is-open?
         (vim.cmd.cclose)
-        (exec! [[:botright "copen 10"]]))))
+        (exec! (botright "copen 10")))))
 
 (λ M.toggle-location-list []
   (let [is-open? (is-location-quickfix-open? :location)]
@@ -55,10 +55,8 @@
   (M.with-input "New branch name: "
                 (fn [branch]
                   (when (not= branch "")
-                    (exec! [[:echo "\"\\r\""]
-                            [:echohl :Directory]
-                            [":Git" (.. "checkout -b " branch)]
-                            [:echohl :None]])))))
+                    (exec! (echo "\"\\r\"") (echohl :Directory)
+                           (":Git" (.. "checkout -b " branch)) (echohl :None))))))
 
 ; Get the user input for what he wants to search for with vimgrep
 ; if it's empty, abort, if it's not empty get the user input for the target folder, if
