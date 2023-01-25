@@ -13,6 +13,7 @@
                  :cond #(has-files-dirs? [:.editorconfig])
                  :init #(g! :EditorConfig_exclude_patterns ["fugitive://.*"])}
                 {1 :Olical/conjure
+                 :dependencies [:Olical/aniseed]
                  :ft :fennel
                  :init #(g! "conjure#mapping#doc_word" :K)}
                 {1 :rlane/pounce.nvim
