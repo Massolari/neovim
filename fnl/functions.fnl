@@ -32,7 +32,7 @@
   (let [is-open? (is-location-quickfix-open? :quickfix)]
     (if is-open?
         (vim.cmd.cclose)
-        (exec! (botright "copen 10")))))
+        (vim.cmd "botright copen 10"))))
 
 (λ M.toggle-location-list []
   (let [is-open? (is-location-quickfix-open? :location)]
