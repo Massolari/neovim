@@ -19,22 +19,16 @@
   (let [loader (require :luasnip.loaders.from_vscode)]
     (loader.lazy_load)) ; Verificar as sources desabilitadas pelo usuário
   (local sources (let [disabled-sources (or vim.g.disabled_cmp_sources [])
-                       enabled-sources {}]
-                   (each [_ source (ipairs [{:name :nvim_lsp}
-                                            {:name :conjure}
-                                            {:name :cmp_tabnine}
-                                            {:name :luasnip}
-                                            {:name :path}
-                                            {:name :buffer}
-                                            {:name :calc}
-                                            {:name :emoji}])]
-                     (var disabled? false)
-                     (each [_ disabled (ipairs disabled-sources)]
-                       (if (= source.name disabled)
-                           (set disabled? true)))
-                     (if (not disabled?)
-                         (table.insert enabled-sources source)))
-                   enabled-sources))
+                       default-sources [{:name :nvim_lsp}
+                                        {:name :conjure}
+                                        {:name :luasnip}
+                                        {:name :path}
+                                        {:name :buffer}
+                                        {:name :calc}
+                                        {:name :emoji}]]
+                   (vim.tbl_filter #(not (vim.tbl_contains disabled-sources
+                                                           $.name))
+                                   default-sources)))
   (cmp.setup {:snippet {:expand (fn [args]
                                   (luasnip.lsp_expand args.body))}
               :mapping {:<C-d> (cmp.mapping.scroll_docs -4)
@@ -64,6 +58,7 @@
                                                                            vim_item.kind))
                                                                   (set vim_item.menu
                                                                        (. {:path "[Path]"
+                                                                           :conjure "[Conjure]"
                                                                            :buffer "[Buffer]"
                                                                            :calc "[Calc]"
                                                                            :nvim_lsp "[LSP]"
