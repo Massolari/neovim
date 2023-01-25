@@ -1,6 +1,7 @@
 (local M {1 :nvim-telescope/telescope.nvim
           :branch :0.1.x
           :cmd :Telescope
+          :keys [{1 :<leader>ca 2 #(vim.lsp.buf.code_action) :desc "Ações"}]
           :dependencies [:nvim-lua/plenary.nvim
                          {1 :nvim-telescope/telescope-fzf-native.nvim
                           :build :make}

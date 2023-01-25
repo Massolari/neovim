@@ -74,7 +74,6 @@
                   :D [:<cmd>bd<CR> "Deletar e fechar janela"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
-                  :a [#(vim.lsp.buf.code_action) "Ações"]
                   :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
