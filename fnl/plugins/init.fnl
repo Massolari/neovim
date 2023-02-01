@@ -93,7 +93,7 @@
                 ; Explorador de arquivos
                 {1 :kyazdani42/nvim-tree.lua
                  :dependencies [:kyazdani42/nvim-web-devicons]
-                 :opts {:disable_netrw false}
+                 :opts {:git {:ignore false}}
                  :keys [[:<F3> :<cmd>NvimTreeToggle<CR>]
                         [:<F2> :<cmd>NvimTreeFindFile<CR>]]}
                 ; Múltiplos cursores
