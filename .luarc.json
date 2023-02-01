@@ -3,5 +3,8 @@
   "Lua.diagnostics.globals": [
     "vim"
   ],
-  "runtime.version": "LuaJIT"
+  "runtime.version": "LuaJIT",
+    "workspace.library": [
+        "${3rd}/luassert/library"
+    ]
 }
