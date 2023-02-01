@@ -65,13 +65,13 @@
                   :p [:<cmd>tabprevious<CR> "Ir para a anterior (previous)"]}
               :b {:name :Buffer
                   :a [:ggVG "Selecionar tudo (all)"]
-                  ;; :b ["<cmd>lua require'telescope.builtin'.buffers()<CR>"
                   :b [#(requireAnd :telescope.builtin
                                    #($.buffers (requireAnd :telescope.themes
                                                            #($.get_dropdown {}))))
                       "Listar abertos"]
                   :d ["<cmd>bp|bd #<CR>" :Deletar]
                   :D [:<cmd>bd<CR> "Deletar e fechar janela"]
+                  :o ["%bd|e#|bd#" "Deletar todos os outros buffers"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
                   :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
@@ -149,7 +149,6 @@
                       "Procurar texto sob cursor"]
                   :f ["<cmd>lua require'telescope.builtin'.find_files()<CR>"
                       "Buscar (find) arquivo"]
-                  ;; :p ["<cmd>Telescope projects<CR>" :Listar]
                   :s ["<cmd>lua require'telescope.builtin'.grep_string({ search = vim.fn.input('Grep For> ')})<CR>"
                       "Procurar (search) nos arquivos"]}
               :q [#(functions.toggle-quickfix) "Alternar quickfix"]
