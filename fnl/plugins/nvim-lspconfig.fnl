@@ -1,7 +1,7 @@
 (local {: requireAnd} (require :functions))
 (local M {1 :neovim/nvim-lspconfig
           :event :BufReadPost
-          :dependencies [:williamboman/mason.nvim
+          :dependencies [:mason.nvim
                          :williamboman/mason-lspconfig.nvim
                          :SmiteshP/nvim-navic]})
 

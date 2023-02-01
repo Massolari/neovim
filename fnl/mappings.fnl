@@ -99,7 +99,6 @@
                   :g [#(functions.vim-grep) "Buscar com vimgrep"]
                   :q [:<cmd>qa<CR> :Fechar]
                   :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
-                  :t [:<cmd>Mason<CR> "Ferramentas (Mason)"]
                   :u [:<cmd>Lazy<CR> :Plugins]}
               :g {:name :Git
                   :b {:name :Blame

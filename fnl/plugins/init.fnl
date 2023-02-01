@@ -134,6 +134,13 @@
                                 :williamboman/mason.nvim]
                  :config #(requireAnd :grammar-guard #($.init))}
                 :uga-rosa/utf8.nvim
+                ; Instalador de ferramentas de código
+                {1 :williamboman/mason.nvim
+                 :cmd :Mason
+                 :config true
+                 :keys [{1 :<leader>et
+                         2 :<cmd>Mason<CR>
+                         :desc "Ferramentas (Mason)"}]}
                 ; Funcionalidades para a linguagem Nim
                 {1 :alaviss/nim.nvim :ft :nim}])
 
