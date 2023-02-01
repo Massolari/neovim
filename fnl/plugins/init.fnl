@@ -56,9 +56,6 @@
                  :opts {:show_current_context true}
                  :init #(g! :indent_blankline_filetype_exclude
                             [:dashboard :lsp-installer ""])}
-                ; Barra de status
-                {1 :nvim-lualine/lualine.nvim
-                 :dependencies [:kyazdani42/nvim-web-devicons]}
                 ; Erros na linha abaixo
                 {:url "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
                  :event :BufReadPost

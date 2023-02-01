@@ -29,6 +29,4 @@
   (when (file-exists? user-file)
     (require :user)))
 
-(require :statusline)
-(require :winbar)
 (require :theme)
