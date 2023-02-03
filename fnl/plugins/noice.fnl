@@ -1,4 +1,5 @@
 {1 :folke/noice.nvim
+ :cond (not vim.g.started_by_firenvim)
  :event :VeryLazy
  :dependencies [:MunifTanjim/nui.nvim :rcarriga/nvim-notify]
  :opts {:presets {:lsp_doc_border true}
