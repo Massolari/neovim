@@ -111,7 +111,7 @@
                 {1 :tamton-aquib/duck.nvim :lazy true}
                 ; Usar Neovim em campos de text do navegador
                 {1 :glacambre/firenvim
-                 :event :VeryLazy
+                 :cond (not (not vim.g.started_by_firenvim))
                  :build #(vim.fn.firenvim#install 0)}
                 ; ChatGPT
                 {1 :jackMort/ChatGPT.nvim
