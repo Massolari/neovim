@@ -1,4 +1,5 @@
 (local M {1 :nvim-lualine/lualine.nvim
+          :cond (not vim.g.started_by_firenvim)
           :event :VimEnter
           :dependencies [:kyazdani42/nvim-web-devicons]})
 
@@ -36,48 +37,33 @@
 (fn hide-in-width? []
   (> (vim.fn.winwidth 0) 80))
 
-(local config {:options {:disabled_filetypes [:dashboard]
-                         :component_separators "·"
-                         :globalstatus (= (vim.opt.laststatus:get) 3)
-                         :section_separators ""}
-               :sections {:lualine_a {}
-                          :lualine_b {}
-                          :lualine_y {}
-                          :lualine_z {}
-                          ; These will be filled later
-                          :lualine_c {}
-                          :lualine_x {}}
-               :inactive_sections ; these are to remove the defaults
-               {:lualine_a {}
-                                   :lualine_v {}
-                                   :lualine_y {}
-                                   :lualine_z {}
-                                   :lualine_c {}
-                                   :lualine_x {}}})
-
-; Inserts a component in lualine_c at left section
-
-(λ ins-left [component]
-  ;; (when (= nil component.color)
-  ;;   (set component.color {}))
-  ;; (set component.color.bg colors.bg)
-  (table.insert config.sections.lualine_c component))
-
-(λ ins-inactive-left [component]
-  (table.insert config.inactive_sections.lualine_c component))
-
-; Inserts a component in lualine_x at right section
-
-(λ ins-right [component]
-  ;; (when (= nil component.color)
-  ;;   (set component.color {}))
-  ;; (set component.color.bg colors.bg)
-  (table.insert config.sections.lualine_x component))
-
-(λ ins-inactive-right [component]
-  (table.insert config.inactive_sections.lualine_x component))
-
 (fn M.config []
+  (local config {:options {:disabled_filetypes [:dashboard]
+                           :component_separators "·"
+                           :globalstatus (= (vim.opt.laststatus:get) 3)
+                           :section_separators ""}
+                 :sections {:lualine_a {}
+                            :lualine_b {}
+                            :lualine_y {}
+                            :lualine_z {}
+                            ; These will be filled later
+                            :lualine_c {}
+                            :lualine_x {}}
+                 :inactive_sections ; these are to remove the defaults
+                 {:lualine_a {}
+                                     :lualine_v {}
+                                     :lualine_y {}
+                                     :lualine_z {}
+                                     :lualine_c {}
+                                     :lualine_x {}}}) ; Inserts a component in lualine_c at left section
+  (λ ins-left [component]
+    (table.insert config.sections.lualine_c component))
+  (λ ins-inactive-left [component]
+    (table.insert config.inactive_sections.lualine_c component)) ; Inserts a component in lualine_x at right section
+  (λ ins-right [component]
+    (table.insert config.sections.lualine_x component))
+  (λ ins-inactive-right [component]
+    (table.insert config.inactive_sections.lualine_x component))
   (ins-left {1 (fn []
                  "▊")
              :color {:fg colors.blue}
