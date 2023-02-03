@@ -15,7 +15,8 @@
   (telescope.setup {:defaults {:mappings {:i {:<c-j> actions.move_selection_next
                                               :<c-k> actions.move_selection_previous
                                               :<esc> actions.close
-                                              :<c-\> :which_key}}}
+                                              "<c-\\>" :which_key}}}
+                    :pickers {:buffers {:mappings {:i {:<c-s-d> actions.delete_buffer}}}}
                     :extensions {:ui-select (themes.get_cursor)}})
   (telescope.load_extension :fzf)
   (telescope.load_extension :ui-select))
