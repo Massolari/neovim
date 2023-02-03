@@ -1,7 +1,9 @@
 (import-macros {: fstring!} :hibiscus.core)
 (local {: get-random : get-random-item : requireAnd} (require :functions))
 
-(local M {1 :glepnir/dashboard-nvim :event :VimEnter})
+(local M {1 :glepnir/dashboard-nvim
+          :event :VimEnter
+          :cond (not vim.g.started_by_firenvim)})
 
 (fn add-border [lines]
   (let [utf8 (require :utf8)
