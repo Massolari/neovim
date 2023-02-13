@@ -38,10 +38,6 @@
 (augroup! :_config ;autocmd para arquivos de configuração fennel
           [[:BufWritePost] :*.fnl `source-file])
 
-;; (augroup! :_highlight_end_spaces
-; Destacar espaços em branco no final do arquivo
-;; [[:BufWinEnter] :* #(vim.fn.matchadd :EndSpace "\\s\\+$")])
-
 (augroup! :_qutebrowser [[:BufWinEnter]
                          :*qutebrowser-editor*
                          #(set! :filetype :markdown)])
