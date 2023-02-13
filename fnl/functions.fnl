@@ -164,7 +164,7 @@
 
 (fn M.format []
   (let [buf (vim.api.nvim_get_current_buf)
-        ft (-> (. vim.bo buf) (. :filetype))
+        ft (vim.fn.getbufvar buf :&ft)
         has-null-ls (-> (M.requireAnd :null-ls.sources
                                       #($.get_available ft :NULL_LS_FORMATTING))
                         (length)
