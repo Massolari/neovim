@@ -158,7 +158,9 @@
                   :s [:<cmd>SessionSave<CR> :Salvar]}
               :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" :Terminal]
               :v [:<cmd>vsplit<CR> "Dividir verticalmente"]
-              :w {:name :Window :c [:<c-w>c "Fechar janela"]}}
+              :w {:name :Window
+                  :c [:<c-w>c "Fechar janela"]
+                  :o [:<c-w>o "Fechar outras janelas"]}}
              (vim.tbl_extend :force options {:mode :n :prefix :<leader>}))
 
 ; Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
