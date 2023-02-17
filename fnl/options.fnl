@@ -96,4 +96,9 @@
 (set! :title)
 
 ; Statusline
+
 (set! :laststatus (if (not vim.g.started_by_firenvim) 3 0))
+; Listchars
+
+(set! :list true)
+(set! :listchars "tab:»·,trail:·,extends:»,precedes:«,nbsp:·")
