@@ -142,7 +142,11 @@
                          2 :<cmd>Mason<CR>
                          :desc "Ferramentas (Mason)"}]}
                 ; Funcionalidades para a linguagem Nim
-                {1 :alaviss/nim.nvim :ft :nim}])
+                {1 :alaviss/nim.nvim :ft :nim}
+                ; Procurar e substituir no projeto
+                {1 :windwp/nvim-spectre
+                 :dependencies [:nvim-lua/plenary.nvim]
+                 :config true}])
 
 (let [(_ user-plugins) (xpcall #(require :user.plugins)
                                (fn []

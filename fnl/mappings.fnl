@@ -98,7 +98,7 @@
                           "Novo artigo"]}
                   :g [#(functions.vim-grep) "Buscar com vimgrep"]
                   :q [:<cmd>qa<CR> :Fechar]
-                  :s ["<cmd>Telescope symbols<CR>" "Inserir símbolo"]
+                  :s [#(requireAnd :spectre #($.open)) "Procurar e substituir"]
                   :u [:<cmd>Lazy<CR> :Plugins]}
               :g {:name :Git
                   :b {:name :Blame
