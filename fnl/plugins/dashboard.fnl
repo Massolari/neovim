@@ -30,22 +30,19 @@
                                                 (vim.fn.systemlist)
                                                 (add-border)))
                                   :center [{:icon " "
-                                            :desc "Buscar arquivo        "
+                                            :desc "Buscar arquivo"
                                             :action "Telescope find_files"}
-                                           {:icon " "
-                                            :desc "Abrir projeto         "
-                                            :action "Telescope projects"}
                                            {:icon " "
-                                            :desc "Procurar nos arquivos "
+                                            :desc "Procurar nos arquivos"
                                             :action "Telescope live_grep"}
                                            {:icon " "
-                                            :desc "Octo (Github)         "
+                                            :desc "Octo (Github)"
                                             :action "Octo actions"}
                                            {:icon " "
-                                            :desc "Feed do dev.to        "
+                                            :desc "Feed do dev.to"
                                             :action "Forem feed"}
                                            {:icon " "
-                                            :desc "Novo arquivo          "
+                                            :desc "Novo arquivo"
                                             :action ":ene!"}]
                                   :footer (do
                                             (math.randomseed (os.time))
