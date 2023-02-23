@@ -172,4 +172,8 @@
         filter-fn (if has-null-ls #(= $1 $2) #(not= $1 $2))]
     (vim.lsp.buf.format {:filter #(filter-fn $.name :null-ls)})))
 
+(λ M.prefixed-keys [mappings prefix]
+  (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]
+    (vim.tbl_extend :keep [(.. prefix keys) cmd] map-options)))
+
 M
