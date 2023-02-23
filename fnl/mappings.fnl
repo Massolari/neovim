@@ -98,39 +98,23 @@
                           "Novo artigo"]}
                   :g [#(functions.vim-grep) "Buscar com vimgrep"]
                   :q [:<cmd>qa<CR> :Fechar]
-                  :s [#(requireAnd :spectre #($.open)) "Procurar e substituir"]
                   :u [:<cmd>Lazy<CR> :Plugins]}
               :g {:name :Git
-                  :b {:name :Blame
-                      ;; :a ["<cmd>Git blame<CR> " "Todos (all)"]
-                      :b :Linha}
-                  ;; :c ["<cmd>Git commit<CR> " :Commit]
-                  ;; :d ["<cmd>Gdiff<CR> " :Diff]
-                  ;; :g ["<cmd>G log<CR>" :Log]
+                  :b {:name :Blame :b :Linha}
                   :h {:name :Hunks :u "Desfazer (undo)" :v :Ver}
-                  :i {:name "Issues (Github)"
-                      :c ["<cmd>Octo issue create<CR>" :Criar]
-                      :l ["<cmd>Octo issue list<CR>" :Listar]}
+                  :i {:name "Issues (Github)"}
                   :k [#(functions.checkout-new-branch)
                       "Criar branch e fazer checkout"]
-                  ;; :l ["<cmd>Git pull --rebase<CR> " :Pull]
-                  :o ["<cmd>Octo actions<CR>" "Octo (ações do GitHub)"]
-                  ;; :p ["<cmd>Git -c push.default=current push<CR>" :Push]
                   :r ["<cmd>lua require'telescope.builtin'.git_branches()<CR>"
                       "Listar branches"]
-                  ;; :s ["<cmd>Git<CR> " :Status]
-                  :u {:name "Pull Requests (Github)"
-                      :c ["<cmd>Octo pr create<CR>" :Criar]
-                      :l ["<cmd>Octo pr list<CR>" :Listar]}
-                  ;; :w ["<cmd>Gwrite<CR> " "Salvar e adicionar ao stage"]
-                  }
+                  :u {:name "Pull Requests (Github)"}}
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
               :l [#(functions.toggle-location-list) "Alternar locationlist"]
               ;; :m {:name :Markdown
-                  ;; :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
-                  ;; :b [:<cmd>MarkdownPreview<CR>
-                  ;;     "Pré-visualizar com navegador (browser)"]}
+              ;; :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
+              ;; :b [:<cmd>MarkdownPreview<CR>
+              ;;     "Pré-visualizar com navegador (browser)"]}
               :o {:name "Abrir arquivos de configuração"
                   ;; :i ["<cmd>exe 'edit' stdpath('config').'/init.fnl'<CR>"
                   :i [#(vim.cmd.edit (.. (vim.fn.stdpath :config) :/init.fnl))
