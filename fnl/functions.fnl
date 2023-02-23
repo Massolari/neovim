@@ -170,7 +170,8 @@
                         (length)
                         (> 0))
         filter-fn (if has-null-ls #(= $1 $2) #(not= $1 $2))]
-    (vim.lsp.buf.format {:filter #(filter-fn $.name :null-ls)})))
+    (vim.lsp.buf.format {:filter #(filter-fn $.name :null-ls)
+                         :timeout_ms 10000})))
 
 (λ M.prefixed-keys [mappings prefix]
   (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]

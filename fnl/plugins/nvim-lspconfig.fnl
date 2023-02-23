@@ -14,7 +14,6 @@
   (set vim.lsp.handlers.textDocument/publishDiagnostics
        (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                      {:virtual_text false}))
-  (vim.pretty_print client.server_capabilities)
   (when capabilities.documentFormattingProvider
     (augroup! :_format-on-save [[:BufWritePre] `(buffer bufnr) #(format)])))
 
@@ -46,6 +45,7 @@
                                      (let [server (. lspconfig server-name)]
                                        (-> server-name (get-config-options)
                                            (server.setup))))])
+  (requireAnd :code-support #($.setup))
   (lspconfig.nimls.setup {}))
 
 M
