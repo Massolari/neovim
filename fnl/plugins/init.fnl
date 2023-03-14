@@ -114,8 +114,10 @@
                                {1 :c 2 :<cmd>ChatGPT<CR> :desc :Abrir}
                                {1 :e
                                 2 :<cmd>ChatGPTEditWithInstructions<CR>
-                                :desc "Editar com instruções"}]
+                                :desc "Editar com instruções"
+                                :mode :v}]
                               :<leader>ec)
+         :opts {:keymaps {:submit :<CR>}}
          :config true}
         ; Verificador de gramática
         {1 :brymer-meneses/grammar-guard.nvim
