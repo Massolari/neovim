@@ -199,3 +199,6 @@
 
 (vim.cmd.iab ",\\ λ")
 (map! [:nivcx :remap] :<c-m> :<CR>)
+
+; Gerar imagem do código usando silicon
+(map! [:v] :<leader>ei ":Silicon<CR>" "Gerar imagem do código (silicon)")

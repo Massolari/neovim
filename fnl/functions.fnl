@@ -177,4 +177,23 @@
   (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]
     (vim.tbl_extend :keep [(.. prefix keys) cmd] map-options)))
 
+; Silicon
+
+(λ get-silicon-language [file-extension]
+  (match file-extension
+    :fnl :clj
+    _ file-extension))
+
+(λ M.generate-code-image [{: line1 : line2}]
+  (let [language (-> (vim.fn.expand "%:e") (get-silicon-language))
+        code (-> (vim.api.nvim_buf_get_lines 0 (- line1 1) line2 false)
+                 (table.concat "\\n"))
+        cmd (string.format "echo '%s' | silicon --theme github_light_light -l %s --to-clipboard"
+                           code language)
+        result (vim.fn.system cmd)
+        notify-title :Silicon]
+    (if (= result "")
+        (show-info "Code image generated" notify-title)
+        (show-error result notify-title))))
+
 M
