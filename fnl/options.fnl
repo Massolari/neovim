@@ -1,5 +1,8 @@
 (import-macros {: set! : rem! : set+} :hibiscus.vim)
 
+; Perguntar se deseja salvar o arquivo antes de sair
+(set! :confirm true)
+
 ; Encoding
 
 (set! :fileencoding :utf-8)
