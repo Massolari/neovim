@@ -53,10 +53,10 @@
 
 (λ M.checkout-new-branch []
   (M.with-input "New branch name: "
-                (fn [branch]
-                  (when (not= branch "")
-                    (exec! (echo "\"\\r\"") (echohl :Directory)
-                           (":Git" (.. "checkout -b " branch)) (echohl :None))))))
+    (fn [branch]
+      (when (not= branch "")
+        (exec! [echo "\"\\r\""] [echohl :Directory]
+               [":Git" (.. "checkout -b " branch)] [echohl :None])))))
 
 ; Get the user input for what he wants to search for with vimgrep
 ; if it's empty, abort, if it's not empty get the user input for the target folder, if
