@@ -28,7 +28,7 @@
                        {:on_attach M.on_attach : capabilities}))
   ;; Desativar virtual text porque estamos usando o plugin lsp_lines
   (vim.diagnostic.config {:virtual_text false})
-  (λ get-config-options [server-name]
+  (λ get-config-options [server-name default-config]
     (match server-name
       :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
                                      :diagnostics {:globals [:vim]}
@@ -38,12 +38,24 @@
       :fennel_language_server
       {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
                            :diagnostics {:globals [:vim]}}}}
+      :tailwindcss {:settings {:tailwindCSS {:includeLanguages {:elm :html}
+                                             :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
+                                                                         "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
+                                                                         "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                         "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                         "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                         "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
+                                                                         "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+                                                                         "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
+                    :init_options {:userLanguages {:elm :html}}
+                    :filetypes {:elm (unpack default-config.filetypes)}}
       _ {}))
   (mason.setup {})
   (mason-lspconfig.setup {})
   (mason-lspconfig.setup_handlers [(fn [server-name]
                                      (let [server (. lspconfig server-name)]
-                                       (-> server-name (get-config-options)
+                                       (-> server-name
+                                           (get-config-options server.document_config.default_config)
                                            (server.setup))))])
   (requireAnd :code-support #($.setup))
   (lspconfig.nimls.setup {}))
