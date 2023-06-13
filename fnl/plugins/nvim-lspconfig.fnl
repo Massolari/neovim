@@ -46,6 +46,7 @@
                                                                          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
                     :init_options {:userLanguages {:elm :html}}
                     :filetypes [:elm (unpack default-config.filetypes)]}
+      :yamlls {:settings {:yaml {:keyOrdering false}}}
       _ {}))
   (mason.setup {})
   (mason-lspconfig.setup {})
