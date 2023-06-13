@@ -193,8 +193,8 @@
   (let [language (-> (vim.fn.expand "%:e") (get-silicon-language))
         code (-> (vim.api.nvim_buf_get_lines 0 (- line1 1) line2 false)
                  (table.concat "\\n"))
-        cmd (string.format "echo '%s' | silicon --theme github_light_light -l %s --to-clipboard"
-                           code language)
+        cmd (string.format "echo '%s' | silicon -l %s --to-clipboard" code
+                           language)
         result (vim.fn.system cmd)
         notify-title :Silicon]
     (if (= result "")
