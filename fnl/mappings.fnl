@@ -57,7 +57,7 @@
               ";" ["mpA;<Esc>`p" "\";\" no fim da linha"]
               :<Tab> ["\030" "Alterar para arquivo anterior"]
               := [:<c-w>= "Igualar tamanho das janelas"]
-              :<space> [:<cmd>noh<cr> "Limpar seleção da pesquisa"]
+              :/ [:<cmd>noh<cr> "Limpar seleção da pesquisa"]
               :a {:name :Aba
                   :a [:<cmd>tabnew<CR> "Abrir uma nova"]
                   :c [:<cmd>tabclose<CR> "Fechar (close)"]
