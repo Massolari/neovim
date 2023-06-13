@@ -75,18 +75,12 @@
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
                   :f [#(functions.format) "Formatar código"]
-                  :o ["<cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>"
-                      "Buscar símbolos no arquivo"]
-                  :p ["<cmd>lua require'telescope.builtin'.lsp_workspace_symbols()<CR>"
-                      "Buscar símbolos no projeto"]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
                   :a {:name :Animais
                       :c [#(functions.cook-animals) :Cozinhar]
                       :s [#(functions.release-animals) :Soltar]}
                   :c {:name :ChatGPT}
-                  :e [#(requireAnd :telescope.builtin #($.builtin))
-                      "Comandos do Telescope"]
                   :f {:name :Forem
                       :f ["<cmd>lua require'forem-nvim'.feed()<CR>" :Feed]
                       :m ["<cmd>lua require'forem-nvim'.my_articles()<CR>"
@@ -102,8 +96,6 @@
                   :i {:name "Issues (Github)"}
                   :k [#(functions.checkout-new-branch)
                       "Criar branch e fazer checkout"]
-                  :r ["<cmd>lua require'telescope.builtin'.git_branches()<CR>"
-                      "Listar branches"]
                   :u {:name "Pull Requests (Github)"}}
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
@@ -125,13 +117,7 @@
                           "plugins.lua do usuário"]}
                   :s ["<cmd>exe 'source' stdpath('config').'/init.lua'<CR>"
                       "Atualizar (source) configurações do vim"]}
-              :p {:name :Projeto
-                  :e ["<cmd>lua require'telescope.builtin'.grep_string()<CR>"
-                      "Procurar texto sob cursor"]
-                  :f ["<cmd>lua require'telescope.builtin'.find_files()<CR>"
-                      "Buscar (find) arquivo"]
-                  :s ["<cmd>lua require'telescope.builtin'.grep_string({ search = vim.fn.input('Grep For> ')})<CR>"
-                      "Procurar (search) nos arquivos"]}
+              :p {:name :Projeto}
               :q [#(functions.toggle-quickfix) "Alternar quickfix"]
               :s {:name "Sessão"
                   :c [:<cmd>SessionLoad<CR> :Carregar]
