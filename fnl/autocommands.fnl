@@ -1,6 +1,6 @@
 (import-macros {: augroup! : map! : set!} :hibiscus.vim)
 
-(local {: show-info} (require :functions))
+(local {: show-info : format} (require :functions))
 
 (fn recover-position []
   (let [mark (vim.api.nvim_buf_get_mark 0 "\"")
@@ -24,6 +24,8 @@
 (augroup! :_auto_resize
           ; will cause split windows to be resized evenly if main window is resized
           [[:VimResized] "*" "tabdo wincmd ="])
+
+(augroup! :_format-on-save [[:BufWritePre] "*" #(format)])
 
 (fn source-file []
   (let [file-name (vim.fn.expand "%:r")

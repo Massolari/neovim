@@ -13,9 +13,7 @@
     (navic.attach client bufnr))
   (set vim.lsp.handlers.textDocument/publishDiagnostics
        (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-                     {:virtual_text false}))
-  (when capabilities.documentFormattingProvider
-    (augroup! :_format-on-save [[:BufWritePre] `(buffer bufnr) #(format)])))
+         {:virtual_text false})))
 
 (fn M.config []
   (local mason (require :mason))
