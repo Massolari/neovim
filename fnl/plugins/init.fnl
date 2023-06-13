@@ -113,6 +113,13 @@
                  2 #(requireAnd :spectre #($.open))
                  :desc "Procurar e substituir"}]
          :config true}
+        ; Markdown preview
+        {1 :iamcco/markdown-preview.nvim
+         :build #(vim.fn.mkdp#util#install)
+         :ft :markdown
+         :keys [{1 :<leader>em
+                 2 :<cmd>MarkdownPreview<CR>
+                 :desc "Markdown preview"}]}
         ; Forem
         {1 :Massolari/forem.nvim
          :dir (.. vim.env.HOME :/forem.nvim)
