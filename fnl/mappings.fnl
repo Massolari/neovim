@@ -4,25 +4,22 @@
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
-(local {: requireAnd} functions)
+(local {: requireAnd : keymaps-set} functions)
 
 ; Command
 
-(wk.register {:<c-j> [:<Down> "Comando anterior executado mais recente"]
-              :<c-k> [:<Up> "Próximo comando executado mais recente"]}
-             {:mode :c :silent false})
+(vim.keymap.set :c :<c-j> :<Down>)
+(vim.keymap.set :c :<c-k> :<Up>)
 
 ; Insert
 
-(wk.register {:<c-j> [(fn []
-                        (local luasnip (require :luasnip))
-                        (when (luasnip.expand_or_jumpable)
-                          (luasnip.expand_or_jump)))
-                      "Expande o snippet ou pula para o item seguinte"]
-              :<c-l> [:<right> "Move o cursor para a direita"]
-              :jk [:<Esc> "Ir para o modo normal"]
-              :kj [:<Esc> "Ir para o modo normal"]}
-             (vim.tbl_extend :force options {:mode :i}))
+(keymaps-set :i [{:lhs :<c-j>
+                  :rhs (fn []
+                         (local luasnip (require :luasnip))
+                         (when (luasnip.expand_or_jumpable)
+                           (luasnip.expand_or_jump)))}
+                 {:lhs :<c-l> :rhs :<Right>}
+                 {:lhs :jk :rhs :<Esc>}] options)
 
 ; Normal
 

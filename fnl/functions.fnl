@@ -177,6 +177,11 @@
   (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]
     (vim.tbl_extend :keep [(.. prefix keys) cmd] map-options)))
 
+(λ M.keymaps-set [mode keys options]
+  (each [_ {: lhs : rhs : desc} (ipairs keys)]
+    (vim.keymap.set mode lhs rhs
+                    (vim.tbl_extend :force options {:desc (or desc "")}))))
+
 ; Silicon
 
 (λ get-silicon-language [file-extension]
