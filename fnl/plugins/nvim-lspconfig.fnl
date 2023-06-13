@@ -31,7 +31,6 @@
       :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
                                      :diagnostics {:globals [:vim]}
                                      :workspace {:library (vim.api.nvim_list_runtime_paths)}}}}
-      :grammarly {:root_dir vim.loop.cwd}
       :ltext {:root_dir vim.loop.cwd}
       :fennel_language_server
       {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
