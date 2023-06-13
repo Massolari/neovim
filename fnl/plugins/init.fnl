@@ -16,7 +16,16 @@
         {1 :rlane/pounce.nvim :config true :keys [[:s :<cmd>Pounce<CR>]]}
         {1 :unblevable/quick-scope :event :VeryLazy}
         ;; Temas
-        {1 :projekt0n/github-nvim-theme :priority 1000 :branch :0.0.x}
+        {1 :projekt0n/github-nvim-theme :lazy true :branch :0.0.x}
+        {1 :maxmx03/solarized.nvim
+         :priority 1000
+         :config (fn []
+                   (requireAnd :solarized
+                               #($:setup {:config {:theme :vscode}
+                                          :highlights (fn [colors]
+                                                        {:LineNr {:bg colors.bg}
+                                                         :NormalFloat {:bg colors.bg}
+                                                         :FloatBorder {:bg colors.bg}})})))}
         {1 :ellisonleao/gruvbox.nvim
          :lazy true
          :init (fn []
