@@ -1,10 +1,12 @@
 (local M {})
 
-(local servers {:tsserver [:nodePackages.typescript-language-server]
-                :elmls [:elmPackages.elm-language-server :elmPackages.elm-format]
-                :intelephense [:nodePackages.intelephense]
-                :eslint [:nodePackages.vscode-langservers-extracted
-                         :nodePackages.eslint]})
+; (local servers {:tsserver [:nodePackages.typescript-language-server]
+;                 :elmls [:elmPackages.elm-language-server :elmPackages.elm-format]
+;                 :intelephense [:nodePackages.intelephense]
+;                 :eslint [:nodePackages.vscode-langservers-extracted
+;                          :nodePackages.eslint]})
+(local servers {:elmls [:elmPackages.elm-language-server
+                        :elmPackages.elm-format]})
 
 (fn setup-servers []
   (local lspconfig (require :lspconfig))
@@ -21,7 +23,8 @@
 
 ;; Null-ls sources
 
-(local null-sources {:fnlfmt :fnlfmt :prettier :nodePackages.prettier})
+; (local null-sources {:fnlfmt :fnlfmt})
+(local null-sources {})
 
 (λ make-source [null source package]
   (let [null-source (. null.builtins.formatting source)
