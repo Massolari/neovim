@@ -1,5 +1,5 @@
 (import-macros {: g!} :hibiscus.vim)
-(local {: requireAnd : has-files-dirs? : prefixed-keys} (require :functions))
+(local {: requireAnd : prefixed-keys} (require :functions))
 
 (local plugins
        [;; Fennel
