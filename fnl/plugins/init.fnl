@@ -5,10 +5,6 @@
        [;; Fennel
         {1 :udayvir-singh/tangerine.nvim :priority 1001 :lazy false}
         :udayvir-singh/hibiscus.nvim
-        {1 :gpanders/editorconfig.nvim
-         :event :BufReadPost
-         :cond #(has-files-dirs? [:.editorconfig])
-         :init #(g! :EditorConfig_exclude_patterns ["fugitive://.*"])}
         {1 :Olical/conjure
          :dependencies [:Olical/aniseed]
          :ft :fennel
