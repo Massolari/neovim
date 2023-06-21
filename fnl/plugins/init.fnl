@@ -76,7 +76,12 @@
         ; Usar Neovim em campos de text do navegador
         {1 :glacambre/firenvim
          :cond (not (not vim.g.started_by_firenvim))
-         :build #(vim.fn.firenvim#install 0)}
+         :build (fn []
+                  (requireAnd :lazy #($.load {:plugins :firenvim :wait true}))
+                  (vim.fn.firenvim#install 0))
+         :init (fn []
+                 (set vim.g.firenvim_config
+                      {:localSettings {:.* {:takeover :never}}}))}
         ; ChatGPT
         {1 :jackMort/ChatGPT.nvim
          :dependencies [:MunifTanjim/nui.nvim
