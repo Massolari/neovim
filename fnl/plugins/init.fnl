@@ -9,7 +9,10 @@
          :dependencies [:Olical/aniseed]
          :ft :fennel
          :init #(g! "conjure#mapping#doc_word" :K)}
-        {1 :rlane/pounce.nvim :config true :keys [[:s :<cmd>Pounce<CR>]]}
+        {1 :rlane/pounce.nvim
+         :enabled false
+         :config true
+         :keys [[:s :<cmd>Pounce<CR>]]}
         {1 :unblevable/quick-scope :event :VeryLazy}
         ;; Temas
         {1 :projekt0n/github-nvim-theme :lazy true :branch :0.0.x}
@@ -84,6 +87,7 @@
                       {:localSettings {:.* {:takeover :never}}}))}
         ; ChatGPT
         {1 :jackMort/ChatGPT.nvim
+         :enabled false
          :dependencies [:MunifTanjim/nui.nvim
                         :nvim-lua/plenary.nvim
                         :nvim-telescope/telescope.nvim]
@@ -125,6 +129,9 @@
          :keys [{1 :<leader>em
                  2 :<cmd>MarkdownPreview<CR>
                  :desc "Markdown preview"}]}
+        {1 :Massolari/web.nvim
+         :dir (.. vim.env.HOME :/nvim-web-browser)
+         :dependencies [:nvim-lua/plenary.nvim]}
         ; Forem
         {1 :Massolari/forem.nvim
          :dir (.. vim.env.HOME :/forem.nvim)
