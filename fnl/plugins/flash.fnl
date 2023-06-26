@@ -3,7 +3,8 @@
 {1 :folke/flash.nvim
  :event :VeryLazy
  :opts {}
- :keys [{1 :S
+ :keys [{1 :s 2 #(requireAnd :flash #($.jump)) :mode [:n :o :x] :desc :Flash}
+        {1 :S
          2 #(requireAnd :flash #($.treesitter))
          :mode [:n :o :x]
          :desc "Flash Treesitter"}
