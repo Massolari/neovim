@@ -18,6 +18,7 @@
         {1 :projekt0n/github-nvim-theme :lazy true :branch :0.0.x}
         {1 :maxmx03/solarized.nvim
          :priority 1000
+         :commit :7357e0e
          :config (fn []
                    (requireAnd :solarized
                                #($:setup {:config {:theme :vscode}
