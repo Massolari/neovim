@@ -75,7 +75,7 @@
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
                   :f [#(functions.format) "Formatar código"]
-                  :i [#(vim.lsp.buf.inlay_hint 0)
+                  :i [#(vim.lsp.inlay_hint 0)
                       "Ativar/desativar dicas de código"]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
