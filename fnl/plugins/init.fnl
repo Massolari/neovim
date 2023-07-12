@@ -9,10 +9,6 @@
          :dependencies [:Olical/aniseed]
          :ft :fennel
          :init #(g! "conjure#mapping#doc_word" :K)}
-        {1 :rlane/pounce.nvim
-         :enabled false
-         :config true
-         :keys [[:s :<cmd>Pounce<CR>]]}
         {1 :unblevable/quick-scope :event :VeryLazy}
         ;; Temas
         {1 :projekt0n/github-nvim-theme :lazy true :branch :0.0.x}
