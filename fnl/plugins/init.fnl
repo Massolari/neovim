@@ -60,17 +60,6 @@
          :opts {:git {:ignore false}}
          :keys [[:<F3> :<cmd>NvimTreeToggle<CR>]
                 [:<F2> :<cmd>NvimTreeFindFile<CR>]]}
-        ; Múltiplos cursores
-        {1 :mg979/vim-visual-multi
-         :branch :master
-         :keys [:<c-g> :<c-t>]
-         :init (fn []
-                 (g! :VM_maps
-                     {"Find Under" :<C-t>
-                      "Find Subword Under" ""
-                      "Add Cursor Down" :<C-g>
-                      "Add Cursor Up" ""})
-                 (g! :VM_Mono_hl :DiffText))}
         ; Animais andando pelo código
         {1 :tamton-aquib/duck.nvim :lazy true}
         ; Usar Neovim em campos de text do navegador
