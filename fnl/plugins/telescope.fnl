@@ -8,27 +8,31 @@
           :cmd :Telescope
           :keys [{1 :<leader>ca 2 #(vim.lsp.buf.code_action) :desc "Ações"}
                  {1 :<leader>co
-                  2 #(requireAnd :telescope.builtin #($.lsp_document_symbols))
+                  2 #(builtin #($.lsp_document_symbols))
                   :desc "Buscar símbolos no arquivo"}
                  {1 :<leader>cp
-                  2 #(requireAnd :telescope.builtin
-                                 #($.lsp_dynamic_workspace_symbols))
+                  2 #(builtin #($.lsp_dynamic_workspace_symbols))
                   :desc "Buscar símbolos no projeto"}
                  {1 :<leader>ee
-                  2 #(requireAnd :telescope.builtin #($.builtin))
+                  2 #(builtin #($.builtin))
                   :desc "Comandos do Telescope"}
+                 {1 :<leader>gi
+                  2 #(builtin #($.git_bcommits))
+                  :desc "Histórico de commits do arquivo atual"}
                  {1 :<leader>gr
-                  2 #(requireAnd :telescope.builtin #($.git_branches))
+                  2 #(builtin #($.git_branches))
                   :desc "Listar branches"}
                  {1 :<leader>pe
-                  2 #(requireAnd :telescope.builtin #($.grep_string))
+                  2 #(builtin #($.grep_string))
                   :desc "Procurar texto sob cursor"}
                  {1 :<leader>pf
-                  2 #(requireAnd :telescope.builtin #($.find_files))
+                  2 #(builtin #($.find_files))
+                  :desc "Buscar (find) arquivo"}
+                 {1 :<leader>f
+                  2 #(builtin #($.find_files))
                   :desc "Buscar (find) arquivo"}
                  {1 :<leader>ps
-                  2 #(requireAnd :telescope.builtin
-                                 #($.grep_string {:search (vim.fn.input "Grep For> ")}))
+                  2 #(builtin #($.grep_string {:search (vim.fn.input "Grep For> ")}))
                   :desc "Procurar (search) nos arquivos"}]
           :dependencies [:nvim-lua/plenary.nvim
                          {1 :nvim-telescope/telescope-fzf-native.nvim
