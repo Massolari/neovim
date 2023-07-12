@@ -13,15 +13,15 @@
         ;; Temas
         {1 :projekt0n/github-nvim-theme :lazy true :branch :0.0.x}
         {1 :maxmx03/solarized.nvim
+         :lazy false
          :priority 1000
-         :commit :7357e0e
          :config (fn []
                    (requireAnd :solarized
-                               #($:setup {:config {:theme :vscode}
-                                          :highlights (fn [colors]
-                                                        {:LineNr {:bg colors.bg}
-                                                         :NormalFloat {:bg colors.bg}
-                                                         :FloatBorder {:bg colors.bg}})})))}
+                               #($.setup {:theme :neo
+                                          :highlights (fn [colors {: lighten}]
+                                                        {:IndentBlanklineChar {:fg (lighten colors.base01
+                                                                                            50)}
+                                                         :IndentBlanklineContextChar {:fg colors.base01}})})))}
         {1 :ellisonleao/gruvbox.nvim
          :lazy true
          :init (fn []

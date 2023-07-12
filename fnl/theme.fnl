@@ -1,8 +1,5 @@
-(import-macros {: color!} :hibiscus.vim)
-(local functions (require :functions))
-
 (when (= nil vim.g.colors_name)
-  (functions.requireAnd :solarized #($.set)))
+  (vim.cmd.colorscheme :solarized))
 
 (if (vim.startswith vim.g.colors_name :one)
     (vim.api.nvim_set_hl 0 :VertSplit {:link :Normal}))
