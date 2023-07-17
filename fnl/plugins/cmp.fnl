@@ -1,3 +1,5 @@
+(local {: requireAnd} (require :functions))
+
 (local M {1 :hrsh7th/nvim-cmp
           :event [:InsertEnter :CmdlineEnter]
           :dependencies [:hrsh7th/cmp-nvim-lsp
@@ -23,7 +25,8 @@
                                         {:name :conjure}
                                         {:name :luasnip}
                                         {:name :path}
-                                        {:name :buffer}
+                                        {:name :buffer
+                                         :option {:get_bufnrs #(vim.api.nvim_list_bufs)}}
                                         {:name :calc}
                                         {:name :emoji}]]
                    (vim.tbl_filter #(not (vim.tbl_contains disabled-sources
@@ -66,7 +69,9 @@
                                                                            :luasnip "[LuaSnip]"
                                                                            :emoji "[Emoji]"}
                                                                           entry.source.name))
-                                                                  vim_item)})}
+                                                                  (requireAnd :tailwindcss-colorizer-cmp
+                                                                              #($.formatter entry
+                                                                                            vim_item)))})}
               : sources})
   ;; Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   (cmp.setup.cmdline "/" {:mapping (cmp.mapping.preset.cmdline)
