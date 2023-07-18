@@ -91,6 +91,7 @@
                                            (get-config-options server.document_config.default_config)
                                            (server.setup))))])
   (requireAnd :code-support #($.setup))
-  (lspconfig.nimls.setup {}))
+  (lspconfig.nimls.setup {})
+  (lspconfig.gleam.setup {}))
 
 M
