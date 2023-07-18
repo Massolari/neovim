@@ -13,7 +13,6 @@
                        {1 :P
                         2 "<cmd>Git -c push.default=current push --force<CR>"
                         :desc "Push (force)"}
-                       {1 :s 2 :<cmd>Git<CR> :desc :Status}
                        {1 :w
                         2 :<cmd>Gwrite<CR>
                         :desc "Salvar e adicionar ao stage"}]
