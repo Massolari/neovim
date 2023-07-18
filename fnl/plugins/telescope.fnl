@@ -53,6 +53,7 @@
                     :pickers {:buffers {:mappings {:i {:<c-s-d> actions.delete_buffer}}}}
                     :extensions {:ui-select (themes.get_cursor)}})
   (telescope.load_extension :fzf)
+  (telescope.load_extension :notify)
   (telescope.load_extension :ui-select))
 
 M
