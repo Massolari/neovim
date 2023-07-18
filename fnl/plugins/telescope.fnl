@@ -1,7 +1,7 @@
-(local {: requireAnd} (require :functions))
+(local {: require-and} (require :functions))
 
 (λ builtin [callback]
-  (requireAnd :telescope.builtin callback))
+  (require-and :telescope.builtin callback))
 
 (local M {1 :nvim-telescope/telescope.nvim
           :branch :0.1.x

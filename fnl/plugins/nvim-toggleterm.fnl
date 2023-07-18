@@ -1,8 +1,8 @@
 (import-macros {: fstring! : empty?} :hibiscus.core)
-(local {: requireAnd : with-input} (require :functions))
+(local {: require-and : with-input} (require :functions))
 
 (λ open-terminal [cmd id ?custom-opts]
-  (let [Terminal (requireAnd :toggleterm.terminal #(. $ :Terminal))
+  (let [Terminal (require-and :toggleterm.terminal #(. $ :Terminal))
         default-opts {: cmd : id :hidden true :direction :float}
         opts (vim.tbl_extend :keep (or ?custom-opts {}) default-opts)
         term (Terminal:new opts)]

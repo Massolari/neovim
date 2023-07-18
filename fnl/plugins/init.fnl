@@ -1,5 +1,5 @@
 (import-macros {: g!} :hibiscus.vim)
-(local {: requireAnd : prefixed-keys} (require :functions))
+(local {: require-and : prefixed-keys} (require :functions))
 
 (local plugins
        [;; Fennel
@@ -16,7 +16,7 @@
          :lazy false
          :priority 1000
          :config (fn []
-                   (requireAnd :solarized
+                   (require-and :solarized
                                #($.setup {:theme :neo
                                           :highlights (fn [colors {: lighten}]
                                                         {:IndentBlanklineChar {:fg (lighten colors.base01
@@ -66,7 +66,7 @@
         {1 :glacambre/firenvim
          :cond (not (not vim.g.started_by_firenvim))
          :build (fn []
-                  (requireAnd :lazy #($.load {:plugins :firenvim :wait true}))
+                  (require-and :lazy #($.load {:plugins :firenvim :wait true}))
                   (vim.fn.firenvim#install 0))
          :init (fn []
                  (set vim.g.firenvim_config
@@ -92,7 +92,7 @@
         {1 :brymer-meneses/grammar-guard.nvim
          :event :BufReadPost
          :dependencies [:neovim/nvim-lspconfig :williamboman/mason.nvim]
-         :config #(requireAnd :grammar-guard #($.init))}
+         :config #(require-and :grammar-guard #($.init))}
         {1 :uga-rosa/utf8.nvim :lazy true}
         ; Instalador de ferramentas de código
         {1 :williamboman/mason.nvim
@@ -105,7 +105,7 @@
         {1 :windwp/nvim-spectre
          :dependencies [:nvim-lua/plenary.nvim]
          :keys [{1 :<leader>es
-                 2 #(requireAnd :spectre #($.open))
+                 2 #(require-and :spectre #($.open))
                  :desc "Procurar e substituir"}]
          :config true}
         ; Markdown preview
@@ -115,6 +115,7 @@
          :keys [{1 :<leader>em
                  2 :<cmd>MarkdownPreview<CR>
                  :desc "Markdown preview"}]}
+        {1 :roobert/tailwindcss-colorizer-cmp.nvim}
         {1 :Massolari/web.nvim
          :dir (.. vim.env.HOME :/nvim-web-browser)
          :dependencies [:nvim-lua/plenary.nvim]}

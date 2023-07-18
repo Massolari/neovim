@@ -9,7 +9,7 @@
         formatted-path (string.gsub path (.. formatted-cwd "/") "")]
     (if (= formatted-path ".") "" (.. formatted-path "/"))))
 
-(local {: get-color : requireAnd} (require :functions))
+(local {: get-color : require-and} (require :functions))
 
 (local get-color get-color)
 
@@ -143,7 +143,7 @@
                       :padding {:left 0 :right 1}
                       :separator ""})
   (ins-inactive-left {1 :filename :padding 0 :color {:gui :bold} :separator ""})
-  (requireAnd :lualine #($.setup config))
+  (require-and :lualine #($.setup config))
   (require :winbar))
 
 M

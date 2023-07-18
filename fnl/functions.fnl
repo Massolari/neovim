@@ -159,13 +159,13 @@
     (each [_ i (pairs ids)]
       (vim.fn.matchdelete i))))
 
-(λ M.requireAnd [module callback]
+(λ M.require-and [module callback]
   (callback (require module)))
 
 (fn M.format []
   (let [buf (vim.api.nvim_get_current_buf)
         ft (vim.fn.getbufvar buf :&ft)
-        has-null-ls (-> (M.requireAnd :null-ls.sources
+        has-null-ls (-> (M.require-and :null-ls.sources
                                       #($.get_available ft :NULL_LS_FORMATTING))
                         (length)
                         (> 0))

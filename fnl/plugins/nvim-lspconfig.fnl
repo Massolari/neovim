@@ -1,5 +1,5 @@
 (import-macros {: augroup!} :hibiscus.vim)
-(local {: requireAnd} (require :functions))
+(local {: require-and} (require :functions))
 
 (local M
        {1 :neovim/nvim-lspconfig
@@ -9,7 +9,7 @@
                        :SmiteshP/nvim-navic]
         :init (fn []
                 (set vim.lsp.set_log_level :trace)
-                (requireAnd :vim.lsp.log #($.set_format_func vim.inspect)))})
+                (require-and :vim.lsp.log #($.set_format_func vim.inspect)))})
 
 (fn M.on_attach [client bufnr]
   (local capabilities client.server_capabilities)
@@ -77,7 +77,7 @@
   (local mason (require :mason))
   (local mason-lspconfig (require :mason-lspconfig))
   (local lspconfig (require :lspconfig))
-  (local capabilities (requireAnd :cmp_nvim_lsp #($.default_capabilities)))
+  (local capabilities (require-and :cmp_nvim_lsp #($.default_capabilities)))
   (set lspconfig.util.default_config
        (vim.tbl_extend :force lspconfig.util.default_config
                        {:on_attach M.on_attach : capabilities}))
@@ -90,7 +90,7 @@
                                        (-> server-name
                                            (get-config-options server.document_config.default_config)
                                            (server.setup))))])
-  (requireAnd :code-support #($.setup))
+  (require-and :code-support #($.setup))
   (lspconfig.nimls.setup {})
   (lspconfig.gleam.setup {}))
 

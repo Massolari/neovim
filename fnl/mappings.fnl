@@ -4,7 +4,7 @@
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
-(local {: requireAnd : keymaps-set} functions)
+(local {: require-and : keymaps-set} functions)
 
 ; Command
 
@@ -32,7 +32,7 @@
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Próximo erro de código"]
-                   :w [#(requireAnd :illuminate #($.goto_next_reference))
+                   :w [#(require-and :illuminate #($.goto_next_reference))
                        "Próxima palavra destacada"]}
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
@@ -44,7 +44,7 @@
                                                            :border :single}
                                                    :severity :Error})
                        "Erro de código anterior"]
-                   :w [#(requireAnd :illuminate #($.goto_prev_reference))
+                   :w [#(require-and :illuminate #($.goto_prev_reference))
                        "Palavra destacada anterior"]}}
              (vim.tbl_extend :force options {:mode :n}))
 
@@ -62,8 +62,8 @@
                   :p [:<cmd>tabprevious<CR> "Ir para a anterior (previous)"]}
               :b {:name :Buffer
                   :a [:ggVG "Selecionar tudo (all)"]
-                  :b [#(requireAnd :telescope.builtin
-                                   #($.buffers (requireAnd :telescope.themes
+                  :b [#(require-and :telescope.builtin
+                                   #($.buffers (require-and :telescope.themes
                                                            #($.get_dropdown {}))))
                       "Listar abertos"]
                   :d ["<cmd>bp|bd #<CR>" :Deletar]

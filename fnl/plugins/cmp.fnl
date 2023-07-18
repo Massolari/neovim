@@ -1,4 +1,4 @@
-(local {: requireAnd} (require :functions))
+(local {: require-and} (require :functions))
 
 (local M {1 :hrsh7th/nvim-cmp
           :event [:InsertEnter :CmdlineEnter]
@@ -69,7 +69,7 @@
                                                                            :luasnip "[LuaSnip]"
                                                                            :emoji "[Emoji]"}
                                                                           entry.source.name))
-                                                                  (requireAnd :tailwindcss-colorizer-cmp
+                                                                  (require-and :tailwindcss-colorizer-cmp
                                                                               #($.formatter entry
                                                                                             vim_item)))})}
               : sources})

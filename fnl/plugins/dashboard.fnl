@@ -1,5 +1,5 @@
 (import-macros {: fstring!} :hibiscus.core)
-(local {: get-random : get-random-item : requireAnd} (require :functions))
+(local {: get-random : get-random-item : require-and} (require :functions))
 
 (local M {1 :glepnir/dashboard-nvim
           :event :VimEnter
@@ -23,7 +23,7 @@
 (fn M.config []
   (local quotes (require :data.quotes))
   (local config-folder (vim.fn.stdpath :config))
-  (requireAnd :dashboard
+  (require-and :dashboard
               #($.setup {:theme :doom
                          :config {:header (let [header-number (get-random 40)]
                                             (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")

@@ -1,7 +1,7 @@
-(local {: requireAnd} (require :functions))
+(local {: require-and} (require :functions))
 
 (λ exec [callback]
-  (requireAnd :pantran callback))
+  (require-and :pantran callback))
 
 {1 :potamides/pantran.nvim
  :keys [{1 :<leader>ep

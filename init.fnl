@@ -1,4 +1,4 @@
-(local {: requireAnd : file-exists?} (require :functions))
+(local {: require-and : file-exists?} (require :functions))
 ;; Setup package manager
 
 (let [lazypath (.. (vim.fn.stdpath :data) :/lazy/lazy.nvim)]
@@ -13,7 +13,7 @@
 
 (require :globals)
 
-(requireAnd :lazy
+(require-and :lazy
             #($.setup :plugins
                       {:checker {:enabled true}
                        :performance {:rtp {:reset false}}}))
