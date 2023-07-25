@@ -166,7 +166,7 @@
   (let [buf (vim.api.nvim_get_current_buf)
         ft (vim.fn.getbufvar buf :&ft)
         has-null-ls (-> (M.require-and :null-ls.sources
-                                      #($.get_available ft :NULL_LS_FORMATTING))
+                                       #($.get_available ft :NULL_LS_FORMATTING))
                         (length)
                         (> 0))
         filter-fn (if has-null-ls #(= $1 $2) #(not= $1 $2))]
@@ -193,7 +193,7 @@
   (let [language (-> (vim.fn.expand "%:e") (get-silicon-language))
         code (-> (vim.api.nvim_buf_get_lines 0 (- line1 1) line2 false)
                  (table.concat "\\n"))
-        cmd (string.format "echo '%s' | silicon -l %s --to-clipboard" code
+        cmd (string.format "printf '%s' | silicon -l %s --to-clipboard" code
                            language)
         result (vim.fn.system cmd)
         notify-title :Silicon]
