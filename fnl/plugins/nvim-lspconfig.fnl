@@ -90,7 +90,6 @@
                                        (-> server-name
                                            (get-config-options server.document_config.default_config)
                                            (server.setup))))])
-  (require-and :code-support #($.setup))
   (lspconfig.nimls.setup {})
   (lspconfig.gleam.setup {}))
 
