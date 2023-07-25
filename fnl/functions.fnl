@@ -187,6 +187,7 @@
 (λ get-silicon-language [file-extension]
   (match file-extension
     :fnl :clj
+    :gleam :rust
     _ file-extension))
 
 (λ M.generate-code-image [{: line1 : line2}]
