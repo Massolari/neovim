@@ -1,7 +1,7 @@
 (import-macros {: fstring!} :hibiscus.core)
 (local {: get-random : get-random-item : require-and} (require :functions))
 
-(local M {1 :glepnir/dashboard-nvim
+(local M {1 :nvimdev/dashboard-nvim
           :event :VimEnter
           :cond (not vim.g.started_by_firenvim)})
 
@@ -24,28 +24,28 @@
   (local quotes (require :data.quotes))
   (local config-folder (vim.fn.stdpath :config))
   (require-and :dashboard
-              #($.setup {:theme :doom
-                         :config {:header (let [header-number (get-random 40)]
-                                            (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")
-                                                (vim.fn.systemlist)
-                                                (add-border)))
-                                  :center [{:icon " "
-                                            :desc "Buscar arquivo"
-                                            :action "Telescope find_files"}
-                                           {:icon " "
-                                            :desc "Procurar nos arquivos"
-                                            :action "Telescope live_grep"}
-                                           {:icon " "
-                                            :desc "Octo (Github)"
-                                            :action "Octo actions"}
-                                           {:icon " "
-                                            :desc "Feed do dev.to"
-                                            :action "Forem feed"}
-                                           {:icon " "
-                                            :desc "Novo arquivo"
-                                            :action ":ene!"}]
-                                  :footer (do
-                                            (math.randomseed (os.time))
-                                            (get-random-item quotes))}})))
+               #($.setup {:theme :doom
+                          :config {:header (let [header-number (get-random 40)]
+                                             (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")
+                                                 (vim.fn.systemlist)
+                                                 (add-border)))
+                                   :center [{:icon " "
+                                             :desc "Buscar arquivo"
+                                             :action "Telescope find_files"}
+                                            {:icon " "
+                                             :desc "Procurar nos arquivos"
+                                             :action "Telescope live_grep"}
+                                            {:icon " "
+                                             :desc "Octo (Github)"
+                                             :action "Octo actions"}
+                                            {:icon " "
+                                             :desc "Feed do dev.to"
+                                             :action "Forem feed"}
+                                            {:icon " "
+                                             :desc "Novo arquivo"
+                                             :action ":ene!"}]
+                                   :footer (do
+                                             (math.randomseed (os.time))
+                                             (get-random-item quotes))}})))
 
 M
