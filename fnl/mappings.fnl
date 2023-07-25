@@ -63,8 +63,8 @@
               :b {:name :Buffer
                   :a [:ggVG "Selecionar tudo (all)"]
                   :b [#(require-and :telescope.builtin
-                                   #($.buffers (require-and :telescope.themes
-                                                           #($.get_dropdown {}))))
+                                    #($.buffers (require-and :telescope.themes
+                                                             #($.get_dropdown {}))))
                       "Listar abertos"]
                   :d ["<cmd>bp|bd #<CR>" :Deletar]
                   :D [:<cmd>bd<CR> "Deletar e fechar janela"]
@@ -106,19 +106,24 @@
               ;; :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
               ;; :b [:<cmd>MarkdownPreview<CR>
               ;;     "Pré-visualizar com navegador (browser)"]}
-              :o {:name "Abrir arquivos de configuração"
+              :o {:name :Obsidian
                   ;; :i ["<cmd>exe 'edit' stdpath('config').'/init.fnl'<CR>"
-                  :i [#(vim.cmd.edit (.. (vim.fn.stdpath :config) :/init.fnl))
-                      :init]
-                  :p ["<cmd>exe 'edit' stdpath('config').'/fnl/plugins'<CR>"
-                      :plugins]
-                  :u {:name "Arquivos do usuário"
-                      :i ["<cmd>exe 'edit' stdpath('config').'/lua/user/init.lua'<CR>"
-                          "init.lua do usuário"]
-                      :p ["<cmd>exe 'edit' stdpath('config').'/lua/user/plugins.lua'<CR>"
-                          "plugins.lua do usuário"]}
-                  :s ["<cmd>exe 'source' stdpath('config').'/init.lua'<CR>"
-                      "Atualizar (source) configurações do vim"]}
+                  :f [#(require-and :telescope.builtin
+                                    #($.find_files {:cwd vim.g.obsidian_dir}))
+                      "Abrir arquivo"]
+                  :n [#(let [vaults (-> (.. "^ls '" vim.g.obsidian_dir "'")
+                                        (vim.fn.system)
+                                        (vim.fn.split "\n"))]
+                         (vim.ui.select vaults
+                                        {:prompt "Cofre para novo arquivo"}
+                                        (fn [vault]
+                                          (functions.with-input "Novo arquivo: "
+                                            (fn [name]
+                                              (when (not= name "")
+                                                (vim.cmd.e (.. vim.g.obsidian_dir
+                                                               "/" vault "/"
+                                                               name))))))))
+                      "Novo arquivo"]}
               :p {:name :Projeto}
               :q [#(functions.toggle-quickfix) "Alternar quickfix"]
               :s {:name "Sessão"
