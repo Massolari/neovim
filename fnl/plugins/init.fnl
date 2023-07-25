@@ -30,6 +30,7 @@
         ;; Interface
         ; Linhas de identação
         {1 :lukas-reineke/indent-blankline.nvim
+         :enabled false
          :event :BufReadPre
          :opts {:show_current_context true}
          :init #(g! :indent_blankline_filetype_exclude
