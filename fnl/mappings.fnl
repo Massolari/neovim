@@ -207,3 +207,6 @@
 
 ; Múltiplos cursores
 (vim.keymap.set :x :<C-s> "\\\\/" {:remap true})
+
+(vim.keymap.set [:n :x] :<leader>y "\"+y"
+                {:desc "Copiar para área de transferência"})

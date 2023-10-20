@@ -45,10 +45,6 @@
 
 (set! :scrolloff 5)
 
-; Copiar para a área de transferência
-
-(set! :clipboard "unnamed,unnamedplus")
-
 ; Mouse
 
 (set! :mouse :a)
