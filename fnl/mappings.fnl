@@ -18,6 +18,11 @@
                          (local luasnip (require :luasnip))
                          (when (luasnip.expand_or_jumpable)
                            (luasnip.expand_or_jump)))}
+                 {:lhs :<c-k>
+                  :rhs (fn []
+                         (local luasnip (require :luasnip))
+                         (when (luasnip.expand_or_jumpable)
+                           ((luasnip.jump -1))))}
                  {:lhs :<c-l> :rhs :<Right>}
                  {:lhs :jk :rhs :<Esc>}] options)
 
