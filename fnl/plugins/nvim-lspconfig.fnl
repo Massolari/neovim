@@ -1,5 +1,5 @@
 (import-macros {: augroup!} :hibiscus.vim)
-(local {: require-and} (require :functions))
+(local {: require-and : get-lsp-config-options} (require :functions))
 
 (local M
        {1 :neovim/nvim-lspconfig
@@ -27,52 +27,6 @@
        (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
          {:virtual_text false})))
 
-(λ get-config-options [server-name default-config]
-  (match server-name
-    :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
-                                   :hint {:enable true}
-                                   :diagnostics {:globals [:vim]}
-                                   :workspace {:library (vim.api.nvim_list_runtime_paths)}}}}
-    :ltex {:root_dir vim.loop.cwd
-           :filetypes [:octo (unpack default-config.filetypes)]
-           :settings {:ltex {:enabled [:bibtex
-                                       :context
-                                       :context.tex
-                                       :gitcommit
-                                       :html
-                                       :latex
-                                       :markdown
-                                       :octo
-                                       :org
-                                       :restructuredtext
-                                       :rsweave]
-                             :java {:path (.. vim.env.HOME
-                                              :/.nix-profile/bin/java)}}}}
-    :fennel_language_server
-    {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
-                         :diagnostics {:globals [:vim]}}}}
-    :tailwindcss {:settings {:tailwindCSS {:includeLanguages {:elm :html}
-                                           :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
-                                                                       "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
-                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                                       "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
-                                                                       "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
-                                                                       "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
-                  :init_options {:userLanguages {:elm :html}}
-                  :filetypes [:elm (unpack default-config.filetypes)]}
-    :tsserver {:init_options {:preferences {:includeInlayParameterNameHints :all
-                                            :includeInlayParameterNameHintsWhenArgumentMatchesName true
-                                            :includeInlayFunctionParameterTypeHints true
-                                            :includeInlayVariableTypeHints true
-                                            :includeInlayVariableTypeHintsWhenTypeMatchesName true
-                                            :includeInlayPropertyDeclarationTypeHints true
-                                            :includeInlayFunctionLikeReturnTypeHints true
-                                            :includeInlayEnumMemberValueHints true}}}
-    :yamlls {:settings {:yaml {:keyOrdering false}}}
-    _ {}))
-
 (fn M.config []
   (local mason (require :mason))
   (local mason-lspconfig (require :mason-lspconfig))
@@ -88,7 +42,7 @@
   (mason-lspconfig.setup_handlers [(fn [server-name]
                                      (let [server (. lspconfig server-name)]
                                        (-> server-name
-                                           (get-config-options server.document_config.default_config)
+                                           (get-lsp-config-options server.document_config.default_config)
                                            (server.setup))))])
   (lspconfig.nimls.setup {})
   (lspconfig.gleam.setup {}))

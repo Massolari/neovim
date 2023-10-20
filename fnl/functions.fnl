@@ -202,4 +202,60 @@
         (show-info "Code image generated" notify-title)
         (show-error result notify-title))))
 
+(λ M.get-lsp-config-options [server-name default-config]
+  (match server-name
+    :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
+                                   :hint {:enable true}
+                                   :diagnostics {:globals [:vim]}
+                                   :workspace {:library (vim.api.nvim_list_runtime_paths)}}}}
+    :ltex {:root_dir vim.loop.cwd
+           :filetypes [:octo (unpack default-config.filetypes)]
+           :settings {:ltex {:enabled [:bibtex
+                                       :context
+                                       :context.tex
+                                       :gitcommit
+                                       :html
+                                       :latex
+                                       :markdown
+                                       :octo
+                                       :org
+                                       :restructuredtext
+                                       :rsweave]
+                             :java {:path (.. vim.env.HOME
+                                              :/.nix-profile/bin/java)}}}}
+    :fennel_language_server
+    {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
+                         :diagnostics {:globals [:vim]}}}}
+    :tailwindcss {:settings {:tailwindCSS {:includeLanguages {:elm :html}
+                                           :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
+                                                                       "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
+                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                       "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
+                                                                       "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+                                                                       "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
+                  :init_options {:userLanguages {:elm :html}}
+                  :filetypes [:elm (unpack default-config.filetypes)]}
+    :tsserver {:init_options {:preferences {:includeInlayParameterNameHints :all
+                                            :includeInlayParameterNameHintsWhenArgumentMatchesName true
+                                            :includeInlayFunctionParameterTypeHints true
+                                            :includeInlayVariableTypeHints true
+                                            :includeInlayVariableTypeHintsWhenTypeMatchesName true
+                                            :includeInlayPropertyDeclarationTypeHints true
+                                            :includeInlayFunctionLikeReturnTypeHints true
+                                            :includeInlayEnumMemberValueHints true}}}
+    :yamlls {:settings {:yaml {:keyOrdering false}}}
+    _ {}))
+
+(λ M.start-ltex []
+  (M.with-input "Language: "
+    (fn [language]
+      (when (not= language "")
+        (let [lspconfig (require :lspconfig)
+              config (M.get-lsp-config-options :ltex
+                                               lspconfig.ltex.document_config.default_config)]
+          (lspconfig.ltex.setup (vim.tbl_extend :force config
+                                                {:settings {:ltex {: language}}})))))))
+
 M

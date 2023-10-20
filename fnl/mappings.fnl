@@ -87,10 +87,7 @@
                       :Corrigir]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
-                  :a {:name :Animais
-                      :c [#(functions.cook-animals) :Cozinhar]
-                      :s [#(functions.release-animals) :Soltar]}
-                  :c {:name :ChatGPT}
+                  :c [#(functions.start-ltex) :Corretor]
                   :f {:name :Forem
                       :f ["<cmd>lua require'forem-nvim'.feed()<CR>" :Feed]
                       :m ["<cmd>lua require'forem-nvim'.my_articles()<CR>"
