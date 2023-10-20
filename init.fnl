@@ -14,9 +14,9 @@
 (require :globals)
 
 (require-and :lazy
-            #($.setup :plugins
-                      {:checker {:enabled true}
-                       :performance {:rtp {:reset false}}}))
+             #($.setup :plugins
+                       {:checker {:enabled true}
+                        :performance {:rtp {:reset false}}}))
 
 (require :options)
 (require :commands)
