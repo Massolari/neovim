@@ -2,8 +2,7 @@
 
 {1 :mg979/vim-visual-multi
  :branch :master
- :lazy false
- ; :keys [:<c-g> :<c-t>]
+ :keys [:<c-g> :<c-t> :<M-g> {1 "\\\\/" :mode :x}]
  :init (fn []
          (g! :VM_maps {"Find Under" :<C-t>
                        "Find Subword Under" :<C-t>
