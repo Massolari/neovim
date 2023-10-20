@@ -1,6 +1,6 @@
 (local {: on_attach} (require :plugins.nvim-lspconfig))
 
-(local M {1 :jose-elias-alvarez/null-ls.nvim
+(local M {1 :nvimtools/none-ls.nvim
           :event :BufReadPost
           :dependencies :nvim-lua/plenary.nvim})
 
