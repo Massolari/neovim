@@ -1,5 +1,5 @@
 (when (= nil vim.g.colors_name)
-  (vim.cmd.colorscheme :solarized))
+  (vim.cmd.colorscheme :catppuccin-latte))
 
 (if (vim.startswith vim.g.colors_name :one)
     (vim.api.nvim_set_hl 0 :VertSplit {:link :Normal}))
