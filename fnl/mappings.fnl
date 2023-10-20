@@ -82,6 +82,9 @@
                   :f [#(functions.format) "Formatar código"]
                   :i [#(vim.lsp.inlay_hint 0)
                       "Ativar/desativar dicas de código"]
+                  :q [#(vim.lsp.buf.code_action {:context {:only [:quickfix]}
+                                                 :apply true})
+                      :Corrigir]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :e {:name :Editor
                   :a {:name :Animais
