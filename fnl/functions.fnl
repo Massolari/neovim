@@ -247,4 +247,9 @@
           (lspconfig.ltex.setup (vim.tbl_extend :force config
                                                 {:settings {:ltex {: language}}})))))))
 
+(λ M.get_breadcrumbs []
+  (if (> (length (vim.lsp.buf_get_clients)) 0)
+      (M.require-and :nvim-navic #($.get_location))
+      " "))
+
 M
