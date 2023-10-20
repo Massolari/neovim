@@ -134,17 +134,6 @@
                             (table.getn)
                             (> 0)))
 
-(local animals ["🐕" "🐈" "🦆"])
-(λ M.release-animals []
-  (let [d (require :duck)]
-    (each [_ animal (pairs animals)]
-      (d.hatch animal))))
-
-(λ M.cook-animals []
-  (let [d (require :duck)]
-    (each [_ _ (pairs animals)]
-      (d.cook))))
-
 (λ M.get-random [max]
   (math.randomseed (os.time))
   (math.random max))
