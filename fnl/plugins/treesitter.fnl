@@ -7,7 +7,6 @@
   (local configs (require :nvim-treesitter.configs))
   (configs.setup {:highlight {:enable true}
                   :ensure_installed :all
-                  :ignore_install [:phpdoc]
                   :autotag {:enable true}
                   :context_commentstring {:enable true}
                   :incremental_selection {:enable true}
