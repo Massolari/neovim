@@ -45,6 +45,7 @@
                                            (get-lsp-config-options server.document_config.default_config)
                                            (server.setup))))])
   (lspconfig.nimls.setup {})
+  (lspconfig.hls.setup {})
   (lspconfig.gleam.setup {}))
 
 M
