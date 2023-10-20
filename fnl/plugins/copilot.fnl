@@ -1,12 +1,7 @@
-(import-macros {: g!} :hibiscus.vim)
-
-{1 :github/copilot.vim
+{1 :zbirenbaum/copilot.lua
  :event :InsertEnter
- :init (fn []
-         (vim.keymap.set :i :<C-q> "copilot#Accept(\"\\<C-q>\")"
-                         {:remap true
-                          :silent true
-                          :script true
-                          :expr true
-                          :replace_keycodes false})
-         (g! :copilot_no_tab_map true))}
+ :cmd :Copilot
+ :config true
+ :opts {:suggestion {:auto_trigger true
+                     :keymap {:accept :<c-q> :next :<m-n> :prev :<m-p>}}
+        :filetypes {:* true}}}
