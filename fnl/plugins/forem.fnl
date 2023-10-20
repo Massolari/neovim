@@ -1,5 +1,5 @@
-; (local forem (require :forem-nvim))
-; 
-; (when vim.g.forem_api_key
-;   (forem.setup {:api_key vim.g.forem_api_key}))
-{}
+{1 :Massolari/forem.nvim
+ :dir (.. vim.env.HOME :/forem.nvim)
+ :cmd :Forem
+ :config true
+ :dependencies [:nvim-lua/plenary.nvim :nvim-telescope/telescope.nvim]}
