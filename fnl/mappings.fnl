@@ -134,10 +134,7 @@
                       "Novo arquivo"]}
               :p {:name :Projeto}
               :q [#(functions.toggle-quickfix) "Alternar quickfix"]
-              :s {:name "Sessão"
-                  :c [:<cmd>SessionLoad<CR> :Carregar]
-                  :l [#(functions.session-list) :Listar]
-                  :s [:<cmd>SessionSave<CR> :Salvar]}
+              :s [:<cmd>w<CR> "Salvar buffer"]
               :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" :Terminal]
               :v [:<cmd>vsplit<CR> "Dividir verticalmente"]
               :w {:name :Window
