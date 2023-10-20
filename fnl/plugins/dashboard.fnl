@@ -3,6 +3,7 @@
 
 (local M {1 :nvimdev/dashboard-nvim
           :event :VimEnter
+          :dependencies :uga-rosa/utf8.nvim
           :cond (not vim.g.started_by_firenvim)})
 
 (fn add-border [lines]
@@ -29,19 +30,19 @@
                                              (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")
                                                  (vim.fn.systemlist)
                                                  (add-border)))
-                                   :center [{:icon " "
+                                   :center [{:icon "  "
                                              :desc "Buscar arquivo"
                                              :action "Telescope find_files"}
-                                            {:icon " "
+                                            {:icon "  "
                                              :desc "Procurar nos arquivos"
                                              :action "Telescope live_grep"}
-                                            {:icon " "
+                                            {:icon "  "
                                              :desc "Octo (Github)"
                                              :action "Octo actions"}
-                                            {:icon " "
+                                            {:icon "  "
                                              :desc "Feed do dev.to"
                                              :action "Forem feed"}
-                                            {:icon " "
+                                            {:icon "  "
                                              :desc "Novo arquivo"
                                              :action ":ene!"}]
                                    :footer (do

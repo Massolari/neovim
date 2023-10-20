@@ -94,7 +94,6 @@
          :event :BufReadPost
          :dependencies [:neovim/nvim-lspconfig :williamboman/mason.nvim]
          :config #(require-and :grammar-guard #($.init))}
-        {1 :uga-rosa/utf8.nvim :lazy true}
         ; Instalador de ferramentas de código
         {1 :williamboman/mason.nvim
          :cmd :Mason
