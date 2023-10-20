@@ -73,7 +73,7 @@
                       "Listar abertos"]
                   :d ["<cmd>bp|bd #<CR>" :Deletar]
                   :D [:<cmd>bd<CR> "Deletar e fechar janela"]
-                  :o ["%bd|e#|bd#" "Deletar todos os outros buffers"]
+                  :o ["<cmd>%bd|e#|bd#<CR>" "Deletar todos os outros buffers"]
                   :s [:<cmd>w<CR> :Salvar]}
               :c {:name :Code
                   :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
