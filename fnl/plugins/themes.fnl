@@ -1,10 +1,10 @@
 (import-macros {: g!} :hibiscus.vim)
 
 [{1 :projekt0n/github-nvim-theme :branch :0.0.x}
- {1 :catppuccin/nvim :name :catppuccin :priority 1000}
+ {1 :catppuccin/nvim :name :catppuccin :lazy false :priority 1000}
  {1 :maxmx03/solarized.nvim
-  :lazy false
-  :priority 1000
+  ; :lazy false
+  ; :priority 1000
   :config (fn [] ; (require-and :solarized ;              #($.setup {:theme :neo ;                         :highlights (fn [colors {: lighten}]
             ;                                       {:IndentBlanklineChar {:fg (lighten colors.base01
             ;                                                                           50)}
