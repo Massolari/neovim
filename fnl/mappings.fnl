@@ -114,8 +114,6 @@
                   :b {:name :Blame :b :Linha}
                   :h {:name :Hunks :u "Desfazer (undo)" :v :Ver}
                   :i {:name "Issues (Github)"}
-                  :k [#(functions.checkout-new-branch)
-                      "Criar branch e fazer checkout"]
                   :u {:name "Pull Requests (Github)"}}
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
