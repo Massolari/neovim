@@ -60,6 +60,7 @@
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
+              ["/" #(functions.grep) {:desc "Buscar com ripgrep"}]]
              {:prefix :<leader>})
 
 ; Aba
@@ -107,7 +108,6 @@
                           "Meus artigos"]
                       :n ["<cmd>lua require'forem-nvim'.new_article()<CR>"
                           "Novo artigo"]}
-                  :g [#(functions.vim-grep) "Buscar com vimgrep"]
                   :q [:<cmd>qa<CR> :Fechar]
                   :u [:<cmd>Lazy<CR> :Plugins]}
               :g {:name :Git

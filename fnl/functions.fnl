@@ -1,5 +1,4 @@
 (import-macros {: exec!} :hibiscus.vim)
-(import-macros {: fstring!} :hibiscus.core)
 
 (local M {})
 
@@ -51,32 +50,14 @@
     (when status
       (fun input))))
 
-(λ M.checkout-new-branch []
-  (M.with-input "New branch name: "
-    (fn [branch]
-      (when (not= branch "")
-        (exec! [echo "\"\\r\""] [echohl :Directory]
-               [":Git" (.. "checkout -b " branch)] [echohl :None])))))
-
-; Get the user input for what he wants to search for with vimgrep
-; if it's empty, abort, if it's not empty get the user input for the target folder, if
-; it's not specified, defaults to `git ls-files`
-
-(λ M.vim-grep []
-  (let [(search-status input) (pcall vim.fn.input "Search for: ")]
+(λ M.grep []
+  (let [(search-status input) (pcall vim.fn.input "Procurar por: ")]
     (if (or (not search-status) (= input ""))
-        (print :Aborted)
-        (let [(folder-status maybe-target) (pcall vim.fn.input
-                                                  "Target folder/files (git ls-files): "
-                                                  "" :file_in_path)
-              target (if (= maybe-target "") "`git ls-files`" maybe-target)]
-          (if (not folder-status)
-              (print :Aborted)
-              (let [(status err) (pcall vim.cmd.vimgrep
-                                        (fstring! "/${input}/gj ${target}"))]
-                (if (not status)
-                    (print err)
-                    (vim.cmd.copen))))))))
+        (show-info "Pesquisa cancelada" :RipGrep)
+        (let [(status err) (pcall vim.cmd (.. "grep! " input))]
+          (if (not status)
+              (show-error err)
+              (vim.cmd.copen))))))
 
 ; w3m
 

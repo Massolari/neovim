@@ -101,3 +101,6 @@
 
 (set! :list true)
 (set! :listchars "tab:»·,trail:·,extends:»,precedes:«,nbsp:·")
+
+; Usar ripgrep for :grep
+(set! :grepprg "rg --vimgrep --no-heading --smart-case")
