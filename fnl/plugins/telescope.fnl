@@ -32,7 +32,7 @@
                   2 #(builtin #($.find_files))
                   :desc "Buscar (find) arquivo"}
                  {1 :<leader>ps
-                  2 #(builtin #($.grep_string {:search (vim.fn.input "Grep For> ")}))
+                  2 #(builtin #($.grep_string {:search (vim.fn.input "Procurar por: ")}))
                   :desc "Procurar (search) nos arquivos"}]
           :dependencies [:nvim-lua/plenary.nvim
                          {1 :nvim-telescope/telescope-fzf-native.nvim
