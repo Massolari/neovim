@@ -173,7 +173,7 @@
         result (vim.fn.system cmd)
         notify-title :Silicon]
     (if (= result "")
-        (show-info "Code image generated" notify-title)
+        (show-info "Imagem de código gerada" notify-title)
         (show-error result notify-title))))
 
 (λ M.get-lsp-config-options [server-name default-config]
