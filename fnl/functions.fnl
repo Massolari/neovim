@@ -166,10 +166,14 @@
   (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]
     (vim.tbl_extend :keep [(.. prefix keys) cmd] map-options)))
 
-(λ M.keymaps-set [mode keys options]
-  (each [_ {: lhs : rhs : desc} (ipairs keys)]
-    (vim.keymap.set mode lhs rhs
-                    (vim.tbl_extend :force options {:desc (or desc "")}))))
+(λ M.keymaps-set [mode keys ?options]
+  (let [global-options (or ?options {})
+        prefix (or global-options.prefix "")] ; Remover prefixo de global-options, pois não é uma opção válida para vim.keymap.set
+    (set global-options.prefix nil)
+    (each [_ [lhs rhs ?local-options] (ipairs keys)]
+      (vim.keymap.set mode (.. prefix lhs) rhs
+                      (vim.tbl_extend :force global-options
+                                      (or ?local-options {}))))))
 
 ; Silicon
 

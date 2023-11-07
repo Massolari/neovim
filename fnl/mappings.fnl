@@ -13,18 +13,18 @@
 
 ; Insert
 
-(keymaps-set :i [{:lhs :<c-j>
-                  :rhs (fn []
-                         (local luasnip (require :luasnip))
-                         (when (luasnip.expand_or_jumpable)
-                           (luasnip.expand_or_jump)))}
-                 {:lhs :<c-k>
-                  :rhs (fn []
-                         (local luasnip (require :luasnip))
-                         (when (luasnip.expand_or_jumpable)
-                           ((luasnip.jump -1))))}
-                 {:lhs :<c-l> :rhs :<Right>}
-                 {:lhs :jk :rhs :<Esc>}] options)
+(keymaps-set :i [[:<c-j>
+                  (fn []
+                    (local luasnip (require :luasnip))
+                    (when (luasnip.expand_or_jumpable)
+                      (luasnip.expand_or_jump)))]
+                 [:<c-k>
+                  (fn []
+                    (local luasnip (require :luasnip))
+                    (when (luasnip.expand_or_jumpable)
+                      ((luasnip.jump -1))))]
+                 [:<c-l> :<Right>]
+                 [:jk :<Esc>]])
 
 ; Normal
 
@@ -54,27 +54,40 @@
              (vim.tbl_extend :force options {:mode :n}))
 
 ; Normal com leader
+(keymaps-set :n
+             [["," "mpA,<Esc>`p" {:desc "\",\" no fim da linha"}]
+              [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
+              [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
+              ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
+              [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
+             {:prefix :<leader>})
 
-(wk.register {"," ["mpA,<Esc>`p" "\",\" no fim da linha"]
-              ";" ["mpA;<Esc>`p" "\";\" no fim da linha"]
-              :<Tab> ["\030" "Alterar para arquivo anterior"]
-              := [:<c-w>= "Igualar tamanho das janelas"]
-              :/ [:<cmd>noh<cr> "Limpar seleção da pesquisa"]
-              :a {:name :Aba
-                  :a [:<cmd>tabnew<CR> "Abrir uma nova"]
-                  :c [:<cmd>tabclose<CR> "Fechar (close)"]
-                  :n [:<cmd>tabnext<CR> "Ir para a próxima (next)"]
-                  :p [:<cmd>tabprevious<CR> "Ir para a anterior (previous)"]}
-              :b {:name :Buffer
-                  :a [:ggVG "Selecionar tudo (all)"]
-                  :b [#(require-and :telescope.builtin
-                                    #($.buffers (require-and :telescope.themes
-                                                             #($.get_dropdown {}))))
-                      "Listar abertos"]
-                  :d ["<cmd>bp|bd #<CR>" :Deletar]
-                  :D [:<cmd>bd<CR> "Deletar e fechar janela"]
-                  :o ["<cmd>%bd|e#|bd#<CR>" "Deletar todos os outros buffers"]
-                  :s [:<cmd>w<CR> :Salvar]}
+; Aba
+(keymaps-set :n [[:a :<cmd>tabnew<CR> {:desc "Abrir uma nova"}]
+                 [:c :<cmd>tabclose<CR> {:desc "Fechar (close)"}]
+                 [:n :<cmd>tabnext<CR> {:desc "Ir para a próxima (next)"}]
+                 [:p
+                  :<cmd>tabprevious<CR>
+                  {:desc "Ir para a anterior (previous)"}]]
+             {:prefix :<leader>a})
+
+; Buffer
+(keymaps-set :n [[:a :ggVG {:desc "Selecionar tudo (all)"}]
+                 [:b
+                  #(require-and :telescope.builtin
+                                #($.buffers (require-and :telescope.themes
+                                                         #($.get_dropdown {}))))
+                  {:desc "Listar abertos"}]
+                 [:d "<cmd>bp|bd #<CR>" {:desc :Deletar}]
+                 [:D :<cmd>bd<CR> {:desc "Deletar e fechar janela"}]
+                 [:o
+                  "<cmd>%bd|e#|bd#<CR>"
+                  {:desc "Deletar todos os outros buffers"}]
+                 [:s :<cmd>w<CR> {:desc :Salvar}]]
+             {:prefix :<leader>b})
+
+(wk.register {:a {:name :Aba}
+              :b {:name :Buffer}
               :c {:name :Code
                   :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
