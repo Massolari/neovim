@@ -54,7 +54,7 @@
   (let [(search-status input) (pcall vim.fn.input "Procurar por: ")]
     (if (or (not search-status) (= input ""))
         (show-info "Pesquisa cancelada" :RipGrep)
-        (let [(status err) (pcall vim.cmd (.. "grep! " input))]
+        (let [(status err) (pcall vim.cmd (.. "silent grep! " input))]
           (if (not status)
               (show-error err)
               (vim.cmd.copen))))))
