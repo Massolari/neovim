@@ -32,7 +32,11 @@
 
 (map! [:n :buffer] :u
       #(run-and-restore-cursor-position #(vim.cmd "silent colder")))
+
 (map! [:n :buffer] :U
       #(run-and-restore-cursor-position #(vim.cmd "silent cnewer")))
+
 (map! [:n :buffer] :<c-r>
       #(run-and-restore-cursor-position #(vim.cmd "silent cnewer")))
+
+(vim.keymap.set :n :g/ ":Cfilter " {:buffer true :desc "Filtrar items"})
