@@ -16,6 +16,9 @@
                  {1 :<leader>ee
                   2 #(builtin #($.builtin))
                   :desc "Comandos do Telescope"}
+                 {1 :<leader>er
+                  2 #(builtin #($.oldfiles))
+                  :desc "Arquivos recentes"}
                  {1 :<leader>gi
                   2 #(builtin #($.git_bcommits))
                   :desc "Histórico de commits do arquivo atual"}
