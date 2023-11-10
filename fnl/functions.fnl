@@ -235,4 +235,7 @@
       (M.require-and :nvim-navic #($.get_location))
       " "))
 
+(λ M.get-key-insert [key]
+  (vim.api.nvim_replace_termcodes key true false true))
+
 M
