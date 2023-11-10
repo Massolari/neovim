@@ -1,5 +1,3 @@
-(import-macros {: exec!} :hibiscus.vim)
-
 (local M {})
 
 (λ show-notification [msg level title ?opts]
