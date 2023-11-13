@@ -39,4 +39,4 @@
 (map! [:n :buffer] :<c-r>
       #(run-and-restore-cursor-position #(vim.cmd "silent cnewer")))
 
-(vim.keymap.set :n :g/ ":Cfilter " {:buffer true :desc "Filtrar items"})
+(vim.keymap.set :n :<leader>f ":Cfilter " {:buffer true :desc "Filtrar items"})
