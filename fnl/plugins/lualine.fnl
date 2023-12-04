@@ -72,16 +72,13 @@
                                  {1 (fn [] "%=") :separator ""}
                                  {1 (fn []
                                       (let [clients (vim.lsp.buf_get_clients)
-                                            buf-filetype (vim.api.nvim_buf_get_option 0
-                                                                                      :filetype)
+                                            buffer (vim.api.nvim_get_current_buf)
                                             result []]
                                         (each [_ client (pairs clients)]
-                                          (let [client-filetypes (or client.config.filetypes
-                                                                     [])]
-                                            (when (->> buf-filetype
-                                                       (vim.fn.index client-filetypes)
-                                                       (not= -1))
-                                              (table.insert result client.name))))
+                                          (when (->> buffer
+                                                     (. client.attached_buffers)
+                                                     (= true))
+                                            (table.insert result client.name)))
                                         (if (> (length result) 0)
                                             (.. "  LSP: "
                                                 (table.concat result " | "))
