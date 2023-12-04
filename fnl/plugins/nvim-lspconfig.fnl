@@ -22,7 +22,7 @@
                `(buffer 0)
                #(vim.lsp.codelens.refresh)]))
   (when capabilities.inlayHintProvider
-    (vim.lsp.inlay_hint 0 true))
+    (vim.lsp.inlay_hint.enable))
   (set vim.lsp.handlers.textDocument/publishDiagnostics
        (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
          {:virtual_text false})))
@@ -46,5 +46,6 @@
                                            (server.setup))))])
   (lspconfig.nimls.setup {})
   (lspconfig.hls.setup {}) ; (lspconfig.gleam.setup {}))
+  )
 
 M
