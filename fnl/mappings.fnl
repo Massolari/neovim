@@ -195,8 +195,6 @@
 (map! [:v] :K ":m '<-2<CR>gv=gv")
 (map! [:v] :J ":m '>+1<CR>gv=gv")
 
-(map! [:n] :K #(vim.lsp.buf.hover))
-
 (wk.register {:i [#(vim.lsp.buf.implementation) "Implementação"]
               :r ["<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
                   "Referências"]
