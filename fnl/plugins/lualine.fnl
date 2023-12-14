@@ -1,7 +1,7 @@
 (local M {1 :nvim-lualine/lualine.nvim
           :cond (not vim.g.started_by_firenvim)
           :event :VimEnter
-          :dependencies [:kyazdani42/nvim-web-devicons]})
+          :dependencies [:nvim-tree/nvim-web-devicons]})
 
 (fn get-file-path []
   (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
