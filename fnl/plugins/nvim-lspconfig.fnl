@@ -31,7 +31,11 @@
   (local mason (require :mason))
   (local mason-lspconfig (require :mason-lspconfig))
   (local lspconfig (require :lspconfig))
-  (local capabilities (require-and :cmp_nvim_lsp #($.default_capabilities)))
+  (local capabilities
+         (let [cmp_capabilities (require-and :cmp_nvim_lsp
+                                             #($.default_capabilities))]
+           (vim.tbl_extend :force cmp_capabilities
+                           (vim.lsp.protocol.make_client_capabilities))))
   (set lspconfig.util.default_config
        (vim.tbl_extend :force lspconfig.util.default_config
                        {:on_attach M.on_attach : capabilities}))
