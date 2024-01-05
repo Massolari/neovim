@@ -1,0 +1,11 @@
+{
+  "packages": [
+    "github:NixOS/nixpkgs/nixpkgs-unstable#fnlfmt",
+    "github:NixOS/nixpkgs/nixpkgs-unstable#lua-language-server",
+    "github:NixOS/nixpkgs/nixpkgs-unstable#stylua"
+  ],
+  "shell": {
+    "init_hook": [],
+    "scripts": {}
+  }
+}
