@@ -55,7 +55,7 @@
                                                         :before (fn [entry
                                                                      vim_item]
                                                                   (set vim_item.kind
-                                                                       (.. (. lspkind.presets.default
+                                                                       (.. (. lspkind.presets.codicons
                                                                               vim_item.kind)
                                                                            " "
                                                                            vim_item.kind))
