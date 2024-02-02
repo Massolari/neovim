@@ -1,6 +1,13 @@
 (import-macros {: augroup!} :hibiscus.vim)
 (local {: require-and : get-lsp-config-options} (require :functions))
 
+(λ setup-server [name]
+  (let [lspconfig (require :lspconfig)
+        server (. lspconfig name)]
+    (-> name
+        (get-lsp-config-options server.document_config.default_config)
+        (server.setup))))
+
 (local M
        {1 :neovim/nvim-lspconfig
         :event :BufReadPost
@@ -43,13 +50,9 @@
   (vim.diagnostic.config {:virtual_text false})
   (mason.setup {})
   (mason-lspconfig.setup {})
-  (mason-lspconfig.setup_handlers [(fn [server-name]
-                                     (let [server (. lspconfig server-name)]
-                                       (-> server-name
-                                           (get-lsp-config-options server.document_config.default_config)
-                                           (server.setup))))])
-  (lspconfig.nimls.setup {})
-  (lspconfig.hls.setup {}) ; (lspconfig.gleam.setup {}))
+  (mason-lspconfig.setup_handlers [setup-server])
+  (each [_ server (pairs [:nimls :lua_ls :hls])]
+    (setup-server server)) ; (lspconfig.nimls.setup {}) ; (lspconfig.lua_ls.setup (get-lsp-config-options :lua_ls {})) ; (lspconfig.hls.setup {}) ; (lspconfig.gleam.setup {}))
   )
 
 M
