@@ -9,8 +9,6 @@
                 {1 :RRethy/vim-illuminate :event :BufReadPost}
                 {1 :windwp/nvim-autopairs :event :InsertEnter :config true}
                 ;; Outros
-                ; Funcionalidades para a linguagem Nim
-                {1 :alaviss/nim.nvim :ft :nim}
                 {1 :roobert/tailwindcss-colorizer-cmp.nvim}
                 {1 :Massolari/web.nvim
                  :dir (.. vim.env.HOME :/nvim-web-browser)
