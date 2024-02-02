@@ -59,16 +59,6 @@
                                                                               vim_item.kind)
                                                                            " "
                                                                            vim_item.kind))
-                                                                  (set vim_item.menu
-                                                                       (. {:path "[Path]"
-                                                                           :conjure "[Conjure]"
-                                                                           :buffer "[Buffer]"
-                                                                           :calc "[Calc]"
-                                                                           :nvim_lsp "[LSP]"
-                                                                           :cmp_tabnine "[TabNine]"
-                                                                           :luasnip "[LuaSnip]"
-                                                                           :emoji "[Emoji]"}
-                                                                          entry.source.name))
                                                                   (require-and :tailwindcss-colorizer-cmp
                                                                                #($.formatter entry
                                                                                              vim_item)))})}
