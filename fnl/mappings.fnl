@@ -63,6 +63,10 @@
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
+              [:q #(functions.toggle-quickfix) {:desc "Alternar quickfix"}]
+              [:t "<cmd>exe v:count1 . \"ToggleTerm\"<CR>" {:desc :Terminal}]
+              [:v :<cmd>vsplit<CR> {:desc "Dividir verticalmente"}]
+              [:s :<cmd>w<CR> {:desc "Salvar buffer"}]
               ["/" #(functions.grep) {:desc "Buscar com ripgrep"}]]
              {:prefix :<leader>})
 
@@ -90,6 +94,32 @@
                  [:s :<cmd>w<CR> {:desc :Salvar}]]
              {:prefix :<leader>b})
 
+; Editor
+(keymaps-set :n [[:b
+                  #(require-and :nvim-web-browser #($.open))
+                  {:desc "Navegador (browser)"}]
+                 [:c #(functions.start-ltex) {:desc :Corretor}]
+                 [:hf
+                  #(require-and :telescope.builtin
+                                #($.find_files {:cwd "~/.local/share/nvim/rest"}))
+                  {:desc :Abrir}]
+                 [:hn
+                  #(functions.with-input "Novo arquivo: "
+                     (fn [name]
+                       (when (not= name "")
+                         (vim.cmd.e (.. "~/.local/share/nvim/rest/" name :.rest)))))
+                  {:desc :Novo}]
+                 ; [:ff "<cmd>lua require'forem-nvim'.feed()<CR>" {:desc :Feed}]
+                 ; [:fm
+                 ;  "<cmd>lua require'forem-nvim'.my_articles()<CR>"
+                 ;  {:desc "Meus artigos"}]
+                 ; [:fn
+                 ;  "<cmd>lua require'forem-nvim'.new_article()<CR>"
+                 ;  {:desc "Novo artigo"}]
+                 [:q :<cmd>qa<CR> {:desc :Fechar}]
+                 [:u :<cmd>Lazy<CR> {:desc :Plugins}]]
+             {:prefix :<leader>e})
+
 (wk.register {:a {:name :Aba}
               :b {:name :Buffer}
               :c {:name :Code
@@ -104,16 +134,7 @@
                                                  :apply true})
                       :Corrigir]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
-              :e {:name :Editor
-                  :c [#(functions.start-ltex) :Corretor]
-                  :f {:name :Forem
-                      :f ["<cmd>lua require'forem-nvim'.feed()<CR>" :Feed]
-                      :m ["<cmd>lua require'forem-nvim'.my_articles()<CR>"
-                          "Meus artigos"]
-                      :n ["<cmd>lua require'forem-nvim'.new_article()<CR>"
-                          "Novo artigo"]}
-                  :q [:<cmd>qa<CR> :Fechar]
-                  :u [:<cmd>Lazy<CR> :Plugins]}
+              :e {:name :Editor :h {:name "Cliente HTTP"}}
               :g {:name :Git
                   :b {:name :Blame :b :Linha}
                   :h {:name :Hunks :u "Desfazer (undo)" :v :Ver}
@@ -145,10 +166,6 @@
                                                                name))))))))
                       "Novo arquivo"]}
               :p {:name :Projeto}
-              :q [#(functions.toggle-quickfix) "Alternar quickfix"]
-              :s [:<cmd>w<CR> "Salvar buffer"]
-              :t ["<cmd>exe v:count1 . \"ToggleTerm\"<CR>" :Terminal]
-              :v [:<cmd>vsplit<CR> "Dividir verticalmente"]
               :w {:name :Window
                   :c [:<c-w>c "Fechar janela"]
                   :o [:<c-w>o "Fechar outras janelas"]}}

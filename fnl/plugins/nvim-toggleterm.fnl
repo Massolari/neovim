@@ -26,16 +26,6 @@
                                          {:on_open (fn []
                                                      nil)})
                          {:desc "Abrir lazygit"})
-         (vim.keymap.set :n :<leader>eh
-                         #(with-input "Cheat.sh query: "
-                            (fn [query]
-                              (when (not (empty? query))
-                                (let [formatted-query (query:gsub " " "+")
-                                      cmd (fstring! "curl cht.sh/${formatted-query}")]
-                                  (open-terminal cmd 1001
-                                                 {:close_on_exit false
-                                                  :start_in_insert false})))))
-                         {:desc "Procurar em cheat.sh"})
          (let [open-w3m #(open-terminal (.. "w3m " $1) 1002
                                         {:on_open #(set vim.opt.buflisted true)
                                          :direction :vertical
