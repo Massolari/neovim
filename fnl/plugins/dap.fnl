@@ -27,10 +27,15 @@
                         :request :launch
                         :name "Chrome Launch"}]))))}
  {1 :mxsdev/nvim-dap-vscode-js
-  :dependencies :mfussenegger/nvim-dap
-  :opts {:debugger_path (.. (os.getenv :HOME) :/vscode-js-debug)
+  :dependencies [:mfussenegger/nvim-dap
+                 {1 :microsoft/vscode-js-debug
+                  :lazy true
+                  :build {1 "npm install --legacy-peer-deps"
+                          2 "npx gulp vsDebugServerBundle"
+                          3 "mv dist out"}}]
+  :opts {:debugger_path (.. (vim.fn.stdpath :data) :/lazy/vscode-js-debug)
          :adapters [:pwa-chrome]
-         :node_path (.. (os.getenv :HOME) :/.nix-profile/bin/node)}
+         :node_path vim.g.node_path}
   :config true}
  {1 :rcarriga/nvim-dap-ui
   :name :dapui
