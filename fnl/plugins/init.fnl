@@ -1,16 +1,8 @@
+(local {: dir-exists?} (require :functions))
 (vim.cmd "packadd cfilter")
 
-(local plugins [;; Fennel
-                {1 :udayvir-singh/tangerine.nvim :priority 1001 :lazy false}
-                :udayvir-singh/hibiscus.nvim
-                {1 :unblevable/quick-scope :event :VeryLazy}
-                ;; Interface
-                ; Destaque na palavra sob o cursor
-                {1 :RRethy/vim-illuminate :event :BufReadPost}
-                {1 :windwp/nvim-autopairs :event :InsertEnter :config true}
-                ;; Outros
-                {1 :roobert/tailwindcss-colorizer-cmp.nvim}
-                {1 :Massolari/web.nvim
+(local plugins [{1 :Massolari/web.nvim
+                 :cond (dir-exists? (.. vim.env.HOME :/nvim-web-browser))
                  :dir (.. vim.env.HOME :/nvim-web-browser)
                  :dependencies :nvim-lua/plenary.nvim}])
 
