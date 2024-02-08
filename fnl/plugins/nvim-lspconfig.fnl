@@ -1,6 +1,14 @@
 (import-macros {: augroup!} :hibiscus.vim)
 (local {: require-and : get-lsp-config-options} (require :functions))
 
+(local server-blacklist [:contextive
+                         :custom_elements_ls
+                         :efm
+                         :snyk_ls
+                         :diagnosticls
+                         :fennel_ls
+                         :typos_lsp])
+
 (λ setup-server [name]
   (let [lspconfig (require :lspconfig)
         server (. lspconfig name)]
@@ -11,9 +19,7 @@
 (local M
        {1 :neovim/nvim-lspconfig
         :event :BufReadPost
-        :dependencies [:mason.nvim
-                       :williamboman/mason-lspconfig.nvim
-                       :SmiteshP/nvim-navic]
+        :dependencies [:mason.nvim :SmiteshP/nvim-navic]
         :init (fn []
                 (set vim.lsp.set_log_level :trace)
                 (require-and :vim.lsp.log #($.set_format_func vim.inspect)))})
@@ -36,7 +42,6 @@
 
 (fn M.config []
   (local mason (require :mason))
-  (local mason-lspconfig (require :mason-lspconfig))
   (local lspconfig (require :lspconfig))
   (local capabilities
          (let [cmp_capabilities (require-and :cmp_nvim_lsp
@@ -49,10 +54,13 @@
   ;; Desativar virtual text porque estamos usando o plugin lsp_lines
   (vim.diagnostic.config {:virtual_text false})
   (mason.setup {})
-  (mason-lspconfig.setup {})
-  (mason-lspconfig.setup_handlers [setup-server])
-  (each [_ server (pairs [:nimls :lua_ls :hls])]
-    (setup-server server)) ; (lspconfig.nimls.setup {}) ; (lspconfig.lua_ls.setup (get-lsp-config-options :lua_ls {})) ; (lspconfig.hls.setup {}) ; (lspconfig.gleam.setup {}))
-  )
+  (each [name type_ (vim.fs.dir (.. (vim.fn.stdpath :data)
+                                    :/lazy/nvim-lspconfig/lua/lspconfig/server_configurations))]
+    (when (= type_ :file)
+      (let [name-without-extension (string.sub name 0 -5)
+            is-blacklisted (vim.tbl_contains server-blacklist
+                                             name-without-extension)]
+        (when (not is-blacklisted)
+          (setup-server name-without-extension))))))
 
 M
