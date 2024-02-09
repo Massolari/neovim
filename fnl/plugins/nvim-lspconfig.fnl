@@ -19,7 +19,9 @@
 (local M
        {1 :neovim/nvim-lspconfig
         :event :BufReadPost
-        :dependencies [:mason.nvim :SmiteshP/nvim-navic]
+        :dependencies [:mason.nvim
+                       :SmiteshP/nvim-navic
+                       :artemave/workspace-diagnostics.nvim]
         :init (fn []
                 (set vim.lsp.set_log_level :trace)
                 (require-and :vim.lsp.log #($.set_format_func vim.inspect)))})
@@ -38,7 +40,9 @@
     (vim.lsp.inlay_hint.enable))
   (set vim.lsp.handlers.textDocument/publishDiagnostics
        (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-         {:virtual_text false})))
+         {:virtual_text false}))
+  (require-and :workspace-diagnostics
+               #($.populate_workspace_diagnostics client bufnr)))
 
 (fn M.config []
   (local mason (require :mason))
