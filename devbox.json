@@ -1,6 +1,7 @@
 {
   "packages": [
     "github:NixOS/nixpkgs/nixpkgs-unstable#fnlfmt",
+    "github:NixOS/nixpkgs/nixpkgs-unstable#fennel-ls",
     "github:NixOS/nixpkgs/nixpkgs-unstable#lua-language-server",
     "github:NixOS/nixpkgs/nixpkgs-unstable#stylua"
   ],

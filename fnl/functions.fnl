@@ -198,6 +198,7 @@
     :fennel_language_server
     {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
                          :diagnostics {:globals [:vim]}}}}
+    :fennel_ls {:settings {:fennel-ls {:extra-globals :vim}}}
     :tailwindcss {:settings {:tailwindCSS {:includeLanguages {:elm :html}
                                            :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
                                                                        "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""

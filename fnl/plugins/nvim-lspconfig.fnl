@@ -1,4 +1,3 @@
-(import-macros {: augroup!} :hibiscus.vim)
 (local {: require-and : get-lsp-config-options} (require :functions))
 
 (local server-blacklist [:contextive
@@ -6,7 +5,6 @@
                          :efm
                          :snyk_ls
                          :diagnosticls
-                         :fennel_ls
                          :typos_lsp])
 
 (λ setup-server [name]
@@ -32,10 +30,11 @@
     (local navic (require :nvim-navic))
     (navic.attach client bufnr))
   (when capabilities.codeLensProvider
-    (augroup! :_code_lens
-              [[:BufEnter :CursorHold :InsertLeave]
-               `(buffer 0)
-               #(vim.lsp.codelens.refresh)]))
+    (vim.api.nvim_create_autocmd [:BufEnter :CursorHold :InsertLeave]
+                                 {:buffer 0
+                                  :callback #(vim.lsp.codelens.refresh)
+                                  ;
+                                  :group (vim.api.nvim_create_augroup :_code_lens)}))
   (when capabilities.inlayHintProvider
     (vim.lsp.inlay_hint.enable))
   (set vim.lsp.handlers.textDocument/publishDiagnostics
