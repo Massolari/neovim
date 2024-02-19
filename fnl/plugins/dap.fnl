@@ -1,6 +1,16 @@
 (local {: require-and} (require :functions))
 
 [{1 :mfussenegger/nvim-dap
+  :dependencies [{1 :mxsdev/nvim-dap-vscode-js
+                  :dependencies [:mfussenegger/nvim-dap
+                                 {1 :microsoft/vscode-js-debug
+                                  :lazy true
+                                  :build "npm install --legacy-peer-deps; npx gulp vsDebugServerBundle; mv dist out; rm package-lock.json"}]
+                  :opts {:debugger_path (.. (vim.fn.stdpath :data)
+                                            :/lazy/vscode-js-debug)
+                         :adapters [:pwa-chrome]
+                         :node_path vim.g.node_path}
+                  :config true}]
   :keys [{1 :<leader>db
           2 #(require-and :dap #($.toggle_breakpoint))
           :desc "Adicionar/remover breakpoint"}
@@ -26,17 +36,6 @@
                       [{:type :pwa-chrome
                         :request :launch
                         :name "Chrome Launch"}]))))}
- {1 :mxsdev/nvim-dap-vscode-js
-  :dependencies [:mfussenegger/nvim-dap
-                 {1 :microsoft/vscode-js-debug
-                  :lazy true
-                  :build {1 "npm install --legacy-peer-deps"
-                          2 "npx gulp vsDebugServerBundle"
-                          3 "mv dist out"}}]
-  :opts {:debugger_path (.. (vim.fn.stdpath :data) :/lazy/vscode-js-debug)
-         :adapters [:pwa-chrome]
-         :node_path vim.g.node_path}
-  :config true}
  {1 :rcarriga/nvim-dap-ui
   :name :dapui
   :config true
