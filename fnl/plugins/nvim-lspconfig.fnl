@@ -1,18 +1,19 @@
 (local {: require-and : get-lsp-config-options} (require :functions))
 
-(local server-blacklist [:contextive
-                         :custom_elements_ls
-                         :efm
-                         :snyk_ls
-                         :diagnosticls
-                         :typos_lsp])
-
 (λ setup-server [name]
   (let [lspconfig (require :lspconfig)
-        server (. lspconfig name)]
-    (-> name
-        (get-lsp-config-options server.document_config.default_config)
-        (server.setup))))
+        server (. lspconfig name)
+        options (get-lsp-config-options name
+                                        server.document_config.default_config)
+        cmd (match (type server.document_config.default_config.cmd)
+              :table (-> options.cmd
+                         (or server.document_config.default_config.cmd)
+                         (. 1)
+                         (or ""))
+              :string server.document_config.default_config.cmd
+              _ "")]
+    (when (= 1 (vim.fn.executable cmd))
+      (server.setup options))))
 
 (local M
        {1 :neovim/nvim-lspconfig
@@ -60,10 +61,7 @@
   (each [name type_ (vim.fs.dir (.. (vim.fn.stdpath :data)
                                     :/lazy/nvim-lspconfig/lua/lspconfig/server_configurations))]
     (when (= type_ :file)
-      (let [name-without-extension (string.sub name 0 -5)
-            is-blacklisted (vim.tbl_contains server-blacklist
-                                             name-without-extension)]
-        (when (not is-blacklisted)
-          (setup-server name-without-extension))))))
+      (let [name-without-extension (string.sub name 0 -5)]
+        (setup-server name-without-extension)))))
 
 M

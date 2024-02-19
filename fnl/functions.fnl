@@ -219,7 +219,7 @@
                                             :includeInlayFunctionLikeReturnTypeHints true
                                             :includeInlayEnumMemberValueHints true}}}
     :yamlls {:settings {:yaml {:keyOrdering false}}}
-    _ {}))
+    _ default-config))
 
 (λ M.start-ltex []
   (M.with-input "Language: "
