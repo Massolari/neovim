@@ -33,8 +33,8 @@
     (vim.api.nvim_create_autocmd [:BufEnter :CursorHold :InsertLeave]
                                  {:buffer 0
                                   :callback #(vim.lsp.codelens.refresh)
-                                  ;
-                                  :group (vim.api.nvim_create_augroup :_code_lens)}))
+                                  :group (vim.api.nvim_create_augroup :_code_lens
+                                                                      {})}))
   (when capabilities.inlayHintProvider
     (vim.lsp.inlay_hint.enable))
   (set vim.lsp.handlers.textDocument/publishDiagnostics
