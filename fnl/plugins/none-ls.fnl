@@ -10,7 +10,6 @@
                          null.builtins.formatting.fnlfmt
                          null.builtins.formatting.stylua
                          null.builtins.formatting.prettier
-                         null.builtins.diagnostics.eslint
                          null.builtins.code_actions.gitsigns]
                :debug true
                : on_attach}))
