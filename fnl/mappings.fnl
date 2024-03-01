@@ -136,6 +136,7 @@
                                                  :apply true})
                       :Corrigir]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
+              :d {:name :Debug}
               :e {:name :Editor :h {:name "Cliente HTTP"}}
               :g {:name :Git
                   :b {:name :Blame :b :Linha}
