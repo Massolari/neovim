@@ -27,19 +27,6 @@
 
 (augroup! :_format-on-save [[:BufWritePre] "*" #(format)])
 
-(fn source-file []
-  (let [file-name (vim.fn.expand "%:r")
-        config-folder (vim.fn.stdpath :config)
-        lua-file (.. config-folder "/" (vim.fn.expand "%:p:.:gs?fnl?lua?"))
-        source-file (if (= file-name :init)
-                        (.. config-folder :/lua/tangerine_vimrc.lua)
-                        lua-file)]
-    (vim.cmd.source source-file)
-    (show-info (.. "sourced: " source-file) :Source)))
-
-(augroup! :_config ;autocmd para arquivos de configuração fennel
-          [[:BufWritePost] :*.fnl `source-file])
-
 (augroup! :_qutebrowser [[:BufWinEnter]
                          :*qutebrowser-editor*
                          #(set! :filetype :markdown)])
