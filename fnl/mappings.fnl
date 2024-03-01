@@ -31,6 +31,8 @@
 
 ; Normal
 
+(vim.keymap.set :n :K #(vim.lsp.buf.hover))
+
 (wk.register {:<c-n> [:<cmd>bn<CR> "Próximo buffer"]
               :<c-p> [:<cmd>bp<CR> "Buffer anterior"]
               "]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
