@@ -92,8 +92,7 @@
                  [:D :<cmd>bd<CR> {:desc "Deletar e fechar janela"}]
                  [:o
                   "<cmd>%bd|e#|bd#<CR>"
-                  {:desc "Deletar todos os outros buffers"}]
-                 [:s :<cmd>w<CR> {:desc :Salvar}]]
+                  {:desc "Deletar todos os outros buffers"}]]
              {:prefix :<leader>b})
 
 ; Editor
