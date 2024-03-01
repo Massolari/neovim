@@ -1,5 +1,5 @@
 (when (= nil vim.g.colors_name)
-  (vim.cmd.colorscheme :catppuccin-latte))
+  (vim.cmd.colorscheme :onedark))
 
 (when (vim.startswith vim.g.colors_name :github)
   (vim.api.nvim_set_hl 0 :NormalFloat {:link :Normal}))
