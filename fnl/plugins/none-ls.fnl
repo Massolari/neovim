@@ -9,8 +9,7 @@
   (null.setup {:sources [null.builtins.formatting.nimpretty
                          null.builtins.formatting.fnlfmt
                          null.builtins.formatting.stylua
-                         null.builtins.formatting.prettier
-                         null.builtins.code_actions.gitsigns]
+                         null.builtins.formatting.prettier]
                :debug true
                : on_attach}))
 
