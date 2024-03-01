@@ -64,6 +64,8 @@
               [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
+              [:d "<cmd>bp|bd #<CR>" {:desc "Deletar buffer"}]
+              [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
               [:q #(functions.toggle-quickfix) {:desc "Alternar quickfix"}]
               [:t "<cmd>exe v:count1 . \"ToggleTerm\"<CR>" {:desc :Terminal}]
@@ -88,8 +90,6 @@
                                 #($.buffers (require-and :telescope.themes
                                                          #($.get_dropdown {}))))
                   {:desc "Listar abertos"}]
-                 [:d "<cmd>bp|bd #<CR>" {:desc :Deletar}]
-                 [:D :<cmd>bd<CR> {:desc "Deletar e fechar janela"}]
                  [:o
                   "<cmd>%bd|e#|bd#<CR>"
                   {:desc "Deletar todos os outros buffers"}]]
