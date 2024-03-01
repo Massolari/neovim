@@ -1,8 +1,8 @@
 (when (= nil vim.g.colors_name)
   (vim.cmd.colorscheme :catppuccin-latte))
 
-(if (vim.startswith vim.g.colors_name :one)
-    (vim.api.nvim_set_hl 0 :VertSplit {:link :Normal}))
+(when (vim.startswith vim.g.colors_name :github)
+  (vim.api.nvim_set_hl 0 :NormalFloat {:link :Normal}))
 
 (let [signs {:Error " " :Warn " " :Info " " :Hint " "}]
   (each [type icon (pairs signs)]
