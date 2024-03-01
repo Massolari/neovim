@@ -1,5 +1,7 @@
 (import-macros {: set! : rem! : set+} :hibiscus.vim)
 
+(set vim.opt.tagfunc "v:lua.vim.lsp.tagfunc")
+
 ; Perguntar se deseja salvar o arquivo antes de sair
 (set! :confirm true)
 
