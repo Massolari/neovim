@@ -1,11 +1,12 @@
 (local {: require-and} (require :functions))
 
 [{1 :mfussenegger/nvim-dap
+  :enabled false
   :dependencies [{1 :mxsdev/nvim-dap-vscode-js
                   :dependencies [:mfussenegger/nvim-dap
                                  {1 :microsoft/vscode-js-debug
                                   :lazy true
-                                  :build "npm install --legacy-peer-deps; npx gulp vsDebugServerBundle; mv dist out; rm package-lock.json"}]
+                                  :build "npm install --legacy-peer-deps; npx gulp vsDebugServerBundle; mv dist out; git checkout package-lock.json"}]
                   :opts {:debugger_path (.. (vim.fn.stdpath :data)
                                             :/lazy/vscode-js-debug)
                          :adapters [:pwa-chrome]
