@@ -12,7 +12,7 @@
 ;; Obsidian
 
 (set vim.g.obsidian_dir
-    (.. vim.env.HOME "/Library/Mobile Documents/iCloud~md~obsidian/Documents"))
+     (.. vim.env.HOME "/Library/Mobile Documents/iCloud~md~obsidian/Documents"))
 
 ;; Node
 
