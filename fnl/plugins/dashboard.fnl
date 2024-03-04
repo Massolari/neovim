@@ -31,19 +31,19 @@
                                                      header-number :.cat)
                                                  (vim.fn.systemlist)
                                                  (add-border)))
-                                   :center [{:icon "  "
+                                   :center [{:icon "  "
                                              :desc "Buscar arquivo"
                                              :action "Telescope find_files"}
-                                            {:icon "  "
+                                            {:icon "󰮗  "
                                              :desc "Procurar nos arquivos"
                                              :action "Telescope live_grep"}
-                                            {:icon "  "
+                                            {:icon "  "
                                              :desc "Octo (Github)"
                                              :action "Octo actions"}
-                                            {:icon "  "
+                                            {:icon "󰦨  "
                                              :desc "Feed do dev.to"
                                              :action "Forem feed"}
-                                            {:icon "  "
+                                            {:icon "  "
                                              :desc "Novo arquivo"
                                              :action ":ene!"}]
                                    :footer (do
