@@ -1,5 +1,3 @@
-(import-macros {: map!} :hibiscus.vim)
-
 (set vim.opt_local.swapfile false)
 (set vim.opt_local.number false)
 (set vim.opt_local.relativenumber false)
@@ -12,4 +10,4 @@
 (set vim.opt_local.foldcolumn :0)
 (set vim.opt_local.matchpairs "")
 
-(map! [:n :buffer] :q ":q<CR>")
+(vim.keymap.set :n :q ":q<CR>" {:buffer true})

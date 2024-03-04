@@ -1,4 +1,3 @@
-(import-macros {: fstring! : empty?} :hibiscus.core)
 (local {: require-and : with-input} (require :functions))
 
 (λ open-terminal [cmd id ?custom-opts]

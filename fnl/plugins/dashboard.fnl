@@ -1,4 +1,3 @@
-(import-macros {: fstring!} :hibiscus.core)
 (local {: get-random : get-random-item : require-and} (require :functions))
 
 (local M {1 :nvimdev/dashboard-nvim
@@ -27,7 +26,9 @@
   (require-and :dashboard
                #($.setup {:theme :doom
                           :config {:header (let [header-number (get-random 40)]
-                                             (-> (fstring! "cat ${config-folder}/fnl/data/ascii/${header-number}.cat")
+                                             (-> (.. "cat " config-folder
+                                                     :/fnl/data/ascii/
+                                                     header-number :.cat)
                                                  (vim.fn.systemlist)
                                                  (add-border)))
                                    :center [{:icon "  "

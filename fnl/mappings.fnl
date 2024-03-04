@@ -1,5 +1,3 @@
-(import-macros {: map!} :hibiscus.vim)
-
 (local wk (require :which-key))
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
@@ -175,44 +173,44 @@
 
 ; Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
 
-(map! [:n :nowait] :n :nzzzv)
-(map! [:n :nowait] :N :Nzzzv)
+(vim.keymap.set :n :n :nzzzv {:nowait true})
+(vim.keymap.set :n :N :Nzzzv {:nowait true})
 ; Mover cursor para outra janela divida
 
-(map! [:n] :<C-j> :<C-w>j)
-(map! [:n] :<C-k> :<C-w>k)
-(map! [:n] :<C-l> :<C-w>l)
-(map! [:n] :<C-h> :<C-w>h)
+(vim.keymap.set :n :<C-j> :<C-w>j)
+(vim.keymap.set :n :<C-k> :<C-w>k)
+(vim.keymap.set :n :<C-l> :<C-w>l)
+(vim.keymap.set :n :<C-h> :<C-w>h)
 
 ; Limpar espaços em branco nos finais da linha
 
-(map! [:n] :<F5> "mp<cmd>%s/\\s\\+$/<CR>`p")
+(vim.keymap.set :n :<F5> "mp<cmd>%s/\\s\\+$/<CR>`p")
 
 ; Enter no modo normal funciona como no modo inserção
 
-(map! [:n] :<CR> :i<CR><Esc>)
+(vim.keymap.set :n :<CR> :i<CR><Esc>)
 
 ; Setas redimensionam janelas adjacentes
 
-(map! [:n] :<left> "<cmd>vertical resize -5<cr>")
-(map! [:n] :<right> "<cmd>vertical resize +5<cr>")
-(map! [:n] :<up> "<cmd>resize -5<cr>")
-(map! [:n] :<down> "<cmd>resize +5<cr>")
+(vim.keymap.set :n :<left> "<cmd>vertical resize -5<cr>")
+(vim.keymap.set :n :<right> "<cmd>vertical resize +5<cr>")
+(vim.keymap.set :n :<up> "<cmd>resize -5<cr>")
+(vim.keymap.set :n :<down> "<cmd>resize +5<cr>")
 
 ; Mover de forma natural em wrap
 
-(map! [:n :expr] :k "v:count == 0 ? 'gk' : 'k'")
-(map! [:n :expr] :j "v:count == 0 ? 'gj' : 'j'")
+(vim.keymap.set :n :k "v:count == 0 ? 'gk' : 'k'" {:expr true})
+(vim.keymap.set :n :j "v:count == 0 ? 'gj' : 'j'" {:expr true})
 
 ; Manter seleção depois de indentação
 
-(map! [:v] "<" :<gv)
-(map! [:v] ">" :>gv)
+(vim.keymap.set :v "<" :<gv)
+(vim.keymap.set :v ">" :>gv)
 
 ; Mover linhas
 
-(map! [:v] :K ":m '<-2<CR>gv=gv")
-(map! [:v] :J ":m '>+1<CR>gv=gv")
+(vim.keymap.set :v :K ":m '<-2<CR>gv=gv")
+(vim.keymap.set :v :J ":m '>+1<CR>gv=gv")
 
 (wk.register {:i [#(vim.lsp.buf.implementation) "Implementação"]
               :r ["<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
@@ -227,10 +225,11 @@
 (vim.keymap.set [:n :o :x] :gs "^" {:desc "Goto first non-blank in line"})
 
 (vim.cmd.iab ",\\ λ")
-(map! [:nivcx :remap] :<c-m> :<CR>)
+(vim.keymap.set [:n :i :v :c :x] :<c-m> :<CR> {:remap true})
 
 ; Gerar imagem do código usando silicon
-(map! [:v] :<leader>ei ":Silicon<CR>" "Gerar imagem do código (silicon)")
+(vim.keymap.set :v :<leader>ei ":Silicon<CR>"
+                {:desc "Gerar imagem do código (silicon})"})
 
 ; Treesitter
 (vim.keymap.set :n :<M-o> :vgrn {:remap true})

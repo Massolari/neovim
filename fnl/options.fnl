@@ -1,108 +1,106 @@
-(import-macros {: set! : rem! : set+} :hibiscus.vim)
-
 (set vim.opt.tagfunc "v:lua.vim.lsp.tagfunc")
 
 ; Perguntar se deseja salvar o arquivo antes de sair
-(set! :confirm true)
+(set vim.opt.confirm true)
 
 ; Encoding
 
-(set! :fileencoding :utf-8)
-(set! :fileformats "unix,dos,mac")
+(set vim.opt.fileencoding :utf-8)
+(set vim.opt.fileformats "unix,dos,mac")
 
 ; Formatação
 
-(rem! :formatoptions :c)
-(rem! :formatoptions :r)
-(rem! :formatoptions :o)
+(vim.opt.formatoptions:remove [:c])
+(vim.opt.formatoptions:remove [:r])
+(vim.opt.formatoptions:remove [:o])
 
 ; Comportamento do Tab
 
-(set! :tabstop 4)
-(set! :softtabstop 0)
-(set! :shiftwidth 4)
-(set! :expandtab)
+(set vim.opt.tabstop 4)
+(set vim.opt.softtabstop 0)
+(set vim.opt.shiftwidth 4)
+(set vim.opt.expandtab true)
 
 ; Busca
 
-(set! :ignorecase)
-(set! :smartcase)
-(set! :inccommand :split)
+(set vim.opt.ignorecase true)
+(set vim.opt.smartcase true)
+(set vim.opt.inccommand :split)
 
 ; Desabilitar safewrite
 
-(set! :backupcopy :yes)
+(set vim.opt.backupcopy :yes)
 
 (let [env-shell (os.getenv :SHELL)
       default-shell (if (and (not= nil env-shell) (not= "" env-shell))
                         env-shell
                         :/bin/bash)]
-  (set! :shell default-shell))
+  (set vim.opt.shell default-shell))
 
 ; Idioma para correção ortográfica
 
-(set! :spelllang :pt_br)
+(set vim.opt.spelllang :pt_br)
 
 ; Número mínimo de linha que deverão ser mostradas antes e depois do cursor
 
-(set! :scrolloff 5)
+(set vim.opt.scrolloff 5)
 
 ; Mouse
 
-(set! :mouse :a)
+(set vim.opt.mouse :a)
 
 ; Mostra os números da linha de forma relativa e o número atual da linha
 
-(set! :number)
-(set! :relativenumber)
+(set vim.opt.number true)
+(set vim.opt.relativenumber true)
 
 ; Diminuir o tempo para executar mapeamentos
 
-(set! :timeoutlen 500)
+(set vim.opt.timeoutlen 500)
 
 ; Não redimensionar janelas abertas ao abrir ou fechar janelas
 
-(set! :equalalways false)
+(set vim.opt.equalalways false)
 
 ; Diminuir tempo de atualização
 
-(set! :updatetime 300)
+(set vim.opt.updatetime 300)
 
 ; Não passar as mensagems para o |ins-completion-menu|
 
-(set+ :shortmess :c)
+(vim.opt.shortmess:append :c)
 
 ; Deixar a coluna de sinais sempre aberta
 
-(set! :signcolumn :yes)
+(set vim.opt.signcolumn :yes)
 
 ; Autocomplete melhor
 
-(set! :completeopt "menuone,noselect")
+(set vim.opt.completeopt "menuone,noselect")
 
 ; Melhora as cores
 
-(set! :termguicolors true)
+(set vim.opt.termguicolors true)
 
 ; Tema
 
-(set! :background :light)
+(set vim.opt.background :light)
 
 ; Font
 
-(set! :guifont "JetBrainsMono Nerd Font:h14")
+(set vim.opt.guifont "JetBrainsMono Nerd Font:h14")
 
 ; Habilitar título
 
-(set! :title)
+(set vim.opt.title true)
 
 ; Statusline
 
-(set! :laststatus (if (not vim.g.started_by_firenvim) 3 0))
+(set vim.opt.laststatus (if (not vim.g.started_by_firenvim) 3 0))
 ; Listchars
 
-(set! :list true)
-(set! :listchars "tab:»·,trail:·,extends:»,precedes:«,nbsp:·")
+(set vim.opt.list true)
+(set vim.opt.listchars "tab:»·,trail:·,extends:»,precedes:«,nbsp:·")
 
 ; Usar ripgrep for :grep
-(set! :grepprg "rg --vimgrep --no-heading --smart-case")
+(set vim.opt.grepprg "rg --vimgrep --no-heading --smart-case")

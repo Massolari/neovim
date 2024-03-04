@@ -1,5 +1,3 @@
-(import-macros {: map! : setlocal!} :hibiscus.vim)
-
 (λ restore-cursor-position [old-line]
   (let [winid (vim.fn.win_getid)]
     (pcall vim.api.nvim_win_set_cursor winid [old-line 0])))
@@ -9,34 +7,40 @@
     (pcall f)
     (restore-cursor-position old-line)))
 
-(setlocal! :nobuflisted)
-(map! [:n :buffer] :<CR> :<CR>)
-(map! [:n :buffer] :q ":q<CR>")
-(map! [:n :buffer :nowait] :d
-      (fn []
-        (let [line (vim.fn.line ".")
-              quickfix (vim.fn.getqflist)]
-          (table.remove quickfix line)
-          (vim.fn.setqflist quickfix)
-          (vim.cmd :copen)
-          (restore-cursor-position line))))
+(set vim.opt_local.buflisted false)
+(vim.keymap.set :n :<CR> :<CR> {:buffer true})
+(vim.keymap.set :n :q ":q<CR>" {:buffer true})
+(vim.keymap.set :n :d
+                (fn []
+                  (let [line (vim.fn.line ".")
+                        quickfix (vim.fn.getqflist)]
+                    (table.remove quickfix line)
+                    (vim.fn.setqflist quickfix)
+                    (vim.cmd :copen)
+                    (restore-cursor-position line)))
+                {:buffer true :nowait true})
 
-(map! [:n :buffer] :D
-      (fn []
-        (let [line (vim.fn.line ".")
-              line-text (vim.fn.getline ".")
-              file-name (vim.fn.substitute line-text "|\\d\\+|.*" "" "")
-              pattern (.. "/\\V" (vim.fn.escape file-name "/\\") "/")]
-          (vim.cmd (.. "Cfilter! " pattern))
-          (restore-cursor-position line))))
+(vim.keymap.set :n :D
+                (fn []
+                  (let [line (vim.fn.line ".")
+                        line-text (vim.fn.getline ".")
+                        file-name (vim.fn.substitute line-text "|\\d\\+|.*" ""
+                                                     "")
+                        pattern (.. "/\\V" (vim.fn.escape file-name "/\\") "/")]
+                    (vim.cmd (.. "Cfilter! " pattern))
+                    (restore-cursor-position line)))
+                {:buffer true})
 
-(map! [:n :buffer] :u
-      #(run-and-restore-cursor-position #(vim.cmd "silent colder")))
+(vim.keymap.set :n :u
+                #(run-and-restore-cursor-position #(vim.cmd "silent colder"))
+                {:buffer true})
 
-(map! [:n :buffer] :U
-      #(run-and-restore-cursor-position #(vim.cmd "silent cnewer")))
+(vim.keymap.set :n :U
+                #(run-and-restore-cursor-position #(vim.cmd "silent cnewer"))
+                {:buffer true})
 
-(map! [:n :buffer] :<c-r>
-      #(run-and-restore-cursor-position #(vim.cmd "silent cnewer")))
+(vim.keymap.set :n :<c-r>
+                #(run-and-restore-cursor-position #(vim.cmd "silent cnewer"))
+                {:buffer true})
 
 (vim.keymap.set :n :<leader>f ":Cfilter " {:buffer true :desc "Filtrar items"})

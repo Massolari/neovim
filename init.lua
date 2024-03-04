@@ -19,8 +19,6 @@ local function bootstrap(url, ref)
 end
 
 -- for git head
-bootstrap("https://github.com/udayvir-singh/hibiscus.nvim")
-
 bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
 
 require("tangerine").setup({

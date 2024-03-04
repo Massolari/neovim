@@ -1,6 +1,4 @@
-(import-macros {: augroup! : map! : set!} :hibiscus.vim)
-
-(local {: show-info : format} (require :functions))
+(local {: format} (require :functions))
 
 (fn recover-position []
   (let [mark (vim.api.nvim_buf_get_mark 0 "\"")
@@ -8,38 +6,43 @@
     (when (and (> row 1) (<= row (vim.api.nvim_buf_line_count 0)))
       (vim.api.nvim_win_set_cursor 0 mark))))
 
-(augroup! :_general-settings ; autocmds gerais
-          [[:FileType] [:help :man] #(map! [:n :buffer] :q ":close<CR>")]
-          [[:TextYankPost]
-           "*"
-           #(vim.highlight.on_yank {:higroup :Search :timeout 200})]
-          [[:BufReadPost] "*" `recover-position]
-          [[:BufEnter :FocusGained :InsertLeave] "*" #(set! :relativenumber)]
-          [[:BufLeave :FocusLost :InsertEnter]
-           "*"
-           #(set! :relativenumber false)])
+(let [group (vim.api.nvim_create_augroup :_general-settings {})] ; autocmds gerais
+  (vim.api.nvim_create_autocmd [:FileType]
+                               {:pattern [:help :man]
+                                :callback #(vim.keymap.set :n :q ":close<CR>"
+                                                           {:buffer true})
+                                : group})
+  (vim.api.nvim_create_autocmd [:TextYankPost]
+                               {:pattern "*"
+                                :callback #(vim.highlight.on_yank {:higroup :Search
+                                                                   :timeout 200})
+                                : group})
+  (vim.api.nvim_create_autocmd [:BufReadPost]
+                               {:pattern "*"
+                                :callback #(recover-position)
+                                : group})
+  (vim.api.nvim_create_autocmd [:BufEnter :FocusGained :InsertLeave]
+                               {:pattern "*"
+                                :callback #(set vim.opt.relativenumber true)
+                                : group})
+  (vim.api.nvim_create_autocmd [:BufLeave :FocusLost :InsertEnter]
+                               {:pattern "*"
+                                :callback #(set vim.opt.relativenumber false)
+                                : group}))
 
-(augroup! :_markdown [[:FileType] [:markdown :txt] "setlocal spell"])
+(vim.api.nvim_create_autocmd [:FileType]
+                             {:pattern [:markdown :txt]
+                              :callback #(set vim.opt_local.spell true)
+                              :group (vim.api.nvim_create_augroup :_markdown {})})
 
-(augroup! :_auto_resize
-          ; will cause split windows to be resized evenly if main window is resized
-          [[:VimResized] "*" "tabdo wincmd ="])
+(vim.api.nvim_create_autocmd [:VimResized]
+                             {:pattern "*"
+                              :command "tabdo wincmd ="
+                              :group (vim.api.nvim_create_augroup :_auto_resize
+                                                                  {})})
 
-(augroup! :_format-on-save [[:BufWritePre] "*" #(format)])
-
-(augroup! :_qutebrowser [[:BufWinEnter]
-                         :*qutebrowser-editor*
-                         #(set! :filetype :markdown)])
-
-(augroup! :_firenvim
-          [[:UIEnter]
-           "*"
-           (fn []
-             (local event (vim.fn.deepcopy vim.v.event))
-             (let [client-name (-> (vim.api.nvim_get_chan_info event.chan)
-                                   (vim.fn.get :client {})
-                                   (vim.fn.get :name ""))
-                   is-client-firenvim (= client-name :Firenvim)]
-               (when is-client-firenvim
-                 (let [cmp (require :cmp)]
-                   (cmp.setup {:enabled false})))))])
+(vim.api.nvim_create_autocmd [:BufWritePre]
+                             {:pattern "*"
+                              :callback #(format)
+                              :group (vim.api.nvim_create_augroup :_format-on-save
+                                                                  {})})
