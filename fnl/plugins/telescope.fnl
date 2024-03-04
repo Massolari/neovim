@@ -10,6 +10,9 @@
                  {1 :<leader>co
                   2 #(builtin #($.lsp_document_symbols))
                   :desc "Buscar símbolos no arquivo"}
+                 {1 :<leader>cO
+                  2 #(builtin #($.treesitter))
+                  :desc "Buscar símbolos no arquivo com treesitter"}
                  {1 :<leader>cp
                   2 #(builtin #($.lsp_dynamic_workspace_symbols))
                   :desc "Buscar símbolos no projeto"}
