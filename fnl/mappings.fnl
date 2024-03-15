@@ -30,10 +30,10 @@
 ; Normal
 
 (vim.keymap.set :n :K #(vim.lsp.buf.hover))
+(vim.keymap.set :n :<c-n> :<cmd>bn<CR> {:desc "Próximo buffer"})
+(vim.keymap.set :n :<c-p> :<cmd>bp<CR> {:desc "Buffer anterior"})
 
-(wk.register {:<c-n> [:<cmd>bn<CR> "Próximo buffer"]
-              :<c-p> [:<cmd>bp<CR> "Buffer anterior"]
-              "]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
+(wk.register {"]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
                         "Pular para a próxima função Elm"]
                    :c "Próximo git hunk"
                    :d ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = \"single\" }})<CR>"
@@ -62,7 +62,13 @@
               [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
-              [:d "<cmd>bp|bd #<CR>" {:desc "Deletar buffer"}]
+              ["%" :ggVG {:desc "Selecionar tudo"}]
+              [:b
+               #(require-and :telescope.builtin
+                             #($.buffers (require-and :telescope.themes
+                                                      #($.get_dropdown {}))))
+               {:desc :Buffers}]
+              [:d "<cmd>bn|bd #<CR>" {:desc "Deletar buffer"}]
               [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
               [:q #(functions.toggle-quickfix) {:desc "Alternar quickfix"}]
@@ -80,18 +86,6 @@
                   :<cmd>tabprevious<CR>
                   {:desc "Ir para a anterior (previous)"}]]
              {:prefix :<leader>a})
-
-; Buffer
-(keymaps-set :n [[:a :ggVG {:desc "Selecionar tudo (all)"}]
-                 [:b
-                  #(require-and :telescope.builtin
-                                #($.buffers (require-and :telescope.themes
-                                                         #($.get_dropdown {}))))
-                  {:desc "Listar abertos"}]
-                 [:o
-                  "<cmd>%bd|e#|bd#<CR>"
-                  {:desc "Deletar todos os outros buffers"}]]
-             {:prefix :<leader>b})
 
 ; Editor
 (keymaps-set :n [[:b
