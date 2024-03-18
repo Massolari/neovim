@@ -88,7 +88,7 @@
 
 ; Font
 
-(set vim.opt.guifont "JetBrainsMono Nerd Font:h14")
+(set vim.opt.guifont "Iosevka Nerd Font:h13")
 
 ; Habilitar título
 
