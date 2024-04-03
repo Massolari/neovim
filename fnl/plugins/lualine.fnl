@@ -59,8 +59,8 @@
                                   :color {:gui :bold}
                                   :separator ""}
                                  {1 :diagnostics
-                                  :symbols {:error " "
-                                            :warn " "
+                                  :symbols {:error " "
+                                            :warn " "
                                             :info "  "
                                             :hint " "}
                                   :separator ""}
