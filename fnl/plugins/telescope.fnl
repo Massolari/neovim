@@ -6,7 +6,17 @@
 (local M {1 :nvim-telescope/telescope.nvim
           :branch :0.1.x
           :cmd :Telescope
-          :keys [{1 :<leader>ca 2 #(vim.lsp.buf.code_action) :desc "Ações"}
+          :keys [{1 :<leader>b
+                  2 #(require-and :telescope.builtin
+                                  #($.buffers (require-and :telescope.themes
+                                                           #($.get_dropdown {:only_cwd true}))))
+                  :desc :Buffers}
+                 {1 :<leader>B
+                  2 #(require-and :telescope.builtin
+                                  #($.buffers (require-and :telescope.themes
+                                                           #($.get_dropdown {}))))
+                  :desc "Buffers (sem filtro)"}
+                 {1 :<leader>ca 2 #(vim.lsp.buf.code_action) :desc "Ações"}
                  {1 :<leader>co
                   2 #(builtin #($.lsp_document_symbols))
                   :desc "Buscar símbolos no arquivo"}

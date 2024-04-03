@@ -61,11 +61,6 @@
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
               ["%" :ggVG {:desc "Selecionar tudo"}]
-              [:b
-               #(require-and :telescope.builtin
-                             #($.buffers (require-and :telescope.themes
-                                                      #($.get_dropdown {}))))
-               {:desc :Buffers}]
               [:d "<cmd>bn|bd #<CR>" {:desc "Deletar buffer"}]
               [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
