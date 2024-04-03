@@ -19,12 +19,18 @@
                    (vim.keymap.set :t :jk "<c-\\><c-n>" {:buffer term.bufnr})
                    (vim.keymap.set :t :kj "<c-\\><c-n>" {:buffer term.bufnr}))
         :terminal_mappings false}
+ :keys [{1 :<leader>gy
+         2 #(open-terminal :lazygit 1000
+                           {:on_open (fn []
+                                       nil)})
+         :desc "Abrir lazygit"}
+        {1 :<leader>t
+         2 "<cmd>exe v:count1 . \"ToggleTerm direction=horizontal\"<CR>"
+         :desc :Terminal}
+        {1 :<leader>T
+         2 "<cmd>exe v:count1 . \"ToggleTerm direction=float\"<CR>"
+         :desc "Terminal flutuante"}]
  :init (fn []
-         (vim.keymap.set :n :<leader>gy
-                         #(open-terminal :lazygit 1000
-                                         {:on_open (fn []
-                                                     nil)})
-                         {:desc "Abrir lazygit"})
          (let [open-w3m #(open-terminal (.. "w3m " $1) 1002
                                         {:on_open #(set vim.opt.buflisted true)
                                          :direction :vertical

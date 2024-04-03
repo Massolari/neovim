@@ -70,7 +70,6 @@
               [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
               [:q #(functions.toggle-quickfix) {:desc "Alternar quickfix"}]
-              [:t "<cmd>exe v:count1 . \"ToggleTerm\"<CR>" {:desc :Terminal}]
               [:v :<cmd>vsplit<CR> {:desc "Dividir verticalmente"}]
               [:s :<cmd>w<CR> {:desc "Salvar buffer"}]
               ["/" #(functions.grep) {:desc "Buscar com ripgrep"}]]
