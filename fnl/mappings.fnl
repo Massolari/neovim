@@ -207,15 +207,21 @@
 (wk.register {:i [#(vim.lsp.buf.implementation) "Implementação"]
               :r ["<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
                   "Referências"]
-              :y ["<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>"
+              :Y ["<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>"
                   "Definição do tipo"]}
              (vim.tbl_extend :force options {:mode :n :prefix :g}))
 
 (vim.keymap.set [:n :o :x] :ge :G {:desc "Ir para última linha"})
 (vim.keymap.set [:n :o :x] :gh :0 {:desc "Ir para início da linha"})
 (vim.keymap.set [:n :o :x] :gl "$" {:desc "Ir para fim da linha"})
+(vim.keymap.set [:n :x] :gp "\"+p" {:desc "Colar da área de transferência"})
+(vim.keymap.set [:n :x] :gP "\"+P" {:desc "Colar da área de transferência"})
+
 (vim.keymap.set [:n :o :x] :gs "^"
                 {:desc "Ir para primeiro caractere não branco"})
+
+(vim.keymap.set [:n :x] :gy "\"+y"
+                {:desc "Copiar para área de transferência"})
 
 (vim.cmd.iab ",\\ λ")
 (vim.keymap.set [:n :i :v :c :x] :<c-m> :<CR> {:remap true})
@@ -231,6 +237,3 @@
 
 ; Múltiplos cursores
 (vim.keymap.set :x :<C-s> "\\\\/" {:remap true})
-
-(vim.keymap.set [:n :x] :<leader>y "\"+y"
-                {:desc "Copiar para área de transferência"})
