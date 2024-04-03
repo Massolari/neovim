@@ -35,7 +35,7 @@
 
 (wk.register {"]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
                         "Pular para a próxima função Elm"]
-                   :d ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = \"single\" }})<CR>"
+                   :d ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }})<CR>"
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
                        "Próximo erro de código"]
