@@ -35,7 +35,6 @@
 
 (wk.register {"]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
                         "Pular para a próxima função Elm"]
-                   :c "Próximo git hunk"
                    :d ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = \"single\" }})<CR>"
                        "Próximo problema (diagnostic)"]
                    :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
@@ -44,7 +43,6 @@
                        "Próxima palavra destacada"]}
               "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
                         "Pular para a função Elm anterior"]
-                   :c "Git hunk anterior"
                    :d [#(vim.diagnostic.goto_prev {:float {:show_header true
                                                            :border :single}})
                        "Problema anterior (diagnostic)"]
@@ -130,8 +128,8 @@
               :d {:name :Debug}
               :e {:name :Editor :h {:name "Cliente HTTP"}}
               :g {:name :Git
-                  :b {:name :Blame :b :Linha}
-                  :h {:name :Hunks :u "Desfazer (undo)" :v :Ver}
+                  :b {:name :Blame}
+                  :h {:name :Hunks}
                   :i {:name "Issues (Github)"}
                   :u {:name "Pull Requests (Github)"}}
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
