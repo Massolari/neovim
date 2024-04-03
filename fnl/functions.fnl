@@ -199,17 +199,18 @@
     {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
                          :diagnostics {:globals [:vim]}}}}
     :fennel_ls {:settings {:fennel-ls {:extra-globals :vim}}}
-    :tailwindcss {:settings {:tailwindCSS {:includeLanguages {:elm :html}
-                                           :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
-                                                                       "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
-                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                                       "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                                       "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
-                                                                       "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
-                                                                       "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
-                  :init_options {:userLanguages {:elm :html}}
-                  :filetypes [:elm (unpack default-config.filetypes)]}
+    :tailwindcss
+    {:settings {:tailwindCSS {:includeLanguages {:elm :html :gleam :html}
+                              :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
+                                                          "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
+                                                          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                          "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
+                                                          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+                                                          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
+     :init_options {:userLanguages {:elm :html :gleam :html}}
+     :filetypes [:elm :gleam (unpack default-config.filetypes)]}
     :tsserver {:init_options {:preferences {:includeInlayParameterNameHints :all
                                             :includeInlayParameterNameHintsWhenArgumentMatchesName true
                                             :includeInlayFunctionParameterTypeHints true
