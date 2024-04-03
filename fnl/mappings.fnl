@@ -211,10 +211,11 @@
                   "Definição do tipo"]}
              (vim.tbl_extend :force options {:mode :n :prefix :g}))
 
-(vim.keymap.set [:n :o :x] :ge :G {:desc "Goto last line"})
-(vim.keymap.set [:n :o :x] :gh :0 {:desc "Goto line start"})
-(vim.keymap.set [:n :o :x] :gl "$" {:desc "Goto line end"})
-(vim.keymap.set [:n :o :x] :gs "^" {:desc "Goto first non-blank in line"})
+(vim.keymap.set [:n :o :x] :ge :G {:desc "Ir para última linha"})
+(vim.keymap.set [:n :o :x] :gh :0 {:desc "Ir para início da linha"})
+(vim.keymap.set [:n :o :x] :gl "$" {:desc "Ir para fim da linha"})
+(vim.keymap.set [:n :o :x] :gs "^"
+                {:desc "Ir para primeiro caractere não branco"})
 
 (vim.cmd.iab ",\\ λ")
 (vim.keymap.set [:n :i :v :c :x] :<c-m> :<CR> {:remap true})
