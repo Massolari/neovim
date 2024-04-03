@@ -9,8 +9,8 @@
                         2 #(require-and :neogit #($.open [:commit]))
                         :desc :Commit}
                        {1 :p
-                        2 #(require-and :neogit #($.open [:push]))
-                        :desc :Push}
-                       {1 :l
                         2 #(require-and :neogit #($.open [:pull]))
-                        :desc :Pull}] :<leader>g)}
+                        :desc :Pull}
+                       {1 :P
+                        2 #(require-and :neogit #($.open [:push]))
+                        :desc :Push}] :<leader>g)}
