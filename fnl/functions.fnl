@@ -113,8 +113,8 @@
                             (table.getn)
                             (> 0)))
 
+(math.randomseed (os.time))
 (λ M.get-random [max]
-  (math.randomseed (os.time))
   (math.random max))
 
 (λ M.get-random-item [list]
