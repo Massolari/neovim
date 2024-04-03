@@ -54,7 +54,7 @@
         (show-info "Pesquisa cancelada" :RipGrep)
         (let [(status err) (pcall vim.cmd (.. "silent grep! \"" input "\""))]
           (if (not status)
-              (show-error err)
+              (show-error err :Busca)
               (vim.cmd.copen))))))
 
 ; w3m
