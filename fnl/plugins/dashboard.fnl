@@ -7,12 +7,15 @@
 
 (fn add-border [lines]
   (let [utf8 (require :utf8)
-        bigger-length (-> (vim.tbl_map utf8.len lines) (unpack) (math.max))
+        non-empty-lines (vim.tbl_filter #(> (string.len $) 0) lines)
+        bigger-length (-> (vim.tbl_map utf8.len non-empty-lines)
+                          (unpack)
+                          (math.max))
         lines-bordered (vim.tbl_map #(let [pad (- bigger-length (utf8.len $))
                                            format-pattern (.. "%s%s%" pad "s%s")]
                                        (string.format format-pattern "│" $ ""
                                                       "│"))
-                                    lines)
+                                    non-empty-lines)
         horizontal-border (string.rep "─" bigger-length)
         top-border (.. "╭" horizontal-border "╮")
         bottom-border (.. "╰" horizontal-border "╯")]
