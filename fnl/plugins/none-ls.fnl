@@ -8,6 +8,7 @@
   (local null (require :null-ls))
   (null.setup {:sources [null.builtins.formatting.nimpretty
                          null.builtins.formatting.fnlfmt
+                         null.builtins.formatting.gleam_format
                          null.builtins.formatting.stylua
                          null.builtins.formatting.prettier]
                :debug true

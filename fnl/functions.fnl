@@ -220,17 +220,20 @@
                                             :includeInlayFunctionLikeReturnTypeHints true
                                             :includeInlayEnumMemberValueHints true}}}
     :yamlls {:settings {:yaml {:keyOrdering false}}}
+    :gleam {:cmd [(.. vim.env.HOME
+                      :/.vscode/extensions/maurobalbi.glas-vscode-0.2.3-darwin-arm64/glas)
+                  :--stdio]}
     _ default-config))
 
 (λ M.start-ltex []
-  (M.with-input "Language: "
-    (fn [language]
-      (when (not= language "")
-        (let [lspconfig (require :lspconfig)
-              config (M.get-lsp-config-options :ltex
-                                               lspconfig.ltex.document_config.default_config)]
-          (lspconfig.ltex.setup (vim.tbl_extend :force config
-                                                {:settings {:ltex {: language}}})))))))
+  (vim.ui.input {:prompt "Language: " :default :pt-BR}
+                (fn [language]
+                  (when (and (not= language "") (not= language nil))
+                    (let [lspconfig (require :lspconfig)
+                          config (M.get-lsp-config-options :ltex
+                                                           lspconfig.ltex.document_config.default_config)]
+                      (lspconfig.ltex.setup (vim.tbl_extend :force config
+                                                            {:settings {:ltex {: language}}})))))))
 
 (λ M.get_breadcrumbs []
   (if (> (length (vim.lsp.buf_get_clients)) 0)
