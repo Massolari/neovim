@@ -108,7 +108,8 @@
 (wk.register {:a {:name :Aba}
               :b {:name :Buffer}
               :c {:name :Code
-                  :d [#(vim.diagnostic.setqflist) "Problemas (diagnostics)"]
+                  :d [#(require-and :trouble #($.toggle :workspace_diagnostics))
+                      "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
                   :f [#(functions.format) "Formatar código"]
