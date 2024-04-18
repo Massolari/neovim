@@ -1,3 +1,5 @@
+(local {: diagnostic-icon} (require :constants))
+
 (local M {1 :nvim-lualine/lualine.nvim
           :cond (not vim.g.started_by_firenvim)
           :event :VimEnter
@@ -59,10 +61,10 @@
                                   :color {:gui :bold}
                                   :separator ""}
                                  {1 :diagnostics
-                                  :symbols {:error " "
-                                            :warn " "
-                                            :info "  "
-                                            :hint " "}
+                                  :symbols {:error diagnostic-icon.error
+                                            :warn diagnostic-icon.warning
+                                            :info diagnostic-icon.info
+                                            :hint diagnostic-icon.hint}
                                   :separator ""}
                                  {1 #(let [noice (require :noice)]
                                        (noice.api.status.mode.get))

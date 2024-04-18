@@ -1,10 +1,15 @@
+(local {: diagnostic-icon} (require :constants))
+
 (when (= nil vim.g.colors_name)
   (vim.cmd.colorscheme :onedark))
 
 (when (vim.startswith vim.g.colors_name :github)
   (vim.api.nvim_set_hl 0 :NormalFloat {:link :Normal}))
 
-(let [signs {:Error " " :Warn " " :Info " " :Hint " "}]
+(let [signs {:Error diagnostic-icon.error
+             :Warn diagnostic-icon.warning
+             :Info diagnostic-icon.info
+             :Hint diagnostic-icon.int}]
   (each [type icon (pairs signs)]
     (let [hl (.. :DiagnosticSign type)]
       (vim.fn.sign_define hl {:text icon :texthl hl :numhl hl}))))
