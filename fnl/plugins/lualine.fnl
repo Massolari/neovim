@@ -51,7 +51,7 @@
                                   :separator ""}
                                  {1 :filetype
                                   :icon_only true
-                                  :padding {:left 0 :right 1}
+                                  :padding 0
                                   :separator ""}
                                  fileName
                                  {1 :location :padding {:left 1} :separator ""}
