@@ -65,10 +65,10 @@
                                             :info diagnostic-icon.info
                                             :hint diagnostic-icon.hint}
                                   :separator ""}
-                                 {1 #(let [noice (require :noice)]
-                                       (noice.api.status.mode.get))
-                                  :cond #(let [noice (require :noice)]
-                                           (noice.api.status.mode.has))
+                                 {1 #(require-and :noice
+                                                  #($.api.status.mode.get))
+                                  :cond #(require-and :noice
+                                                      #($.api.status.mode.has))
                                   :separator ""}
                                  {1 (fn [] "%=") :separator ""}
                                  {1 (fn []
@@ -85,11 +85,11 @@
                                                 (table.concat result " | "))
                                             "No Active Lsp")))
                                   :cond buffer-not-empty?}]
-                     :lualine_x [{1 #(let [noice (require :noice)]
-                                       (-> (noice.api.status.search.get)
-                                           (string.gsub "W " "⤴ ")))
-                                  :cond #(let [noice (require :noice)]
-                                           (noice.api.status.search.has))
+                     :lualine_x [{1 #(require-and :noice
+                                                  #(-> ($.api.status.search.get)
+                                                       (string.gsub "W " "⤴ ")))
+                                  :cond #(require-and :noice
+                                                      #($.api.status.search.has))
                                   :separator ""}
                                  {1 :branch
                                   :icon " "
