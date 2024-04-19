@@ -210,7 +210,8 @@
 (vim.keymap.set [:n :o :x] :gh :0 {:desc "Ir para início da linha"})
 (vim.keymap.set [:n :o :x] :gl "$" {:desc "Ir para fim da linha"})
 (vim.keymap.set [:n :x] :gp "\"+p" {:desc "Colar da área de transferência"})
-(vim.keymap.set [:n :x] :gP "\"+P" {:desc "Colar da área de transferência"})
+(vim.keymap.set [:n :x] :gP "\"+P"
+                {:desc "Colar da área de transferência antes do cursor"})
 
 (vim.keymap.set [:n :o :x] :gs "^"
                 {:desc "Ir para primeiro caractere não branco"})
