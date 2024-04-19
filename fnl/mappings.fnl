@@ -56,7 +56,11 @@
 
 ; Normal com leader
 (keymaps-set :n
-             [["," "mpA,<Esc>`p" {:desc "\",\" no fim da linha"}]
+             [["."
+               #(vim.lsp.buf.code_action {:context {:only [:quickfix]}
+                                          :apply true})
+               {:desc :Corrigir}]
+              ["," "mpA,<Esc>`p" {:desc "\",\" no fim da linha"}]
               [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
@@ -116,9 +120,6 @@
                   :i [#(vim.lsp.inlay_hint.enable 0
                                                   (not (vim.lsp.inlay_hint.is_enabled)))
                       "Ativar/desativar dicas de código"]
-                  :q [#(vim.lsp.buf.code_action {:context {:only [:quickfix]}
-                                                 :apply true})
-                      :Corrigir]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
               :d {:name :Debug}
               :e {:name :Editor :h {:name "Cliente HTTP"}}
