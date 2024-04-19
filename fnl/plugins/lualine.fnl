@@ -92,16 +92,19 @@
                                                       #($.api.status.search.has))
                                   :separator ""}
                                  {1 :branch
-                                  :icon " "
+                                  :icon " "
                                   :color {:fg colors.violet :gui :bold}
                                   :separator ""}
                                  {1 :diff
-                                  :symbols {:added " "
-                                            :modified "柳"
-                                            :removed " "}
-                                  :diff_color {:added {:fg colors.green}
-                                               :modified {:fg colors.orange}
-                                               :removed {:fg colors.red}}
+                                  :symbols {:added " "
+                                            :modified " "
+                                            :removed " "}
+                                  :diff_color {:added {:fg colors.green
+                                                       :gui :bold}
+                                               :modified {:fg colors.orange
+                                                          :gui :bold}
+                                               :removed {:fg colors.red
+                                                         :gui :bold}}
                                   :cond hide-in-width?
                                   :padding {:right 1}
                                   :separator ""}
