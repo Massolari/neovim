@@ -1,4 +1,5 @@
 (local {: diagnostic-icon} (require :constants))
+(local {: require-and} (require :functions))
 
 (local M {1 :nvim-lualine/lualine.nvim
           :cond (not vim.g.started_by_firenvim)
@@ -10,8 +11,6 @@
         formatted-cwd (string.gsub (vim.fn.getcwd) "\\-" "\\-")
         formatted-path (string.gsub path (.. formatted-cwd "/") "")]
     (if (= formatted-path ".") "" (.. formatted-path "/"))))
-
-(local {: require-and} (require :functions))
 
 (fn buffer-not-empty? []
   (not= 1 (vim.fn.empty (vim.fn.expand "%:t"))))
