@@ -1,5 +1,8 @@
 -- pick your plugin manager, default [standalone]
 
+---Bootstrap tangerine and hibiscus
+---@param url string URL of the plugin github repository
+---@param ref? string Release
 local function bootstrap(url, ref)
   local name = url:gsub(".*/", "")
   local path = vim.fn.stdpath([[data]]) .. "/lazy/" .. name
