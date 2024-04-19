@@ -40,8 +40,8 @@
                     :component_separators "·"
                     :globalstatus (= (vim.opt.laststatus:get) 3)
                     :section_separators ""}
-          :sections ; these are to remove the defaults
-          {:lualine_a []
+          ; Os [] são para remover os componentes padrão
+          :sections {:lualine_a []
                      :lualine_b []
                      :lualine_c [(border {:right 1})
                                  {1 get-file-path
