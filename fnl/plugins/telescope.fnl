@@ -4,7 +4,6 @@
   (require-and :telescope.builtin callback))
 
 (local M {1 :nvim-telescope/telescope.nvim
-          :branch :0.1.x
           :cmd :Telescope
           :keys [{1 :<leader>b
                   2 #(require-and :telescope.builtin
@@ -64,7 +63,8 @@
   (telescope.setup {:defaults {:mappings {:i {:<c-j> actions.move_selection_next
                                               :<c-k> actions.move_selection_previous
                                               :<esc> actions.close
-                                              :<c-w> layout-actions.toggle_preview}}}
+                                              :<c-w> layout-actions.toggle_preview}}
+                               :path_display [:filename_first]}
                     :pickers {:buffers {:mappings {:i {:<c-s-d> actions.delete_buffer}}}}
                     :extensions {:ui-select (themes.get_cursor)}})
   (telescope.load_extension :fzf)
