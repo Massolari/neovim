@@ -165,29 +165,31 @@
 
 (λ M.get-lsp-config-options [server-name default-config]
   (match server-name
-    :sumneko_lua {:settings {:Lua {:runtime {:version :LuaJIT}
-                                   :hint {:enable true}
-                                   :diagnostics {:globals [:vim]}
-                                   :workspace {:library (vim.api.nvim_list_runtime_paths)}}}}
-    :ltex {:root_dir vim.loop.cwd
-           :filetypes [:octo (unpack default-config.filetypes)]
-           :settings {:ltex {:enabled [:bibtex
-                                       :context
-                                       :context.tex
-                                       :gitcommit
-                                       :html
-                                       :latex
-                                       :markdown
-                                       :octo
-                                       :org
-                                       :restructuredtext
-                                       :rsweave]
-                             :java {:path (.. vim.env.HOME
-                                              :/.nix-profile/bin/java)}}}}
+    :sumneko_lua
+    {:settings {:Lua {:runtime {:version :LuaJIT}
+                      :hint {:enable true}
+                      :diagnostics {:globals [:vim]}
+                      :workspace {:library (vim.api.nvim_list_runtime_paths)}}}}
+    :ltex
+    {:root_dir vim.loop.cwd
+     :filetypes [:octo (unpack default-config.filetypes)]
+     :settings {:ltex {:enabled [:bibtex
+                                 :context
+                                 :context.tex
+                                 :gitcommit
+                                 :html
+                                 :latex
+                                 :markdown
+                                 :octo
+                                 :org
+                                 :restructuredtext
+                                 :rsweave]
+                       :java {:path (.. vim.env.HOME :/.nix-profile/bin/java)}}}}
     :fennel_language_server
     {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
                          :diagnostics {:globals [:vim]}}}}
-    :fennel_ls {:settings {:fennel-ls {:extra-globals :vim}}}
+    :fennel_ls
+    {:settings {:fennel-ls {:extra-globals :vim}}}
     :tailwindcss
     {:settings {:tailwindCSS {:includeLanguages {:elm :html :gleam :html}
                               :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
@@ -200,19 +202,20 @@
                                                           "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
      :init_options {:userLanguages {:elm :html :gleam :html}}
      :filetypes [:elm :gleam (unpack default-config.filetypes)]}
-    :tsserver {:init_options {:preferences {:includeInlayParameterNameHints :all
-                                            :includeInlayParameterNameHintsWhenArgumentMatchesName true
-                                            :includeInlayFunctionParameterTypeHints true
-                                            :includeInlayVariableTypeHints true
-                                            :includeInlayVariableTypeHintsWhenTypeMatchesName true
-                                            :includeInlayPropertyDeclarationTypeHints true
-                                            :includeInlayFunctionLikeReturnTypeHints true
-                                            :includeInlayEnumMemberValueHints true}}}
-    :yamlls {:settings {:yaml {:keyOrdering false}}}
-    :gleam {:cmd [(.. vim.env.HOME
-                      :/.vscode/extensions/maurobalbi.glas-vscode-0.2.3-darwin-arm64/glas)
-                  :--stdio]}
-    _ default-config))
+    :tsserver
+    {:init_options {:preferences {:includeInlayParameterNameHints :all
+                                  :includeInlayParameterNameHintsWhenArgumentMatchesName true
+                                  :includeInlayFunctionParameterTypeHints true
+                                  :includeInlayVariableTypeHints true
+                                  :includeInlayVariableTypeHintsWhenTypeMatchesName true
+                                  :includeInlayPropertyDeclarationTypeHints true
+                                  :includeInlayFunctionLikeReturnTypeHints true
+                                  :includeInlayEnumMemberValueHints true}}}
+    :yamlls
+    {:settings {:yaml {:keyOrdering false}}} ; :gleam {:cmd [(.. vim.env.HOME ;                   :/.vscode/extensions/maurobalbi.glas-vscode-0.2.3-darwin-arm64/glas)
+    ;               :--stdio]}
+    _
+    default-config))
 
 (λ M.start-ltex []
   (vim.ui.input {:prompt "Language: " :default :pt-BR}
@@ -233,3 +236,4 @@
   (vim.api.nvim_replace_termcodes key true false true))
 
 M
+
