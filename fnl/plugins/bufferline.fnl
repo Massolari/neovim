@@ -5,5 +5,4 @@
                   :diagnostics_indicator (fn [_count level]
                                            (if (= level :error)
                                                diagnostic-icon.error
-                                               diagnostic-icon.warning))}}
- :config true}
+                                               diagnostic-icon.warning))}}}
