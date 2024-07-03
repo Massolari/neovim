@@ -6,3 +6,4 @@
  :config (fn [_ opts]
            (require-and :indentmini #($.setup opts))
            (vim.cmd.highlight "default link IndentLine Comment"))}
+
