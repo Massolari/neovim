@@ -23,17 +23,16 @@
 (vim.keymap.set :n :<c-n> :<cmd>bn<CR> {:desc "Próximo buffer"})
 (vim.keymap.set :n :<c-p> :<cmd>bp<CR> {:desc "Buffer anterior"})
 
-(wk.register {"]" {"]" ["<cmd>call search('^\\w\\+\\s:\\s' 'w')<CR>"
-                        "Pular para a próxima função Elm"]
-                   :d ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }})<CR>"
+(wk.register {"]" {:d [#(vim.diagnostic.goto_next {:float {:show_header true
+                                                           :border :single}})
                        "Próximo problema (diagnostic)"]
-                   :e ["<cmd>lua vim.diagnostic.goto_next({ float =  { show_header = true, border = 'single' }, severity = 'Error' })<CR>"
+                   :e [#(vim.diagnostic.goto_next {:float {:show_header true
+                                                           :border :single}
+                                                   :severity :Error})
                        "Próximo erro de código"]
                    :w [#(require-and :illuminate #($.goto_next_reference))
                        "Próxima palavra destacada"]}
-              "[" {"[" ["<cmd>call search('^\\w\\+\\s:\\s' 'bW')<CR>"
-                        "Pular para a função Elm anterior"]
-                   :d [#(vim.diagnostic.goto_prev {:float {:show_header true
+              "[" {:d [#(vim.diagnostic.goto_prev {:float {:show_header true
                                                            :border :single}})
                        "Problema anterior (diagnostic)"]
                    :e [#(vim.diagnostic.goto_prev {:float {:show_header true
