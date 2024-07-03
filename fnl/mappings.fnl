@@ -11,21 +11,17 @@
 
 ; Insert
 
-(keymaps-set :i [[:<c-j>
-                  (fn []
-                    (local luasnip (require :luasnip))
-                    (if (luasnip.expand_or_jumpable)
-                        (luasnip.expand_or_jump)
-                        (vim.api.nvim_feedkeys (get-key-insert :<Down>) :n [])))]
-                 [:<c-k>
-                  (fn []
-                    (local luasnip (require :luasnip))
-                    (if (luasnip.expand_or_jumpable)
-                        ((luasnip.jump -1))
-                        (vim.api.nvim_feedkeys (get-key-insert :<Up>) :n [])))]
-                 [:<c-l> :<Right>]
-                 [:<c-b> :<Left>]
-                 [:jk :<Esc>]])
+(keymaps-set :i
+             [[:<c-j>
+               (fn []
+                 (if (vim.snippet.active {:direction 1})
+                     (vim.snippet.jump 1)
+                     (vim.api.nvim_feedkeys (get-key-insert :<Down>) :n [])))]
+              [:<c-k>
+               (fn []
+                 (if (vim.snippet.active {:direction -1})
+                     (vim.snippet.jump -1)
+                     (vim.api.nvim_feedkeys (get-key-insert :<Up>) :n [])))]])
 
 ; Normal
 

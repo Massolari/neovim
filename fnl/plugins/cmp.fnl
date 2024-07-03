@@ -6,9 +6,7 @@
                          :PaterJason/cmp-conjure
                          :hrsh7th/cmp-buffer
                          :hrsh7th/cmp-path
-                         :L3MON4D3/LuaSnip
-                         :rafamadriz/friendly-snippets
-                         :saadparwaiz1/cmp_luasnip
+                         :garymjr/nvim-snippets
                          :onsails/lspkind.nvim
                          :hrsh7th/cmp-calc
                          :hrsh7th/cmp-emoji
@@ -16,14 +14,11 @@
 
 (fn M.config []
   (local cmp (require :cmp))
-  (local lspkind (require :lspkind))
-  (local luasnip (require :luasnip))
-  (let [loader (require :luasnip.loaders.from_vscode)]
-    (loader.lazy_load)) ; Verificar as sources desabilitadas pelo usuário
+  (local lspkind (require :lspkind)) ; Verificar as sources desabilitadas pelo usuário
   (local sources (let [disabled-sources (or vim.g.disabled_cmp_sources [])
                        default-sources [{:name :nvim_lsp}
                                         {:name :conjure}
-                                        {:name :luasnip}
+                                        {:name :snippets}
                                         {:name :path}
                                         {:name :buffer
                                          :option {:get_bufnrs #(vim.api.nvim_list_bufs)}}
@@ -33,7 +28,7 @@
                                                            $.name))
                                    default-sources)))
   (cmp.setup {:snippet {:expand (fn [args]
-                                  (luasnip.lsp_expand args.body))}
+                                  (vim.snippet.expand args.body))}
               :view {:entries {:follow_cursor true}}
               :mapping {:<C-b> (cmp.mapping.scroll_docs -4)
                         :<C-f> (cmp.mapping.scroll_docs 4)
@@ -56,8 +51,9 @@
                                                         :before (fn [entry
                                                                      vim_item]
                                                                   (set vim_item.kind
-                                                                       (.. (. lspkind.presets.codicons
-                                                                              vim_item.kind)
+                                                                       (.. (or (. lspkind.presets.codicons
+                                                                                  vim_item.kind)
+                                                                               "")
                                                                            " "
                                                                            vim_item.kind))
                                                                   (require-and :tailwindcss-colorizer-cmp
@@ -74,3 +70,4 @@
                                                    [{:name :cmdline}])}))
 
 M
+
