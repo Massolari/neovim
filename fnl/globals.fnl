@@ -17,3 +17,9 @@
 ;; Node
 
 (set vim.g.node_path (.. (os.getenv :HOME) :/.nix-profile/bin/node))
+
+;; Desabilitar netrw
+
+(set vim.g.loaded_netrw 1)
+(set vim.g.loaded_netrwPlugin 1)
+
