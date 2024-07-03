@@ -104,3 +104,7 @@
 
 ; Usar ripgrep for :grep
 (set vim.opt.grepprg "rg --vimgrep --no-heading --smart-case")
+
+; Rolar a página apenas uma linha mesmo o texto ocupando mais de uma linha
+(set vim.opt.smoothscroll true)
+
