@@ -3,5 +3,6 @@
  :keys [{1 :<leader>eo
          2 "<cmd>HighlightColors Toggle<cr>"
          :desc "Alternar visualização de cores"}]
- :opts {:enable_tailwind true}
+ :opts {:enable_tailwind true :render :virtual}
  :config true}
+
