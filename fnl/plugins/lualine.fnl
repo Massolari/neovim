@@ -4,7 +4,11 @@
 (local M {1 :nvim-lualine/lualine.nvim
           :cond (not vim.g.started_by_firenvim)
           :event :VimEnter
-          :dependencies [:nvim-tree/nvim-web-devicons]})
+          :dependencies [{1 :nvim-tree/nvim-web-devicons
+                          :opts {:override {:gleam {:icon " "
+                                                    :color "#ffaff3"
+                                                    :cterm_color :219
+                                                    :name :Gleam}}}}]})
 
 (fn get-file-path []
   (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
@@ -124,3 +128,4 @@
   (require-and :lualine #($.setup config)))
 
 M
+
