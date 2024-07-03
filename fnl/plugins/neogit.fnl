@@ -14,3 +14,4 @@
                        {1 :P
                         2 #(require-and :neogit #($.open [:push]))
                         :desc :Push}] :<leader>g)}
+
