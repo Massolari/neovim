@@ -16,8 +16,7 @@
         :direction :horizontal
         :insert_mappings false
         :on_open (fn [term]
-                   (vim.keymap.set :t :jk "<c-\\><c-n>" {:buffer term.bufnr})
-                   (vim.keymap.set :t :kj "<c-\\><c-n>" {:buffer term.bufnr}))
+                   (vim.keymap.set :t :<Esc> "<c-\\><c-n>" {:buffer term.bufnr}))
         :terminal_mappings false}
  :keys [{1 :<leader>gy
          2 #(open-terminal :lazygit 1000
