@@ -31,7 +31,7 @@
   (when capabilities.codeLensProvider
     (vim.api.nvim_create_autocmd [:BufEnter :CursorHold :InsertLeave]
                                  {:buffer 0
-                                  :callback #(vim.lsp.codelens.refresh)
+                                  :callback #(vim.lsp.codelens.refresh {:bufnr 0})
                                   :group (vim.api.nvim_create_augroup :_code_lens
                                                                       {})}))
   (when capabilities.inlayHintProvider
@@ -61,3 +61,4 @@
         (setup-server name-without-extension)))))
 
 M
+
