@@ -4,11 +4,6 @@
 (local functions (require :functions))
 (local {: require-and : keymaps-set : get-key-insert} functions)
 
-; Command
-
-(vim.keymap.set :c :<c-j> :<Down>)
-(vim.keymap.set :c :<c-k> :<Up>)
-
 ; Insert
 
 (keymaps-set :i
