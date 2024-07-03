@@ -119,12 +119,7 @@
               :h ["<cmd>split<CR> " "Dividir horizontalmente"]
               :i ["mpgg=G`p" "Indentar arquivo"]
               :l [#(functions.toggle-location-list) "Alternar locationlist"]
-              ;; :m {:name :Markdown
-              ;; :m [:<cmd>Glow<CR> "Pré-visualizar com glow"]
-              ;; :b [:<cmd>MarkdownPreview<CR>
-              ;;     "Pré-visualizar com navegador (browser)"]}
               :o {:name :Obsidian
-                  ;; :i ["<cmd>exe 'edit' stdpath('config').'/init.fnl'<CR>"
                   :f [#(require-and :telescope.builtin
                                     #($.find_files {:cwd vim.g.obsidian_dir}))
                       "Abrir arquivo"]
