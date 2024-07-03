@@ -130,17 +130,6 @@
 (λ M.require-and [module callback]
   (callback (require module)))
 
-(fn M.format []
-  (let [buf (vim.api.nvim_get_current_buf)
-        ft (vim.fn.getbufvar buf :&ft)
-        has-null-ls (-> (M.require-and :null-ls.sources
-                                       #($.get_available ft :NULL_LS_FORMATTING))
-                        (length)
-                        (> 0))
-        filter-fn (if has-null-ls #(= $1 $2) #(not= $1 $2))]
-    (vim.lsp.buf.format {:filter #(filter-fn $.name :null-ls)
-                         :timeout_ms 10000})))
-
 (λ M.prefixed-keys [mappings prefix]
   (icollect [_ {1 keys 2 cmd &as map-options} (ipairs mappings)]
     (vim.tbl_extend :keep [(.. prefix keys) cmd] map-options)))

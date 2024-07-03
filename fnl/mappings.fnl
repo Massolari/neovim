@@ -116,7 +116,7 @@
                       "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
-                  :f [#(functions.format) "Formatar código"]
+                  :f [#(require-and :conform #($.format)) "Formatar código"]
                   :i [#(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
                       "Ativar/desativar dicas de código"]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}

@@ -1,5 +1,3 @@
-(local {: format} (require :functions))
-
 (fn recover-position []
   (let [mark (vim.api.nvim_buf_get_mark 0 "\"")
         row (. mark 1)]
@@ -41,8 +39,3 @@
                               :group (vim.api.nvim_create_augroup :_auto_resize
                                                                   {})})
 
-(vim.api.nvim_create_autocmd [:BufWritePre]
-                             {:pattern "*"
-                              :callback #(format)
-                              :group (vim.api.nvim_create_augroup :_format-on-save
-                                                                  {})})
