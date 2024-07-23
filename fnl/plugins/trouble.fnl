@@ -1,1 +1,5 @@
-{1 :folke/trouble.nvim :dependencies :nvim-tree/nvim-web-devicons :config true}
+{1 :folke/trouble.nvim
+ :enabled false
+ :dependencies :nvim-tree/nvim-web-devicons
+ :config true}
+

@@ -1,5 +1,6 @@
 {1 :folke/noice.nvim
  :cond (not vim.g.started_by_firenvim)
+ :enabled false
  :event :VeryLazy
  :dependencies [:MunifTanjim/nui.nvim :rcarriga/nvim-notify]
  :opts {:presets {:lsp_doc_border true}
@@ -14,3 +15,4 @@
                          :cmp.entry.get_documentation true}}
         :messages {:view :mini :view_error :mini :view_warn :mini}
         :notify {:view :mini}}}
+

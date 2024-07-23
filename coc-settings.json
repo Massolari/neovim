@@ -1,0 +1,128 @@
+{
+  "markdownlint.config": {
+    "line_length": false
+  },
+  "coc.source.emoji.filetypes": [
+    "markdown",
+    "octo"
+  ],
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ]
+    },
+    "gleam": {
+      "command": "gleam",
+      "args": ["lsp"],
+      "filetypes": [
+        "gleam"
+      ],
+      "rootPatterns": [
+        "gleam.toml"
+      ]
+    },
+    "intelephense": {
+      "command": "intelephense",
+      "args": ["--stdio"],
+      "filetypes": [
+        "php"
+      ],
+      "rootPatterns": []
+    },
+    "fennells": {
+      "command": "fennel-ls",
+      "filetypes": [
+        "fennel"
+      ],
+      "settings": {
+        "fennel-ls": {
+          "extra-globals": "vim"
+        }
+      }
+    },
+    "v-analyzer": {
+      "command": "v-analyzer",
+      "args": ["--stdio"],
+      "filetypes": [
+        "v"
+      ],
+      "rootPatterns": []
+    },
+  },
+  "tailwindCSS.includeLanguages": {
+    "eelixir": "html",
+    "elixir": "html",
+    "eruby": "html",
+    "html.twig": "html",
+    "elm": "html",
+    "gleam": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+      "\\bclass[\\s(<|]+\"([^\"]*)\"",
+      "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\"",
+      "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+      "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+      "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+      "\\bclassList[\\s\\[\\(]+\"([^\"]*)\"",
+      "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\"",
+      "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+    ],
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "codeLens.enable": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "hover.floatConfig": {
+    "border": true,
+    "rounded": true,
+  },
+  "signature.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "suggest.completionItemKindLabels": {
+    "function": " ",
+    "method": " ",
+    "variable": " ",
+    "constant": " ",
+    "struct": " ",
+    "class": " ",
+    "interface": " ",
+    "text": "󰅳 ",
+    "enum": " ",
+    "enumMember": " ",
+    "module": " ",
+    "color": " ",
+    "property": " ",
+    "field": " ",
+    "unit": " ",
+    "file": " ",
+    "value": " ",
+    "event": " ",
+    "folder": " ",
+    "keyword": " ",
+    "snippet": " ",
+    "operator": " ",
+    "reference": " ",
+    "typeParameter": " ",
+    "default": " "
+  }
+}

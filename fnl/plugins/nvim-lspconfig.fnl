@@ -18,6 +18,7 @@
 (local M
        {1 :neovim/nvim-lspconfig
         :event :BufReadPost
+        :enabled false
         :dependencies [:mason.nvim :SmiteshP/nvim-navic]
         :init (fn []
                 (set vim.lsp.set_log_level :trace)

@@ -5,10 +5,40 @@
           :cond (not vim.g.started_by_firenvim)
           :event :VimEnter
           :dependencies [{1 :nvim-tree/nvim-web-devicons
-                          :opts {:override {:gleam {:icon " "
-                                                    :color "#ffaff3"
-                                                    :cterm_color :219
-                                                    :name :Gleam}}}}]})
+                          :dir (.. vim.env.HOME :/nvim-web-devicons)}
+                         {1 :ColinKennedy/nvim-gps :config true}]})
+
+; -- show breadcrumbs if available
+; local function breadcrumbs()
+;   local items = vim.b.coc_nav
+;   local t = {''}
+;   for k,v in ipairs(items) do
+;     setmetatable(v, { __index = function(table, key)
+;       return ' '
+;     end})
+;     t[#t+1] = ' %#' .. (v.highlight or "Normal") .. '#' .. (type(v.label) == 'string' and v.label .. ' ' or '') .. '%#NonText#'.. (v.name or '')
+;     if next(items,k) ~= nil then
+;       t[#t+1] = '%#StatusLineNC# '
+;     end
+;   end
+;   t[#t+1] = '%#EndOfBuffer#%L  '
+;   return table.concat(t)
+; end
+
+(fn breadcrumbs []
+  (let [items vim.b.coc_nav
+        t [""]]
+    (each [k v (ipairs items)]
+      (setmetatable v {:__index (fn [_table _key] " ")})
+      (tset t (+ 1 (length t))
+            (.. " %#" (or v.highlight :Normal) "#"
+                (if (= (type v.label) :string)
+                    (.. v.label " ")
+                    "") "%#NonText#" (or v.name "")))
+      (when (not= (next items k) nil)
+        (tset t (+ 1 (length t)) "%#StatusLineNC# ")))
+    (tset t (+ 1 (length t)) "%#EndOfBuffer#%L  ")
+    (table.concat t)))
 
 (fn get-file-path []
   (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
@@ -39,6 +69,7 @@
 (local fileName {1 :filename :padding 0 :color {:fg colors.magenta :gui :bold}})
 
 (fn M.config []
+  (local gps (require :nvim-gps))
   (local config
          {:options {:disabled_filetypes [:dashboard]
                     :component_separators "·"
@@ -69,32 +100,49 @@
                                             :info diagnostic-icon.info
                                             :hint diagnostic-icon.hint}
                                   :separator ""}
-                                 {1 #(require-and :noice
-                                                  #($.api.status.mode.get))
-                                  :cond #(require-and :noice
-                                                      #($.api.status.mode.has))
-                                  :separator ""}
+                                 [:mode]
+                                 ; {1 #(require-and :noice
+                                 ;                  #($.api.status.mode.get))
+                                 ;  :cond #(require-and :noice
+                                 ;                      #($.api.status.mode.has))
+                                 ;  :separator ""}
                                  {1 (fn [] "%=") :separator ""}
                                  {1 (fn []
-                                      (let [clients (vim.lsp.buf_get_clients)
-                                            buffer (vim.api.nvim_get_current_buf)
-                                            result []]
-                                        (each [_ client (pairs clients)]
-                                          (when (->> buffer
-                                                     (. client.attached_buffers)
-                                                     (= true))
-                                            (table.insert result client.name)))
-                                        (if (> (length result) 0)
+                                      (let [filetype vim.bo.filetype
+                                            services (->> (vim.fn.CocAction :services)
+                                                          (vim.tbl_filter #(and (= $.state
+                                                                                   :running)
+                                                                                (vim.tbl_contains $.languageIds
+                                                                                                  filetype)))
+                                                          (vim.tbl_map #(string.gsub $.id
+                                                                                     :languageserver.
+                                                                                     "")))]
+                                        (if (> (length services) 0)
                                             (.. "  LSP: "
-                                                (table.concat result " | "))
+                                                (table.concat services " | "))
                                             "No Active Lsp")))
-                                  :cond buffer-not-empty?}]
-                     :lualine_x [{1 #(require-and :noice
-                                                  #(-> ($.api.status.search.get)
-                                                       (string.gsub "W " "⤴ ")))
-                                  :cond #(require-and :noice
-                                                      #($.api.status.search.has))
-                                  :separator ""}
+                                  :cond buffer-not-empty?}
+                                 ; {1 (fn []
+                                 ;      (let [clients (vim.lsp.buf_get_clients)
+                                 ;            buffer (vim.api.nvim_get_current_buf)
+                                 ;            result []]
+                                 ;        (each [_ client (pairs clients)]
+                                 ;          (when (->> buffer
+                                 ;                     (. client.attached_buffers)
+                                 ;                     (= true))
+                                 ;            (table.insert result client.name)))
+                                 ;        (if (> (length result) 0)
+                                 ;            (.. "  LSP: "
+                                 ;                (table.concat result " | "))
+                                 ;            "No Active Lsp")))
+                                 ;  :cond buffer-not-empty?}
+                                 ]
+                     :lualine_x [; {1 #(require-and :noice
+                                 ;                  #(-> ($.api.status.search.get)
+                                 ;                       (string.gsub "W " "⤴ ")))
+                                 ;  :cond #(require-and :noice
+                                 ;                      #($.api.status.search.has))
+                                 ;  :separator ""}
                                  {1 :branch
                                   :icon " "
                                   :color {:fg colors.violet :gui :bold}
@@ -119,12 +167,16 @@
                    :lualine_b []
                    :lualine_c [(border {:right 1})
                                fileName
-                               {1 :navic :color {:gui :bold}}]}
+                               {1 #(gps.get_location)
+                                :cond #(gps.is_available)
+                                :color {:gui :bold}}]}
           :inactive_winbar {:lualine_a []
                             :lualine_b []
                             :lualine_c [(border {:right 1})
                                         {1 :filename :padding 0}
-                                        {1 :navic :color {:gui :bold}}]}})
+                                        {1 #(gps.get_location)
+                                         :cond #(gps.is_available)
+                                         :color {:gui :bold}}]}})
   (require-and :lualine #($.setup config)))
 
 M

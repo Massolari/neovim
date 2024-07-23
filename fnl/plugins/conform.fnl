@@ -12,9 +12,18 @@
                                                       :javascript js-formatter
                                                       :typescript js-formatter
                                                       :typescriptreact js-formatter
-                                                      :tsx js-formatter}
+                                                      :tsx js-formatter
+                                                      :v [:vfmt]}
                                    :log_level vim.log.levels.INFO
                                    :format_on_save {:timeout_ms 10000
-                                                    :lsp_fallback true}}))
-           (set vim.o.formatexpr "v:lua.require'conform'.formatexpr()"))}
+                                                    :lsp_fallback true}
+                                   :formatters {:vfmt {:command :v
+                                                       :stdin false
+                                                       :args [:fmt
+                                                              :-w
+                                                              :$FILENAME]}}}))
+           (set vim.o.formatexpr "v:lua.require'conform'.formatexpr()"))
+ :keys [{1 :<leader>cf
+         2 #(require-and :conform #($.format))
+         :desc "Formatar código"}]}
 

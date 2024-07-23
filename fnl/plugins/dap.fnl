@@ -38,6 +38,7 @@
                         :request :launch
                         :name "Chrome Launch"}]))))}
  {1 :rcarriga/nvim-dap-ui
+  :enabled false
   :name :dapui
   :config true
   :keys [{1 :<leader>du
