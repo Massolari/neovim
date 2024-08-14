@@ -30,7 +30,7 @@
                     {:desc "Ir para definição de tipo"}) ; (key-set :n :gr "<Plug>(coc-references)" {:desc "Ver referências"})
            (key-set :n :K #(show-docs))
            (key-set :n :<leader>ci
-                    "<cmd>CocCommand document.toggleInlayHints<CR>"
+                    "<cmd>CocCommand document.toggleInlayHint<CR>"
                     {:desc "Ativar/desativar dicas de código (inlay hints)"})
            (key-set :n :<leader>cr "<Plug>(coc-rename)" {:desc :Renomear})
            (key-set :n :<leader>cF "call CocAction('format)"
