@@ -22,6 +22,7 @@
 
 (vim.keymap.set :n :<c-n> :<cmd>bn<CR> {:desc "Próximo buffer"})
 (vim.keymap.set :n :<c-p> :<cmd>bp<CR> {:desc "Buffer anterior"})
+(vim.keymap.set :n :U :<c-r> {:desc "Refazer"})
 
 (wk.register {"]" {:d [#(vim.diagnostic.goto_next {:float {:show_header true
                                                            :border :single}})
