@@ -30,7 +30,7 @@
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
               ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
               ["%" :ggVG {:desc "Selecionar tudo"}]
-              [:d "<cmd>bn|bd #<CR>" {:desc "Deletar buffer"}]
+              [:d "<cmd>bp|bd #<CR>" {:desc "Deletar buffer"}]
               [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
               [:h :<cmd>split<CR> {:desc "Dividir horizontalmente"}]
               [:i "mpgg=G`p" {:desc "Indentar arquivo"}]
