@@ -4,8 +4,7 @@
 (local M {1 :nvim-lualine/lualine.nvim
           :cond (not vim.g.started_by_firenvim)
           :event :VimEnter
-          :dependencies [{1 :nvim-tree/nvim-web-devicons
-                          :dir (.. vim.env.HOME :/nvim-web-devicons)}
+          :dependencies [{1 :nvim-tree/nvim-web-devicons}
                          {1 :ColinKennedy/nvim-gps :config true}]})
 
 ; -- show breadcrumbs if available
