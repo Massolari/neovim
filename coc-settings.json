@@ -124,5 +124,9 @@
     "reference": " ",
     "typeParameter": " ",
     "default": " "
-  }
+  },
+  "diagnostic.errorSign": " ",
+  "diagnostic.warningSign": " ",
+  "diagnostic.infoSign": " ",
+  "diagnostic.hintSign": " "
 }
