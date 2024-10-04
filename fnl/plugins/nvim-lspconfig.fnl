@@ -55,7 +55,7 @@
   (vim.diagnostic.config {:virtual_text false})
   (mason.setup {})
   (each [name type_ (vim.fs.dir (.. (vim.fn.stdpath :data)
-                                    :/lazy/nvim-lspconfig/lua/lspconfig/server_configurations))]
+                                    :/lazy/nvim-lspconfig/lua/lspconfig/configs))]
     (when (= type_ :file)
       (let [name-without-extension (string.sub name 0 -5)]
         (setup-server name-without-extension)))))
