@@ -8,6 +8,7 @@
                                                       :elm [:elm_format]
                                                       :fennel [:fnlfmt]
                                                       :gleam [:gleam]
+                                                      :go [:gofmt]
                                                       :jsx js-formatter
                                                       :javascript js-formatter
                                                       :typescript js-formatter
