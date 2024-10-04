@@ -16,9 +16,11 @@
 
 ; Comportamento do Tab
 
-(set vim.opt.tabstop 4)
+(let [width 2]
+  (set vim.opt.tabstop width)
+  (set vim.opt.shiftwidth width))
+
 (set vim.opt.softtabstop 0)
-(set vim.opt.shiftwidth 4)
 (set vim.opt.expandtab true)
 
 ; Busca
