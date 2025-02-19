@@ -3,14 +3,15 @@
 (λ setup-server [name]
   (let [lspconfig (require :lspconfig)
         server (. lspconfig name)
-        options (get-lsp-config-options name
-                                        server.document_config.default_config)
-        cmd (match (type server.document_config.default_config.cmd)
+        default_config (or server.default_config
+                           server.document_config.default_config)
+        options (get-lsp-config-options name default_config)
+        cmd (match (type default_config.cmd)
               :table (-> options.cmd
-                         (or server.document_config.default_config.cmd)
+                         (or default_config.cmd)
                          (. 1)
                          (or ""))
-              :string server.document_config.default_config.cmd
+              :string default_config.cmd
               _ "")]
     (when (= 1 (vim.fn.executable cmd))
       (server.setup options))))
