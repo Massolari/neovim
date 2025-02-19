@@ -5,21 +5,14 @@
 
 (local M {1 :nvim-telescope/telescope.nvim
           :cmd :Telescope
-          :keys [{1 :<leader>b
-                  2 #(require-and :telescope.builtin
-                                  #($.buffers (require-and :telescope.themes
-                                                           #($.get_dropdown {:only_cwd true}))))
-                  :desc :Buffers}
-                 {1 :<leader>B
-                  2 #(require-and :telescope.builtin
-                                  #($.buffers (require-and :telescope.themes
-                                                           #($.get_dropdown {}))))
-                  :desc "Buffers (sem filtro)"}
-                 {1 :<leader>ca 2 #(vim.lsp.buf.code_action) :desc "Ações"}
-                 {1 :<leader>co
+          :keys [{1 :<leader>o
                   2 #(builtin #($.lsp_document_symbols))
                   :desc "Buscar símbolos no arquivo"}
-                 {1 :<leader>cO
+                 {1 :<leader>b
+                  2 #(builtin #($.buffers (require-and :telescope.themes
+                                                       #($.get_dropdown))))
+                  :desc :Buffers}
+                 {1 :<leader>O
                   2 #(builtin #($.treesitter))
                   :desc "Buscar símbolos no arquivo com treesitter"}
                  {1 :<leader>cp
@@ -52,7 +45,6 @@
           :dependencies [:nvim-lua/plenary.nvim
                          {1 :nvim-telescope/telescope-fzf-native.nvim
                           :build :make}
-                         :nvim-telescope/telescope-ui-select.nvim
                          :nvim-telescope/telescope-symbols.nvim]})
 
 (fn M.config []
@@ -67,8 +59,7 @@
                                :path_display [:filename_first]}
                     :pickers {:buffers {:mappings {:i {:<c-s-d> actions.delete_buffer}}}}
                     :extensions {:ui-select (themes.get_cursor)}})
-  (telescope.load_extension :fzf)
-  (telescope.load_extension :notify)
-  (telescope.load_extension :ui-select))
+  (telescope.load_extension :fzf))
 
 M
+

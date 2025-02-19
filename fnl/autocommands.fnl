@@ -39,3 +39,9 @@
                               :group (vim.api.nvim_create_augroup :_auto_resize
                                                                   {})})
 
+(vim.api.nvim_create_autocmd :User
+                             {:pattern :MiniFilesActionRename
+                              :callback (fn [event]
+                                          (_G.Snacks.rename.on_rename_file event.data.from
+                                                                           event.data.to))})
+
