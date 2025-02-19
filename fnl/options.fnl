@@ -33,12 +33,7 @@
 
 (set vim.opt.backupcopy :yes)
 
-(let [env-shell (os.getenv :SHELL)
-      default-shell (if (and (not= nil env-shell) (not= "" env-shell))
-                        env-shell
-                        :/bin/bash)]
-  (set vim.opt.shell default-shell))
-
+(set vim.opt.shell :/bin/zsh)
 ; Idioma para correção ortográfica
 
 (set vim.opt.spelllang :pt_br)
