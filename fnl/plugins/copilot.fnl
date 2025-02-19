@@ -5,3 +5,4 @@
  :opts {:suggestion {:auto_trigger true
                      :keymap {:accept :<c-q> :next :<m-n> :prev :<m-p>}}
         :filetypes {:* true}}}
+
