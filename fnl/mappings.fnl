@@ -22,27 +22,33 @@
 
 (vim.keymap.set :n :<c-n> :<cmd>bn<CR> {:desc "Próximo buffer"})
 (vim.keymap.set :n :<c-p> :<cmd>bp<CR> {:desc "Buffer anterior"})
-(vim.keymap.set :n :U :<c-r> {:desc "Refazer"})
+(vim.keymap.set :n :U :<c-r> {:desc :Refazer})
 
-(wk.register {"]" {:d [#(vim.diagnostic.goto_next {:float {:show_header true
-                                                           :border :single}})
-                       "Próximo problema (diagnostic)"]
-                   :e [#(vim.diagnostic.goto_next {:float {:show_header true
-                                                           :border :single}
-                                                   :severity :Error})
-                       "Próximo erro de código"]
-                   :w [#(require-and :illuminate #($.goto_next_reference))
-                       "Próxima palavra destacada"]}
-              "[" {:d [#(vim.diagnostic.goto_prev {:float {:show_header true
-                                                           :border :single}})
-                       "Problema anterior (diagnostic)"]
-                   :e [#(vim.diagnostic.goto_prev {:float {:show_header true
-                                                           :border :single}
-                                                   :severity :Error})
-                       "Erro de código anterior"]
-                   :w [#(require-and :illuminate #($.goto_prev_reference))
-                       "Palavra destacada anterior"]}}
-             (vim.tbl_extend :force options {:mode :n}))
+;; Próximo diagnostic
+(vim.keymap.set :n "]d"
+                #(vim.diagnostic.goto_next {:float {:show_header true
+                                                    :border :single}})
+                {:desc "Próximo problema (diagnostic)"})
+
+;; Próximo erro
+(vim.keymap.set :n "]e"
+                #(vim.diagnostic.goto_next {:float {:show_header true
+                                                    :border :single}
+                                            :severity :Error})
+                {:desc "Próximo erro de código"})
+
+;; Diagnostic anterior
+(vim.keymap.set :n "[d"
+                #(vim.diagnostic.goto_prev {:float {:show_header true
+                                                    :border :single}})
+                {:desc "Problema anterior (diagnostic)"})
+
+;; Erro anterior
+(vim.keymap.set :n "[e"
+                #(vim.diagnostic.goto_prev {:float {:show_header true
+                                                    :border :single}
+                                            :severity :Error})
+                {:desc "Erro de código anterior"})
 
 ; Normal com leader
 (keymaps-set :n
@@ -50,12 +56,11 @@
                #(vim.lsp.buf.code_action {:context {:only [:quickfix]}
                                           :apply true})
                {:desc :Corrigir}]
+              ["=" "mpgg=G`p" {:desc "Indentar arquivo"}]
               ["," "mpA,<Esc>`p" {:desc "\",\" no fim da linha"}]
               [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
               [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
-              ["=" :<c-w>= {:desc "Igualar tamanho das janelas"}]
               ["%" :ggVG {:desc "Selecionar tudo"}]
-              [:d "<cmd>bn|bd #<CR>" {:desc "Deletar buffer"}]
               [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
               [:F
                #(require-and :conform #($.format))
@@ -76,6 +81,21 @@
                   {:desc "Ir para a anterior (previous)"}]]
              {:prefix :<leader>a})
 
+; Código
+(keymaps-set :n
+             [[:a #(vim.lsp.buf.code_action) {:desc "Ações"}]
+              [:d
+               #(require-and :trouble #($.toggle :workspace_diagnostics))
+               {:desc "Problemas (diagnostics)"}]
+              [:e
+               #(vim.diagnostic.open_float 0 {:border :single})
+               {:desc "Mostrar erro da linha"}]
+              [:i
+               #(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
+               {:desc "Ativar/desativar dicas de código"}]
+              [:r #(vim.lsp.buf.rename) {:desc "Renomear Variável"}]]
+             {:prefix :<leader>c})
+
 ; Editor
 (keymaps-set :n [[:b
                   #(require-and :nvim-web-browser #($.open))
@@ -91,6 +111,23 @@
                        (when (not= name "")
                          (vim.cmd.e (.. "~/.local/share/nvim/rest/" name :.rest)))))
                   {:desc :Novo}]
+                 [:nf
+                  #(require-and :telescope.builtin
+                                #($.find_files {:cwd vim.g.obsidian_dir}))
+                  {:desc "Abrir arquivo"}]
+                 [:nn
+                  (fn []
+                    (let [vaults (-> (.. "^ls '" vim.g.obsidian_dir "'")
+                                     (vim.fn.system)
+                                     (vim.fn.split "\n"))]
+                      (vim.ui.select vaults {:prompt "Cofre para novo arquivo"}
+                                     (fn [vault]
+                                       (functions.with-input "Novo arquivo: "
+                                         (fn [name]
+                                           (when (not= name "")
+                                             (vim.cmd.e (.. vim.g.obsidian_dir
+                                                            "/" vault "/" name)))))))))
+                  {:desc "Novo arquivo"}]
                  ; [:ff "<cmd>lua require'forem-nvim'.feed()<CR>" {:desc :Feed}]
                  ; [:fm
                  ;  "<cmd>lua require'forem-nvim'.my_articles()<CR>"
@@ -102,48 +139,38 @@
                  [:u :<cmd>Lazy<CR> {:desc :Plugins}]]
              {:prefix :<leader>e})
 
-(wk.register {:a {:name :Aba}
-              :b {:name :Buffer}
-              :c {:name :Code
-                  :d [#(require-and :trouble #($.toggle :workspace_diagnostics))
-                      "Problemas (diagnostics)"]
-                  :e [#(vim.diagnostic.open_float 0 {:border :single})
-                      "Mostrar erro da linha"]
-                  :i [#(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
-                      "Ativar/desativar dicas de código"]
-                  :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
-              :d {:name :Debug}
-              :e {:name :Editor :h {:name "Cliente HTTP"}}
-              :g {:name :Git
-                  :b {:name :Blame}
-                  :h {:name :Hunks}
-                  :i {:name "Issues (Github)"}
-                  :u {:name "Pull Requests (Github)"}}
-              :h ["<cmd>split<CR> " "Dividir horizontalmente"]
-              :i ["mpgg=G`p" "Indentar arquivo"]
-              :l [#(functions.toggle-location-list) "Alternar locationlist"]
-              :o {:name :Obsidian
-                  :f [#(require-and :telescope.builtin
-                                    #($.find_files {:cwd vim.g.obsidian_dir}))
-                      "Abrir arquivo"]
-                  :n [#(let [vaults (-> (.. "^ls '" vim.g.obsidian_dir "'")
-                                        (vim.fn.system)
-                                        (vim.fn.split "\n"))]
-                         (vim.ui.select vaults
-                                        {:prompt "Cofre para novo arquivo"}
-                                        (fn [vault]
-                                          (functions.with-input "Novo arquivo: "
-                                            (fn [name]
-                                              (when (not= name "")
-                                                (vim.cmd.e (.. vim.g.obsidian_dir
-                                                               "/" vault "/"
-                                                               name))))))))
-                      "Novo arquivo"]}
-              :p {:name :Projeto}
-              :w {:name :Window
-                  :c [:<c-w>c "Fechar janela"]
-                  :o [:<c-w>o "Fechar outras janelas"]}}
-             (vim.tbl_extend :force options {:mode :n :prefix :<leader>}))
+(wk.add [{1 :<leader>a :group :Aba :nowait true :remap false}
+         {1 :<leader>b :group :Buffer :nowait true :remap false}
+         {1 :<leader>c :group :Code :nowait true :remap false}
+         {1 :<leader>d :group :Debug :nowait true :remap false}
+         {1 :<leader>e :group :Editor :nowait true :remap false}
+         {1 :<leader>eh :group "Cliente HTTP" :nowait true :remap false}
+         {1 :<leader>g :group :Git :nowait true :remap false}
+         {1 :<leader>gb :group :Blame :nowait true :remap false}
+         {1 :<leader>gh :group :Hunks :nowait true :remap false}
+         {1 :<leader>gi :group "Issues (Github)" :nowait true :remap false}
+         {1 :<leader>gu
+          :group "Pull Requests (Github)"
+          :nowait true
+          :remap false}
+         {1 :<leader>h
+          2 :<cmd>split<CR>
+          :desc "Dividir horizontalmente"
+          :nowait true
+          :remap false}
+         {1 :<leader>i
+          :group "Inteligência Artificial"
+          :nowait true
+          :remap false}
+         {1 :<leader>l
+          2 #(functions.toggle-location-list)
+          :desc "Alternar locationlist"
+          :nowait true
+          :remap false}
+         {1 :<leader>en :group :Notas :nowait true :remap false}
+         {1 :<leader>p :group :Projeto :nowait true :remap false}
+         {1 :<leader>w :group :Window :proxy :<C-w> :nowait true :remap false}]
+        (vim.tbl_extend :force options {:mode :n :prefix :<leader>}))
 
 ; Toda a vez que pular para próxima palavra buscada o cursor fica no centro da tela
 
@@ -186,12 +213,21 @@
 (vim.keymap.set :v :K ":m '<-2<CR>gv=gv")
 (vim.keymap.set :v :J ":m '>+1<CR>gv=gv")
 
-(wk.register {:i [#(vim.lsp.buf.implementation) "Implementação"]
-              :r ["<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
-                  "Referências"]
-              :Y ["<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>"
-                  "Definição do tipo"]}
-             (vim.tbl_extend :force options {:mode :n :prefix :g}))
+(wk.add [{1 :gY
+          2 "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>"
+          :desc "Definição do tipo"
+          :nowait true
+          :remap false}
+         {1 :gi
+          2 #(vim.lsp.buf.implementation)
+          :desc "Implementação"
+          :nowait true
+          :remap false}
+         {1 :gr
+          2 "<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
+          :desc "Referências"
+          :nowait true
+          :remap false}])
 
 (vim.keymap.set [:n :o :x] :ge :G {:desc "Ir para última linha"})
 (vim.keymap.set [:n :o :x] :gh :0 {:desc "Ir para início da linha"})
@@ -220,3 +256,4 @@
 
 ; Múltiplos cursores
 (vim.keymap.set :x :<C-s> "\\\\/" {:remap true})
+
