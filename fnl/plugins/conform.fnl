@@ -1,5 +1,5 @@
 (local {: require-and} (require :functions))
-(local js-formatter [[:prettierd :prettier]])
+(local js-formatter [:prettierd :prettier])
 
 {1 :stevearc/conform.nvim
  :config (fn []
@@ -14,6 +14,7 @@
                                                       :typescript js-formatter
                                                       :typescriptreact js-formatter
                                                       :tsx js-formatter}
+                                   :default_format_opts {:stop_after_first true}
                                    :log_level vim.log.levels.INFO
                                    :format_on_save {:timeout_ms 10000
                                                     :lsp_fallback true}}))

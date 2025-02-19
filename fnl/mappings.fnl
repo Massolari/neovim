@@ -57,6 +57,9 @@
               ["%" :ggVG {:desc "Selecionar tudo"}]
               [:d "<cmd>bn|bd #<CR>" {:desc "Deletar buffer"}]
               [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
+              [:F
+               #(require-and :conform #($.format))
+               {:desc "Formatar código"}]
               [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
               [:q #(functions.toggle-quickfix) {:desc "Alternar quickfix"}]
               [:v :<cmd>vsplit<CR> {:desc "Dividir verticalmente"}]
@@ -106,7 +109,6 @@
                       "Problemas (diagnostics)"]
                   :e [#(vim.diagnostic.open_float 0 {:border :single})
                       "Mostrar erro da linha"]
-                  :f [#(require-and :conform #($.format)) "Formatar código"]
                   :i [#(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
                       "Ativar/desativar dicas de código"]
                   :r [#(vim.lsp.buf.rename) "Renomear Variável"]}
