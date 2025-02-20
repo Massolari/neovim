@@ -1,5 +1,4 @@
-{1 :MeanderingProgrammer/markdown.nvim
- :main :render-markdown
+{1 :MeanderingProgrammer/render-markdown.nvim
  :opts {}
  :dependencies [:nvim-treesitter/nvim-treesitter :nvim-tree/nvim-web-devicons]}
 
