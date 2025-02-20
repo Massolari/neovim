@@ -34,11 +34,11 @@
                              :keys [{:icon "  "
                                      :desc "Buscar arquivo"
                                      :key :f
-                                     :action ":Telescope find_files"}
+                                     :action ":FzfLua files"}
                                     {:icon "󰮗  "
                                      :desc "Procurar nos arquivos"
                                      :key :g
-                                     :action ":Telescope live_grep"}
+                                     :action ":FzfLua live_grep"}
                                     {:icon "  "
                                      :desc "Octo (Github)"
                                      :key :o
