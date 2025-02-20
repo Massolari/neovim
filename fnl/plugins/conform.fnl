@@ -1,5 +1,5 @@
 (local {: require-and} (require :functions))
-(local js-formatter [:prettierd :prettier])
+(local js-formatter [:biome :prettierd :prettier])
 
 {1 :stevearc/conform.nvim
  :config (fn []
