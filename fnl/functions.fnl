@@ -9,10 +9,10 @@
   (show-notification msg vim.log.levels.WARN title ?opts))
 
 (λ show-info [msg title ?opts]
-  (show-notification msg :info title ?opts))
+  (show-notification msg vim.log.levels.INFO title ?opts))
 
 (λ show-error [msg title ?opts]
-  (show-notification msg :error title ?opts))
+  (show-notification msg vim.log.levels.ERROR title ?opts))
 
 (set M.show-warning show-warning)
 (set M.show-info show-info)
@@ -56,43 +56,6 @@
           (if (not status)
               (show-error err :Busca)
               (vim.cmd.copen))))))
-
-; w3m
-
-; (λ w3m-open [url]
-;   (let [w3m (Terminal:new {:cmd (.. "w3m " url)
-;                            :on_open (fn []
-;                                       (vim.cmd (.. "vertical resize "
-;                                                    (/ (vim.opt.columns:get) 2))))
-;                            :direction :vertical
-;                            :id 1001})]
-;     (w3m:toggle)))
-
-; (λ M.w3m-open []
-;   (w3m-open :-v))
-;
-; (λ M.w3m-open-url []
-;   (with-input "Open URL: " #(w3m-open $1)))
-
-; (λ M.w3m-search []
-;   (with-input "Search on the web: "
-;               (fn [input]
-;                 (when (not= input "")
-;                   (w3m-open (.. "\"https://www.google.com/search?q="
-;                                 (string.gsub input " " "+") "\""))))))
-
-; Session
-
-; (let [sessions (Terminal:new {:cmd (.. "bash --rcfile <(echo 'cd "
-;                                        (vim.fn.stdpath :data) :/sessions
-;                                        "; echo \"************
-; * Sessions *
-; ************
-; \"; ls')")
-;                               :direction :float
-;                               :hidden true
-;                               :id 1002})]
-;   (set M.session-list #(sessions:toggle)))
 
 ; Get a color form a highlight group
 
