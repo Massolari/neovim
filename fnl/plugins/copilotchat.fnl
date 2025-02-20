@@ -1,8 +1,7 @@
 (local {: require-and} (require :functions))
 
 {1 :CopilotC-Nvim/CopilotChat.nvim
- :dependencies [:zbirenbaum/copilot.lua
-                {1 :nvim-lua/plenary.nvim :branch :master}]
+ :dependencies [:github/copilot.vim {1 :nvim-lua/plenary.nvim :branch :master}]
  :keys [{1 :<leader>ic
          2 #(require-and :CopilotChat #($.toggle))
          :mode [:n :x]
