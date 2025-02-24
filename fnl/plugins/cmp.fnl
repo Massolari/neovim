@@ -5,6 +5,7 @@
           :dependencies [:hrsh7th/cmp-nvim-lsp
                          :PaterJason/cmp-conjure
                          :hrsh7th/cmp-buffer
+                         :petertriho/cmp-git
                          :hrsh7th/cmp-path
                          :garymjr/nvim-snippets
                          :onsails/lspkind.nvim
@@ -20,6 +21,7 @@
                                         {:name :conjure}
                                         {:name :snippets}
                                         {:name :path}
+                                        {:name :git}
                                         {:name :buffer
                                          :option {:get_bufnrs #(vim.api.nvim_list_bufs)}}
                                         {:name :calc}
@@ -60,6 +62,7 @@
                                                                                #($.formatter entry
                                                                                              vim_item)))})}
               : sources})
+  (require-and :cmp_git #($.setup))
   ;; Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   (cmp.setup.cmdline "/" {:mapping (cmp.mapping.preset.cmdline)
                           :sources [{:name :buffer}]})
