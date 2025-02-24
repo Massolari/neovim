@@ -85,7 +85,7 @@
 (keymaps-set :n
              [[:a #(vim.lsp.buf.code_action) {:desc "Ações"}]
               [:d
-               #(require-and :trouble #($.toggle :workspace_diagnostics))
+               #(require-and :trouble #($.toggle :diagnostics))
                {:desc "Problemas (diagnostics)"}]
               [:e
                #(vim.diagnostic.open_float 0 {:border :single})
@@ -101,20 +101,12 @@
                   #(require-and :nvim-web-browser #($.open))
                   {:desc "Navegador (browser)"}]
                  [:c #(functions.start-ltex) {:desc :Corretor}]
-                 [:hf
-                  #(require-and :telescope.builtin
-                                #($.find_files {:cwd "~/.local/share/nvim/rest"}))
-                  {:desc :Abrir}]
                  [:hn
                   #(functions.with-input "Novo arquivo: "
                      (fn [name]
                        (when (not= name "")
                          (vim.cmd.e (.. "~/.local/share/nvim/rest/" name :.rest)))))
                   {:desc :Novo}]
-                 [:nf
-                  #(require-and :telescope.builtin
-                                #($.find_files {:cwd vim.g.obsidian_dir}))
-                  {:desc "Abrir arquivo"}]
                  [:nn
                   (fn []
                     (let [vaults (-> (.. "^ls '" vim.g.obsidian_dir "'")
@@ -213,21 +205,7 @@
 (vim.keymap.set :v :K ":m '<-2<CR>gv=gv")
 (vim.keymap.set :v :J ":m '>+1<CR>gv=gv")
 
-(wk.add [{1 :gY
-          2 "<cmd>lua require'telescope.builtin'.lsp_type_definitions()<CR>"
-          :desc "Definição do tipo"
-          :nowait true
-          :remap false}
-         {1 :gi
-          2 #(vim.lsp.buf.implementation)
-          :desc "Implementação"
-          :nowait true
-          :remap false}
-         {1 :gr
-          2 "<cmd>lua require'telescope.builtin'.lsp_references()<CR>"
-          :desc "Referências"
-          :nowait true
-          :remap false}])
+(vim.keymap.set :n :gi #(vim.lsp.buf.implementation) {:desc "Implementação"})
 
 (vim.keymap.set [:n :o :x] :ge :G {:desc "Ir para última linha"})
 (vim.keymap.set [:n :o :x] :gh :0 {:desc "Ir para início da linha"})
