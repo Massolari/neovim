@@ -10,6 +10,8 @@
 (set vim.opt_local.buflisted false)
 (vim.keymap.set :n :<CR> :<CR> {:buffer true})
 (vim.keymap.set :n :q ":q<CR>" {:buffer true})
+
+;; Remove o item atual da lista de quickfix
 (vim.keymap.set :n :d
                 (fn []
                   (let [line (vim.fn.line ".")
@@ -20,14 +22,17 @@
                     (restore-cursor-position line)))
                 {:buffer true :nowait true})
 
+;; Remove todos os itens da lista de quickfix que correspondem ao mesmo arquivo do item atual
 (vim.keymap.set :n :D
                 (fn []
                   (let [line (vim.fn.line ".")
-                        line-text (vim.fn.getline ".")
-                        file-name (vim.fn.substitute line-text "|\\d\\+|.*" ""
-                                                     "")
-                        pattern (.. "/\\V" (vim.fn.escape file-name "/\\") "/")]
-                    (vim.cmd (.. "Cfilter! " pattern))
+                        qf-list (vim.fn.getqflist)
+                        current-item (. qf-list line)
+                        current-bufnr (and current-item current-item.bufnr)
+                        filtered-list (icollect [_ item (ipairs qf-list)]
+                                        (when (not= item.bufnr current-bufnr)
+                                          item))]
+                    (vim.fn.setqflist filtered-list) ; (vim.cmd :copen)
                     (restore-cursor-position line)))
                 {:buffer true})
 
@@ -44,3 +49,4 @@
                 {:buffer true})
 
 (vim.keymap.set :n :<leader>f ":Cfilter " {:buffer true :desc "Filtrar items"})
+
