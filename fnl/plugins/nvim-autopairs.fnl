@@ -1,1 +1,5 @@
-{1 :windwp/nvim-autopairs :event :InsertEnter :config true}
+{1 :windwp/nvim-autopairs
+ :event :InsertEnter
+ :config true
+ :opts {:fast_wrap {}}}
+
