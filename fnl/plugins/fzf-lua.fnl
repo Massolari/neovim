@@ -10,38 +10,50 @@
                                                 :height 0.6
                                                 :preview {:layout :vertical}}}))
          :desc :Buffers}
-        {1 :<leader>el
-         2 #(require-and :fzf-lua
-                         #($.lines {:winopts {:split "belowright new"}}))
-         :desc "Pesquisar nas linhas do buffer"}
-        {1 :<leader>o
-         2 #(require-and :fzf-lua #($.lsp_document_symbols))
-         :desc "Buscar símbolos no arquivo"}
-        {1 :<leader>O
-         2 #(require-and :fzf-lua #($.treesitter))
-         :desc "Buscar símbolos no arquivo com treesitter"}
         {1 :<leader>cp
          2 #(require-and :fzf-lua #($.lsp_workspace_symbols))
          :desc "Buscar símbolos no projeto"}
         {1 :<leader>ee
          2 #(require-and :fzf-lua #($.builtin))
          :desc "Comandos do Fzf-lua"}
+        {1 :<leader>ehf
+         2 #(require-and :fzf-lua #($.files {:cwd "~/.local/share/nvim/rest"}))
+         :desc :Abrir}
+        {1 :<leader>el
+         2 #(require-and :fzf-lua
+                         #($.blines {:winopts {:split "belowright new"}}))
+         :desc "Pesquisar nas linhas do buffer"}
+        {1 :<leader>enf
+         2 #(require-and :fzf-lua #($.files {:cwd vim.g.obsidian_dir}))
+         :desc "Abrir arquivo"}
         {1 :<leader>er
          2 #(require-and :fzf-lua #($.oldfiles))
          :desc "Arquivos recentes"}
+        {1 :<leader>f
+         2 #(require-and :fzf-lua #($.files))
+         :desc "Buscar (find) arquivo"}
         {1 :<leader>gi
          2 #(require-and :fzf-lua #($.git_bcommits))
          :desc "Histórico de commits do arquivo atual"}
         {1 :<leader>gr
          2 #(require-and :fzf-lua #($.git_branches))
          :desc "Listar branches"}
+        {1 :<leader>o
+         2 #(require-and :fzf-lua #($.lsp_document_symbols))
+         :desc "Buscar símbolos no arquivo"}
+        {1 :<leader>O
+         2 #(require-and :fzf-lua #($.treesitter))
+         :desc "Buscar símbolos no arquivo com treesitter"}
         {1 :<leader>pe
-         2 #(require-and :fzf-lua #($.grep_word))
+         2 #(require-and :fzf-lua #($.grep_cword))
          :desc "Procurar texto sob cursor"}
-        {1 :<leader>f
-         2 #(require-and :fzf-lua #($.files))
-         :desc "Buscar (find) arquivo"}
         {1 :<leader>ps
          2 #(require-and :fzf-lua #($.live_grep))
-         :desc "Procurar (search) nos arquivos"}]}
+         :desc "Procurar (search) nos arquivos"}
+        {1 :gr
+         2 #(require-and :fzf-lua #($.lsp_references))
+         :desc "Referências"}
+        {1 :gY
+         2 #(require-and :fzf-lua #($.lsp_typedefs))
+         :desc "Definição do tipo"}]}
 
