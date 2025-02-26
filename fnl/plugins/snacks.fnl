@@ -35,6 +35,10 @@
                                      :desc "Buscar arquivo"
                                      :key :f
                                      :action ":FzfLua files"}
+                                    {:icon "  "
+                                     :desc "Arquivos recentes"
+                                     :key :r
+                                     :action ":FzfLua oldfiles"}
                                     {:icon "󰮗  "
                                      :desc "Procurar nos arquivos"
                                      :key :g
@@ -89,4 +93,3 @@
         {1 :<leader>T
          2 #(_G.Snacks.terminal.toggle nil {:win {:style :float}})
          :desc "Abrir terminal fluante"}]}
-
