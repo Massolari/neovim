@@ -115,16 +115,33 @@
     _ file-extension))
 
 (λ M.generate-code-image [{: line1 : line2}]
-  (let [language (-> (vim.fn.expand "%:e") (get-silicon-language))
-        code (-> (vim.api.nvim_buf_get_lines 0 (- line1 1) line2 false)
-                 (table.concat "\\n"))
-        cmd (string.format "printf '%s' | silicon -l %s --to-clipboard" code
-                           language)
-        result (vim.fn.system cmd)
-        notify-title :Silicon]
-    (if (= result "")
-        (show-info "Imagem de código gerada" notify-title)
-        (show-error result notify-title))))
+  (let [data-path (vim.fn.stdpath :data)
+        code-temp-file (.. data-path :/code-silicon.code)
+        img-temp-file (.. data-path :/image-silicon.png)
+        language (-> (vim.fn.expand "%:e") (get-silicon-language))
+        lines (vim.api.nvim_buf_get_lines 0 (- line1 1) line2 false)
+        notify-title :Silicon] ; Escrever o código em um arquivo temporário
+    (vim.fn.delete code-temp-file)
+    (vim.fn.delete img-temp-file)
+    (vim.fn.writefile lines code-temp-file) ; Gerar a imagem em um arquivo temporário
+    (let [silicon-cmd (string.format "silicon -l %s -o %s < %s" language
+                                     (vim.fn.shellescape img-temp-file)
+                                     (vim.fn.shellescape code-temp-file))
+          silicon-result (vim.fn.system silicon-cmd)
+          silicon-exit-code (vim.fn.system "echo $status")] ; Remover o arquivo de código temporário
+      (vim.fn.delete code-temp-file)
+      (if (and (= silicon-result "") (= silicon-exit-code "0\n"))
+          (do
+            ; Copiar a imagem para o clipboard usando osascript (AppleScript)
+            (let [osascript-cmd (string.format "osascript -e 'set the clipboard to (POSIX file \"%s\")'"
+                                               (vim.fn.shellescape img-temp-file))
+                  copy-result (vim.fn.system osascript-cmd)]
+              (if (= copy-result "")
+                  (show-info "Imagem de código copiada para o clipboard"
+                             notify-title)
+                  (show-error copy-result notify-title)))) ; Se algo deu errado com o silicon
+          (show-error silicon-result notify-title)) ; Remover o arquivo de imagem temporário
+      )))
 
 (λ M.get-lsp-config-options [server-name default-config]
   (match server-name
@@ -199,4 +216,3 @@
   (vim.api.nvim_replace_termcodes key true false true))
 
 M
-
