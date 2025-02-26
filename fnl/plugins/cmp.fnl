@@ -48,16 +48,18 @@
                         :<C-y> (cmp.mapping.confirm {:select true})}
               :window {:completion (cmp.config.window.bordered)
                        :documentation (cmp.config.window.bordered)}
-              :formatting {:format (lspkind.cmp_format {:mode :symbol_text
+              :formatting {:fields [:kind :abbr :menu]
+                           :format (lspkind.cmp_format {:mode :symbol_text
                                                         :maxwidth 50
                                                         :before (fn [entry
                                                                      vim_item]
+                                                                  (set vim_item.menu
+                                                                       vim_item.kind)
                                                                   (set vim_item.kind
                                                                        (.. (or (. lspkind.presets.codicons
                                                                                   vim_item.kind)
-                                                                               "")
-                                                                           " "
-                                                                           vim_item.kind))
+                                                                               vim_item.kind)
+                                                                           " "))
                                                                   (require-and :tailwindcss-colorizer-cmp
                                                                                #($.formatter entry
                                                                                              vim_item)))})}
@@ -73,4 +75,3 @@
                                                    [{:name :cmdline}])}))
 
 M
-
