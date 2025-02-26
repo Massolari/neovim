@@ -10,5 +10,3 @@
 
 ; Janela flutuante com a mesma cor de fundo do editor
 (vim.api.nvim_set_hl 0 :NormalFloat {:link :Normal})
-(vim.api.nvim_set_hl 0 :FloatBorder {:link :Normal})
-
