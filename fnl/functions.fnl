@@ -72,10 +72,6 @@
 
 (set M.dir-exists? #(> (vim.fn.isdirectory $1) 0))
 
-(set M.has-files-dirs? #(-> (vim.fs.find $ {:upward true})
-                            (table.getn)
-                            (> 0)))
-
 (math.randomseed (os.time))
 (λ M.get-random [max]
   (math.random max))
@@ -206,11 +202,6 @@
                                                            lspconfig.ltex.document_config.default_config)]
                       (lspconfig.ltex.setup (vim.tbl_extend :force config
                                                             {:settings {:ltex {: language}}})))))))
-
-(λ M.get_breadcrumbs []
-  (if (> (length (vim.lsp.buf_get_clients)) 0)
-      (M.require-and :nvim-navic #($.get_location))
-      " "))
 
 (λ M.get-key-insert [key]
   (vim.api.nvim_replace_termcodes key true false true))
