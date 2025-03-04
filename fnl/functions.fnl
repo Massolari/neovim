@@ -141,11 +141,22 @@
 
 (λ M.get-lsp-config-options [server-name default-config]
   (match server-name
-    :sumneko_lua
-    {:settings {:Lua {:runtime {:version :LuaJIT}
-                      :hint {:enable true}
-                      :diagnostics {:globals [:vim]}
-                      :workspace {:library (vim.api.nvim_list_runtime_paths)}}}}
+    :lua_ls
+    {:on_init (fn [client]
+                (when client.workspace_folders
+                  (let [path (. (. client.workspace_folders 1) :name)
+                        config-path (vim.fn.stdpath :config)]
+                    (when (and (not= path config-path)
+                               (or (vim.loop.fs_stat (.. path :/.luarc.json))
+                                   (vim.loop.fs_stat (.. path :/.luarc.jsonc))))
+                      (lua :return))
+                    (set client.config.settings.Lua
+                         (vim.tbl_deep_extend :force client.config.settings.Lua
+                                              {:runtime {:version :LuaJIT}
+                                               :hint {:enable true}
+                                               ; :diagnostics {:globals [:vim]}
+                                               :workspace {:library [vim.env.VIMRUNTIME]}})))))
+     :settings {:Lua {}}}
     :ltex
     {:root_dir vim.loop.cwd
      :filetypes [:octo (unpack default-config.filetypes)]
@@ -178,7 +189,7 @@
                                                           "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
      :init_options {:userLanguages {:elm :html :gleam :html}}
      :filetypes [:elm :gleam (unpack default-config.filetypes)]}
-    :tsserver
+    :ts_ls
     {:init_options {:preferences {:includeInlayParameterNameHints :all
                                   :includeInlayParameterNameHintsWhenArgumentMatchesName true
                                   :includeInlayFunctionParameterTypeHints true
