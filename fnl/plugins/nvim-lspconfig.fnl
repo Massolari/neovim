@@ -49,6 +49,7 @@
                                              #($.default_capabilities))]
            (vim.tbl_extend :force cmp_capabilities
                            (vim.lsp.protocol.make_client_capabilities))))
+  (set capabilities.textDocument.completion.completionItem.snippetSupport true)
   (set lspconfig.util.default_config
        (vim.tbl_extend :force lspconfig.util.default_config
                        {:on_attach M.on_attach : capabilities}))
