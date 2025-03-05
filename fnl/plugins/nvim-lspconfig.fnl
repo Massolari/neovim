@@ -1,20 +1,23 @@
 (local {: require-and : get-lsp-config-options} (require :functions))
 
+(local server-blacklist [:typst_lsp :ruff_lsp :bufls])
+
 (λ setup-server [name]
-  (let [lspconfig (require :lspconfig)
-        server (. lspconfig name)
-        default_config (or server.default_config
-                           server.document_config.default_config)
-        options (get-lsp-config-options name default_config)
-        cmd (match (type default_config.cmd)
-              :table (-> options.cmd
-                         (or default_config.cmd)
-                         (. 1)
-                         (or ""))
-              :string default_config.cmd
-              _ "")]
-    (when (= 1 (vim.fn.executable cmd))
-      (server.setup options))))
+  (when (not (vim.tbl_contains server-blacklist name))
+    (let [lspconfig (require :lspconfig)
+          server (. lspconfig name)
+          default_config (or server.default_config
+                             server.document_config.default_config)
+          options (get-lsp-config-options name default_config)
+          cmd (match (type default_config.cmd)
+                :table (-> options.cmd
+                           (or default_config.cmd)
+                           (. 1)
+                           (or ""))
+                :string default_config.cmd
+                _ "")]
+      (when (= 1 (vim.fn.executable cmd))
+        (server.setup options)))))
 
 (local M
        {1 :neovim/nvim-lspconfig
