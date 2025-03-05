@@ -109,3 +109,6 @@
 
 ; Rolar a página apenas uma linha mesmo o texto ocupando mais de uma linha
 (set vim.opt.smoothscroll true)
+
+; Salvar o histórico de 'undo'
+(set vim.opt.undofile true)
