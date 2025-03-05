@@ -65,8 +65,7 @@
 (set vim.opt.equalalways false)
 
 ; Diminuir tempo de atualização
-
-(set vim.opt.updatetime 300)
+(set vim.opt.updatetime 250)
 
 ; Não passar as mensagems para o |ins-completion-menu|
 
