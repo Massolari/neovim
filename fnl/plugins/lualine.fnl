@@ -48,6 +48,9 @@
           :sections {:lualine_a []
                      :lualine_b []
                      :lualine_c [(border {:right 1})
+                                 {1 #(vim.fn.mode)
+                                  :separator ""
+                                  :padding {:right 1}}
                                  {1 get-file-path
                                   :cond buffer-not-empty?
                                   :padding 0
@@ -68,11 +71,6 @@
                                             :warn diagnostic-icon.warning
                                             :info diagnostic-icon.info
                                             :hint diagnostic-icon.hint}
-                                  :separator ""}
-                                 {1 #(require-and :noice
-                                                  #($.api.status.mode.get))
-                                  :cond #(require-and :noice
-                                                      #($.api.status.mode.has))
                                   :separator ""}
                                  {1 (fn [] "%=") :separator ""}
                                  {1 (fn []
@@ -128,4 +126,3 @@
   (require-and :lualine #($.setup config)))
 
 M
-
