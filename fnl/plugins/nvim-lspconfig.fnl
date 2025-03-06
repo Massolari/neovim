@@ -59,6 +59,8 @@
   ;; Desativar virtual text porque estamos usando o plugin lsp_lines
   (vim.diagnostic.config {:virtual_text false})
   (mason.setup {})
+  (when (vim.fn.executable :elixir-ls)
+    (lspconfig.elixirls.setup {:cmd [:elixir-ls]}))
   (each [name type_ (vim.fs.dir (.. (vim.fn.stdpath :data)
                                     :/lazy/nvim-lspconfig/lua/lspconfig/configs))]
     (when (= type_ :file)
