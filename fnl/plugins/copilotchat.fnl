@@ -13,8 +13,7 @@
          2 :<cmd>CopilotChatCommitPtBr<CR>
          :desc "Escrever mensagem de commit"}]
  :opts {:debug true
-        :model :claude-3.5-sonnet
+        :model :claude-3.7-sonnet
         :prompts {:CommitPtBr {:prompt "> #git:staged
 
 Escreva uma mensagem de commit em português (Brasil) seguindo a convenção commitizen. Certifique-se que o título tem no máximo 50 caracteres e a mensagem está com quebra de linha em 72 caracteres. Envolva toda a mensagem em um bloco de código com a linguagem gitcommit."}}}}
-
