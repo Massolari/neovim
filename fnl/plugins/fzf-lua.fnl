@@ -24,7 +24,8 @@
                          #($.blines {:winopts {:split "belowright new"}}))
          :desc "Pesquisar nas linhas do buffer"}
         {1 :<leader>enf
-         2 #(require-and :fzf-lua #($.files {:cwd vim.g.obsidian_dir}))
+         2 #(require-and :fzf-lua
+                         #($.files {:cwd vim.g.obsidian_dir :hidden false}))
          :desc "Abrir arquivo"}
         {1 :<leader>er
          2 #(require-and :fzf-lua #($.oldfiles))
