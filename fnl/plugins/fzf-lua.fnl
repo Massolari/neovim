@@ -48,6 +48,7 @@
         {1 :<leader>pe
          2 #(require-and :fzf-lua #($.grep_cword))
          :desc "Procurar texto sob cursor"}
+        {1 :<leader>pz 2 #(require-and :fzf-lua #($.zoxide)) :desc :Zoxide}
         {1 :<leader>ps
          2 #(require-and :fzf-lua #($.live_grep))
          :desc "Procurar (search) nos arquivos"}
