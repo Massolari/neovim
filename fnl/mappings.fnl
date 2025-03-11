@@ -82,18 +82,15 @@
              {:prefix :<leader>a})
 
 ; Código
-(keymaps-set :n
-             [[:a #(vim.lsp.buf.code_action) {:desc "Ações"}]
-              [:d
-               #(require-and :trouble #($.toggle :diagnostics))
-               {:desc "Problemas (diagnostics)"}]
-              [:e
-               #(vim.diagnostic.open_float 0 {:border :single})
-               {:desc "Mostrar erro da linha"}]
-              [:i
-               #(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
-               {:desc "Ativar/desativar dicas de código"}]
-              [:r #(vim.lsp.buf.rename) {:desc "Renomear Variável"}]]
+(keymaps-set :n [[:d
+                  #(require-and :trouble #($.toggle :diagnostics))
+                  {:desc "Problemas (diagnostics)"}]
+                 [:e
+                  #(vim.diagnostic.open_float 0 {:border :single})
+                  {:desc "Mostrar erro da linha"}]
+                 [:i
+                  #(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
+                  {:desc "Ativar/desativar dicas de código"}]]
              {:prefix :<leader>c})
 
 ; Editor
@@ -205,8 +202,6 @@
 (vim.keymap.set :v :K ":m '<-2<CR>gv=gv")
 (vim.keymap.set :v :J ":m '>+1<CR>gv=gv")
 
-(vim.keymap.set :n :gi #(vim.lsp.buf.implementation) {:desc "Implementação"})
-
 (vim.keymap.set [:n :o :x] :ge :G {:desc "Ir para última linha"})
 (vim.keymap.set [:n :o :x] :gh :0 {:desc "Ir para início da linha"})
 (vim.keymap.set [:n :o :x] :gl "$" {:desc "Ir para fim da linha"})
@@ -235,3 +230,8 @@
 ; Múltiplos cursores
 (vim.keymap.set :x :<C-s> "\\\\/" {:remap true})
 
+;; LSP
+
+(vim.keymap.set :n :gra #(vim.lsp.buf.code_action) {:desc "Ações"})
+(vim.keymap.set :n :grn #(vim.lsp.buf.rename) {:desc "Renomear Variável"})
+(vim.keymap.set :n :grf #(vim.lsp.buf.format) {:desc "Formatar arquivo"})

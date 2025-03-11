@@ -39,10 +39,10 @@
         {1 :<leader>gr
          2 #(require-and :fzf-lua #($.git_branches))
          :desc "Listar branches"}
-        {1 :<leader>o
+        {1 :gO
          2 #(require-and :fzf-lua #($.lsp_document_symbols))
          :desc "Buscar símbolos no arquivo"}
-        {1 :<leader>O
+        {1 :<leader>o
          2 #(require-and :fzf-lua #($.treesitter))
          :desc "Buscar símbolos no arquivo com treesitter"}
         {1 :<leader>pe
@@ -52,10 +52,12 @@
         {1 :<leader>ps
          2 #(require-and :fzf-lua #($.live_grep))
          :desc "Procurar (search) nos arquivos"}
-        {1 :gr
+        {1 :gri
+         2 #(require-and :fzf-lua #($.lsp_implementations))
+         :desc "Implementações"}
+        {1 :grr
          2 #(require-and :fzf-lua #($.lsp_references))
          :desc "Referências"}
         {1 :gY
          2 #(require-and :fzf-lua #($.lsp_typedefs))
          :desc "Definição do tipo"}]}
-
