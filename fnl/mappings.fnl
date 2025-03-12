@@ -102,7 +102,8 @@
                   #(functions.with-input "Novo arquivo: "
                      (fn [name]
                        (when (not= name "")
-                         (vim.cmd.e (.. "~/.local/share/nvim/rest/" name :.rest)))))
+                         (vim.cmd.e (.. (vim.fn.stdpath :data) :/rest/ name
+                                        :.http)))))
                   {:desc :Novo}]
                  [:nn
                   (fn []

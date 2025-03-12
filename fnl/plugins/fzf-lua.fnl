@@ -17,7 +17,8 @@
          2 #(require-and :fzf-lua #($.builtin))
          :desc "Comandos do Fzf-lua"}
         {1 :<leader>ehf
-         2 #(require-and :fzf-lua #($.files {:cwd "~/.local/share/nvim/rest"}))
+         2 #(require-and :fzf-lua
+                         #($.files {:cwd (.. (vim.fn.stdpath :data) :/rest)}))
          :desc :Abrir}
         {1 :<leader>el
          2 #(require-and :fzf-lua
