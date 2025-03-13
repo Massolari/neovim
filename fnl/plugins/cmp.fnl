@@ -34,7 +34,7 @@
               :view {:entries {:follow_cursor true}}
               :mapping {:<C-b> (cmp.mapping.scroll_docs -4)
                         :<C-f> (cmp.mapping.scroll_docs 4)
-                        :<C-space> (cmp.mapping.complete)
+                        :<C-.> (cmp.mapping.complete)
                         :<C-e> (cmp.mapping {:i (cmp.mapping.abort)
                                              :c (cmp.mapping.close)})
                         :<C-p> (fn [fallback]
