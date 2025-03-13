@@ -1,23 +1,4 @@
-(local {: require-and : get-lsp-config-options} (require :functions))
-
-(local server-blacklist [:typst_lsp :ruff_lsp :bufls])
-
-(λ setup-server [name]
-  (when (not (vim.tbl_contains server-blacklist name))
-    (let [lspconfig (require :lspconfig)
-          server (. lspconfig name)
-          default_config (or server.default_config
-                             server.document_config.default_config)
-          options (get-lsp-config-options name default_config)
-          cmd (match (type default_config.cmd)
-                :table (-> options.cmd
-                           (or default_config.cmd)
-                           (. 1)
-                           (or ""))
-                :string default_config.cmd
-                _ "")]
-      (when (= 1 (vim.fn.executable cmd))
-        (server.setup options)))))
+(local {: require-and} (require :functions))
 
 (local M
        {1 :neovim/nvim-lspconfig
@@ -58,13 +39,6 @@
                        {:on_attach M.on_attach : capabilities}))
   ;; Desativar virtual text porque estamos usando o plugin lsp_lines
   (vim.diagnostic.config {:virtual_text false})
-  (mason.setup {})
-  (when (vim.fn.executable :elixir-ls)
-    (lspconfig.elixirls.setup {:cmd [:elixir-ls]}))
-  (each [name type_ (vim.fs.dir (.. (vim.fn.stdpath :data)
-                                    :/lazy/nvim-lspconfig/lua/lspconfig/configs))]
-    (when (= type_ :file)
-      (let [name-without-extension (string.sub name 0 -5)]
-        (setup-server name-without-extension)))))
+  (mason.setup {}))
 
 M

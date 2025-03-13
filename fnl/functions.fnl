@@ -139,78 +139,70 @@
           (show-error silicon-result notify-title)) ; Remover o arquivo de imagem temporário
       )))
 
-(λ M.get-lsp-config-options [server-name default-config]
-  (match server-name
-    :lua_ls
-    {:on_init (fn [client]
-                (when client.workspace_folders
-                  (let [path (. (. client.workspace_folders 1) :name)
-                        config-path (vim.fn.stdpath :config)]
-                    (when (and (not= path config-path)
-                               (or (vim.loop.fs_stat (.. path :/.luarc.json))
-                                   (vim.loop.fs_stat (.. path :/.luarc.jsonc))))
-                      (lua :return))
-                    (set client.config.settings.Lua
-                         (vim.tbl_deep_extend :force client.config.settings.Lua
-                                              {:runtime {:version :LuaJIT}
-                                               :hint {:enable true}
-                                               ; :diagnostics {:globals [:vim]}
-                                               :workspace {:library [vim.env.VIMRUNTIME]}})))))
-     :settings {:Lua {}}}
-    :ltex
-    {:root_dir vim.loop.cwd
-     :filetypes [:octo (unpack default-config.filetypes)]
-     :settings {:ltex {:enabled [:bibtex
-                                 :context
-                                 :context.tex
-                                 :gitcommit
-                                 :html
-                                 :latex
-                                 :markdown
-                                 :octo
-                                 :org
-                                 :restructuredtext
-                                 :rsweave]
-                       :java {:path (.. vim.env.HOME :/.nix-profile/bin/java)}}}}
-    :fennel_language_server
-    {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}
-                         :diagnostics {:globals [:vim]}}}}
-    :fennel_ls
-    {:settings {:fennel-ls {:extra-globals :vim}}}
-    :tailwindcss
-    {:settings {:tailwindCSS {:includeLanguages {:elm :html :gleam :html}
-                              :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
-                                                          "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
-                                                          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
-                                                          "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
-                                                          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
-                                                          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
-     :init_options {:userLanguages {:elm :html :gleam :html}}
-     :filetypes [:elm :gleam (unpack default-config.filetypes)]}
-    :ts_ls
-    {:init_options {:preferences {:includeInlayParameterNameHints :all
-                                  :includeInlayParameterNameHintsWhenArgumentMatchesName true
-                                  :includeInlayFunctionParameterTypeHints true
-                                  :includeInlayVariableTypeHints true
-                                  :includeInlayVariableTypeHintsWhenTypeMatchesName true
-                                  :includeInlayPropertyDeclarationTypeHints true
-                                  :includeInlayFunctionLikeReturnTypeHints true
-                                  :includeInlayEnumMemberValueHints true}}}
-    :yamlls
-    {:settings {:yaml {:keyOrdering false}}} ; :gleam {:cmd [(.. vim.env.HOME ;                   :/.vscode/extensions/maurobalbi.glas-vscode-0.2.3-darwin-arm64/glas)
-    ;               :--stdio]}
-    _
-    default-config))
+(set M.lsp-config-options
+     {:elixirls (fn [] {:cmd [:elixir-ls]})
+      :lua_ls (fn []
+                {:on_init (fn [client]
+                            (when client.workspace_folders
+                              (set client.config.settings.Lua
+                                   (vim.tbl_deep_extend :force
+                                                        client.config.settings.Lua
+                                                        {:runtime {:version :LuaJIT}
+                                                         :diagnostics {:unusedLocalIgnore ["_*"]}
+                                                         :hint {:enable true}
+                                                         :workspace {:library [vim.env.VIMRUNTIME]}}))))
+                 :settings {:Lua {}}})
+      :ltex (fn [default-config]
+              {:root_dir vim.loop.cwd
+               :filetypes [:octo (unpack default-config.filetypes)]
+               :settings {:ltex {:enabled [:bibtex
+                                           :context
+                                           :context.tex
+                                           :gitcommit
+                                           :html
+                                           :latex
+                                           :markdown
+                                           :octo
+                                           :org
+                                           :restructuredtext
+                                           :rsweave]
+                                 :java {:path (.. vim.env.HOME
+                                                  :/.nix-profile/bin/java)}}}})
+      :fennel_ls (fn []
+                   {:settings {:fennel-ls {:extra-globals :vim}}})
+      :tailwindcss (fn [default-config]
+                     {:settings {:tailwindCSS {:includeLanguages {:elm :html
+                                                                  :gleam :html}
+                                               :experimental {:classRegex ["\\bclass[\\s(<|]+\"([^\"]*)\""
+                                                                           "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\""
+                                                                           "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                           "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                           "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\""
+                                                                           "\\bclassList[\\s\\[\\(]+\"([^\"]*)\""
+                                                                           "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+                                                                           "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""]}}}
+                      :init_options {:userLanguages {:elm :html :gleam :html}}
+                      :filetypes [:elm
+                                  :gleam
+                                  (unpack default-config.filetypes)]})
+      :ts_ls (fn []
+               {:init_options {:preferences {:includeInlayParameterNameHints :all
+                                             :includeInlayParameterNameHintsWhenArgumentMatchesName true
+                                             :includeInlayFunctionParameterTypeHints true
+                                             :includeInlayVariableTypeHints true
+                                             :includeInlayVariableTypeHintsWhenTypeMatchesName true
+                                             :includeInlayPropertyDeclarationTypeHints true
+                                             :includeInlayFunctionLikeReturnTypeHints true
+                                             :includeInlayEnumMemberValueHints true}}})
+      :yamlls (fn []
+                {:settings {:yaml {:keyOrdering false}}})})
 
 (λ M.start-ltex []
   (vim.ui.input {:prompt "Language: " :default :pt-BR}
                 (fn [language]
                   (when (and (not= language "") (not= language nil))
                     (let [lspconfig (require :lspconfig)
-                          config (M.get-lsp-config-options :ltex
-                                                           lspconfig.ltex.document_config.default_config)]
+                          config (M.lsp-config-options.ltex lspconfig.ltex.document_config.default_config)]
                       (lspconfig.ltex.setup (vim.tbl_extend :force config
                                                             {:settings {:ltex {: language}}})))))))
 
