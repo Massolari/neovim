@@ -14,9 +14,7 @@
 (set vim.g.obsidian_dir
      (.. vim.env.HOME "/Library/Mobile Documents/iCloud~md~obsidian/Documents"))
 
-;; Node
 
-(set vim.g.node_path (.. (os.getenv :HOME) :/.nix-profile/bin/node))
 
 ;; Desabilitar netrw
 

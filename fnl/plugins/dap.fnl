@@ -9,8 +9,7 @@
                                   :build "npm install --legacy-peer-deps; npx gulp vsDebugServerBundle; mv dist out; git checkout package-lock.json"}]
                   :opts {:debugger_path (.. (vim.fn.stdpath :data)
                                             :/lazy/vscode-js-debug)
-                         :adapters [:pwa-chrome]
-                         :node_path vim.g.node_path}
+                         :adapters [:pwa-chrome]}
                   :config true}]
   :keys [{1 :<leader>db
           2 #(require-and :dap #($.toggle_breakpoint))
