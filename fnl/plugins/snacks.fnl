@@ -50,7 +50,7 @@
                                     {:icon "󰦨  "
                                      :desc "Feed do dev.to"
                                      :key :d
-                                     :action ":Forem feed"}
+                                     :action ":Devto feed"}
                                     {:icon "  "
                                      :desc "Novo arquivo"
                                      :key :n
