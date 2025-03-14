@@ -1,7 +1,6 @@
 (local {: require-and} (require :functions))
 
 {1 :ibhagwan/fzf-lua
- ;; optional for icon support
  :dependencies [:nvim-tree/nvim-web-devicons]
  :opts {:winopts {:backdrop 100} :files {:formatter [:path.filename_first 2]}}
  :keys [{1 :<leader>b
