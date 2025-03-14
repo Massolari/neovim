@@ -152,22 +152,20 @@
                                                          :hint {:enable true}
                                                          :workspace {:library [vim.env.VIMRUNTIME]}}))))
                  :settings {:Lua {}}})
-      :ltex (fn [default-config]
-              {:root_dir vim.loop.cwd
-               :filetypes [:octo (unpack default-config.filetypes)]
-               :settings {:ltex {:enabled [:bibtex
-                                           :context
-                                           :context.tex
-                                           :gitcommit
-                                           :html
-                                           :latex
-                                           :markdown
-                                           :octo
-                                           :org
-                                           :restructuredtext
-                                           :rsweave]
-                                 :java {:path (.. vim.env.HOME
-                                                  :/.nix-profile/bin/java)}}}})
+      :ltex_plus (fn [default-config]
+                   {:root_dir vim.loop.cwd
+                    :filetypes [:octo (_G.unpack default-config.filetypes)]
+                    :settings {:ltex {:enabled [:bibtex
+                                                :context
+                                                :context.tex
+                                                :gitcommit
+                                                :html
+                                                :latex
+                                                :markdown
+                                                :octo
+                                                :org
+                                                :restructuredtext
+                                                :rsweave]}}})
       :fennel_ls (fn []
                    {:settings {:fennel-ls {:extra-globals :vim}}})
       :tailwindcss (fn [default-config]
@@ -184,7 +182,7 @@
                       :init_options {:userLanguages {:elm :html :gleam :html}}
                       :filetypes [:elm
                                   :gleam
-                                  (unpack default-config.filetypes)]})
+                                  (_G.unpack default-config.filetypes)]})
       :ts_ls (fn []
                {:init_options {:preferences {:includeInlayParameterNameHints :all
                                              :includeInlayParameterNameHintsWhenArgumentMatchesName true
