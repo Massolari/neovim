@@ -40,7 +40,8 @@
 
 (fn M.config []
   (local config
-         {:options {:disabled_filetypes [:dashboard]
+         {:options {:disabled_filetypes {:statusline [:dashboard]
+                                         :winbar [:dashboard :kulala_ui]}
                     :component_separators "·"
                     :globalstatus (= (vim.opt.laststatus:get) 3)
                     :section_separators ""}
