@@ -1,1 +1,4 @@
-{1 :folke/trouble.nvim :dependencies :nvim-tree/nvim-web-devicons :config true}
+{1 :folke/trouble.nvim
+ :dependencies :nvim-tree/nvim-web-devicons
+ :lazy true
+ :config true}

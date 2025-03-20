@@ -3,6 +3,7 @@
 {1 :ibhagwan/fzf-lua
  :dependencies [:nvim-tree/nvim-web-devicons]
  :opts {:winopts {:backdrop 100} :files {:formatter [:path.filename_first 2]}}
+ :cmd :FzfLua
  :keys [{1 :<leader>b
          2 #(require-and :fzf-lua
                          #($.buffers {:winopts {:width 0.4

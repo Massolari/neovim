@@ -1,1 +1,1 @@
-{1 :mistweaverco/kulala.nvim :config true}
+{1 :mistweaverco/kulala.nvim :config true :ft :http}

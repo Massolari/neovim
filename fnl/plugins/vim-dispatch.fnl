@@ -17,7 +17,7 @@
                                                _ (set vim.b.dispatch "bun %")))}))
 
 {1 :tpope/vim-dispatch
- :lazy false
+ :cmd [:Make :Dispatch]
  :init (fn []
          (set vim.g.dispatch_no_maps 1))
  :config (fn []

@@ -1,4 +1,4 @@
 {1 :garymjr/nvim-snippets
- :dependencies :rafamadriz/friendly-snippets
+ :lazy true
+ :dependencies [:rafamadriz/friendly-snippets :hrsh7th/nvim-cmp]
  :opts {:friendly_snippets true}}
-

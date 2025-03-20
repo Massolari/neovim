@@ -1,6 +1,5 @@
 {1 :yetone/avante.nvim
- :event :VeryLazy
- :lazy false
+ :event :BufRead
  :version false
  ; Set this to "*" for latest release or false for latest code
  :opts {:provider :copilot :copilot {:model :claude-3.7-sonnet}}

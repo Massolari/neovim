@@ -1,2 +1,1 @@
-{1 :folke/ts-comments.nvim :events :VeryLazy :opts {}}
-
+{1 :folke/ts-comments.nvim :event :VeryLazy :opts {}}

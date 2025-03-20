@@ -2,6 +2,7 @@
 (local js-formatter [:biome :prettierd :prettier])
 
 {1 :stevearc/conform.nvim
+ :event :BufRead
  :opts {:formatters_by_ft {:lua [:stylua]
                            :elm [:elm_format]
                            :fennel [:fnlfmt]

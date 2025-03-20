@@ -1,6 +1,5 @@
 {1 :github/copilot.vim
- :event :InsertEnter
- :cmd :Copilot
+ :event :VeryLazy
  :init (fn []
          (set vim.g.copilot_filetypes {:gitcommit true})
          (vim.keymap.set :i :<m-n> "<Plug>(copilot-next)")
