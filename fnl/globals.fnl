@@ -5,8 +5,6 @@
 
 ;; Neovide
 
-(set vim.g.neovide_floating_blur 0)
-(set vim.g.neovide_window_floating_opacity 1)
 (set vim.g.neovide_cursor_vfx_mode :ripple)
 
 ;; Obsidian
