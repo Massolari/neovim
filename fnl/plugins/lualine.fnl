@@ -73,6 +73,10 @@
                                             :info diagnostic-icon.info
                                             :hint diagnostic-icon.hint}
                                   :separator ""}
+                                 {1 (fn []
+                                      (let [recording (vim.fn.reg_recording)]
+                                        (if (= recording "") ""
+                                            (.. "  " recording))))}
                                  {1 (fn [] "%=") :separator ""}
                                  {1 (fn []
                                       (let [clients (vim.lsp.buf_get_clients)
