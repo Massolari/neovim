@@ -10,15 +10,6 @@
                                                     :cterm_color :219
                                                     :name :Gleam}}}}]})
 
-(fn get-file-path []
-  (let [path (string.gsub (vim.fn.expand "%:h") "^./" "")
-        formatted-cwd (string.gsub (vim.fn.getcwd) "\\-" "\\-")
-        formatted-path (string.gsub path (.. formatted-cwd "/") "")]
-    (if (= formatted-path ".") "" (.. formatted-path "/"))))
-
-(fn buffer-not-empty? []
-  (not= 1 (vim.fn.empty (vim.fn.expand "%:t"))))
-
 (fn hide-in-width? []
   (> (vim.fn.winwidth 0) 80))
 
@@ -36,7 +27,8 @@
 (λ border [padding]
   {1 (fn [] "▊") :color {:fg colors.blue} : padding :separator ""})
 
-(local fileName {1 :filename :padding 0 :color {:fg colors.magenta :gui :bold}})
+(local filename {1 :filename :padding 0 :color {:fg colors.magenta :gui :bold}})
+(local filename-path (vim.tbl_extend :force filename {:path 1}))
 
 (fn M.config []
   (local config
@@ -49,19 +41,12 @@
           :sections {:lualine_a []
                      :lualine_b []
                      :lualine_c [(border {:right 1})
-                                 {1 #(vim.fn.mode)
-                                  :separator ""
-                                  :padding {:right 1}}
-                                 {1 get-file-path
-                                  :cond buffer-not-empty?
-                                  :padding 0
-                                  :color {:fg colors.magenta :gui :bold}
-                                  :separator ""}
+                                 {1 :mode :separator "" :padding {:right 1}}
                                  {1 :filetype
                                   :icon_only true
                                   :padding 0
                                   :separator ""}
-                                 fileName
+                                 filename-path
                                  {1 :location :padding {:left 1} :separator ""}
                                  {1 :progress
                                   :padding {:left 1 :right 1}
@@ -73,30 +58,23 @@
                                             :info diagnostic-icon.info
                                             :hint diagnostic-icon.hint}
                                   :separator ""}
-                                 {1 (fn []
-                                      (let [recording (vim.fn.reg_recording)]
-                                        (if (= recording "") ""
-                                            (.. "  " recording))))}
+                                 {1 #(vim.fn.reg_recording)
+                                  :cond #(not= "" (vim.fn.reg_recording))
+                                  :icon "󰑊"
+                                  :separator ""
+                                  :color {:fg colors.red :gui :bold}}
                                  {1 (fn [] "%=") :separator ""}
-                                 {1 (fn []
-                                      (let [clients (vim.lsp.buf_get_clients)
-                                            buffer (vim.api.nvim_get_current_buf)
-                                            result []]
-                                        (each [_ client (pairs clients)]
-                                          (when (->> buffer
-                                                     (. client.attached_buffers)
-                                                     (= true))
-                                            (table.insert result client.name)))
-                                        (if (> (length result) 0)
-                                            (.. "  LSP: "
-                                                (table.concat result " | "))
-                                            "No Active Lsp")))
-                                  :cond buffer-not-empty?}]
+                                 {1 :lsp_status :ignore_lsp ["GitHub Copilot"]}]
                      :lualine_x [{1 #(require-and :noice
                                                   #(-> ($.api.status.search.get)
                                                        (string.gsub "W " "⤴ ")))
                                   :cond #(require-and :noice
                                                       #($.api.status.search.has))
+                                  :separator ""}
+                                 {1 (fn []
+                                      (let [clients (vim.lsp.get_clients {:name "GitHub Copilot"})
+                                            has-copilot (> (length clients) 0)]
+                                        (if has-copilot " " "")))
                                   :separator ""}
                                  {1 :branch
                                   :icon " "
@@ -121,7 +99,7 @@
           :winbar {:lualine_a []
                    :lualine_b []
                    :lualine_c [(border {:right 1})
-                               fileName
+                               filename
                                {1 :navic :color {:gui :bold}}]}
           :inactive_winbar {:lualine_a []
                             :lualine_b []
