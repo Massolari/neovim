@@ -105,9 +105,12 @@
                          (vim.cmd.e (.. (vim.fn.stdpath :data) :/rest/ name
                                         :.http)))))
                   {:desc :Novo}]
+                 [:N
+                  #(vim.cmd.edit (.. vim.g.obsidian_dir :/Notas/Notas.md))
+                  {:desc "Abrir notas"}]
                  [:nn
                   (fn []
-                    (let [vaults (-> (.. "^ls '" vim.g.obsidian_dir "'")
+                    (let [vaults (-> (.. "ls '" vim.g.obsidian_dir "'")
                                      (vim.fn.system)
                                      (vim.fn.split "\n"))]
                       (vim.ui.select vaults {:prompt "Cofre para novo arquivo"}
@@ -118,13 +121,6 @@
                                              (vim.cmd.e (.. vim.g.obsidian_dir
                                                             "/" vault "/" name)))))))))
                   {:desc "Novo arquivo"}]
-                 ; [:ff "<cmd>lua require'forem-nvim'.feed()<CR>" {:desc :Feed}]
-                 ; [:fm
-                 ;  "<cmd>lua require'forem-nvim'.my_articles()<CR>"
-                 ;  {:desc "Meus artigos"}]
-                 ; [:fn
-                 ;  "<cmd>lua require'forem-nvim'.new_article()<CR>"
-                 ;  {:desc "Novo artigo"}]
                  [:q :<cmd>qa<CR> {:desc :Fechar}]
                  [:u :<cmd>Lazy<CR> {:desc :Plugins}]]
              {:prefix :<leader>e})
