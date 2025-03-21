@@ -7,8 +7,8 @@
                "Find Subword Under" :<C-t>
                "Add Cursor Down" :<C-g>
                "Add Cursor Up" :<M-g>
-               "Find Next" ")"
-               "Find Prev" "("
+               "Goto Next" "g)"
+               "Goto Prev" "g("
                "Visual Regex" :g/
                "Visual Cursors" :<c-g>
-               "Remove Region" "<M-,>"}))}
+               "Remove Region" "<c-,>"}))}
