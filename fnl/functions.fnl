@@ -144,14 +144,13 @@
 (set M.lsp-config-options
      {:elixirls #{:cmd [:elixir-ls]}
       :lua_ls #{:on_init (fn [client]
-                           (when client.workspace_folders
-                             (set client.config.settings.Lua
-                                  (vim.tbl_deep_extend :force
-                                                       client.config.settings.Lua
-                                                       {:runtime {:version :LuaJIT}
-                                                        :diagnostics {:unusedLocalIgnore ["_*"]}
-                                                        :hint {:enable true}
-                                                        :workspace {:library [vim.env.VIMRUNTIME]}}))))
+                           (set client.config.settings.Lua
+                                (vim.tbl_deep_extend :force
+                                                     client.config.settings.Lua
+                                                     {:runtime {:version :LuaJIT}
+                                                      :diagnostics {:unusedLocalIgnore ["_*"]}
+                                                      :hint {:enable true}
+                                                      :workspace {:library [vim.env.VIMRUNTIME]}})))
                 :settings {:Lua {}}}
       :ltex_plus (fn [default-config]
                    {:root_dir vim.loop.cwd
