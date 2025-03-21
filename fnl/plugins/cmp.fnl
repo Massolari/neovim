@@ -1,4 +1,4 @@
-(local {: require-and} (require :functions))
+(local functions (require :functions))
 
 (local M {1 :hrsh7th/nvim-cmp
           :event [:InsertEnter :CmdlineEnter]
@@ -60,11 +60,11 @@
                                                                                   vim_item.kind)
                                                                                vim_item.kind)
                                                                            " "))
-                                                                  (require-and :tailwindcss-colorizer-cmp
-                                                                               #($.formatter entry
-                                                                                             vim_item)))})}
+                                                                  (functions.require-and :tailwindcss-colorizer-cmp
+                                                                                         #($.formatter entry
+                                                                                                       vim_item)))})}
               : sources})
-  (require-and :cmp_git #($.setup))
+  (functions.require-and :cmp_git #($.setup))
   ;; Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   (cmp.setup.cmdline "/" {:mapping (cmp.mapping.preset.cmdline)
                           :sources [{:name :buffer}]})

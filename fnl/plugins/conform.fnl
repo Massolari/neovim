@@ -1,4 +1,4 @@
-(local {: require-and} (require :functions))
+(local functions (require :functions))
 (local js-formatter [:biome :prettierd :prettier])
 
 {1 :stevearc/conform.nvim
@@ -17,5 +17,5 @@
         :log_level vim.log.levels.INFO
         :format_on_save {:timeout_ms 10000 :lsp_fallback true}}
  :config (fn [_ opts]
-           (require-and :conform #($.setup opts))
+           (functions.require-and :conform #($.setup opts))
            (set vim.o.formatexpr "v:lua.require'conform'.formatexpr()"))}

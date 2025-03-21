@@ -1,4 +1,4 @@
-(local {: require-and} (require :functions))
+(local functions (require :functions))
 
 (local M
        {1 :neovim/nvim-lspconfig
@@ -6,7 +6,8 @@
         :dependencies [:mason.nvim :SmiteshP/nvim-navic]
         :init (fn []
                 (set vim.lsp.set_log_level :trace)
-                (require-and :vim.lsp.log #($.set_format_func vim.inspect)))})
+                (functions.require-and :vim.lsp.log
+                                       #($.set_format_func vim.inspect)))})
 
 (fn M.on_attach [client bufnr]
   (local capabilities client.server_capabilities)
@@ -29,8 +30,8 @@
   (local mason (require :mason))
   (local lspconfig (require :lspconfig))
   (local capabilities
-         (let [cmp_capabilities (require-and :cmp_nvim_lsp
-                                             #($.default_capabilities))]
+         (let [cmp_capabilities (functions.require-and :cmp_nvim_lsp
+                                                       #($.default_capabilities))]
            (vim.tbl_extend :force cmp_capabilities
                            (vim.lsp.protocol.make_client_capabilities))))
   (set capabilities.textDocument.completion.completionItem.snippetSupport true)

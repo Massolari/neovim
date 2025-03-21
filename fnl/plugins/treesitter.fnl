@@ -1,4 +1,4 @@
-(local {: require-and} (require :functions))
+(local functions (require :functions))
 
 (local M {1 :nvim-treesitter/nvim-treesitter
           :event :BufReadPost
@@ -37,11 +37,10 @@
                                                                  :desc "Previous function end"}
                                                            "[A" {:query "@parameter.inner"
                                                                  :desc "Previous argument end"}}}}})
-  (require-and :vim.treesitter.query
-               #(let [query (: (io.open (.. (vim.fn.stdpath :config)
-                                            :/fnl/data/queries/gleam.scm))
-                               :read :*a)]
-                  ($.set :gleam :locals query))))
+  (functions.require-and :vim.treesitter.query
+                         #(let [query (: (io.open (.. (vim.fn.stdpath :config)
+                                                      :/fnl/data/queries/gleam.scm))
+                                         :read :*a)]
+                            ($.set :gleam :locals query))))
 
 M
-

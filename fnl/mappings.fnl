@@ -2,21 +2,22 @@
 
 (local options {:buffer nil :silent true :noremap true :nowait true})
 (local functions (require :functions))
-(local {: require-and : keymaps-set : get-key-insert} functions)
 
 ; Insert
 
-(keymaps-set :i
-             [[:<c-j>
-               (fn []
-                 (if (vim.snippet.active {:direction 1})
-                     (vim.snippet.jump 1)
-                     (vim.api.nvim_feedkeys (get-key-insert :<Down>) :n [])))]
-              [:<c-k>
-               (fn []
-                 (if (vim.snippet.active {:direction -1})
-                     (vim.snippet.jump -1)
-                     (vim.api.nvim_feedkeys (get-key-insert :<Up>) :n [])))]])
+(functions.keymaps-set :i
+                       [[:<c-j>
+                         (fn []
+                           (if (vim.snippet.active {:direction 1})
+                               (vim.snippet.jump 1)
+                               (vim.api.nvim_feedkeys (functions.get-key-insert :<Down>)
+                                                      :n [])))]
+                        [:<c-k>
+                         (fn []
+                           (if (vim.snippet.active {:direction -1})
+                               (vim.snippet.jump -1)
+                               (vim.api.nvim_feedkeys (functions.get-key-insert :<Up>)
+                                                      :n [])))]])
 
 ; Normal
 
@@ -51,79 +52,93 @@
                 {:desc "Erro de código anterior"})
 
 ; Normal com leader
-(keymaps-set :n
-             [["."
-               #(vim.lsp.buf.code_action {:context {:only [:quickfix]}
-                                          :apply true})
-               {:desc :Corrigir}]
-              ["=" "mpgg=G`p" {:desc "Indentar arquivo"}]
-              ["," "mpA,<Esc>`p" {:desc "\",\" no fim da linha"}]
-              [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
-              [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
-              ["%" :ggVG {:desc "Selecionar tudo"}]
-              [:D :<cmd>bd<CR> {:desc "Deletar buffer e fechar janela"}]
-              [:F
-               #(require-and :conform #($.format))
-               {:desc "Formatar código"}]
-              [:n :<cmd>noh<cr> {:desc "Limpar seleção da pesquisa"}]
-              [:q #(functions.toggle-quickfix) {:desc "Alternar quickfix"}]
-              [:v :<cmd>vsplit<CR> {:desc "Dividir verticalmente"}]
-              [:s :<cmd>w<CR> {:desc "Salvar buffer"}]
-              ["/" #(functions.grep) {:desc "Buscar com ripgrep"}]]
-             {:prefix :<leader>})
+(functions.keymaps-set :n
+                       [["."
+                         #(vim.lsp.buf.code_action {:context {:only [:quickfix]}
+                                                    :apply true})
+                         {:desc :Corrigir}]
+                        ["=" "mpgg=G`p" {:desc "Indentar arquivo"}]
+                        ["," "mpA,<Esc>`p" {:desc "\",\" no fim da linha"}]
+                        [";" "mpA;<Esc>`p" {:desc "\";\" no fim da linha"}]
+                        [:<Tab> "\030" {:desc "Alterar para arquivo anterior"}]
+                        ["%" :ggVG {:desc "Selecionar tudo"}]
+                        [:D
+                         :<cmd>bd<CR>
+                         {:desc "Deletar buffer e fechar janela"}]
+                        [:F
+                         #(functions.require-and :conform #($.format))
+                         {:desc "Formatar código"}]
+                        [:n
+                         :<cmd>noh<cr>
+                         {:desc "Limpar seleção da pesquisa"}]
+                        [:q
+                         #(functions.toggle-quickfix)
+                         {:desc "Alternar quickfix"}]
+                        [:v :<cmd>vsplit<CR> {:desc "Dividir verticalmente"}]
+                        [:s :<cmd>w<CR> {:desc "Salvar buffer"}]
+                        ["/" #(functions.grep) {:desc "Buscar com ripgrep"}]]
+                       {:prefix :<leader>})
 
 ; Aba
-(keymaps-set :n [[:a :<cmd>tabnew<CR> {:desc "Abrir uma nova"}]
-                 [:c :<cmd>tabclose<CR> {:desc "Fechar (close)"}]
-                 [:n :<cmd>tabnext<CR> {:desc "Ir para a próxima (next)"}]
-                 [:p
-                  :<cmd>tabprevious<CR>
-                  {:desc "Ir para a anterior (previous)"}]]
-             {:prefix :<leader>a})
+(functions.keymaps-set :n
+                       [[:a :<cmd>tabnew<CR> {:desc "Abrir uma nova"}]
+                        [:c :<cmd>tabclose<CR> {:desc "Fechar (close)"}]
+                        [:n
+                         :<cmd>tabnext<CR>
+                         {:desc "Ir para a próxima (next)"}]
+                        [:p
+                         :<cmd>tabprevious<CR>
+                         {:desc "Ir para a anterior (previous)"}]]
+                       {:prefix :<leader>a})
 
 ; Código
-(keymaps-set :n [[:d
-                  #(require-and :trouble #($.toggle :diagnostics))
-                  {:desc "Problemas (diagnostics)"}]
-                 [:e
-                  #(vim.diagnostic.open_float 0 {:border :single})
-                  {:desc "Mostrar erro da linha"}]
-                 [:i
-                  #(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
-                  {:desc "Ativar/desativar dicas de código"}]]
-             {:prefix :<leader>c})
+(functions.keymaps-set :n
+                       [[:d
+                         #(functions.require-and :trouble
+                                                 #($.toggle :diagnostics))
+                         {:desc "Problemas (diagnostics)"}]
+                        [:e
+                         #(vim.diagnostic.open_float 0 {:border :single})
+                         {:desc "Mostrar erro da linha"}]
+                        [:i
+                         #(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
+                         {:desc "Ativar/desativar dicas de código"}]]
+                       {:prefix :<leader>c})
 
 ; Editor
-(keymaps-set :n [[:b
-                  #(require-and :nvim-web-browser #($.open))
-                  {:desc "Navegador (browser)"}]
-                 [:c #(functions.start-ltex) {:desc :Corretor}]
-                 [:hn
-                  #(functions.with-input "Novo arquivo: "
-                     (fn [name]
-                       (when (not= name "")
-                         (vim.cmd.e (.. (vim.fn.stdpath :data) :/rest/ name
-                                        :.http)))))
-                  {:desc :Novo}]
-                 [:N
-                  #(vim.cmd.edit (.. vim.g.obsidian_dir :/Notas/Notas.md))
-                  {:desc "Abrir notas"}]
-                 [:nn
-                  (fn []
-                    (let [vaults (-> (.. "ls '" vim.g.obsidian_dir "'")
-                                     (vim.fn.system)
-                                     (vim.fn.split "\n"))]
-                      (vim.ui.select vaults {:prompt "Cofre para novo arquivo"}
-                                     (fn [vault]
-                                       (functions.with-input "Novo arquivo: "
-                                         (fn [name]
-                                           (when (not= name "")
-                                             (vim.cmd.e (.. vim.g.obsidian_dir
-                                                            "/" vault "/" name)))))))))
-                  {:desc "Novo arquivo"}]
-                 [:q :<cmd>qa<CR> {:desc :Fechar}]
-                 [:u :<cmd>Lazy<CR> {:desc :Plugins}]]
-             {:prefix :<leader>e})
+(functions.keymaps-set :n
+                       [[:b
+                         #(functions.require-and :nvim-web-browser #($.open))
+                         {:desc "Navegador (browser)"}]
+                        [:c #(functions.start-ltex) {:desc :Corretor}]
+                        [:hn
+                         #(functions.with-input "Novo arquivo: "
+                            (fn [name]
+                              (when (not= name "")
+                                (vim.cmd.e (.. (vim.fn.stdpath :data) :/rest/
+                                               name :.http)))))
+                         {:desc :Novo}]
+                        [:N
+                         #(vim.cmd.edit (.. vim.g.obsidian_dir :/Notas/Notas.md))
+                         {:desc "Abrir notas"}]
+                        [:nn
+                         (fn []
+                           (let [vaults (-> (.. "ls '" vim.g.obsidian_dir "'")
+                                            (vim.fn.system)
+                                            (vim.fn.split "\n"))]
+                             (vim.ui.select vaults
+                                            {:prompt "Cofre para novo arquivo"}
+                                            (fn [vault]
+                                              (functions.with-input "Novo arquivo: "
+                                                (fn [name]
+                                                  (when (not= name "")
+                                                    (vim.cmd.e (.. vim.g.obsidian_dir
+                                                                   "/" vault "/"
+                                                                   name)))))))))
+                         {:desc "Novo arquivo"}]
+                        [:q :<cmd>qa<CR> {:desc :Fechar}]
+                        [:u :<cmd>Lazy<CR> {:desc :Plugins}]]
+                       {:prefix :<leader>e})
 
 (wk.add [{1 :<leader>a :group :Aba :nowait true :remap false}
          {1 :<leader>b :group :Buffer :nowait true :remap false}

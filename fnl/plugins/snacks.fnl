@@ -1,4 +1,4 @@
-(local {: get-random : get-random-item} (require :functions))
+(local functions (require :functions))
 (local quotes (require :data.quotes))
 
 (fn add-border [lines]
@@ -24,7 +24,7 @@
  :opts {:bigfile {:enabled true}
         :dashboard {:enabled true
                     :row 10
-                    :preset {:header (let [header-number (get-random 40)]
+                    :preset {:header (let [header-number (functions.get-random 40)]
                                        (-> (.. "cat " (vim.fn.stdpath :config)
                                                :/fnl/data/ascii/ header-number
                                                :.cat)
@@ -63,7 +63,7 @@
                                {:section :keys :gap 1 :padding 1}
                                {:text (do
                                         (math.randomseed (os.time))
-                                        (get-random-item quotes))
+                                        (functions.get-random-item quotes))
                                 :align :center
                                 :padding [0 2]}]}
         :explorer {:enabled true}

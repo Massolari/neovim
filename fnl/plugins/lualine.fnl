@@ -1,5 +1,5 @@
-(local {: diagnostic-icon} (require :constants))
-(local {: require-and} (require :functions))
+(local constants (require :constants))
+(local functions (require :functions))
 
 (local M {1 :nvim-lualine/lualine.nvim
           :cond (not vim.g.started_by_firenvim)
@@ -53,10 +53,10 @@
                                   :color {:gui :bold}
                                   :separator ""}
                                  {1 :diagnostics
-                                  :symbols {:error diagnostic-icon.error
-                                            :warn diagnostic-icon.warning
-                                            :info diagnostic-icon.info
-                                            :hint diagnostic-icon.hint}
+                                  :symbols {:error constants.diagnostic-icon.error
+                                            :warn constants.diagnostic-icon.warning
+                                            :info constants.diagnostic-icon.info
+                                            :hint constants.diagnostic-icon.hint}
                                   :separator ""}
                                  {1 #(vim.fn.reg_recording)
                                   :cond #(not= "" (vim.fn.reg_recording))
@@ -65,11 +65,12 @@
                                   :color {:fg colors.red :gui :bold}}
                                  {1 (fn [] "%=") :separator ""}
                                  {1 :lsp_status :ignore_lsp ["GitHub Copilot"]}]
-                     :lualine_x [{1 #(require-and :noice
-                                                  #(-> ($.api.status.search.get)
-                                                       (string.gsub "W " "⤴ ")))
-                                  :cond #(require-and :noice
-                                                      #($.api.status.search.has))
+                     :lualine_x [{1 #(functions.require-and :noice
+                                                            #(-> ($.api.status.search.get)
+                                                                 (string.gsub "W "
+                                                                              "⤴ ")))
+                                  :cond #(functions.require-and :noice
+                                                                #($.api.status.search.has))
                                   :separator ""}
                                  {1 (fn []
                                       (let [clients (vim.lsp.get_clients {:name "GitHub Copilot"})
@@ -106,6 +107,6 @@
                             :lualine_c [(border {:right 1})
                                         {1 :filename :padding 0}
                                         {1 :navic :color {:gui :bold}}]}})
-  (require-and :lualine #($.setup config)))
+  (functions.require-and :lualine #($.setup config)))
 
 M

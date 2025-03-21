@@ -1,6 +1,6 @@
-(local {: dir-exists? : lsp-config-options} (require :functions))
+(local functions (require :functions))
 
 {1 :Massolari/lsp-auto-setup.nvim
  :event :BufRead
  :dependencies [:neovim/nvim-lspconfig]
- :opts {:server_config lsp-config-options}}
+ :opts {:server_config functions.lsp-config-options}}
