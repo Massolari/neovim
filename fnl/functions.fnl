@@ -1,6 +1,8 @@
 (local M {})
 
 (λ show-notification [msg level title ?opts]
+  "Show a notification"
+  {:fnl/arglist [msg level title ?opts]}
   (let [options (or ?opts {})]
     (set options.title title)
     (vim.notify msg level options)))
@@ -140,18 +142,17 @@
       )))
 
 (set M.lsp-config-options
-     {:elixirls (fn [] {:cmd [:elixir-ls]})
-      :lua_ls (fn []
-                {:on_init (fn [client]
-                            (when client.workspace_folders
-                              (set client.config.settings.Lua
-                                   (vim.tbl_deep_extend :force
-                                                        client.config.settings.Lua
-                                                        {:runtime {:version :LuaJIT}
-                                                         :diagnostics {:unusedLocalIgnore ["_*"]}
-                                                         :hint {:enable true}
-                                                         :workspace {:library [vim.env.VIMRUNTIME]}}))))
-                 :settings {:Lua {}}})
+     {:elixirls #{:cmd [:elixir-ls]}
+      :lua_ls #{:on_init (fn [client]
+                           (when client.workspace_folders
+                             (set client.config.settings.Lua
+                                  (vim.tbl_deep_extend :force
+                                                       client.config.settings.Lua
+                                                       {:runtime {:version :LuaJIT}
+                                                        :diagnostics {:unusedLocalIgnore ["_*"]}
+                                                        :hint {:enable true}
+                                                        :workspace {:library [vim.env.VIMRUNTIME]}}))))
+                :settings {:Lua {}}}
       :ltex_plus (fn [default-config]
                    {:root_dir vim.loop.cwd
                     :filetypes [:octo (_G.unpack default-config.filetypes)]
@@ -166,8 +167,7 @@
                                                 :org
                                                 :restructuredtext
                                                 :rsweave]}}})
-      :fennel_ls (fn []
-                   {:settings {:fennel-ls {:extra-globals :vim}}})
+      :fennel_ls #{:settings {:fennel-ls {:extra-globals :vim}}}
       :tailwindcss (fn [default-config]
                      {:settings {:tailwindCSS {:includeLanguages {:elm :html
                                                                   :gleam :html}
@@ -183,17 +183,15 @@
                       :filetypes [:elm
                                   :gleam
                                   (_G.unpack default-config.filetypes)]})
-      :ts_ls (fn []
-               {:init_options {:preferences {:includeInlayParameterNameHints :all
-                                             :includeInlayParameterNameHintsWhenArgumentMatchesName true
-                                             :includeInlayFunctionParameterTypeHints true
-                                             :includeInlayVariableTypeHints true
-                                             :includeInlayVariableTypeHintsWhenTypeMatchesName true
-                                             :includeInlayPropertyDeclarationTypeHints true
-                                             :includeInlayFunctionLikeReturnTypeHints true
-                                             :includeInlayEnumMemberValueHints true}}})
-      :yamlls (fn []
-                {:settings {:yaml {:keyOrdering false}}})})
+      :ts_ls #{:init_options {:preferences {:includeInlayParameterNameHints :all
+                                            :includeInlayParameterNameHintsWhenArgumentMatchesName true
+                                            :includeInlayFunctionParameterTypeHints true
+                                            :includeInlayVariableTypeHints true
+                                            :includeInlayVariableTypeHintsWhenTypeMatchesName true
+                                            :includeInlayPropertyDeclarationTypeHints true
+                                            :includeInlayFunctionLikeReturnTypeHints true
+                                            :includeInlayEnumMemberValueHints true}}}
+      :yamlls #{:settings {:yaml {:keyOrdering false}}}})
 
 (λ M.start-ltex []
   (vim.ui.input {:prompt "Language: " :default :pt-BR}
