@@ -75,7 +75,7 @@
                                  {1 (fn []
                                       (let [clients (vim.lsp.get_clients {:name "GitHub Copilot"})
                                             has-copilot (> (length clients) 0)]
-                                        (if has-copilot " " "")))
+                                        (if has-copilot " " " ")))
                                   :separator ""}
                                  {1 :branch
                                   :icon " "
