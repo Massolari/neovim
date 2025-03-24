@@ -1,6 +1,6 @@
 (local M {})
 
-(set M.diagnostic-icon {:error " "
+(set M.diagnostic-icon {:error " "
                         :warning " "
                         :info " "
                         :hint " "})

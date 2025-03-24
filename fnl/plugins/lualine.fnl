@@ -53,9 +53,12 @@
                                   :color {:gui :bold}
                                   :separator ""}
                                  {1 :diagnostics
-                                  :symbols {:error constants.diagnostic-icon.error
-                                            :warn constants.diagnostic-icon.warning
-                                            :info constants.diagnostic-icon.info
+                                  :symbols {:error (.. constants.diagnostic-icon.error
+                                                       " ")
+                                            :warn (.. constants.diagnostic-icon.warning
+                                                      " ")
+                                            :info (.. constants.diagnostic-icon.info
+                                                      " ")
                                             :hint constants.diagnostic-icon.hint}
                                   :separator ""}
                                  {1 #(vim.fn.reg_recording)
