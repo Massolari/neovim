@@ -1,8 +1,0 @@
-{
-  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-  "Lua.hint.enable": true,
-  "Lua.diagnostics.globals": ["vim"],
-  "runtime.version": "LuaJIT",
-  "workspace.library": ["${3rd}/luassert/library"],
-    "workspace.maxPreload": 10000
-}
