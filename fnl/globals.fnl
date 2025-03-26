@@ -20,3 +20,7 @@
 
 (set vim.g.loaded_netrw 1)
 (set vim.g.loaded_netrwPlugin 1)
+
+;; Bordas
+
+(set vim.o.winborder :rounded)
