@@ -1,3 +1,5 @@
+(local functions (require :functions))
+
 (fn recover-position []
   (let [mark (vim.api.nvim_buf_get_mark 0 "\"")
         row (. mark 1)]
@@ -12,8 +14,7 @@
                                 : group})
   (vim.api.nvim_create_autocmd [:TextYankPost]
                                {:pattern "*"
-                                :callback #(vim.highlight.on_yank {:higroup :Search
-                                                                   :timeout 200})
+                                :callback #(vim.hl.on_yank)
                                 : group})
   (vim.api.nvim_create_autocmd [:BufReadPost]
                                {:pattern "*"
@@ -44,4 +45,3 @@
                               :callback (fn [event]
                                           (_G.Snacks.rename.on_rename_file event.data.from
                                                                            event.data.to))})
-
