@@ -111,3 +111,9 @@
 
 ; Salvar o histórico de 'undo'
 (set vim.opt.undofile true)
+
+; Diagnostics
+
+(vim.diagnostic.config {:float {:show_header true}
+                        :jump {:float true}
+                        :virtual_lines true})
