@@ -26,29 +26,15 @@
 (vim.keymap.set :n :U :<c-r> {:desc :Refazer})
 
 ;; Próximo diagnostic
-(vim.keymap.set :n "]d"
-                #(vim.diagnostic.goto_next {:float {:show_header true
-                                                    :border :single}})
-                {:desc "Próximo problema (diagnostic)"})
 
 ;; Próximo erro
-(vim.keymap.set :n "]e"
-                #(vim.diagnostic.goto_next {:float {:show_header true
-                                                    :border :single}
-                                            :severity :Error})
+(vim.keymap.set :n "]e" #(vim.diagnostic.goto_next {:severity :Error})
                 {:desc "Próximo erro de código"})
 
 ;; Diagnostic anterior
-(vim.keymap.set :n "[d"
-                #(vim.diagnostic.goto_prev {:float {:show_header true
-                                                    :border :single}})
-                {:desc "Problema anterior (diagnostic)"})
 
 ;; Erro anterior
-(vim.keymap.set :n "[e"
-                #(vim.diagnostic.goto_prev {:float {:show_header true
-                                                    :border :single}
-                                            :severity :Error})
+(vim.keymap.set :n "[e" #(vim.diagnostic.goto_prev {:severity :Error})
                 {:desc "Erro de código anterior"})
 
 ; Normal com leader
@@ -98,7 +84,7 @@
                                                  #($.toggle :diagnostics))
                          {:desc "Problemas (diagnostics)"}]
                         [:e
-                         #(vim.diagnostic.open_float 0 {:border :single})
+                         #(vim.diagnostic.open_float)
                          {:desc "Mostrar erro da linha"}]
                         [:i
                          #(vim.lsp.inlay_hint.enable (not (vim.lsp.inlay_hint.is_enabled)))
@@ -244,6 +230,8 @@
 
 ;; LSP
 
-(vim.keymap.set :n :gra #(vim.lsp.buf.code_action) {:desc "Ações"})
-(vim.keymap.set :n :grn #(vim.lsp.buf.rename) {:desc "Renomear Variável"})
 (vim.keymap.set :n :grf #(vim.lsp.buf.format) {:desc "Formatar arquivo"})
+(vim.keymap.set :n :<leader>k #(vim.lsp.buf.hover)
+                {:desc "Mostrar documentação"})
+
+(vim.keymap.set :n :<leader>j :J {:desc "Juntar linhas"})
