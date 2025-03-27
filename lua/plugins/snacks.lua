@@ -26,7 +26,7 @@ local function add_border(lines)
   return lines_bordered
 end
 
-local header_number = functions.get_random(40)
+local header_number = functions.get_random(39)
 
 -- Alimenta a semente do gerador de números aleatórios para sortear uma citação aleatória
 math.randomseed(os.time())
