@@ -42,6 +42,8 @@ return {
     local configs = require("nvim-treesitter.configs")
     configs.setup(opts)
 
+    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
     local query = io.open(vim.fn.stdpath("config") .. "/lua/data/queries/gleam.scm"):read("*a")
     require("vim.treesitter.query").set("gleam", "locals", query)
   end,
