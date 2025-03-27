@@ -1,43 +1,32 @@
--- pick your plugin manager, default [standalone]
+local functions = require("functions")
 
----Bootstrap tangerine and hibiscus
----@param url string URL of the plugin github repository
----@param ref? string Release
-local function bootstrap(url, ref)
-  local name = url:gsub(".*/", "")
-  local path = vim.fn.stdpath([[data]]) .. "/lazy/" .. name
+-- Lazy initialization
+local lazypath = (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
+end
+vim.opt.runtimepath:prepend(lazypath)
 
-  if vim.fn.isdirectory(path) == 0 then
-    print(name .. ": installing in data dir...")
+require("globals")
 
-    vim.fn.system({ "git", "clone", url, path })
-    if ref then
-      vim.fn.system({ "git", "-C", path, "checkout", ref })
-    end
+require("lazy").setup({ spec = { import = "plugins" } })
 
-    vim.cmd([[redraw]])
-    print(name .. ": finished installing")
-  end
-  vim.opt.runtimepath:prepend(path)
+require("options")
+require("commands")
+require("autocommands")
+require("mappings")
+
+-- Load user config
+local user_file = vim.fn.stdpath("config") .. "/lua/user/init.lua"
+if functions.file_exists(user_file) then
+  require("user")
 end
 
--- for git head
-bootstrap("https://github.com/udayvir-singh/tangerine.nvim")
-
-require("tangerine").setup({
-  -- target = vim.fn.stdpath [[data]] .. "/tangerine",
-
-  -- compile files in &rtp
-  rtpdirs = {
-    "ftplugin",
-  },
-
-  compiler = {
-    -- disable popup showing compiled files
-    verbose = false,
-
-    -- compile every time changed are made to fennel files or on entering vim
-    hooks = { "onsave", "oninit" },
-  },
-  keymaps = {},
-})
+require("theme")

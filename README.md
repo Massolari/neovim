@@ -57,11 +57,6 @@ NVIM_APPNAME=Massolari/neovim/ nvim
 + [nvim-treesitter/nvim-treesitter-context](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter-context)
 + [folke/snacks.nvim](https://dotfyle.com/plugins/folke/snacks.nvim)
 + [windwp/nvim-autopairs](https://dotfyle.com/plugins/windwp/nvim-autopairs)
-### fennel
-
-+ [Olical/conjure](https://dotfyle.com/plugins/Olical/conjure)
-+ [Olical/aniseed](https://dotfyle.com/plugins/Olical/aniseed)
-+ [udayvir-singh/tangerine.nvim](https://dotfyle.com/plugins/udayvir-singh/tangerine.nvim)
 ### file-explorer
 
 + [echasnovski/mini.files](https://dotfyle.com/plugins/echasnovski/mini.files)
