@@ -17,7 +17,6 @@ vim.opt_local.buflisted = false
 vim.keymap.set("n", "<CR>", "<CR>", { buffer = true })
 vim.keymap.set("n", "q", ":q<CR>", { buffer = true })
 
-
 vim.keymap.set("n", "d", function()
   local line = vim.fn.line(".")
   local quickfix = vim.fn.getqflist()
@@ -27,16 +26,15 @@ vim.keymap.set("n", "d", function()
   restore_cursor_position(line)
 end, { buffer = true, nowait = true })
 
-
 vim.keymap.set("n", "D", function()
   local line = vim.fn.line(".")
   local qf_list = vim.fn.getqflist()
   local current_item = qf_list[line]
   local current_bufnr = (current_item and current_item.bufnr)
 
-  local filtered_list
+  local filtered_list = {}
   for _, item in ipairs(qf_list) do
-    if (item.bufnr ~= current_bufnr) then
+    if item.bufnr ~= current_bufnr then
       table.insert(filtered_list, item)
     end
   end
@@ -45,20 +43,17 @@ vim.keymap.set("n", "D", function()
   restore_cursor_position(line)
 end, { buffer = true })
 
-
 vim.keymap.set("n", "u", function()
   run_and_restore_cursor_position(function()
     vim.cmd("silent colder")
   end)
 end, { buffer = true })
 
-
 vim.keymap.set("n", "U", function()
   run_and_restore_cursor_position(function()
     vim.cmd("silent cnewer")
   end)
 end, { buffer = true })
-
 
 vim.keymap.set("n", "<c-r>", function()
   run_and_restore_cursor_position(function()
