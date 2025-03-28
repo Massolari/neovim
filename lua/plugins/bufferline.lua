@@ -1,5 +1,3 @@
-local constants = require("constants")
-
 return {
   "akinsho/bufferline.nvim",
   event = "VeryLazy",
@@ -7,10 +5,12 @@ return {
     options = {
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(_, level)
+        local signs = vim.diagnostic.config().signs.text or {}
+
         if level == "error" then
-          return constants.diagnostic_icon.error
+          return signs[vim.diagnostic.severity.ERROR] or "E"
         elseif level == "warning" then
-          return constants.diagnostic_icon.warning
+          return signs[vim.diagnostic.severity.WARN] or "W"
         end
       end,
     },

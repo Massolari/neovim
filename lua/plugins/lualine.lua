@@ -1,4 +1,4 @@
-local constants = require("constants")
+local diagnostic_icon = vim.diagnostic.config().signs.text or {}
 
 local colors = {
   yellow = "DarkYellow",
@@ -59,10 +59,10 @@ return {
         {
           "diagnostics",
           symbols = {
-            error = (constants.diagnostic_icon.error .. " "),
-            warn = (constants.diagnostic_icon.warning .. " "),
-            info = (constants.diagnostic_icon.info .. " "),
-            hint = constants.diagnostic_icon.hint,
+            error = diagnostic_icon[vim.diagnostic.severity.ERROR] .. " ",
+            warn = diagnostic_icon[vim.diagnostic.severity.WARN] .. " ",
+            info = diagnostic_icon[vim.diagnostic.severity.INFO] .. " ",
+            hint = diagnostic_icon[vim.diagnostic.severity.HINT],
           },
           separator = "",
         },

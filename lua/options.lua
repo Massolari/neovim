@@ -54,4 +54,21 @@ vim.o.listchars = "tab:»·,trail:·,extends:»,precedes:«,nbsp:·"
 vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.o.smoothscroll = true
 vim.o.undofile = true
-vim.diagnostic.config({ float = { show_header = true }, jump = { float = true }, virtual_lines = true })
+
+-- Diagnostic
+vim.diagnostic.config({
+  float = { show_header = true },
+  jump = { float = true },
+  virtual_lines = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+    },
+  },
+})
+
+-- Janela flutuante com fundo transparente
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })

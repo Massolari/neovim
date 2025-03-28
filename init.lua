@@ -15,10 +15,10 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("globals")
+require("options")
 
 require("lazy").setup({ spec = { import = "plugins" } })
 
-require("options")
 require("commands")
 require("autocommands")
 require("mappings")
@@ -28,5 +28,3 @@ local user_file = vim.fn.stdpath("config") .. "/lua/user/init.lua"
 if functions.file_exists(user_file) then
   require("user")
 end
-
-require("theme")
