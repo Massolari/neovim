@@ -7,6 +7,7 @@ return {
   -- cond = functions.dir_exists(plugin_dir),
   -- dir = plugin_dir,
   event = "BufRead",
+  config = true,
   dependencies = { "neovim/nvim-lspconfig" },
   opts = { server_config = functions.lsp_config_options },
 }

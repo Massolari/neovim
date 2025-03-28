@@ -34,6 +34,7 @@ local function on_attach(client, bufnr)
   end
 end
 
+-- :help LspAttach
 vim.lsp.handlers["client/registerCapability"] = (function(overriden)
   return function(err, res, ctx)
     local result = overriden(err, res, ctx)

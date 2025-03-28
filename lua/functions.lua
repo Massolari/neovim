@@ -238,25 +238,10 @@ end
 
 --- Configuration options for LSP servers
 M.lsp_config_options = {
-  elixirls = function()
-    return { cmd = { "elixir-ls" } }
-  end,
-  lua_ls = function()
-    local function _24_(client)
-      client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-        runtime = { version = "LuaJIT" },
-        diagnostics = { unusedLocalIgnore = { "_*" } },
-        hint = { enable = true },
-        workspace = { library = { vim.env.VIMRUNTIME } },
-      })
-      return nil
-    end
-    return { on_init = _24_, settings = { Lua = {} } }
-  end,
   ltex_plus = function(default_config)
     return {
       root_dir = vim.uv.cwd,
-      filetypes = { "octo", _G.unpack(default_config.filetypes) },
+      filetypes = { "octo", unpack(default_config.filetypes) },
       settings = {
         ltex = {
           enabled = {
@@ -275,9 +260,6 @@ M.lsp_config_options = {
         },
       },
     }
-  end,
-  fennel_ls = function()
-    return { settings = { ["fennel-ls"] = { libraries = {}, ["extra-globals"] = "vim unpack" } } }
   end,
   tailwindcss = function(default_config)
     return {
@@ -302,39 +284,7 @@ M.lsp_config_options = {
       filetypes = { "elm", "gleam", unpack(default_config.filetypes) },
     }
   end,
-  ts_ls = function()
-    return {
-      init_options = {
-        preferences = {
-          includeInlayParameterNameHints = "all",
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-        },
-      },
-    }
-  end,
-  yamlls = function()
-    return { settings = { yaml = { keyOrdering = false } } }
-  end,
 }
-
---- Start the LTeX server
-M.start_ltex = function()
-  vim.ui.input({ prompt = "Language: ", default = "pt-BR" }, function(language)
-    if (language == "") or (language == nil) then
-      return
-    end
-
-    local lspconfig = require("lspconfig")
-    local config = M.lsp_config_options.ltex(lspconfig.ltex.document_config.default_config)
-    lspconfig.ltex.setup(vim.tbl_extend("force", config, { settings = { ltex = { language = language } } }))
-  end)
-end
 
 --- Get the key to insert
 --- @param key string

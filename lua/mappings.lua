@@ -145,13 +145,6 @@ functions.keymaps_set("n", {
     { desc = "Navegador (browser)" },
   },
   {
-    "c",
-    function()
-      functions.start_ltex()
-    end,
-    { desc = "Corretor" },
-  },
-  {
     "hn",
     function()
       functions.with_input("Novo arquivo: ", function(name)
