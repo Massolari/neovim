@@ -23,7 +23,6 @@
   "kulala.nvim": { "branch": "main", "commit": "f9daf1df015aac94350b3f20c26ce43a9e0009be" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "leetcode.nvim": { "branch": "master", "commit": "db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951" },
-  "lsp-auto-setup.nvim": { "branch": "master", "commit": "1cfc44d02e2afe454c14303f2fb7559a40173a33" },
   "lspkind.nvim": { "branch": "master", "commit": "d79a1c3299ad0ef94e255d045bed9fa26025dab6" },
   "lualine.nvim": { "branch": "master", "commit": "1517caa8fff05e4b4999857319d3b0609a7f57fa" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
