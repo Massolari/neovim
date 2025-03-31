@@ -71,4 +71,6 @@ vim.diagnostic.config({
 })
 
 -- Janela flutuante com fundo transparente
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+vim.schedule(function()
+  vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+end)
