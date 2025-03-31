@@ -12,6 +12,8 @@ return {
         elseif level == "warning" then
           return signs[vim.diagnostic.severity.WARN] or "W"
         end
+
+        return ""
       end,
     },
   },
