@@ -42,7 +42,7 @@ vim.o.signcolumn = "yes"
 vim.o.completeopt = "menuone,noselect"
 vim.o.termguicolors = true
 vim.o.background = "light"
-vim.o.guifont = "Iosevka Nerd Font:h13"
+vim.o.guifont = "Iosevka:h12"
 vim.o.title = true
 if not vim.g.started_by_firenvim then
   vim.o.laststatus = 3
