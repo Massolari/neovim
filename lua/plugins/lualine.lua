@@ -41,7 +41,7 @@ return {
   },
   opts = {
     options = {
-      disabled_filetypes = { statusline = { "dashboard" }, winbar = { "dashboard", "kulala_ui" } },
+      disabled_filetypes = { statusline = { "dashboard" }, winbar = { "dashboard", "kulala_ui", "neoment_room" } },
       component_separators = "·",
       globalstatus = vim.o.laststatus == 3,
       section_separators = "",
