@@ -82,42 +82,42 @@ return {
     {
       "<leader>gy",
       function()
-        _G.Snacks.lazygit()
+        Snacks.lazygit()
       end,
       desc = "Abrir lazygit",
     },
     {
       "<leader>d",
       function()
-        _G.Snacks.bufdelete()
+        Snacks.bufdelete()
       end,
       desc = "Deletar buffer",
     },
     {
       "]w",
       function()
-        _G.Snacks.words.jump(1, true)
+        Snacks.words.jump(1, true)
       end,
       desc = "Pr\195\179xima palavra destacada",
     },
     {
       "[w",
       function()
-        _G.Snacks.words.jump(-1, true)
+        Snacks.words.jump(-1, true)
       end,
       desc = "Palavra destacada anterior",
     },
     {
       "<leader>t",
       function()
-        _G.Snacks.terminal.toggle()
+        Snacks.terminal.toggle()
       end,
       desc = "Abrir terminal",
     },
     {
       "<leader>T",
       function()
-        _G.Snacks.terminal.toggle(nil, { win = { style = "float" } })
+        Snacks.terminal.toggle(nil, { win = { style = "float" } })
       end,
       desc = "Abrir terminal fluante",
     },
