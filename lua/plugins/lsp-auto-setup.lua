@@ -11,13 +11,6 @@ return {
   dependencies = { "neovim/nvim-lspconfig" },
   opts = {
     server_config = {
-      eslint = function()
-        return {
-          root_dir = function(fname)
-            return require("lspconfig").eslint.config_def.default_config.root_dir(fname)
-          end,
-        }
-      end,
       ltex_plus = function(default_config)
         return {
           root_dir = vim.uv.cwd,
