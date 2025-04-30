@@ -1,7 +1,5 @@
 return {
   "lewis6991/gitsigns.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  event = "BufReadPre",
   opts = {
     on_attach = function(_)
       local gs = require("gitsigns")
@@ -12,7 +10,7 @@ return {
         end
 
         vim.schedule(function()
-          gs.next_hunk()
+          gs.nav_hunk("next")
         end)
         return "<Ignore>"
       end, { buffer = true, expr = true, desc = "Próximo git hunk" })
@@ -23,7 +21,7 @@ return {
         end
 
         vim.schedule(function()
-          gs.prev_hunk()
+          gs.nav_hunk("prev")
         end)
         return "<Ignore>"
       end, { buffer = true, expr = true, desc = "Git hunk anterior" })
