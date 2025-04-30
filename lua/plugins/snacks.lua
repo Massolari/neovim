@@ -94,6 +94,13 @@ return {
       desc = "Deletar buffer",
     },
     {
+      "<leader>E",
+      function()
+        Snacks.explorer()
+      end,
+      desc = "Explorador de arquivos",
+    },
+    {
       "]w",
       function()
         Snacks.words.jump(1, true)
