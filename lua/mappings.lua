@@ -53,8 +53,8 @@ functions.keymaps_set("n", {
   },
   {
     "=",
-    "mpgg=G`p",
-    { desc = "Indentar arquivo" },
+    "<c-w>=",
+    { desc = "Igualar tamanho das janelas" },
   },
   {
     ",",
@@ -134,6 +134,11 @@ functions.keymaps_set("n", {
 
 -- Editor
 functions.keymaps_set("n", {
+  {
+    "=",
+    "mpgg=G`p",
+    { desc = "Indentar arquivo" },
+  },
   {
     "b",
     function()
