@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Neovide
-vim.g.neovide_cursor_vfx_mode = "ripple"
+vim.g.neovide_cursor_short_animation_length = 0.5
 
 -- Obsidian
 vim.g.obsidian_dir = (vim.env.HOME .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents")
