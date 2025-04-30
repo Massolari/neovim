@@ -44,11 +44,7 @@ vim.o.termguicolors = true
 vim.o.background = "light"
 vim.o.guifont = "Iosevka:h12"
 vim.o.title = true
-if not vim.g.started_by_firenvim then
-  vim.o.laststatus = 3
-else
-  vim.o.laststatus = 0
-end
+vim.o.laststatus = 3
 vim.o.list = true
 vim.o.listchars = "tab:»·,trail:·,extends:»,precedes:«,nbsp:·"
 vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
