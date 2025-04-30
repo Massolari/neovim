@@ -37,6 +37,11 @@ vim.keymap.set("n", "[e", function()
   vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
 end, { desc = "Erro de código anterior" })
 
+-- Abas
+
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { desc = "Próxima aba" })
+vim.keymap.set("n", "[t", "<cmd>tabprevious<CR>", { desc = "Aba anterior" })
+
 -- Normal com leader
 functions.keymaps_set("n", {
   {
@@ -101,14 +106,6 @@ functions.keymaps_set("n", {
     { desc = "Buscar com ripgrep" },
   },
 }, { prefix = "<leader>" })
-
--- Aba
-functions.keymaps_set("n", {
-  { "a", "<cmd>tabnew<CR>", { desc = "Abrir uma nova" } },
-  { "c", "<cmd>tabclose<CR>", { desc = "Fechar (close)" } },
-  { "n", "<cmd>tabnext<CR>", { desc = "Ir para a próxima (next)" } },
-  { "p", "<cmd>tabprevious<CR>", { desc = "Ir para a anterior (previous)" } },
-}, { prefix = "<leader>a" })
 
 -- Código
 functions.keymaps_set("n", {
@@ -187,7 +184,7 @@ functions.keymaps_set("n", {
 vim.keymap.set("v", "<leader>ei", ":Silicon<CR>", { desc = "Gerar imagem do código (silicon})" })
 
 wk.add({
-  { "<leader>a", group = "Aba", nowait = true, remap = false },
+  { "<leader>a", group = "Avante", nowait = true, remap = false },
   { "<leader>b", group = "Buffer", nowait = true, remap = false },
   { "<leader>c", group = "Code", nowait = true, remap = false },
   { "<leader>d", group = "Debug", nowait = true, remap = false },
