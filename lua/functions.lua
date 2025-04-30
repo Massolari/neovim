@@ -1,39 +1,6 @@
 local M = {}
 
---- Show a notification
---- @param message string
---- @param level number
---- @param title string
---- @param options? table
-local function show_notification(message, level, title, options)
-  options = options or {}
-  options.title = title
-  vim.notify(message, level, options)
-end
-
---- Show a warning notification
---- @param message string
---- @param title string
---- @param options? table
-M.show_warning = function(message, title, options)
-  show_notification(message, vim.log.levels.WARN, title, options)
-end
-
---- Show an info notification
---- @param message string
---- @param title string
---- @param options? table
-M.show_info = function(message, title, options)
-  show_notification(message, vim.log.levels.INFO, title, options)
-end
-
---- Show an error notification
---- @param message string
---- @param title string
---- @param options? table
-M.show_error = function(message, title, options)
-  show_notification(message, vim.log.levels.ERROR, title, options)
-end
+local notify = require("notify")
 
 --- Check if the quickfix or location list is open
 --- @param window "quickfix" | "location"
@@ -67,9 +34,9 @@ M.toggle_location_list = function()
     return
   end
 
-  local status, err = pcall(vim.cmd([[--@as function]]), "lopen 10")
+  local status, err = pcall(vim.cmd, "lopen 10")
   if not status then
-    M.show_warning(err, "Location list")
+    notify.warning(err, "Location list")
   end
 end
 
@@ -98,11 +65,11 @@ end
 M.grep = function()
   local search_status, input = pcall(vim.fn.input, "Procurar por: ")
   if not search_status or (input == "") then
-    return M.show_info("Pesquisa cancelada", "RipGrep")
+    return notify.info("Pesquisa cancelada", "RipGrep")
   else
     local status, err = pcall(vim.cmd([[--@as function]]), ('silent grep! "' .. input .. '"'))
     if not status then
-      return M.show_error(err, "Busca")
+      return notify.error(err, "Busca")
     else
       return vim.cmd.copen()
     end
@@ -171,11 +138,11 @@ M.keymaps_set = function(mode, keys, options)
   local global_options = (options or {})
   local prefix = (global_options.prefix or "")
   global_options.prefix = nil
-  for _, _17_ in ipairs(keys) do
-    local lhs = _17_[1]
-    local rhs = _17_[2]
-    local _3flocal_options = _17_[3]
-    vim.keymap.set(mode, (prefix .. lhs), rhs, vim.tbl_extend("force", global_options, (_3flocal_options or {})))
+  for _, key in ipairs(keys) do
+    local lhs = key[1]
+    local rhs = key[2]
+    local key_options = key[3]
+    vim.keymap.set(mode, (prefix .. lhs), rhs, vim.tbl_extend("force", global_options, (key_options or {})))
   end
   return nil
 end
@@ -222,7 +189,7 @@ M.generate_code_image = function(args)
   vim.fn.delete(code_temp_file)
 
   if (silicon_result ~= "") or (silicon_exit_code ~= "0\n") then
-    M.show_error(silicon_result, notify_title)
+    notify.error(silicon_result, notify_title)
     return
   end
 
@@ -230,10 +197,10 @@ M.generate_code_image = function(args)
     string.format("osascript -e 'set the clipboard to (POSIX file \"%s\")'", vim.fn.shellescape(img_temp_file))
   local copy_result = vim.fn.system(osascript_cmd)
   if copy_result == "" then
-    M.show_info("Imagem de c\195\179digo copiada para o clipboard", notify_title)
+    notify.info("Imagem de c\195\179digo copiada para o clipboard", notify_title)
     return
   end
-  return M.show_error(copy_result, notify_title)
+  return notify.error(copy_result, notify_title)
 end
 
 --- Get the key to insert

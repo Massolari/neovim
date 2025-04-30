@@ -1,4 +1,4 @@
-local functions = require("functions")
+local notify = require("notify")
 
 return {
   "ThePrimeagen/harpoon",
@@ -8,7 +8,7 @@ return {
       "<leader><space>",
       function()
         require("harpoon.mark").add_file()
-        functions.show_info("Arquivo marcado", "Harpoon")
+        notify.info("Arquivo marcado", "Harpoon")
       end,
       desc = "Marcar arquivo com harpoon",
     },
