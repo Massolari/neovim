@@ -46,27 +46,11 @@ return {
         end,
       },
       view = { entries = { follow_cursor = true } },
-      mapping = {
+      mapping = cmp.mapping.preset.insert({
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-.>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-        ["<C-p>"] = function(fallback)
-          if cmp.visible() then
-            return cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            return fallback()
-          end
-        end,
-        ["<C-n>"] = function(fallback)
-          if cmp.visible() then
-            return cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-          else
-            return fallback()
-          end
-        end,
-        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-      },
+      }),
       window = { completion = cmp.config.window.bordered(), documentation = cmp.config.window.bordered() },
       formatting = {
         fields = { "kind", "abbr", "menu" },
@@ -84,7 +68,7 @@ return {
       sources = sources,
     })
 
-    require("cmp_git").setup()
+    require("cmp_git").setup({})
 
     cmp.setup.cmdline("/", { mapping = cmp.mapping.preset.cmdline(), sources = { { name = "buffer" } } })
 
