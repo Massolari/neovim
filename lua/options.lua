@@ -39,7 +39,7 @@ vim.o.equalalways = false
 vim.o.updatetime = 250
 vim.opt.shortmess:append("c")
 vim.o.signcolumn = "yes"
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menuone"
 vim.o.termguicolors = true
 vim.o.background = "light"
 vim.o.guifont = "Iosevka:h12"
