@@ -18,7 +18,7 @@ return {
     model = "claude-3.7-sonnet",
     prompts = {
       CommitPtBr = {
-        prompt = "> #git:staged\n\nEscreva uma mensagem de commit em portugu\195\170s (Brasil) seguindo a conven\195\167\195\163o commitizen. Certifique-se que o t\195\173tulo tem no m\195\161ximo 50 caracteres e a mensagem est\195\161 com quebra de linha em 72 caracteres. Envolva toda a mensagem em um bloco de c\195\179digo com a linguagem gitcommit.",
+        prompt = "> #git:staged\n\nEscreva uma mensagem de commit em português (Brasil) seguindo a convenção commitizen. Certifique-se que o título tem no máximo 50 caracteres e a mensagem está com quebra de linha em 72 caracteres. Envolva toda a mensagem em um bloco de código com a linguagem gitcommit.",
       },
     },
   },
