@@ -1,6 +1,8 @@
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
+  branch = "main",
   dependencies = { "github/copilot.vim", { "nvim-lua/plenary.nvim", branch = "master" } },
+  build = "make tiktoken",
   keys = {
     {
       "<leader>ic",
@@ -14,7 +16,7 @@ return {
     { "<leader>iO", "<cmd>CopilotChatCommitPtBr<CR>", desc = "Escrever mensagem de commit" },
   },
   opts = {
-    debug = true,
+    debug = false,
     model = "claude-3.7-sonnet",
     prompts = {
       CommitPtBr = {
