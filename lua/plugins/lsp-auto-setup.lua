@@ -6,7 +6,6 @@ return {
   "Massolari/lsp-auto-setup.nvim",
   -- cond = functions.dir_exists(plugin_dir),
   -- dir = plugin_dir,
-  event = "BufRead",
   config = true,
   dependencies = { "neovim/nvim-lspconfig" },
   opts = {
