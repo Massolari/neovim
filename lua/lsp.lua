@@ -1,5 +1,4 @@
-vim.lsp.set_log_level = "trace"
-vim.lsp.log = vim.inspect
+vim.lsp.set_log_level(vim.log.levels.TRACE)
 
 --- Function executed when a LSP client is attached to a buffer.
 --- This function is responsible for setting up various LSP features
@@ -11,7 +10,13 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method("textDocument/completion") then
-    client.server_capabilities.completionProvider.completionItem.snippetSupport = true
+    if client.server_capabilities.completionProvider.completionItem then
+      client.server_capabilities.completionProvider.completionItem.snippetSupport = true
+    else
+      client.server_capabilities.completionProvider.completionItem = {
+        snippetSupport = true,
+      }
+    end
   end
 
   if client:supports_method("textDocument/codeLens") then
