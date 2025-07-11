@@ -14,6 +14,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
+require("lsp")
 require("globals")
 require("options")
 
