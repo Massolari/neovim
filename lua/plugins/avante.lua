@@ -1,3 +1,4 @@
+--- @type LazyPluginSpec
 return {
   "yetone/avante.nvim",
   event = "BufRead",

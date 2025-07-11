@@ -2,6 +2,7 @@ local functions = require("functions")
 
 -- local plugin_dir = vim.g.local_plugins_dir .. "/lsp-auto-setup.nvim"
 
+--- @type LazyPluginSpec
 return {
   "Massolari/lsp-auto-setup.nvim",
   -- cond = functions.dir_exists(plugin_dir),

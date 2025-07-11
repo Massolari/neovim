@@ -1,5 +1,6 @@
 local functions = require("functions")
 
+--- @type LazyPluginSpec
 return {
   "pwntester/octo.nvim",
   config = true,

@@ -27,6 +27,7 @@ end
 local filename = { "filename", padding = 0, color = { fg = colors.magenta, gui = "bold" } }
 local filename_path = vim.tbl_extend("force", filename, { path = 1 })
 
+--- @type LazyPluginSpec
 return {
   "nvim-lualine/lualine.nvim",
   cond = not vim.g.started_by_firenvim,
