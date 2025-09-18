@@ -7,6 +7,7 @@ return {
     config = function(_, opts)
       require("catppuccin").setup(opts)
       vim.cmd.colorscheme("catppuccin-latte")
+      vim.api.nvim_set_hl(0, "FloatBorder", { link = "@text.title" })
     end,
     priority = 1000,
     lazy = false,
