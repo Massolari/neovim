@@ -160,24 +160,36 @@ local function get_silicon_language(file_extension)
   end
 end
 
---- Generate an image from the code
---- @param args table
+--- Generate a code image from a range of lines in the current buffer.
+--- The generated image is created using the `silicon` command and copied to the clipboard.
+---
+--- @param args table A table containing the following fields:
+---   - line1 (number): The starting line of the range (1-based).
+---   - line2 (number): The ending line of the range (1-based).
+---
+--- The function performs the following steps:
+--- 1. Retrieves the lines from the buffer within the specified range.
+--- 2. Writes the lines to a temporary file.
+--- 3. Executes the `silicon` command to generate a code image.
+--- 4. Copies the generated image to the clipboard using `osascript` (macOS-specific).
+--- 5. Cleans up temporary files.
+---
+--- Notifications are displayed for success or failure during the process.
 M.generate_code_image = function(args)
-  local line1 = args["line1"]
-  local line2 = args["line2"]
+  local line1, line2 = args.line1, args.line2
 
   local data_path = vim.fn.stdpath("data")
-  local code_temp_file = (data_path .. "/code-silicon.code")
-  local img_temp_file = (data_path .. "/image-silicon.png")
+  local code_temp_file = data_path .. "/code-silicon.code"
+  local img_temp_file = data_path .. "/image-silicon.png"
 
   local language = get_silicon_language(vim.fn.expand("%:e"))
-
-  local lines = vim.api.nvim_buf_get_lines(0, (line1 - 1), line2, false)
+  local lines = vim.api.nvim_buf_get_lines(0, line1 - 1, line2, false)
 
   local notify_title = "Silicon"
   vim.fn.delete(code_temp_file)
   vim.fn.delete(img_temp_file)
   vim.fn.writefile(lines, code_temp_file)
+
   local silicon_cmd = string.format(
     "silicon -l %s -o %s < %s",
     language,
@@ -185,22 +197,22 @@ M.generate_code_image = function(args)
     vim.fn.shellescape(code_temp_file)
   )
   local silicon_result = vim.fn.system(silicon_cmd)
-  local silicon_exit_code = vim.fn.system("echo $status")
+  local silicon_exit_code = vim.v.shell_error
   vim.fn.delete(code_temp_file)
 
-  if (silicon_result ~= "") or (silicon_exit_code ~= "0\n") then
+  if silicon_exit_code ~= 0 then
     notify.error(silicon_result, notify_title)
     return
   end
 
-  local osascript_cmd =
-    string.format("osascript -e 'set the clipboard to (POSIX file \"%s\")'", vim.fn.shellescape(img_temp_file))
+  local osascript_cmd = string.format("osascript -e 'set the clipboard to (POSIX file \"%s\")'", img_temp_file)
   local copy_result = vim.fn.system(osascript_cmd)
+
   if copy_result == "" then
-    notify.info("Imagem de c\195\179digo copiada para o clipboard", notify_title)
-    return
+    notify.info("Code image copied to clipboard", notify_title)
+  else
+    notify.error(copy_result, notify_title)
   end
-  return notify.error(copy_result, notify_title)
 end
 
 --- Get the key to insert
