@@ -1,5 +1,6 @@
+--- @type LazyPluginSpec
 return {
-  "echasnovski/mini.files",
+  "nvim-mini/mini.files",
   keys = {
     {
       "<leader>eF",

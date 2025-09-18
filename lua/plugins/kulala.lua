@@ -1,2 +1,7 @@
-return { "mistweaverco/kulala.nvim", config = true, ft = "http" }
-
+--- @type LazySpec
+return {
+  "mistweaverco/kulala.nvim",
+  branch = "develop",
+  config = true,
+  ft = "http",
+}

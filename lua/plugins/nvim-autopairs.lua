@@ -1,2 +1,7 @@
-return { "windwp/nvim-autopairs", event = "InsertEnter", config = true, opts = { fast_wrap = {} } }
-
+--- @type LazySpec
+return {
+  "windwp/nvim-autopairs",
+  event = "InsertEnter",
+  config = true,
+  opts = { fast_wrap = {} },
+}
