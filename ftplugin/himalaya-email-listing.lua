@@ -1,0 +1,24 @@
+-- local HIMALAYA_BUFFER_FILETYPE = "himalaya-email-listing"
+-- local DEFER_TIME = 60000
+--
+-- local function refresh_mail()
+--   local buffers = vim.api.nvim_list_bufs()
+--   for _, buf in ipairs(buffers) do
+--     local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
+--     -- There is a himalaya buffer
+--     if buf_ft == HIMALAYA_BUFFER_FILETYPE then
+--       -- check that it's the current buffer
+--       -- and the current window is displaying it
+--       if buf == vim.api.nvim_win_get_buf(0) then
+--         vim.cmd.call("himalaya#domain#email#list()")
+--         return
+--       end
+--       -- If it's not the current buffer, set a timer to check again in 30 seconds
+--       vim.defer_fn(refresh_mail, 30000)
+--     end
+--   end
+-- end
+--
+vim.keymap.set("n", "<localleader>r", "<cmd>Himalaya<CR>", { buffer = true })
+--
+-- vim.defer_fn(refresh_mail, DEFER_TIME)
