@@ -17,7 +17,7 @@ return {
   },
   opts = {
     debug = false,
-    model = "claude-3.7-sonnet",
+    model = "gpt-5",
     prompts = {
       CommitPtBr = {
         prompt = "> #git:staged\n\nEscreva uma mensagem de commit em português (Brasil) seguindo a convenção commitizen. Certifique-se que o título tem no máximo 50 caracteres e a mensagem está com quebra de linha em 72 caracteres. Envolva toda a mensagem em um bloco de código com a linguagem gitcommit.",
