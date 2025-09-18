@@ -63,7 +63,7 @@ return {
         { text = functions.get_random_item(quotes), align = "center", padding = { 0, 2 } },
       },
     },
-    explorer = { enabled = true },
+    explorer = { enabled = true, replace_netrw = false },
     git = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
