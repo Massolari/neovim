@@ -5,7 +5,11 @@ return {
   "pwntester/octo.nvim",
   config = true,
   cmd = "Octo",
-  opts = { picker = "fzf-lua" },
+  opts = {
+    enable_builtin = true,
+    default_delete_branch = true,
+    picker = "fzf-lua",
+  },
   keys = functions.prefixed_keys({
     { "ic", "<cmd>Octo issue create<CR>", desc = "Criar" },
     { "il", "<cmd>Octo issue list<CR>", desc = "Listar" },
