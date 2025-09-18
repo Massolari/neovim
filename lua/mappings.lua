@@ -258,7 +258,6 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 
 -- Mapeamentos do helix
-vim.keymap.set({ "n", "o", "x" }, "ge", "G", { desc = "Ir para última linha" })
 vim.keymap.set({ "n", "o", "x" }, "gh", "0", { desc = "Ir para início da linha" })
 vim.keymap.set({ "n", "o", "x" }, "gl", "$", { desc = "Ir para fim da linha" })
 vim.keymap.set({ "n", "o", "x" }, "gs", "^", { desc = "Ir para primeiro caractere não branco" })
