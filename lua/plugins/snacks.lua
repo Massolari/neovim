@@ -70,7 +70,10 @@ return {
     image = { enabled = true },
     lazygit = { enabled = true, configure = true },
     notifier = { enabled = true, top_down = false },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      ui_select = false,
+    },
     quickfile = { enabled = true },
     rename = { enabled = true },
     scope = { enabled = true },
