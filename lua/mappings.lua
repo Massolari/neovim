@@ -161,14 +161,12 @@ functions.keymaps_set("n", {
     { desc = "Igualar tamanho das janelas" },
   },
   {
-    ",",
-    "mpA,<Esc>`p",
-    { desc = '"," no fim da linha' },
-  },
-  {
     ";",
-    "mpA;<Esc>`p",
-    { desc = '";" no fim da linha' },
+    function()
+      vim.o.operatorfunc = "v:lua.InsertEndOperator"
+      return "g@ "
+    end,
+    { desc = "Adiciona um caractere no final da linha", expr = true },
   },
   {
     "<Tab>",
