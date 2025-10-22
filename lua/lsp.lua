@@ -118,6 +118,10 @@ local function on_attach(client, bufnr)
     vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
   end
 
+  if client:supports_method("textDocument/inlineCompletion") then
+    vim.lsp.inline_completion.enable()
+  end
+
   if client:supports_method("textDocument/hover") then
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = bufnr,

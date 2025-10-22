@@ -84,7 +84,7 @@ return {
           end,
           separator = "",
         },
-        { "lsp_status", ignore_lsp = { "GitHub Copilot" } },
+        { "lsp_status", ignore_lsp = { "copilot" } },
       },
       lualine_x = {
         {
@@ -98,7 +98,7 @@ return {
         },
         {
           function()
-            local clients = vim.lsp.get_clients({ name = "GitHub Copilot" })
+            local clients = vim.lsp.get_clients({ name = "copilot" })
             if #clients > 0 then
               return " "
             else

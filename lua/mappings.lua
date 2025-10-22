@@ -3,29 +3,133 @@ local options = { buffer = nil, silent = true, noremap = true, nowait = true }
 local functions = require("functions")
 
 -- Insert
-functions.keymaps_set("i", {
-  {
-    "<c-j>",
-    function()
-      if vim.snippet.active({ direction = 1 }) then
-        vim.snippet.jump(1)
-        return
-      end
+vim.keymap.set("i", "<c-j>", function()
+  if vim.snippet.active({ direction = 1 }) then
+    vim.snippet.jump(1)
+    return
+  end
 
-      vim.api.nvim_feedkeys(functions.get_key_insert("<Down>"), "n", false)
-    end,
-  },
-  {
-    "<c-k>",
-    function()
-      if vim.snippet.active({ direction = -1 }) then
-        vim.snippet.jump(-1)
-        return
-      end
+  vim.api.nvim_feedkeys(functions.get_key_insert("<Down>"), "n", false)
+end, { desc = "Mover para baixo" })
 
-      vim.api.nvim_feedkeys(functions.get_key_insert("<Up>"), "n", false)
+vim.keymap.set("i", "<c-k>", function()
+  if vim.snippet.active({ direction = -1 }) then
+    vim.snippet.jump(-1)
+    return
+  end
+
+  vim.api.nvim_feedkeys(functions.get_key_insert("<Up>"), "n", false)
+end, { desc = "Mover para cima" })
+
+vim.keymap.set("i", "<Tab>", function()
+  if not vim.lsp.inline_completion.get() then
+    return "<Tab>"
+  end
+end, {
+  expr = true,
+  desc = "Aceitar sugestão de código em linha",
+})
+
+vim.keymap.set("i", "<M-n>", function()
+  vim.lsp.inline_completion.select({ count = 1 })
+end, {
+  desc = "Próxima sugestão de código em linha",
+})
+
+vim.keymap.set("i", "<M-p>", function()
+  vim.lsp.inline_completion.select({ count = -1 })
+end, {
+  desc = "Sugestão de código anterior em linha",
+})
+
+--- https://github.com/neovim/neovim/issues/35476#issuecomment-3245265729
+local function accept_completion(item, mode)
+  local insert_text = item.insert_text
+  if type(insert_text) == "string" then
+    local range = item.range
+    if range then
+      local lines = vim.split(insert_text, "\n")
+      local current_lines =
+        vim.api.nvim_buf_get_text(range.start.buf, range.start.row, range.start.col, range.end_.row, range.end_.col, {})
+
+      if mode == "word" then
+        local row = 1
+        while row <= #lines and row <= #current_lines and lines[row] == current_lines[row] do
+          row = row + 1
+        end
+
+        local col = 1
+        while
+          row <= #lines
+          and col <= #lines[row]
+          and row <= #current_lines
+          and col <= #current_lines[row]
+          and lines[row][col] == current_lines[row][col]
+        do
+          col = col + 1
+        end
+
+        local word = string.match(lines[row]:sub(col), "%s*[^%s]%w*")
+        vim.print(
+          range.start.buf,
+          math.min(range.start.row + row - 1, range.end_.row),
+          row == #current_lines and math.min(range.start.col + col - 1, range.end_.col)
+            or math.min(col - 1, range.end_.col),
+          range.end_.row,
+          range.end_.col,
+          { word }
+        )
+
+        vim.api.nvim_buf_set_text(
+          range.start.buf,
+          math.min(range.start.row + row - 1, range.end_.row),
+          row <= #current_lines and (row == 1 and range.start.col + col - 1 or col - 1) or range.end_.col,
+          range.end_.row,
+          range.end_.col,
+          row <= #current_lines and { word } or { "", word }
+        )
+        local pos = item.range.start:to_cursor()
+        vim.api.nvim_win_set_cursor(vim.fn.bufwinid(range.start.buf), {
+          pos[1] + row - 1,
+          pos[2] + col - 1 + #lines[1] - 1,
+        })
+      else
+        vim.api.nvim_buf_set_text(
+          range.start.buf,
+          range.start.row,
+          range.start.col,
+          range.end_.row,
+          range.end_.col,
+          lines
+        )
+        local pos = item.range.start:to_cursor()
+        vim.api.nvim_win_set_cursor(vim.fn.bufwinid(range.start.buf), {
+          pos[1] + #lines - 1,
+          (#lines == 1 and pos[2] or 0) + #lines[#lines],
+        })
+      end
+    else
+      vim.api.nvim_paste(insert_text, false, 0)
+    end
+  elseif insert_text.kind == "snippet" then
+    vim.snippet.expand(insert_text.value)
+  end
+
+  -- Execute the command *after* inserting this completion.
+  if item.command then
+    local client = assert(vim.lsp.get_client_by_id(item.client_id))
+    client:exec_cmd(item.command, { bufnr = item.range.start.buf })
+  end
+end
+
+vim.keymap.set("i", "<m-right>", function()
+  vim.lsp.inline_completion.get({
+    on_accept = function(item)
+      accept_completion(item, "word")
     end,
-  },
+  })
+end, {
+  desc = "Inserir próxima palavra da sugestão de código em linha",
 })
 
 -- Diagnostics
