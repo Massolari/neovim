@@ -304,6 +304,7 @@ wk.add({
   { "<leader>gu", group = "Pull Requests (Github)", nowait = true, remap = false },
   { "<leader>h", "<cmd>split<CR>", desc = "Dividir horizontalmente", nowait = true, remap = false },
   { "<leader>i", group = "Inteligência Artificial", nowait = true, remap = false },
+  { "<leader>is", group = "Sidekick", nowait = true, remap = false },
   {
     "<leader>l",
     function()
