@@ -18,5 +18,4 @@ return {
     apple_music,
     desc = "Apple Music",
   } },
-  dir = vim.g.local_plugins_dir .. "/apple-music.nvim",
 }
