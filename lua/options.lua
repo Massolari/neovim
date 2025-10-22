@@ -3,28 +3,23 @@ vim.o.foldmethod = "expr"
 vim.o.foldlevelstart = 99
 
 vim.o.confirm = true
-vim.o.fileencoding = "utf-8"
 vim.o.fileformats = "unix,dos,mac"
 vim.opt.formatoptions:remove({ "c" })
-vim.opt.formatoptions:remove({ "r" })
-vim.opt.formatoptions:remove({ "o" })
 
 -- Indentação
 local width = 2
 vim.o.tabstop = width
 vim.o.shiftwidth = width
-vim.o.softtabstop = 0
 vim.o.expandtab = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.inccommand = "split"
-vim.o.backupcopy = "yes"
 
 -- Shell
 local env_shell = os.getenv("SHELL")
 local default_shell = "/bin/zsh"
-if (nil ~= env_shell) and ("" ~= env_shell) then
+if env_shell and (env_shell ~= "") then
   default_shell = env_shell
 end
 vim.o.shell = default_shell
@@ -38,11 +33,9 @@ vim.o.timeoutlen = 500
 vim.o.equalalways = false
 vim.o.updatetime = 250
 vim.opt.shortmess:append("c")
+vim.opt.shortmess:remove("l")
 vim.o.signcolumn = "yes"
 vim.o.completeopt = "menuone"
-vim.o.termguicolors = true
-vim.o.background = "light"
-vim.o.guifont = "Iosevka:h12"
 vim.o.title = true
 vim.o.laststatus = 3
 vim.o.list = true
