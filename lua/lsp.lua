@@ -129,6 +129,18 @@ local function on_attach(client, bufnr)
       group = vim.api.nvim_create_augroup("_lsp_hover", {}),
     })
   end
+
+  if client:supports_method("textDocument/semanticTokens/full") then
+    vim.lsp.semantic_tokens.enable(true)
+  end
+
+  if client:_supports_registration("textDocument/onTypeFormatting") then
+    vim.lsp.on_type_formatting.enable()
+  end
+
+  if client:supports_method("textDocument/linkedEditingRange") then
+    vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
+  end
 end
 
 -- :help LspAttach
