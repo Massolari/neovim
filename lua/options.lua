@@ -51,6 +51,9 @@ vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.o.smoothscroll = true
 vim.o.undofile = true
 
+-- Bordas em janelas flutuantes
+vim.o.winborder = "rounded"
+
 -- Diagnostic
 vim.diagnostic.config({
   float = { show_header = true },

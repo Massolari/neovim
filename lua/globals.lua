@@ -10,6 +10,3 @@ vim.g.obsidian_dir = (vim.env.HOME .. "/Library/Mobile Documents/iCloud~md~obsid
 
 -- Local plugins
 vim.g.local_plugins_dir = (vim.env.HOME .. "/lua-projects")
-
--- Bordas em janelas flutuantes
-vim.o.winborder = "rounded"
