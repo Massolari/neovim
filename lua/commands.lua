@@ -8,5 +8,5 @@ vim.api.nvim_create_user_command("Silicon", functions.generate_code_image, { ran
 
 -- Mostrar histórico de notificações
 vim.api.nvim_create_user_command("Notifications", function()
-  _G.Snacks.notifier.show_history()
+  Snacks.notifier.show_history()
 end, {})
