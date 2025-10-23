@@ -163,10 +163,15 @@ functions.keymaps_set("n", {
   {
     ";",
     function()
-      vim.o.operatorfunc = "v:lua.InsertEndOperator"
-      return "g@ "
+      local ok, char = pcall(vim.fn.getcharstr)
+      if not ok or char == "\27" then
+        return
+      end
+      local column = vim.fn.col(".")
+      vim.cmd("normal! A" .. char .. "")
+      vim.fn.cursor(vim.fn.line("."), column)
     end,
-    { desc = "Adiciona um caractere no final da linha", expr = true },
+    { desc = "Adiciona um caractere no final da linha" },
   },
   {
     "<Tab>",

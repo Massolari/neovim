@@ -222,15 +222,4 @@ M.get_key_insert = function(key)
   return vim.api.nvim_replace_termcodes(key, true, false, true)
 end
 
---- Insert a character at the end of the current line without moving the cursor
-function InsertEndOperator()
-  local ok, char = pcall(vim.fn.getcharstr)
-  if not ok or char == "\27" then
-    return
-  end
-  local column = vim.fn.col(".")
-  vim.cmd("normal! A" .. char .. "")
-  vim.fn.cursor(vim.fn.line("."), column)
-end
-
 return M
