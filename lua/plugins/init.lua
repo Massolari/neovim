@@ -1,4 +1,5 @@
 vim.cmd("packadd cfilter")
+vim.cmd("packadd nvim.undotree")
 
 local _, user_plugins = xpcall(function()
   return require("user.plugins")
