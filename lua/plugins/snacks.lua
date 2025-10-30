@@ -31,6 +31,7 @@ local header_number = functions.get_random(39)
 -- Alimenta a semente do gerador de números aleatórios para sortear uma citação aleatória
 math.randomseed(os.time())
 
+--- @type LazyPluginSpec
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -67,7 +68,11 @@ return {
     git = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
-    image = { enabled = true },
+    --- @type snacks.image.Config
+    image = {
+      enabled = true,
+      cache = "/tmp",
+    },
     lazygit = { enabled = true, configure = true },
     notifier = { enabled = true, top_down = false },
     picker = {
