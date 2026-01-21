@@ -68,13 +68,17 @@ local function show_hover_window()
       style = "minimal",
     })
     vim.treesitter.start(buf, "markdown")
-    vim.wo[win].conceallevel = 3
-    vim.wo[win].wrap = true
+    vim.wo[win][0].spell = false
+    vim.wo[win][0].conceallevel = 3
+    vim.wo[win][0].wrap = true
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
     vim.api.nvim_create_autocmd({ "CursorMoved", "BufHidden", "InsertCharPre" }, {
       once = true,
       callback = function()
-        pcall(vim.api.nvim_win_close, win, true)
+        pcall(function()
+          vim.api.nvim_win_close(win, true)
+          vim.api.nvim_buf_delete(buf, { unload = true })
+        end)
       end,
     })
   end)
@@ -125,7 +129,9 @@ local function on_attach(client, bufnr)
   if client:supports_method("textDocument/hover") then
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = bufnr,
-      callback = show_hover_window,
+      callback = function()
+        pcall(show_hover_window)
+      end,
       group = vim.api.nvim_create_augroup("_lsp_hover", {}),
     })
   end
