@@ -290,6 +290,7 @@ functions.keymaps_set("n", {
     { desc = "Novo arquivo" },
   },
   { "q", "<cmd>qa<CR>", { desc = "Fechar" } },
+  { "R", "<cmd>restart<CR>", { desc = "Reiniciar Neovim" } },
   { "u", "<cmd>Lazy<CR>", { desc = "Plugins" } },
 }, { prefix = "<leader>e" })
 vim.keymap.set("v", "<leader>ei", ":Silicon<CR>", { desc = "Gerar imagem do código (silicon})" })
