@@ -195,7 +195,6 @@ functions.keymaps_set("n", {
     end,
     { desc = "Formatar código" },
   },
-  { "n", "<cmd>noh<cr>", { desc = "Limpar seleção da pesquisa" } },
   {
     "q",
     function()
@@ -299,7 +298,6 @@ wk.add({
   { "<leader>a", group = "Avante", nowait = true, remap = false },
   { "<leader>b", group = "Buffer", nowait = true, remap = false },
   { "<leader>c", group = "Code", nowait = true, remap = false },
-  { "<leader>d", group = "Debug", nowait = true, remap = false },
   { "<leader>e", group = "Editor", nowait = true, remap = false },
   { "<leader>eh", group = "Cliente HTTP", nowait = true, remap = false },
   { "<leader>g", group = "Git", nowait = true, remap = false },
@@ -344,8 +342,11 @@ vim.keymap.set("n", "<C-h>", "<C-w>h")
 -- Limpar espaços em branco
 vim.keymap.set("n", "<F5>", "mp<cmd>%s/\\s\\+$/<CR>`p")
 
--- Enter no modo normal
+-- Enter no modo normal quebra a linha
 vim.keymap.set("n", "<CR>", "i<CR><Esc>")
+
+-- Esc no modo normal, limpa a seleção
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Alterar tamanho das janelas
 vim.keymap.set("n", "<left>", "<cmd>vertical resize -5<cr>")
