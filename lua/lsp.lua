@@ -140,7 +140,7 @@ local function on_attach(client, bufnr)
     vim.lsp.semantic_tokens.enable(true)
   end
 
-  if client:_supports_registration("textDocument/onTypeFormatting") then
+  if client:supports_method("textDocument/onTypeFormatting") then
     vim.lsp.on_type_formatting.enable()
   end
 
