@@ -15,8 +15,7 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
     vim.hl.on_yank()
 
-    local event = vim.v.event
-    if event.operator == "y" then
+    if vim.v.event.operator == "y" then
       -- Usar os registros para armazenar o histórico de cópias
       for i = 9, 1, -1 do
         vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i - 1)))
