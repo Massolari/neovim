@@ -4,19 +4,20 @@ return {
     {
       "<leader>ep",
       function()
-        require("pantran").motion_translate()
+        return require("pantran").motion_translate({ target = "pt" })
       end,
-      desc = "Traduzir com Pantran",
+      desc = "Traduzir com Pantran para Português",
       expr = true,
+      mode = { "n", "x" },
     },
     {
-      "<leader>ep",
+      "<leader>eP",
       function()
-        require("pantran").motion_translate()
+        return require("pantran").motion_translate()
       end,
       desc = "Traduzir com Pantran",
       expr = true,
-      mode = "x",
+      mode = { "n", "x" },
     },
   },
   opts = { default_engine = "google" },
