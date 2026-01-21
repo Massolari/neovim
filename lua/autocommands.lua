@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 
 -- Habilitar o número relativo ao sair do modo de inserção
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave" }, {
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   pattern = "*",
   callback = function()
     vim.opt.relativenumber = true
@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave" }, {
 })
 
 -- Desabilitar o número relativo ao entrar no modo de inserção
-vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter" }, {
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   pattern = "*",
   callback = function()
     vim.opt.relativenumber = false
