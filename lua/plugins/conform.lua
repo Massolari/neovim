@@ -1,8 +1,10 @@
 local js_formatter = { "biome", "prettierd", "prettier" }
 
+--- @type LazyPluginSpec
 return {
   "stevearc/conform.nvim",
   event = "BufRead",
+  --- @type conform.setupOpts
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
