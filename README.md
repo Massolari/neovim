@@ -125,7 +125,6 @@ NVIM_APPNAME=Massolari/neovim/ nvim
 ### utility
 
 + [stevearc/dressing.nvim](https://dotfyle.com/plugins/stevearc/dressing.nvim)
-+ [folke/noice.nvim](https://dotfyle.com/plugins/folke/noice.nvim)
 + [Massolari/devto.nvim](https://dotfyle.com/plugins/Massolari/devto.nvim)
 ### web-development
 

@@ -87,15 +87,7 @@ return {
         { "lsp_status", ignore_lsp = { "copilot" } },
       },
       lualine_x = {
-        {
-          function()
-            return string.gsub(require("noice").api.status.search.get(), "W ", "⤴ ")
-          end,
-          cond = function()
-            return require("noice").api.status.search.has()
-          end,
-          separator = "",
-        },
+        { "searchcount", separator = "" },
         {
           function()
             local clients = vim.lsp.get_clients({ name = "copilot" })
@@ -116,7 +108,11 @@ return {
     winbar = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = { border({ right = 1 }), filename, { "navic", color = { gui = "bold" } } },
+      lualine_c = {
+        border({ right = 1 }),
+        filename,
+        { "navic", color = { gui = "bold" } },
+      },
     },
     inactive_winbar = {
       lualine_a = {},
