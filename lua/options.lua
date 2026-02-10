@@ -27,7 +27,6 @@ if env_shell and (env_shell ~= "") then
 end
 vim.o.shell = default_shell
 
-vim.o.spelllang = "pt_br"
 vim.o.scrolloff = 5
 vim.o.mouse = "a"
 vim.o.number = true
