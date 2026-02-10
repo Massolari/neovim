@@ -69,3 +69,6 @@ vim.diagnostic.config({
 vim.schedule(function()
   vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
 end)
+-- Habilita arquivo de configuração local
+vim.o.exrc = true
+
