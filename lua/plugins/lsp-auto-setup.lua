@@ -16,7 +16,6 @@ return {
       ltex_plus = function(default_config)
         --- @type vim.lsp.Config
         return {
-          root_dir = vim.uv.cwd,
           filetypes = { "octo", unpack(default_config.filetypes) },
           settings = {
             ltex = {
