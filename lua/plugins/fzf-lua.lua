@@ -1,13 +1,27 @@
+--- @type LazyPluginSpec
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  opts = { winopts = { backdrop = 100 }, files = { formatter = { "path.filename_first", 2 } } },
+  opts = {
+    winopts = {
+      backdrop = 100,
+      split = "botright new | resize 15",
+    },
+    files = {
+      formatter = { "path.filename_first", 2 },
+    },
+    fzf_opts = {
+      ["--style"] = "minimal",
+      ["--info"] = "hidden",
+    },
+    ui_select = true,
+  },
   cmd = "FzfLua",
   keys = {
     {
       "<leader>b",
       function()
-        require("fzf-lua").buffers({ winopts = { width = 0.4, height = 0.6, preview = { layout = "vertical" } } })
+        require("fzf-lua").buffers()
       end,
       desc = "Buffers",
     },
