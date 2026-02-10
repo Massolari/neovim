@@ -9,7 +9,9 @@ return {
   -- dir = plugin_dir,
   config = true,
   dependencies = { "neovim/nvim-lspconfig" },
+  --- @type LspAutoZero.ConfigOptions
   opts = {
+    exclude = { "gitlab_duo" },
     server_config = {
       ltex_plus = function(default_config)
         --- @type vim.lsp.Config
