@@ -42,8 +42,8 @@ end, {
   desc = "Sugestão de código anterior em linha",
 })
 
---- https://github.com/neovim/neovim/issues/35476#issuecomment-3245265729
-local function accept_completion(item, mode)
+--- https://github.com/neovim/neovim/issues/35476#issuecomment-3693418042
+local function accept_completion(item)
   local insert_text = item.insert_text
   if type(insert_text) == "string" then
     local range = item.range
@@ -52,81 +52,35 @@ local function accept_completion(item, mode)
       local current_lines =
         vim.api.nvim_buf_get_text(range.start.buf, range.start.row, range.start.col, range.end_.row, range.end_.col, {})
 
-      if mode == "word" then
-        local row = 1
-        while row <= #lines and row <= #current_lines and lines[row] == current_lines[row] do
-          row = row + 1
-        end
-
-        local col = 1
-        while
-          row <= #lines
-          and col <= #lines[row]
-          and row <= #current_lines
-          and col <= #current_lines[row]
-          and lines[row][col] == current_lines[row][col]
-        do
-          col = col + 1
-        end
-
-        local word = string.match(lines[row]:sub(col), "%s*[^%s]%w*")
-        vim.print(
-          range.start.buf,
-          math.min(range.start.row + row - 1, range.end_.row),
-          row == #current_lines and math.min(range.start.col + col - 1, range.end_.col)
-            or math.min(col - 1, range.end_.col),
-          range.end_.row,
-          range.end_.col,
-          { word }
-        )
-
-        vim.api.nvim_buf_set_text(
-          range.start.buf,
-          math.min(range.start.row + row - 1, range.end_.row),
-          row <= #current_lines and (row == 1 and range.start.col + col - 1 or col - 1) or range.end_.col,
-          range.end_.row,
-          range.end_.col,
-          row <= #current_lines and { word } or { "", word }
-        )
-        local pos = item.range.start:to_cursor()
-        vim.api.nvim_win_set_cursor(vim.fn.bufwinid(range.start.buf), {
-          pos[1] + row - 1,
-          pos[2] + col - 1 + #lines[1] - 1,
-        })
-      else
-        vim.api.nvim_buf_set_text(
-          range.start.buf,
-          range.start.row,
-          range.start.col,
-          range.end_.row,
-          range.end_.col,
-          lines
-        )
-        local pos = item.range.start:to_cursor()
-        vim.api.nvim_win_set_cursor(vim.fn.bufwinid(range.start.buf), {
-          pos[1] + #lines - 1,
-          (#lines == 1 and pos[2] or 0) + #lines[#lines],
-        })
+      local row = 1
+      while row <= #lines and row <= #current_lines and lines[row] == current_lines[row] do
+        row = row + 1
       end
-    else
-      vim.api.nvim_paste(insert_text, false, 0)
-    end
-  elseif insert_text.kind == "snippet" then
-    vim.snippet.expand(insert_text.value)
-  end
 
-  -- Execute the command *after* inserting this completion.
-  if item.command then
-    local client = assert(vim.lsp.get_client_by_id(item.client_id))
-    client:exec_cmd(item.command, { bufnr = item.range.start.buf })
+      local col = 1
+      while
+        row <= #lines
+        and col <= #lines[row]
+        and row <= #current_lines
+        and col <= #current_lines[row]
+        and lines[row][col] == current_lines[row][col]
+      do
+        col = col + 1
+      end
+
+      local word = string.match(lines[row]:sub(col), "%s*[^%s]%w*")
+      item.insert_text = table.concat(vim.list_slice(lines, 1, row - 1), "\n")
+        .. (row <= #current_lines and "" or "\n")
+        .. (row <= #lines and col <= #lines[row] and lines[row]:sub(1, col - 1) or "")
+        .. word
+    end
   end
+  return item
 end
 
 vim.keymap.set("i", "<m-right>", function()
   vim.lsp.inline_completion.get({
-    on_accept = function(item)
-      accept_completion(item, "word")
-    end,
+    on_accept = accept_completion,
   })
 end, {
   desc = "Inserir próxima palavra da sugestão de código em linha",
@@ -140,11 +94,6 @@ end, { desc = "Próximo erro de código" })
 vim.keymap.set("n", "[e", function()
   vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
 end, { desc = "Erro de código anterior" })
-
--- Abas
-
-vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { desc = "Próxima aba" })
-vim.keymap.set("n", "[t", "<cmd>tabprevious<CR>", { desc = "Aba anterior" })
 
 -- Normal com leader
 functions.keymaps_set("n", {

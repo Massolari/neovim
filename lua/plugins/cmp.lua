@@ -1,5 +1,7 @@
+--- @type LazyPluginSpec
 return {
   "hrsh7th/nvim-cmp",
+  cond = vim.fn.has("nvim-0.12") == 0,
   event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
@@ -57,11 +59,11 @@ return {
         format = lspkind.cmp_format({
           mode = "symbol_text",
           maxwidth = 50,
-          before = function(entry, vim_item)
+          before = function(_, vim_item)
             vim_item.menu = vim_item.kind
             vim_item.kind = (lspkind.presets.codicons[vim_item.kind] or vim_item.kind) .. " "
 
-            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+            return vim_item
           end,
         }),
       },
@@ -69,17 +71,6 @@ return {
     })
 
     require("cmp_git").setup({})
-
-    cmp.setup.cmdline("/", { mapping = cmp.mapping.preset.cmdline(), sources = { { name = "buffer" } } })
-
-    cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-        { name = "cmdline" },
-      }),
-    })
 
     vim.lsp.config("*", {
       capabilities = require("cmp_nvim_lsp").default_capabilities(),

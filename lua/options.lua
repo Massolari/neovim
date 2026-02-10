@@ -38,7 +38,6 @@ vim.o.updatetime = 250
 vim.opt.shortmess:append("c")
 vim.opt.shortmess:remove("l")
 vim.o.signcolumn = "yes"
-vim.o.completeopt = "menuone"
 vim.o.title = true
 vim.o.laststatus = 3
 vim.o.list = true
@@ -74,3 +73,25 @@ vim.o.exrc = true
 
 vim.o.cmdheight = 0
 
+vim.opt.wildmode = { "noselect:lastused", "full" }
+vim.o.wildoptions = "pum"
+
+vim.opt.completeopt = { "menuone", "longest", "popup", "fuzzy" }
+vim.opt.completeitemalign = { "kind", "abbr", "menu" }
+-- Check if Neovim is version 0.12 or higher
+if vim.fn.has("nvim-0.12") == 1 then
+  require("vim._core.ui2").enable({
+    enable = true, -- Whether to enable or disable the UI.
+    msg = { -- Options related to the message module.
+      ---@type 'cmd'|'msg' Where to place regular messages, either in the
+      ---cmdline or in a separate ephemeral message window.
+      target = "msg",
+      timeout = 4000, -- Time a message is visible in the message window.
+    },
+  })
+  vim.o.autocomplete = true
+  vim.opt.complete = { "o^30", ".", "w", "b" }
+  vim.o.pumborder = "rounded"
+  vim.o.pumheight = 15
+  vim.o.pummaxwidth = 80
+end

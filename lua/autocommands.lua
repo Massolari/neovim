@@ -61,6 +61,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "markdown", "txt" },
   callback = function()
     vim.opt_local.spell = true
+    vim.opt_local.complete = { "k", ".", "b", "w" }
   end,
   group = vim.api.nvim_create_augroup("_markdown", {}),
 })
@@ -78,3 +79,13 @@ vim.api.nvim_create_autocmd("User", {
     Snacks.rename.on_rename_file(event.data.from, event.data.to)
   end,
 })
+
+if vim.fn.has("nvim-0.12") == 1 then
+  vim.api.nvim_create_autocmd("CmdlineChanged", {
+    group = vim.api.nvim_create_augroup("_cmdline_changed", {}),
+    pattern = "[:\\/?]",
+    callback = function()
+      vim.fn.wildtrigger()
+    end,
+  })
+end
