@@ -1,5 +1,7 @@
 vim.cmd("packadd cfilter")
-vim.cmd("packadd nvim.undotree")
+if vim.fn.has("nvim-0.12") == 1 then
+  vim.cmd("packadd nvim.undotree")
+end
 
 local _, user_plugins = xpcall(function()
   return require("user.plugins")
