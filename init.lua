@@ -1,3 +1,4 @@
+vim.loader.enable(true)
 local functions = require("functions")
 
 -- Lazy initialization
