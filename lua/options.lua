@@ -1,3 +1,6 @@
+-- Encoding
+vim.o.fileencoding = "utf-8"
+
 -- Folding
 vim.o.foldmethod = "expr"
 vim.o.foldlevelstart = 99
