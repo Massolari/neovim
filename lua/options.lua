@@ -72,3 +72,5 @@ end)
 -- Habilita arquivo de configuração local
 vim.o.exrc = true
 
+vim.o.cmdheight = 0
+
