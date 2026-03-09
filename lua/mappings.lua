@@ -342,6 +342,3 @@ end, { desc = "Formatar arquivo" })
 vim.keymap.set("n", "<leader>k", function()
   vim.lsp.buf.hover()
 end, { desc = "Mostrar documentação" })
-
--- Juntar linhas
-vim.keymap.set("n", "<leader>j", "J", { desc = "Juntar linhas" })

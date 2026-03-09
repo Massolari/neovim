@@ -3,7 +3,12 @@ return {
   "nvim-mini/mini.nvim",
   verssion = "*",
   config = function()
-    require("mini.ai").setup()
+    require("mini.ai").setup({
+      mappings = {
+        around_next = "aN",
+        inside_next = "iN",
+      },
+    })
 
     require("mini.files").setup({
       windows = { preview = true },
