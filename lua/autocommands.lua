@@ -80,12 +80,10 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
-if vim.fn.has("nvim-0.12") == 1 then
-  vim.api.nvim_create_autocmd("CmdlineChanged", {
-    group = vim.api.nvim_create_augroup("_cmdline_changed", {}),
-    pattern = "[:\\/?]",
-    callback = function()
-      vim.fn.wildtrigger()
-    end,
-  })
-end
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  group = vim.api.nvim_create_augroup("_cmdline_changed", {}),
+  pattern = "[:\\/?]",
+  callback = function()
+    vim.fn.wildtrigger()
+  end,
+})
