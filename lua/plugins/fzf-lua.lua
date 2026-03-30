@@ -26,6 +26,13 @@ return {
       desc = "Buffers",
     },
     {
+      "<leader>B",
+      function()
+        require("fzf-lua").buffers({ cwd_only = true })
+      end,
+      desc = "Buffers do diretório atual",
+    },
+    {
       "<leader>cp",
       function()
         require("fzf-lua").lsp_workspace_symbols()
