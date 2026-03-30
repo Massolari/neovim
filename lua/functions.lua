@@ -178,41 +178,26 @@ end
 M.generate_code_image = function(args)
   local line1, line2 = args.line1, args.line2
 
-  local data_path = vim.fn.stdpath("data")
-  local code_temp_file = data_path .. "/code-silicon.code"
-  local img_temp_file = data_path .. "/image-silicon.png"
+  local tmpdir = vim.uv.os_tmpdir()
+  local code_temp_file = vim.fs.joinpath(tmpdir, "code-silicon.code")
 
-  local language = get_silicon_language(vim.fn.expand("%:e"))
+  local language = vim.bo.filetype
   local lines = vim.api.nvim_buf_get_lines(0, line1 - 1, line2, false)
 
   local notify_title = "Silicon"
   vim.fn.delete(code_temp_file)
-  vim.fn.delete(img_temp_file)
   vim.fn.writefile(lines, code_temp_file)
 
-  local silicon_cmd = string.format(
-    "silicon -l %s -o %s < %s",
-    language,
-    vim.fn.shellescape(img_temp_file),
-    vim.fn.shellescape(code_temp_file)
-  )
+  local silicon_cmd = string.format("silicon -l %s --to-clipboard < %s", language, vim.fn.shellescape(code_temp_file))
   local silicon_result = vim.fn.system(silicon_cmd)
   local silicon_exit_code = vim.v.shell_error
-  vim.fn.delete(code_temp_file)
 
   if silicon_exit_code ~= 0 then
     notify.error(silicon_result, notify_title)
     return
   end
 
-  local osascript_cmd = string.format("osascript -e 'set the clipboard to (POSIX file \"%s\")'", img_temp_file)
-  local copy_result = vim.fn.system(osascript_cmd)
-
-  if copy_result == "" then
-    notify.info("Code image copied to clipboard", notify_title)
-  else
-    notify.error(copy_result, notify_title)
-  end
+  notify.info("Code image copied to clipboard", notify_title)
 end
 
 --- Get the key to insert
