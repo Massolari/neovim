@@ -140,7 +140,7 @@ functions.keymaps_set("n", {
   {
     "F",
     function()
-      require("conform").format()
+      require("conform").format({ lsp_format = "fallback" })
     end,
     { desc = "Formatar código" },
   },
