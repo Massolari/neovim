@@ -42,7 +42,10 @@ return {
   },
   opts = {
     options = {
-      disabled_filetypes = { statusline = { "dashboard" }, winbar = { "dashboard", "kulala_ui", "neoment_room" } },
+      disabled_filetypes = {
+        statusline = { "dashboard" },
+        winbar = { "dashboard", "kulala_ui", "neoment_room", "nvim-dap-view" },
+      },
       component_separators = "·",
       globalstatus = vim.o.laststatus == 3,
       section_separators = "",
