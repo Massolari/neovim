@@ -131,49 +131,14 @@ local function on_attach(client, bufnr)
         }
       end,
     })
-
-    vim.api.nvim_create_autocmd("CompleteChanged", {
-      buffer = bufnr,
-      callback = function()
-        local info = vim.fn.complete_info({ "selected" })
-        local completionItem = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
-        if nil == completionItem then
-          return
-        end
-
-        local resolvedItem =
-          vim.lsp.buf_request_sync(bufnr, vim.lsp.protocol.Methods.completionItem_resolve, completionItem, 500)
-
-        local clientItem = resolvedItem and resolvedItem[client.id]
-        if not clientItem then
-          return
-        end
-        local docs = vim.tbl_get(clientItem, "result", "documentation", "value")
-        if nil == docs then
-          return
-        end
-
-        local winData = vim.api.nvim__complete_set(info["selected"], { info = docs })
-        if not winData.winid or not vim.api.nvim_win_is_valid(winData.winid) then
-          return
-        end
-
-        vim.api.nvim_win_set_config(winData.winid, { border = "rounded" })
-        vim.treesitter.start(winData.bufnr, "markdown")
-        vim.wo[winData.winid].conceallevel = 3
-      end,
-    })
+    vim.opt.complete = { "o", "Fv:lua.nvim_snippets_complete" }
   end
 
   if client:supports_method("textDocument/codeLens") then
     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-      buffer = 0,
+      buffer = bufnr,
       callback = function()
-        if vim.fn.has("nvim-0.12") == 1 then
-          vim.lsp.codelens.enable()
-        else
-          vim.lsp.codelens.refresh({ bufnr = 0 })
-        end
+        vim.lsp.codelens.enable(true, { bufnr = bufnr })
       end,
       group = vim.api.nvim_create_augroup("_code_lens", {}),
     })
@@ -188,7 +153,7 @@ local function on_attach(client, bufnr)
     vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
   end
 
-  if client:supports_method("textDocument/inlineCompletion") and vim.fn.has("nvim-0.12") == 1 then
+  if client:supports_method("textDocument/inlineCompletion") then
     vim.lsp.inline_completion.enable()
   end
 
@@ -202,11 +167,11 @@ local function on_attach(client, bufnr)
     })
   end
 
-  if client:supports_method("textDocument/semanticTokens/full") and vim.fn.has("nvim-0.12") == 1 then
+  if client:supports_method("textDocument/semanticTokens/full") then
     vim.lsp.semantic_tokens.enable(true)
   end
 
-  if client:supports_method("textDocument/onTypeFormatting") and vim.fn.has("nvim-0.12") == 1 then
+  if client:supports_method("textDocument/onTypeFormatting") then
     vim.lsp.on_type_formatting.enable()
   end
 
@@ -217,6 +182,7 @@ end
 
 -- :help LspAttach
 vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("_lsp_attach", {}),
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client then
