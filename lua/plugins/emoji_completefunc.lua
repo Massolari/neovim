@@ -1,12 +1,8 @@
 local functions = require("functions")
-
 local plugin_dir = vim.g.local_plugins_dir .. "/emoji-completefunc"
+local source = functions.dir_exists(plugin_dir) and "file:///" .. plugin_dir
+  or "https://github.com/Massolari/emoji-completefunc.nvim"
 
---- @type LazyPluginSpec
-return {
-  "Massolari/emoji-completefunc.nvim",
-  dir = functions.dir_exists(plugin_dir) and plugin_dir or nil,
-  config = function()
-    vim.opt.complete:append({ "Fv:lua.emoji_completefunc" })
-  end,
-}
+vim.pack.add({ source })
+
+vim.opt.complete:append({ "Fv:lua.emoji_completefunc" })

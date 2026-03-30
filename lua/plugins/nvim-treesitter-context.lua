@@ -1,5 +1,2 @@
---- @type LazySpec
-return {
-  "nvim-treesitter/nvim-treesitter-context",
-  config = true,
-}
+vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter-context" })
+require("treesitter-context").setup()

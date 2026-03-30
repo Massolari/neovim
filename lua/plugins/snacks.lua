@@ -31,112 +31,86 @@ local header_number = functions.get_random(39)
 -- Alimenta a semente do gerador de números aleatórios para sortear uma citação aleatória
 math.randomseed(os.time())
 
---- @type LazyPluginSpec
-return {
-  "folke/snacks.nvim",
-  priority = 1000,
-  ---@type snacks.Config
-  opts = {
-    bigfile = { enabled = true },
-    dashboard = {
-      enabled = true,
-      row = 10,
-      preset = {
-        header = vim.fn.join(
-          add_border(
-            vim.fn.systemlist("cat " .. vim.fn.stdpath("config") .. "/lua/data/ascii/" .. header_number .. ".cat")
-          ),
-          "\n"
+vim.pack.add({ "https://github.com/folke/snacks.nvim" })
+
+---@type snacks.Config
+require("snacks").setup({
+  bigfile = { enabled = true },
+  dashboard = {
+    enabled = true,
+    row = 10,
+    preset = {
+      header = vim.fn.join(
+        add_border(
+          vim.fn.systemlist("cat " .. vim.fn.stdpath("config") .. "/lua/data/ascii/" .. header_number .. ".cat")
         ),
-        keys = {
-          { icon = "  ", desc = "Buscar arquivo", key = "f", action = ":FzfLua files" },
-          { icon = "  ", desc = "Arquivos recentes", key = "r", action = ":FzfLua oldfiles" },
-          { icon = "󰮗  ", desc = "Procurar nos arquivos", key = "g", action = ":FzfLua live_grep" },
-          { icon = "  ", desc = "Octo (Github)", key = "o", action = ":Octo actions" },
-          { icon = "󰦨  ", desc = "Feed do dev.to", key = "d", action = ":Devto feed" },
-          { icon = "  ", desc = "Novo arquivo", key = "n", action = ":ene!" },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-        },
-      },
-      sections = {
-        { section = "header" },
-        { section = "keys", gap = 1, padding = 1 },
-        { text = functions.get_random_item(quotes), align = "center", padding = { 0, 2 } },
+        "\n"
+      ),
+      keys = {
+        { icon = " ", desc = "Buscar arquivo", key = "f", action = ":FzfLua files" },
+        { icon = "󱀲 ", desc = "Arquivos recentes", key = "r", action = ":FzfLua oldfiles" },
+        { icon = "󰮗 ", desc = "Procurar nos arquivos", key = "/", action = ":FzfLua live_grep" },
+        { icon = " ", desc = "Neogit", key = "g", action = ":Neogit" },
+        { icon = " ", desc = "Octo (Github)", key = "o", action = ":Octo actions" },
+        { icon = "󰦨 ", desc = "Feed do dev.to", key = "d", action = ":Devto feed" },
+        { icon = " ", desc = "Novo arquivo", key = "n", action = ":ene!" },
+        { icon = "󰈆 ", key = "q", desc = "Sair", action = ":qa" },
       },
     },
-    explorer = { enabled = true, replace_netrw = false },
-    git = { enabled = true },
-    indent = { enabled = true },
-    input = { enabled = true },
-    --- @type snacks.image.Config
-    image = {
-      enabled = true,
-      cache = "/tmp",
-    },
-    lazygit = { enabled = true, configure = true },
-    notifier = { enabled = true, top_down = false },
-    picker = {
-      enabled = true,
-      ui_select = false,
-    },
-    quickfile = { enabled = true },
-    rename = { enabled = true },
-    scope = { enabled = true },
-    terminal = { enabled = true },
-    scroll = { enabled = false },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
-  },
-  keys = {
-    {
-      "<leader>gy",
-      function()
-        Snacks.lazygit()
-      end,
-      desc = "Abrir lazygit",
-    },
-    {
-      "<leader>d",
-      function()
-        Snacks.bufdelete()
-      end,
-      desc = "Deletar buffer",
-    },
-    {
-      "<leader>E",
-      function()
-        Snacks.explorer()
-      end,
-      desc = "Explorador de arquivos",
-    },
-    {
-      "]w",
-      function()
-        Snacks.words.jump(1, true)
-      end,
-      desc = "Pr\195\179xima palavra destacada",
-    },
-    {
-      "[w",
-      function()
-        Snacks.words.jump(-1, true)
-      end,
-      desc = "Palavra destacada anterior",
-    },
-    {
-      "<leader>t",
-      function()
-        Snacks.terminal.toggle()
-      end,
-      desc = "Abrir terminal",
-    },
-    {
-      "<leader>T",
-      function()
-        Snacks.terminal.toggle(nil, { win = { style = "float" } })
-      end,
-      desc = "Abrir terminal fluante",
+    sections = {
+      { section = "header" },
+      { section = "keys", gap = 1, padding = 1 },
+      { text = functions.get_random_item(quotes), align = "center", padding = { 0, 2 } },
     },
   },
-  lazy = false,
-}
+  explorer = { enabled = true, replace_netrw = false },
+  git = { enabled = false },
+  indent = { enabled = true },
+  input = { enabled = true },
+  --- @type snacks.image.Config
+  image = {
+    enabled = true,
+    cache = "/tmp",
+  },
+  lazygit = { enabled = true, configure = true },
+  notifier = { enabled = true, top_down = false },
+  picker = {
+    enabled = false,
+    ui_select = false,
+  },
+  quickfile = { enabled = true },
+  rename = { enabled = true },
+  scope = { enabled = false },
+  terminal = { enabled = true },
+  scroll = { enabled = false },
+  statuscolumn = { enabled = true },
+  words = { enabled = true },
+})
+
+vim.keymap.set("n", "<leader>gy", function()
+  Snacks.lazygit()
+end, { desc = "Abrir lazygit" })
+
+vim.keymap.set("n", "<leader>d", function()
+  Snacks.bufdelete()
+end, { desc = "Deletar buffer" })
+
+vim.keymap.set("n", "<leader>E", function()
+  Snacks.explorer()
+end, { desc = "Explorador de arquivos" })
+
+vim.keymap.set("n", "]w", function()
+  Snacks.words.jump(1, true)
+end, { desc = "Próxima palavra destacada" })
+
+vim.keymap.set("n", "[w", function()
+  Snacks.words.jump(-1, true)
+end, { desc = "Palavra destacada anterior" })
+
+vim.keymap.set("n", "<leader>t", function()
+  Snacks.terminal.toggle()
+end, { desc = "Abrir terminal" })
+
+vim.keymap.set("n", "<leader>T", function()
+  Snacks.terminal.toggle(nil, { win = { style = "float" } })
+end, { desc = "Abrir terminal fluante" })

@@ -1,2 +1,3 @@
-return { "folke/trouble.nvim", dependencies = "nvim-tree/nvim-web-devicons", lazy = true, config = true }
-
+require("plugins.nvim-web-devicons")
+vim.pack.add({ "https://github.com/folke/trouble.nvim" })
+require("trouble").setup()

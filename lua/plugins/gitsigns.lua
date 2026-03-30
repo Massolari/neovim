@@ -1,47 +1,45 @@
---- @type LazyPluginSpec
-return {
-  "lewis6991/gitsigns.nvim",
-  opts = {
-    on_attach = function(_)
-      local gs = require("gitsigns")
+vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 
-      vim.keymap.set("n", "]c", function()
-        if vim.wo.diff then
-          return "]c"
-        end
+require("gitsigns").setup({
+  on_attach = function(_)
+    local gs = require("gitsigns")
 
-        vim.schedule(function()
-          gs.nav_hunk("next")
-        end)
-        return "<Ignore>"
-      end, { buffer = true, expr = true, desc = "Próximo git hunk" })
+    vim.keymap.set("n", "]c", function()
+      if vim.wo.diff then
+        return "]c"
+      end
 
-      vim.keymap.set("n", "[c", function()
-        if vim.wo.diff then
-          return "[c"
-        end
-
-        vim.schedule(function()
-          gs.nav_hunk("prev")
-        end)
-        return "<Ignore>"
-      end, { buffer = true, expr = true, desc = "Git hunk anterior" })
-
-      vim.keymap.set("n", "<leader>ghu", gs.reset_hunk, { buffer = true })
-
-      vim.keymap.set("v", "<leader>ghu", function()
-        gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-      end, { buffer = true, desc = "Desfazer (undo)" })
-
-      vim.keymap.set("n", "<leader>ghv", gs.preview_hunk, { buffer = true, desc = "Ver" })
-
-      vim.keymap.set("n", "<leader>gbb", function()
-        gs.blame_line({ full = true, desc = "Linha" })
+      vim.schedule(function()
+        gs.nav_hunk("next")
       end)
-    end,
-    current_line_blame = true,
-    current_line_blame_opts = { delay = 0 },
-    linehl = false,
-    numhl = false,
-  },
-}
+      return "<Ignore>"
+    end, { buffer = true, expr = true, desc = "Próximo git hunk" })
+
+    vim.keymap.set("n", "[c", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+
+      vim.schedule(function()
+        gs.nav_hunk("prev")
+      end)
+      return "<Ignore>"
+    end, { buffer = true, expr = true, desc = "Git hunk anterior" })
+
+    vim.keymap.set("n", "<leader>ghu", gs.reset_hunk, { buffer = true })
+
+    vim.keymap.set("v", "<leader>ghu", function()
+      gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+    end, { buffer = true, desc = "Desfazer (undo)" })
+
+    vim.keymap.set("n", "<leader>ghv", gs.preview_hunk, { buffer = true, desc = "Ver" })
+
+    vim.keymap.set("n", "<leader>gbb", function()
+      gs.blame_line({ full = true, desc = "Linha" })
+    end)
+  end,
+  current_line_blame = true,
+  current_line_blame_opts = { delay = 0 },
+  linehl = false,
+  numhl = false,
+})

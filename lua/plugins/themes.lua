@@ -1,42 +1,17 @@
---- @type LazySpec[]
-return {
-  {
-    "projekt0n/github-nvim-theme",
-    config = function()
-      -- vim.cmd.colorscheme("github_light")
-    end,
-  },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    opts = { flavour = "latte" },
-    -- config = function(_, opts)
-    --   require("catppuccin").setup(opts)
-    --   vim.cmd.colorscheme("catppuccin-latte")
-    --   vim.api.nvim_set_hl(0, "FloatBorder", { link = "@text.title" })
-    -- end,
-    priority = 1000,
-    lazy = false,
-  },
-  {
-    "navarasu/onedark.nvim",
-    opts = { style = "light" },
-    config = true,
-  },
-  {
-    "zenbones-theme/zenbones.nvim",
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-    -- In Vim, compat mode is turned on as Lush only works in Neovim.
-    dependencies = "rktjmp/lush.nvim",
-    lazy = false,
-    priority = 1000,
-    init = function()
-      vim.g.tokyobones_lightness = "bright"
-    end,
-    -- you can set set configuration options here
-    config = function()
-      vim.cmd.colorscheme("tokyobones")
-    end,
-  },
-}
+-- vim.pack.add({ "https://github.com/projekt0n/github-nvim-theme" })
+-- vim.cmd.colorscheme("github_light")
+
+-- vim.pack.add({ { src = "https://github.com/catppuccin/nvim", name = "catppuccin" } })
+-- require("catppuccin").setup({ flavour = "latte" })
+-- vim.cmd.colorscheme("catppuccin-latte")
+-- vim.api.nvim_set_hl(0, "FloatBorder", { link = "@text.title" })
+
+-- vim.pack.add({ "https://github.com/navarasu/onedark.nvim" })
+-- require("onedark").setup({ style = "light" })
+
+vim.pack.add({
+  "https://github.com/rktjmp/lush.nvim",
+  "https://github.com/zenbones-theme/zenbones.nvim",
+})
+vim.g.tokyobones_lightness = "bright"
+vim.cmd.colorscheme("tokyobones")

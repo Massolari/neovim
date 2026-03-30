@@ -1,25 +1,20 @@
 vim.loader.enable(true)
 local functions = require("functions")
 
--- Lazy initialization
-local lazypath = (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
-if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--single-branch",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+local function load_plugins()
+  for name, type in vim.fs.dir(vim.fn.stdpath("config") .. "/lua/plugins") do
+    if type == "file" then
+      local name_without_extension = string.sub(name, 1, -5) -- Remove `.lua`
+      require("plugins." .. name_without_extension)
+    end
+  end
 end
-vim.opt.runtimepath:prepend(lazypath)
 
 require("lsp")
 require("globals")
 require("options")
 
-require("lazy").setup({ spec = { import = "plugins" } })
+load_plugins()
 
 require("commands")
 require("autocommands")
@@ -30,3 +25,12 @@ local user_file = vim.fn.stdpath("config") .. "/lua/user/init.lua"
 if functions.file_exists(user_file) then
   require("user")
 end
+
+-- vim.cmd.colorscheme("catppuccin")
+vim.schedule(function()
+  -- vim.api.nvim_set_hl(0, "Pmenu", { link = "Normal", force = true })
+  vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal", force = true })
+  vim.api.nvim_set_hl(0, "FloatBorder", { link = "@text.title" })
+  -- vim.api.nvim_set_hl(0, "FloatBorder", { link = "PmenuBorder", force = true })
+  vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true })
+end)

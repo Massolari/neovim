@@ -1,7 +1,4 @@
---- @type LazySpec
-return {
-  "windwp/nvim-autopairs",
-  event = "InsertEnter",
-  config = true,
-  opts = { fast_wrap = {} },
-}
+vim.pack.add({ "https://github.com/windwp/nvim-autopairs" })
+require("nvim-autopairs").setup({
+  fast_wrap = {},
+})

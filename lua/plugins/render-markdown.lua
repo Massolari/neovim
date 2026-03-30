@@ -1,9 +1,8 @@
---- @type LazyPluginSpec
-return {
-  "MeanderingProgrammer/render-markdown.nvim",
-  opts = {
-    patterns = { markdown = { disable = false } },
-  },
-  ft = "markdown",
-  dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-}
+require("plugins.nvim-web-devicons")
+require("plugins.treesitter")
+
+vim.pack.add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+
+require("render-markdown").setup({
+  patterns = { markdown = { disable = false } },
+})

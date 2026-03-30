@@ -1,8 +1,4 @@
---- @type LazyPluginSpec
-return {
-  "onsails/lspkind.nvim",
-  config = function() end,
-  opts = {
-    preset = "codicons",
-  },
-}
+vim.pack.add({ "https://github.com/onsails/lspkind.nvim" })
+require("lspkind").init({
+  preset = "codicons",
+})

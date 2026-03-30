@@ -1,2 +1,1 @@
-return { "unblevable/quick-scope", event = "VeryLazy" }
-
+vim.pack.add({ "https://github.com/unblevable/quick-scope" })

@@ -1,6 +1,5 @@
-return {
-  "folke/which-key.nvim",
-  lazy = true,
-  opts = { preset = "helix", plugins = { spelling = { enabled = true }, presets = { operators = false } } },
-}
-
+vim.pack.add({ "https://github.com/folke/which-key.nvim" })
+require("which-key").setup({
+  preset = "helix",
+  plugins = { spelling = { enabled = true }, presets = { operators = false } },
+})
