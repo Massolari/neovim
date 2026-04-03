@@ -131,7 +131,7 @@ local function on_attach(client, bufnr)
         }
       end,
     })
-    vim.opt.complete = { "o", "Fv:lua.nvim_snippets_complete" }
+    vim.opt.complete = { "o", "Fv:lua.nvim_snippets_complete", "Fv:lua.emoji_completefunc" }
   end
 
   if client:supports_method("textDocument/codeLens") then
