@@ -1,7 +1,7 @@
 vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 
 require("gitsigns").setup({
-  on_attach = function(_)
+  on_attach = function(bufnr)
     local gs = require("gitsigns")
 
     vim.keymap.set("n", "]c", function()
@@ -13,7 +13,7 @@ require("gitsigns").setup({
         gs.nav_hunk("next")
       end)
       return "<Ignore>"
-    end, { buffer = true, expr = true, desc = "Próximo git hunk" })
+    end, { buffer = bufnr, expr = true, desc = "Próximo git hunk" })
 
     vim.keymap.set("n", "[c", function()
       if vim.wo.diff then
@@ -24,15 +24,15 @@ require("gitsigns").setup({
         gs.nav_hunk("prev")
       end)
       return "<Ignore>"
-    end, { buffer = true, expr = true, desc = "Git hunk anterior" })
+    end, { buffer = bufnr, expr = true, desc = "Git hunk anterior" })
 
-    vim.keymap.set("n", "<leader>ghu", gs.reset_hunk, { buffer = true })
+    vim.keymap.set("n", "<leader>ghu", gs.reset_hunk, { buffer = bufnr })
 
     vim.keymap.set("v", "<leader>ghu", function()
       gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end, { buffer = true, desc = "Desfazer (undo)" })
+    end, { buffer = bufnr, desc = "Desfazer (undo)" })
 
-    vim.keymap.set("n", "<leader>ghv", gs.preview_hunk, { buffer = true, desc = "Ver" })
+    vim.keymap.set("n", "<leader>ghv", gs.preview_hunk, { buffer = bufnr, desc = "Ver" })
 
     vim.keymap.set("n", "<leader>gbb", function()
       gs.blame_line({ full = true, desc = "Linha" })
