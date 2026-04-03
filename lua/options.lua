@@ -1,3 +1,6 @@
+vim.o.termguicolors = true
+vim.o.background = "light"
+
 -- Encoding
 vim.o.fileencoding = "utf-8"
 
@@ -71,7 +74,7 @@ vim.o.cmdheight = 0
 vim.opt.wildmode = { "noselect:lastused", "full" }
 vim.o.wildoptions = "pum"
 
-vim.opt.completeopt = { "menuone", "longest", "popup", "fuzzy" }
+vim.opt.completeopt = { "menuone", "noselect", "popup", "fuzzy" }
 vim.opt.completeitemalign = { "kind", "abbr", "menu" }
 require("vim._core.ui2").enable({
   enable = true, -- Whether to enable or disable the UI.
