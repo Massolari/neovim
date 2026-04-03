@@ -14,6 +14,7 @@ require("lsp")
 require("globals")
 require("options")
 
+require("plugins.themes")
 load_plugins()
 
 require("commands")
