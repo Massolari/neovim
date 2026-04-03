@@ -76,6 +76,12 @@ vim.keymap.set("n", "<leader>pz", function()
   require("fzf-lua").zoxide()
 end, { desc = "Zoxide" })
 
+vim.keymap.set("n", "<leader>pZ", function()
+  require("fzf-lua").zoxide({
+    scope = "win", -- cd action scope "local|win|tab"
+  })
+end, { desc = "Zoxide (janela)" })
+
 vim.keymap.set("n", "<leader>ps", function()
   require("fzf-lua").live_grep()
 end, { desc = "Procurar (search) nos arquivos" })
