@@ -1,13 +1,14 @@
 local functions = require("functions")
 local plugin_dir = vim.g.local_plugins_dir .. "/nvim-snippets"
-local source = functions.dir_exists(plugin_dir) and "file:///" .. plugin_dir
-  or "https://github.com/Massolari/nvim-snippets"
 
 require("plugins.lspkind")
-vim.pack.add({
-  "https://github.com/rafamadriz/friendly-snippets",
-  source,
-})
+vim.pack.add({ "https://github.com/rafamadriz/friendly-snippets" })
+
+if functions.dir_exists(plugin_dir) then
+  vim.cmd.packadd("nvim-snippets")
+else
+  vim.pack.add({ "https://github.com/Massolari/nvim-snippets" })
+end
 
 require("snippets").setup({
   friendly_snippets = true,

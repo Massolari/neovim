@@ -1,11 +1,13 @@
 local functions = require("functions")
 local plugin_dir = vim.g.local_plugins_dir .. "/lsp-auto-setup.nvim"
-local source = functions.dir_exists(plugin_dir) and "file:///" .. plugin_dir
-  or "https://github.com/Massolari/lsp-auto-setup.nvim"
 
 require("plugins.nvim-lspconfig")
 
-vim.pack.add({ source })
+if functions.dir_exists(plugin_dir) then
+  vim.cmd.packadd("lsp-auto-setup.nvim")
+else
+  vim.pack.add({ "https://github.com/Massolari/lsp-auto-setup.nvim" })
+end
 
 require("lsp-auto-setup").setup({
   exclude = { "gitlab_duo" },

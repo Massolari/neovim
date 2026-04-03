@@ -1,11 +1,13 @@
 local functions = require("functions")
 local plugin_dir = vim.g.local_plugins_dir .. "/neoment.nvim"
-local source = functions.dir_exists(plugin_dir) and "file:///" .. plugin_dir
-  or "https://github.com/Massolari/neoment.nvim"
 
 require("plugins.plenary")
 
-vim.pack.add({ source })
+if functions.dir_exists(plugin_dir) then
+  vim.cmd.packadd("neoment.nvim")
+else
+  vim.pack.add({ "https://github.com/Massolari/neoment.nvim" })
+end
 
 vim.g.neoment = {
   notifier = function(message, level, opts)

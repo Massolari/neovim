@@ -9,4 +9,4 @@ vim.g.neovide_cursor_short_animation_length = 0.5
 vim.g.obsidian_dir = (vim.env.HOME .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents")
 
 -- Local plugins
-vim.g.local_plugins_dir = (vim.env.HOME .. "/lua-projects")
+vim.g.local_plugins_dir = (vim.env.HOME .. "/.local/share/nvim/site/pack/mine/opt/")
