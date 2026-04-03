@@ -29,9 +29,13 @@ vim.keymap.set({ "n", "v" }, "<leader>iss", function()
 end, { desc = "Alternar CLI" })
 
 vim.keymap.set({ "n", "v" }, "<leader>isp", function()
-  require("sidekick.cli").select_prompt()
+  require("sidekick.cli").prompt()
 end, { desc = "Perguntar" })
 
 vim.keymap.set({ "n", "v" }, "<leader>isf", function()
   require("sidekick.cli").send({ msg = "{file}" })
 end, { desc = "Enviar arquivo" })
+
+vim.keymap.set({ "n", "v" }, "<leader>isv", function()
+  require("sidekick.cli").send({ msg = "{selection}" })
+end, { desc = "Enviar seleção" })
