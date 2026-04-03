@@ -240,7 +240,26 @@ functions.keymaps_set("n", {
   },
   { "q", "<cmd>qa<CR>", { desc = "Fechar" } },
   { "R", "<cmd>restart<CR>", { desc = "Reiniciar Neovim" } },
-  { "u", "<cmd>Lazy<CR>", { desc = "Plugins" } },
+  { "uu", "<cmd>lua vim.pack.update()<CR>", { desc = "Atualizar plugins" } },
+  {
+    "ud",
+    function()
+      vim
+        .iter(vim.pack.get())
+        :filter(function(x)
+          return not x.active
+        end)
+        :map(function(x)
+          local name = x.spec.name
+          print("Removendo " .. name)
+          return name
+        end)
+        :totable()
+
+      print("Plugins removidos")
+    end,
+    { desc = "Remover plugins não ativos" },
+  },
 }, { prefix = "<leader>e" })
 vim.keymap.set("v", "<leader>ei", ":Silicon<CR>", { desc = "Gerar imagem do código (silicon})" })
 
