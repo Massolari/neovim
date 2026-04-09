@@ -1,6 +1,13 @@
 vim.pack.add({ "https://github.com/folke/sidekick.nvim" })
 
-require("sidekick").setup()
+require("sidekick").setup({
+  nes = {
+    trigger = {
+      -- events that trigger sidekick next edit suggestions
+      events = { "User SidekickNesDone" },
+    },
+  },
+})
 
 vim.keymap.set({ "n", "i" }, "<tab>", function()
   -- if there is a next edit, jump to it, otherwise apply it if any
