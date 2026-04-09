@@ -1,7 +1,7 @@
 local functions = require("functions")
 
 functions.on_pack_changed("CopilotChat.nvim", function(ev)
-  vim.system({ "make tiktoken" }, { cwd = ev.data.path })
+  vim.system({ "make", "tiktoken" }, { cwd = ev.data.path })
 end)
 
 vim.pack.add({ { src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim", version = "main" } })
