@@ -6,7 +6,7 @@ require("plugins.plenary")
 if functions.dir_exists(plugin_dir) then
   vim.cmd.packadd("neoment.nvim")
 else
-  vim.pack.add({ "https://github.com/Massolari/neoment.nvim" })
+  vim.pack.add({ "https://github.com/Massolari/neoment" })
 end
 
 vim.g.neoment = {
