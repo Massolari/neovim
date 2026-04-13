@@ -244,19 +244,16 @@ functions.keymaps_set("n", {
   {
     "ud",
     function()
-      vim
+      vim.pack.del(vim
         .iter(vim.pack.get())
         :filter(function(x)
           return not x.active
         end)
         :map(function(x)
           local name = x.spec.name
-          print("Removendo " .. name)
           return name
         end)
-        :totable()
-
-      print("Plugins removidos")
+        :totable())
     end,
     { desc = "Remover plugins não ativos" },
   },
