@@ -178,6 +178,10 @@ local function on_attach(client, bufnr)
   if client:supports_method("textDocument/linkedEditingRange") then
     vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
   end
+
+  if client:supports_method("textDocument/documentColor") then
+    vim.lsp.document_color.enable(true)
+  end
 end
 
 -- :help LspAttach
