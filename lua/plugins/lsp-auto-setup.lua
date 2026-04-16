@@ -1,5 +1,5 @@
 local functions = require("functions")
-local plugin_dir = vim.g.local_plugins_dir .. "/lsp-auto-setup.nvim"
+local plugin_dir = vim.g.local_plugins_dir .. "lsp-auto-setup.nvim"
 
 require("plugins.nvim-lspconfig")
 
