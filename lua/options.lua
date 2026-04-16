@@ -53,8 +53,15 @@ vim.o.winborder = "rounded"
 
 -- Diagnostic
 vim.diagnostic.config({
-  float = { show_header = true },
-  jump = { float = true },
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float({
+        bufnr = bufnr,
+        scope = "cursor",
+        focus = false,
+      })
+    end,
+  },
   virtual_lines = true,
   signs = {
     text = {
