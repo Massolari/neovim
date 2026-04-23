@@ -1,10 +1,15 @@
-local functions = require("functions")
-
-functions.on_pack_changed("nvim-treesitter", function(_)
-  vim.cmd("TSUpdate")
-end)
-
-vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
+vim.pack.add({
+  {
+    src = "https://github.com/nvim-treesitter/nvim-treesitter",
+    data = {
+      build = {
+        run = function(_)
+          vim.cmd("TSUpdate")
+        end,
+      },
+    },
+  },
+})
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",

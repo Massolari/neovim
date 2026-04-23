@@ -207,19 +207,4 @@ M.get_key_insert = function(key)
   return vim.api.nvim_replace_termcodes(key, true, false, true)
 end
 
-M.on_pack_changed = function(name, callback, opts)
-  opts = vim.tbl_extend("force", { kind = "update" }, opts or {})
-  vim.api.nvim_create_autocmd("PackChanged", {
-    callback = function(ev)
-      local ev_name, ev_kind = ev.data.spec.name, ev.data.kind
-      if ev_name == name and ev_kind == opts.kind then
-        if not ev.data.active then
-          vim.cmd.packadd(name)
-        end
-        callback(ev)
-      end
-    end,
-  })
-end
-
 return M

@@ -13,12 +13,12 @@ end
 require("lsp")
 require("globals")
 require("options")
+require("autocommands")
 
 require("plugins.themes")
 load_plugins()
 
 require("commands")
-require("autocommands")
 require("mappings")
 
 -- Load user config

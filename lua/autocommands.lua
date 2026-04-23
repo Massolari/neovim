@@ -87,3 +87,18 @@ vim.api.nvim_create_autocmd("CmdlineChanged", {
     vim.fn.wildtrigger()
   end,
 })
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    local ev_name, ev_kind, ev_build = ev.data.spec.name, ev.data.kind, vim.tbl_get(ev.data.spec, "data", "build")
+    if ev_build then
+      if not ev.data.active then
+        vim.cmd.packadd(ev_name)
+      end
+      local build_kind = ev_build.kind or { "install", "update" }
+      if vim.tbl_contains(build_kind, ev_kind) then
+        ev_build.run(ev)
+      end
+    end
+  end,
+})

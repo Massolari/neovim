@@ -1,13 +1,18 @@
-local functions = require("functions")
-
 require("plugins.plenary")
 require("plugins.copilotchat")
 
-functions.on_pack_changed("mcphub.nvim", function(_)
-  vim.system({ "npm", "install", "-g", "mcp-hub@latest" })
-end)
-
-vim.pack.add({ "https://github.com/ravitemer/mcphub.nvim" })
+vim.pack.add({
+  {
+    src = "https://github.com/ravitemer/mcphub.nvim",
+    data = {
+      build = {
+        run = function(_)
+          vim.system({ "npm", "install", "-g", "mcp-hub@latest" })
+        end,
+      },
+    },
+  },
+})
 
 require("mcphub").setup({
   extensions = {

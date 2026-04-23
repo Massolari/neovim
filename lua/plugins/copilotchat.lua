@@ -1,10 +1,16 @@
-local functions = require("functions")
-
-functions.on_pack_changed("CopilotChat.nvim", function(ev)
-  vim.system({ "make", "tiktoken" }, { cwd = ev.data.path })
-end)
-
-vim.pack.add({ { src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim", version = "main" } })
+vim.pack.add({
+  {
+    src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim",
+    version = "main",
+    data = {
+      build = {
+        run = function(ev)
+          vim.system({ "make", "tiktoken" }, { cwd = ev.data.path })
+        end,
+      },
+    },
+  },
+})
 require("CopilotChat").setup({
   debug = false,
   model = "claude-opus-4.6",

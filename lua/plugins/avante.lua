@@ -1,9 +1,3 @@
-local functions = require("functions")
-
-functions.on_pack_changed("avante.nvim", function(ev)
-  vim.system({ "make" }, { cwd = ev.data.path })
-end)
-
 require("plugins.plenary")
 require("plugins.fzf-lua")
 require("plugins.nvim-web-devicons")
@@ -13,7 +7,16 @@ vim.pack.add({
   "https://github.com/MunifTanjim/nui.nvim",
   "https://github.com/ravitemer/mcphub.nvim",
 
-  "https://github.com/yetone/avante.nvim",
+  {
+    src = "https://github.com/yetone/avante.nvim",
+    data = {
+      build = {
+        run = function(ev)
+          vim.system({ "make" }, { cwd = ev.data.path })
+        end,
+      },
+    },
+  },
 })
 
 require("avante").setup({
