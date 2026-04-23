@@ -238,8 +238,6 @@ functions.keymaps_set("n", {
     end,
     { desc = "Novo arquivo" },
   },
-  { "q", "<cmd>qa<CR>", { desc = "Fechar" } },
-  { "R", "<cmd>restart<CR>", { desc = "Reiniciar Neovim" } },
   { "uu", "<cmd>lua vim.pack.update()<CR>", { desc = "Atualizar plugins" } },
   {
     "ud",
@@ -259,6 +257,7 @@ functions.keymaps_set("n", {
   },
 }, { prefix = "<leader>e" })
 vim.keymap.set("v", "<leader>ei", ":Silicon<CR>", { desc = "Gerar imagem do código (silicon})" })
+vim.keymap.set("n", "<leader>eq", "<cmd>qa<CR>", { desc = "Fechar" })
 
 wk.add({
   { "<leader>a", group = "Avante", nowait = true, remap = false },
