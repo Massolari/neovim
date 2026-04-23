@@ -79,7 +79,7 @@ vim.o.exrc = true
 vim.o.cmdheight = 0
 
 vim.opt.wildmode = { "noselect:lastused", "full" }
-vim.o.wildoptions = "pum"
+vim.opt.wildoptions = { "pum", "fuzzy" }
 
 vim.opt.completeopt = { "menuone", "noselect", "popup", "fuzzy" }
 vim.opt.completeitemalign = { "kind", "abbr", "menu" }
