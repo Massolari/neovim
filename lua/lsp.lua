@@ -107,30 +107,6 @@ local function on_attach(client, bufnr)
       }
     end
 
-    vim.lsp.completion.enable(true, client.id, bufnr, {
-      convert = function(item)
-        local doc = item.documentation
-        if not doc or type(doc) ~= "string" or not vim.startswith(doc, "#") then
-          local item_kind = vim.lsp.protocol.CompletionItemKind[item.kind] or "Unknown"
-          local kind_icon = require("lspkind").presets.codicons[item_kind] or ""
-          local has_additional_edits = item.additionalTextEdits and next(item.additionalTextEdits) ~= nil
-          local hl_group = "@lsp.type." .. string.lower(item_kind)
-          return {
-            abbr = string.format("%s%s", item.label, has_additional_edits and "~" or ""),
-            kind = kind_icon .. " ",
-            kind_hlgroup = hl_group,
-          }
-        end
-        local color = doc:sub(1, 7) -- Make sure to get the full hex code
-        local hl_color = color:sub(2) -- Remove the '#' for hl group name
-        local hl_group = "lsp_color_" .. hl_color
-        vim.api.nvim_set_hl(0, hl_group, { fg = color, bg = color })
-        return {
-          kind_hlgroup = "lsp_color_" .. hl_color,
-          kind = "XX",
-        }
-      end,
-    })
     vim.opt.complete = { "o", "Fv:lua.nvim_snippets_complete", "Fv:lua.emoji_completefunc" }
   end
 
