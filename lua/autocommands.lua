@@ -72,14 +72,6 @@ vim.api.nvim_create_autocmd(
   { pattern = "*", command = "tabdo wincmd =", group = vim.api.nvim_create_augroup("_auto_resize", {}) }
 )
 
--- Atualizar buffers ao renomear arquivos
-vim.api.nvim_create_autocmd("User", {
-  pattern = "MiniFilesActionRename",
-  callback = function(event)
-    Snacks.rename.on_rename_file(event.data.from, event.data.to)
-  end,
-})
-
 vim.api.nvim_create_autocmd("CmdlineChanged", {
   group = vim.api.nvim_create_augroup("_cmdline_changed", {}),
   pattern = "[:\\/?]",
