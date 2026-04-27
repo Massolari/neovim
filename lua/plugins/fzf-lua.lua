@@ -24,6 +24,10 @@ vim.keymap.set("n", "<leader>B", function()
   require("fzf-lua").buffers({ cwd_only = true })
 end, { desc = "Buffers do diretório atual" })
 
+vim.keymap.set("n", "<leader>cD", function()
+  require("fzf-lua").diagnostics_workspace()
+end, { desc = "Buscar problemas no projeto" })
+
 vim.keymap.set("n", "<leader>cp", function()
   require("fzf-lua").lsp_workspace_symbols()
 end, { desc = "Buscar símbolos no projeto" })
@@ -64,6 +68,10 @@ vim.keymap.set("n", "gO", function()
   require("fzf-lua").lsp_document_symbols()
 end, { desc = "Buscar símbolos no arquivo" })
 
+vim.keymap.set("n", "<leader>j", function()
+  require("fzf-lua").jumps()
+end, { desc = "[J]ump list" })
+
 vim.keymap.set("n", "<leader>o", function()
   require("fzf-lua").treesitter()
 end, { desc = "Buscar símbolos no arquivo com treesitter" })
@@ -85,6 +93,10 @@ end, { desc = "Zoxide (janela)" })
 vim.keymap.set("n", "<leader>ps", function()
   require("fzf-lua").live_grep()
 end, { desc = "Procurar (search) nos arquivos" })
+
+vim.keymap.set("n", "<leader>r", function()
+  require("fzf-lua").resume()
+end, { desc = "Retomar última busca" })
 
 vim.keymap.set("n", "gri", function()
   require("fzf-lua").lsp_implementations()
