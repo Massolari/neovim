@@ -1,3 +1,5 @@
+require("plugins.plenary")
+
 vim.pack.add({
   {
     src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim",
