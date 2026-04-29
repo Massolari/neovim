@@ -163,29 +163,11 @@ functions.keymaps_set("n", {
 }, { prefix = "<leader>" })
 
 -- Código
-functions.keymaps_set("n", {
-  {
-    "d",
-    function()
-      require("trouble").toggle("diagnostics")
-    end,
-    { desc = "Problemas (diagnostics)" },
-  },
-  {
-    "e",
-    function()
-      vim.diagnostic.open_float()
-    end,
-    { desc = "Mostrar erro da linha" },
-  },
-  {
-    "i",
-    function()
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    end,
-    { desc = "Ativar/desativar dicas de código" },
-  },
-}, { prefix = "<leader>c" })
+vim.keymap.set("n", "<leader>cd", vim.diagnostic.setqflist, { desc = "Abrir erros na quickfix" })
+vim.keymap.set("n", "<leader>ce", vim.diagnostic.open_float, { desc = "Mostrar erro da linha" })
+vim.keymap.set("n", "<leader>ci", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Ativar/desativar dicas de código" })
 
 -- Editor
 functions.keymaps_set("n", {
