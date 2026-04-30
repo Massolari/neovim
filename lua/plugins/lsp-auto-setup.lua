@@ -10,7 +10,7 @@ else
 end
 
 require("lsp-auto-setup").setup({
-  exclude = { "gitlab_duo" },
+  exclude = { "gitlab_duo", "angularls", "tsgo", "rome" },
   server_config = {
     ltex_plus = function(default_config)
       --- @type vim.lsp.Config
