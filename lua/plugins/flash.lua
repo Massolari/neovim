@@ -8,7 +8,7 @@ vim.keymap.set({ "n", "o", "x" }, "s", function()
   require("flash").jump()
 end, { desc = "Flash" })
 
-vim.keymap.set({ "n", "o" }, "S", function()
+vim.keymap.set({ "n", "o" }, "<c-s>", function()
   require("flash").treesitter()
 end, { desc = "Flash Treesitter" })
 

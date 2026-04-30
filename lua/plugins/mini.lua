@@ -22,11 +22,13 @@ vim.keymap.set("n", "<leader>ef", "<cmd>lua MiniFiles.open()<CR>", { desc = "Exp
 
 require("mini.surround").setup({
   mappings = {
-    add = "ys",
-    delete = "ds",
-    find = ">s",
-    find_left = "<s",
-    highlight = "!s",
-    replace = "cs",
+    add = "Sa",
+    delete = "Sd",
+    find = "S>",
+    find_left = "S<",
+    highlight = "S!",
+    replace = "Sc",
   },
 })
+
+vim.keymap.set("n", "S", "<Nop>")
