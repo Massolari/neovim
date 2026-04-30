@@ -42,45 +42,23 @@ end, {
   desc = "Sugestão de código anterior em linha",
 })
 
---- https://github.com/neovim/neovim/issues/35476#issuecomment-3693418042
-local function accept_completion(item)
-  local insert_text = item.insert_text
-  if type(insert_text) == "string" then
-    local range = item.range
-    if range then
-      local lines = vim.split(insert_text, "\n")
-      local current_lines =
-        vim.api.nvim_buf_get_text(range.start.buf, range.start.row, range.start.col, range.end_.row, range.end_.col, {})
-
-      local row = 1
-      while row <= #lines and row <= #current_lines and lines[row] == current_lines[row] do
-        row = row + 1
-      end
-
-      local col = 1
-      while
-        row <= #lines
-        and col <= #lines[row]
-        and row <= #current_lines
-        and col <= #current_lines[row]
-        and lines[row][col] == current_lines[row][col]
-      do
-        col = col + 1
-      end
-
-      local word = string.match(lines[row]:sub(col), "%s*[^%s]%w*")
-      item.insert_text = table.concat(vim.list_slice(lines, 1, row - 1), "\n")
-        .. (row <= #current_lines and "" or "\n")
-        .. (row <= #lines and col <= #lines[row] and lines[row]:sub(1, col - 1) or "")
-        .. word
-    end
-  end
-  return item
-end
-
 vim.keymap.set("i", "<m-right>", function()
   vim.lsp.inline_completion.get({
-    on_accept = accept_completion,
+    on_accept = function(item)
+      local insert_text = item.insert_text
+      if not type(insert_text) == "string" or not item.range then
+        return nil
+      end
+      local end_ = item.range[4]
+
+      --- @cast insert_text string
+      local before_text = string.sub(insert_text, 1, end_)
+      local after_text = string.sub(insert_text, end_ + 1)
+      local next_word = string.match(after_text, "(%s?[^%s]+)")
+
+      item.insert_text = before_text .. next_word
+      return item
+    end,
   })
 end, {
   desc = "Inserir próxima palavra da sugestão de código em linha",
