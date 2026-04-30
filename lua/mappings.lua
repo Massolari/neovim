@@ -168,6 +168,10 @@ vim.keymap.set("n", "<leader>ce", vim.diagnostic.open_float, { desc = "Mostrar e
 vim.keymap.set("n", "<leader>ci", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Ativar/desativar dicas de código" })
+vim.keymap.set("n", "<leader>gw", function()
+  vim.cmd.write()
+  vim.system({ "git", "add", vim.fn.expand("%") })
+end, { desc = "Salvar e adicionar ao stage (git add)" })
 
 -- Editor
 functions.keymaps_set("n", {

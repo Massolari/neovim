@@ -35,8 +35,10 @@ require("gitsigns").setup({
     vim.keymap.set("n", "<leader>ghv", gs.preview_hunk, { buffer = bufnr, desc = "Ver" })
 
     vim.keymap.set("n", "<leader>gbb", function()
-      gs.blame_line({ full = true, desc = "Linha" })
-    end)
+      gs.blame_line({ full = true })
+    end, { desc = "Linha" })
+
+    vim.keymap.set("n", "<leader>gba", gs.blame, { desc = "Todos" })
   end,
   current_line_blame = true,
   current_line_blame_opts = { delay = 0 },
