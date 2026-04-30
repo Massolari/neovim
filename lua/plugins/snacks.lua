@@ -73,7 +73,6 @@ require("snacks").setup({
     cache = "/tmp",
   },
   lazygit = { enabled = true, configure = true },
-  notifier = { enabled = true, top_down = false },
   picker = {
     enabled = false,
     ui_select = false,
