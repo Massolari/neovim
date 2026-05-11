@@ -51,7 +51,7 @@ require("snacks").setup({
         { icon = "󱀲 ", desc = "Arquivos recentes", key = "r", action = ":FzfLua oldfiles" },
         { icon = "󰮗 ", desc = "Procurar nos arquivos", key = "/", action = ":FzfLua live_grep" },
         { icon = " ", desc = "Neogit", key = "g", action = ":Neogit" },
-        { icon = " ", desc = "Octo (Github)", key = "o", action = ":Octo actions" },
+        { icon = " ", desc = "Oil", key = "o", action = ":Oil" },
         { icon = "󰦨 ", desc = "Feed do dev.to", key = "d", action = ":Devto feed" },
         { icon = " ", desc = "Novo arquivo", key = "n", action = ":ene!" },
         { icon = "󰈆 ", key = "q", desc = "Sair", action = ":qa" },
