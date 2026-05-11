@@ -1,5 +1,6 @@
 local notify = require("notify")
 
+require("plugins.plenary")
 vim.pack.add({ "https://github.com/ThePrimeagen/harpoon" })
 require("harpoon").setup()
 
