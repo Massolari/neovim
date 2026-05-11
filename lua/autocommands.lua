@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd(
 
 vim.api.nvim_create_autocmd("CmdlineChanged", {
   group = vim.api.nvim_create_augroup("_cmdline_changed", {}),
-  pattern = "[:\\/?]",
+  pattern = "[:\\/\\?]",
   callback = function()
     vim.fn.wildtrigger()
   end,
