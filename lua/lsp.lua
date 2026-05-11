@@ -99,14 +99,6 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method("textDocument/completion") then
-    if client.server_capabilities.completionProvider.completionItem then
-      client.server_capabilities.completionProvider.completionItem.snippetSupport = true
-    else
-      client.server_capabilities.completionProvider.completionItem = {
-        snippetSupport = true,
-      }
-    end
-
     vim.opt_local.complete = { "o", "Fv:lua.nvim_snippets_complete", "Fv:lua.emoji_completefunc" }
   end
 
@@ -154,16 +146,13 @@ local function on_attach(client, bufnr)
   if client:supports_method("textDocument/linkedEditingRange") then
     vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
   end
-
-  if client:supports_method("textDocument/documentColor") then
-    vim.lsp.document_color.enable(true)
-  end
 end
 
 -- :help LspAttach
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("_lsp_attach", {}),
   callback = function(ev)
+    vim.lsp.document_color.enable(true, { bufnr = ev.buf }, { style = "■" })
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client then
       on_attach(client, vim.api.nvim_get_current_buf())
