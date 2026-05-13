@@ -16,7 +16,8 @@ require("oil").setup({
     ["H"] = { "actions.parent", mode = "n" },
     ["L"] = { "actions.select", mode = "n" },
     ["<BS>"] = { "actions.open_cwd", mode = "n" },
-    ["<c-t>"] = { "actions.open_terminal", mode = "n" },
+    ["<localleader>t"] = { "actions.open_terminal", mode = "n" },
+    ["<localleader>;"] = { "actions.open_cmdline", mode = "n" },
   },
 })
 
