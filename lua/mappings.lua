@@ -308,16 +308,7 @@ vim.keymap.set({ "n", "x" }, "gy", '"+y', { desc = "Copiar para área de transfe
 -- Usar <c-m> como <CR>
 vim.keymap.set({ "n", "i", "v", "c", "x" }, "<c-m>", "<CR>", { remap = true })
 
--- Selecionar nós do treesitter
-vim.keymap.set("n", "<M-o>", "vgrn", { remap = true })
-vim.keymap.set("x", "<M-o>", "grn", { remap = true })
-vim.keymap.set("x", "<M-i>", "grm", { remap = true })
-
 -- LSP
 vim.keymap.set("n", "grf", function()
   vim.lsp.buf.format()
 end, { desc = "Formatar arquivo" })
-
-vim.keymap.set("n", "<leader>k", function()
-  vim.lsp.buf.hover()
-end, { desc = "Mostrar documentação" })
