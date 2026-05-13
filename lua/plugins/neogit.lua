@@ -1,4 +1,5 @@
 require("plugins.plenary")
+require("plugins.diffview")
 
 vim.pack.add({ "https://github.com/NeogitOrg/neogit" })
 
