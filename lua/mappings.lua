@@ -66,11 +66,11 @@ end, {
 
 -- Diagnostics
 vim.keymap.set("n", "]e", function()
-  vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
+  vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
 end, { desc = "Próximo erro de código" })
 
 vim.keymap.set("n", "[e", function()
-  vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
+  vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
 end, { desc = "Erro de código anterior" })
 
 -- Normal com leader
