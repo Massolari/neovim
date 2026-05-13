@@ -89,6 +89,7 @@ require("vim._core.ui2").enable({
     ---@type 'cmd'|'msg' Where to place regular messages, either in the
     ---cmdline or in a separate ephemeral message window.
     target = "msg",
+    targets = "msg",
     timeout = 4000, -- Time a message is visible in the message window.
   },
 })
