@@ -142,7 +142,6 @@ functions.keymaps_set("n", {
 
 -- Código
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.setqflist, { desc = "Abrir erros na quickfix" })
-vim.keymap.set("n", "<leader>ce", vim.diagnostic.open_float, { desc = "Mostrar erro da linha" })
 vim.keymap.set("n", "<leader>ci", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Ativar/desativar dicas de código" })
