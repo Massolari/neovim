@@ -94,7 +94,6 @@ require("vim._core.ui2").enable({
   },
 })
 vim.o.autocomplete = true
-vim.opt.complete = { "o^30", ".", "w", "b" }
 -- vim.o.pumborder = "rounded"
 vim.o.pumheight = 15
 vim.o.pummaxwidth = 80
