@@ -90,9 +90,9 @@ require("lualine").setup({
         function()
           local clients = vim.lsp.get_clients({ name = "copilot" })
           if #clients > 0 then
-            return " "
+            return " "
           else
-            return " "
+            return " "
           end
         end,
         separator = "",
