@@ -13,7 +13,7 @@ require("fzf-lua").setup({
     ["--style"] = "minimal",
     ["--info"] = "hidden",
   },
-  ui_select = true,
+  ui_select = {}
 })
 
 vim.keymap.set("n", "<leader>/", function()
